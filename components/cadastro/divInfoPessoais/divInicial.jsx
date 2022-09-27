@@ -1,4 +1,4 @@
-import DivLogoeNome from "../../ui/divLogo/divLogoeNome"
+import DivLogoeNome from "../../ui/divLogo/divLogoeTitulo"
 import DivInfoPessoais from "./divInfoPessoais"
 import styles from "../../../styles/Cadastro.module.css"
 
