@@ -1,0 +1,49 @@
+.proximo{
+    background-color: #0f1c3c;
+    color: white;
+
+    width: 230px;
+    height: 50px;
+
+    margin-top: 40px;
+
+    border-radius: 15px;
+    border: none;
+
+    font-size: 25px;
+    font-weight: bold;
+    
+    float: right;
+
+}
+
+.proximo:hover{
+    cursor: pointer;
+    transition: .3s;
+    background-color: #112147;
+}
+
+.alternativo{
+    background-color: #509CBF;
+    color: white;
+
+    width: 230px;
+    height: 50px;
+
+    margin-top: 40px;
+
+    border-radius: 15px;
+    border: none;
+    
+    font-weight: bold;
+    font-size: 25px;
+    
+    float: right;
+
+}
+
+.alternativo:hover{
+    cursor: pointer;
+    transition: .3s;
+    text-decoration-color: #ffffff;
+}
