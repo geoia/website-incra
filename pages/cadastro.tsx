@@ -9,7 +9,6 @@ export default function Cadastro() {
   return (
     <>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=0.9" />
         <title>GeoIA - Cadastro</title>
       </Head>
       <section className={styles.section}>
