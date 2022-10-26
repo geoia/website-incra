@@ -1,6 +1,6 @@
 import styles from '../../../styles/Cadastro.module.css';
 
-export default function DivLogo() {
+export default function Titulo() {
   return (
     <div className={styles.divTitulo}>
       <h1>

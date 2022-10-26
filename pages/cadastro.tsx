@@ -1,5 +1,5 @@
-import DivLogoeNome from '../components/ui/divLogo/divLogoeTitulo';
-import Input from '../components/ui/divInput/input';
+import Logo from '../components/ui/logo/logo';
+import Input from '../components/ui/input/input';
 import styles from '../styles/Cadastro.module.css';
 
 import Head from 'next/head';
@@ -13,7 +13,7 @@ export default function Cadastro() {
       </Head>
       <section className={styles.section}>
         <div className={styles.divInicial}>
-          <DivLogoeNome />
+          <Logo />
           <div className={styles.divInfoPessoais}>
             <p>Informações Pessoais</p>
             <Input placeholder="Nome" tipo="text" />
