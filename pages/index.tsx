@@ -7,12 +7,6 @@ import Input from '@mui/material/Input';
 export default function Inicio() {
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=0.9" />
-        <title>GeoIA</title>
-        <link rel="icon" href="/imgLogo.png" />
-      </Head>
-
       <div className={styles.coluna} style={{ paddingTop: '10%' }}>
         <div className={styles.linha}>
           <div className={styles.coluna}>
