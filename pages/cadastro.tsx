@@ -10,6 +10,18 @@ export default function Cadastro() {
     <>
       <Head>
         <title>GeoIA - Cadastro</title>
+        <style>
+          {`
+            #__next {
+              width: 100vw;
+              height: 100vh;
+              display: flex;
+              align-items: center;
+              justify-content: center; 
+              background: #509cbf 
+            }
+          `}
+        </style>
       </Head>
       <section className={styles.section}>
         <div className={styles.divInicial}>
