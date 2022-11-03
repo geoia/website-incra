@@ -1,15 +1,28 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+// import { Poppins } from '@next/font/google';
 
-// Create a theme instance.
-const theme = createTheme({
+// export const poppins = Poppins({
+//   weight: '400',
+// });
+
+const theme = responsiveFontSizes(createTheme({
   palette: {
     primary: {
-      main: '#556cd6',
+      main: '#509CBF',
     },
     secondary: {
-      main: '#19857b',
+      main: '#0F1C3C',
     },
   },
-});
+  typography: {
+    button: {
+    },
+    body1: {
+
+    }
+  },
+}));
+
+
 
 export default theme;

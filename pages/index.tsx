@@ -1,12 +1,16 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 const Home: NextPage = () => {
   return (
-    <Button variant="contained">Contained</Button>
+    <>
+      <Typography variant="subtitle1">subtitle</Typography>
+      <Typography>body1</Typography>
+      <Button>Button</Button>
+    </>
   );
 };
 
