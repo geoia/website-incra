@@ -46,7 +46,7 @@ export default function Cadastro() {
             </label>
           </div>
           <button className={styles.button} type="submit">
-            <Link href="../">
+            <Link href="./">
               <a style={{ textDecoration: 'none', color: '#ffffff', fontWeight: 'bold' }}>
                 Cadastrar
               </a>

@@ -2,11 +2,17 @@ import Botao from '../components/principal/botoes';
 import Head from 'next/head';
 import styles from '../styles/Principal.module.css';
 
+import React from 'react';
+import dynamic from 'next/dynamic';
+
 export default function Principal() {
+  const MapWithNoSSR = dynamic(() => import('../components/Map'), {
+    ssr: false,
+  });
   return (
     <>
       <Head>
-        <title>GeoIA - Cadastro</title>
+        <title>GeoIA - Principal</title>
         <style>
           {`
             body {            
@@ -21,7 +27,10 @@ export default function Principal() {
           `}
         </style>
       </Head>
-      <div className={styles.mapa}></div>
+      <div id="map" style={{ width: '100%', height: '100%', position: 'relative', zIndex: '0' }}>
+        <MapWithNoSSR />
+      </div>
+
       <div className={styles.pesquisa}>
         <div className={styles.logo}></div>
         <input type="text" className={styles.searchInput} placeholder="Pesquise um endereço" />
