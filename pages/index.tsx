@@ -1,6 +1,4 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
