@@ -1,3 +1,5 @@
+import type { NextPage } from 'next';
+import Typography from '@mui/material/Typography';
 import React from 'react';
 import Head from 'next/head';
 import styles from '../styles/inicio.module.css';
