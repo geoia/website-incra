@@ -15,6 +15,10 @@ const theme = responsiveFontSizes(createTheme({
     },
   },
   typography: {
+    h1:{
+      fontWeight: 400
+      
+    },
     button: {
     },
     body1: {
