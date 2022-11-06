@@ -33,7 +33,6 @@ export default function Login() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            background: '#fff',
           }}
         >
           <TextField
@@ -54,7 +53,8 @@ export default function Login() {
             sx={{
               display: 'flex',
               justifyContent: 'right',
-              
+              width: 900,
+              // background: '#000'
             }}
           >
             <Link href="#" underline="hover" color="secondary">
