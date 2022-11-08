@@ -1,9 +1,4 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
-// import { Poppins } from '@next/font/google';
-
-// export const poppins = Poppins({
-//   weight: '400',
-// });
 
 const theme = responsiveFontSizes(createTheme({
   palette: {
@@ -15,6 +10,9 @@ const theme = responsiveFontSizes(createTheme({
     },
   },
   typography: {
+    
+    
+
     h1:{
       fontWeight: 400
       

@@ -3,6 +3,9 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../src/theme';
+// import { Poppins } from '@next/font/google';
+
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
