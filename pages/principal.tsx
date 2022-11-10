@@ -5,7 +5,7 @@ import styles from '../styles/Principal.module.css';
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import Search from '@mui/icons-material/Search';
 
 export default function Principal() {
   const MapWithNoSSR = dynamic(() => import('../components/Map'), {
@@ -36,7 +36,7 @@ export default function Principal() {
       <div className={styles.pesquisa}>
         <div className={styles.logo}></div>
         <input type="text" className={styles.searchInput} placeholder="Pesquise um endereço" />
-        <img src="./searchIcon.png" alt="icone de pesquisa" width="5%" />
+        <Search fontSize="large" sx={{ color: 'white' }}/>
       </div>
       <div className={styles.botoes1}>
         <Botao icon="Menu" />
