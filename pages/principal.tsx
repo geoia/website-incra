@@ -5,6 +5,8 @@ import styles from '../styles/Principal.module.css';
 import React from 'react';
 import dynamic from 'next/dynamic';
 
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+
 export default function Principal() {
   const MapWithNoSSR = dynamic(() => import('../components/Map'), {
     ssr: false,
@@ -37,22 +39,22 @@ export default function Principal() {
         <img src="./searchIcon.png" alt="icone de pesquisa" width="5%" />
       </div>
       <div className={styles.botoes1}>
-        <Botao srcImg="/imgLogo.png" />
-        <Botao srcImg="/imgLogo.png" />
-        <Botao srcImg="/imgLogo.png" />
-        <Botao srcImg="/imgLogo.png" />
+        <Botao icon="Menu" />
+        <Botao icon="Calendar" />
+        <Botao icon="Download" />
+        <Botao icon="Upload" />
       </div>
       <div className={styles.botoes2}>
-        <Botao srcImg="/imgLogo.png" />
-        <Botao srcImg="/imgLogo.png" />
-        <Botao srcImg="/imgLogo.png" />
-        <Botao srcImg="/imgLogo.png" />
+        <Botao icon="Fire" />
+        <Botao icon="Forest" />
+        <Botao icon="Road" />
+        <Botao icon="Water" />
       </div>
       <div className={styles.botoes3}>
-        <Botao srcImg="/imgLogo.png" />
-        <Botao srcImg="/imgLogo.png" />
-        <Botao srcImg="/imgLogo.png" />
-        <Botao srcImg="/imgLogo.png" />
+        <Botao icon="Add" />
+        <Botao icon="Remove" />
+        <Botao icon="Crop" />
+        <Botao icon="Map" />
       </div>
     </>
   );

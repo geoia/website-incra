@@ -26,8 +26,8 @@
 }
 .botoes1 {
   position: absolute;
-  width: 20px;
-  height: 140px;
+  width: 40px;
+  height: 180px;
   top: 0;
   right: 0;
   margin: 1rem;
@@ -37,8 +37,8 @@
 }
 .botoes2 {
   position: absolute;
-  width: 20px;
-  height: 140px;
+  width: 40px;
+  height: 180px;
   top: 50%;
   right: 0;
   margin: 1rem;
@@ -49,8 +49,8 @@
 }
 .botoes3 {
   position: absolute;
-  width: 140px;
-  height: 20px;
+  width: 180px;
+  height: 40px;
   bottom: 0;
   right: 0;
   margin: 1rem;
@@ -59,17 +59,17 @@
   justify-content: space-between;
 }
 .botao {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 20px;
   background-color: blue;
   border: 0;
 }
-.botao img {
-  width: 15px;
-  height: 15px;
+.botao:hover {
+  cursor: pointer;
+  background-color: rgb(37, 37, 240);
+  transition: 0.2s;
 }
-
 .leaflet-control-zoom-out {
   position: relative;
   padding-left: 100px;
