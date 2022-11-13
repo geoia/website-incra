@@ -1,18 +1,17 @@
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import Button from '@mui/material/Button';
-import { Container, Grid } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Grid } from '@mui/material';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
-import { WidthFull } from '@mui/icons-material';
+import Avatar from '@mui/material/Avatar';
 
 export default function Login() {
   return (
     <>
       <Grid container component="main" direction={'column'} alignItems="center">
         <Grid
-          lg={8}
+          md={5}
           sm={8}
           xs={10}
           sx={{
@@ -20,17 +19,25 @@ export default function Login() {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
+            alignItems: 'center',
             width: '100%',
           }}
         >
-          <img
-            src="/imgLogo.png"
-            title="Logo temporário"
-            style={{ width: '300px', height: '40%', paddingRight: '20px' }}
-          />
-          <Typography variant="h1" sx={{ maxWidth: 250 }}>
-            WebGis GeoIA
+          {/* <img
+            src="/logo.svg"
+            title="Logo teste"
+          /> */}
+          <Grid>
+            <Avatar
+              alt="Remy Sharp"
+              src="/logo.svg"
+              sx={{ width: '100%', height: '100%' }}
+            />
+          </Grid>
+          <Typography variant="h2" sx={{marginLeft: 2 }}>
+            WebGis<br/>GeoIA
           </Typography>
+          
         </Grid>
         <Grid
 
@@ -42,6 +49,7 @@ export default function Login() {
             flexDirection: 'column',
             alignItems: 'center',
             width: '100%',
+            marginTop: 10 
           }}
         >
           <TextField
@@ -66,14 +74,15 @@ export default function Login() {
           sx={{
             display: 'flex',
             justifyContent: 'right',
+            alignItems: 'center',
             width: '100%',
-            // background: '#000'
+            //  background: '#000'
           }}
         >
           <Link href="#" underline="hover" color="secondary" sx={{mr: 2}}>
             Cadastrar-se
           </Link>
-          <Button variant="contained" color="secondary">
+          <Button type="submit" variant="contained" color="secondary">
             Login
           </Button>
         </Grid>

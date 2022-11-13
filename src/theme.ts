@@ -1,5 +1,7 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
+import "typeface-cormorant";
+
 const theme = responsiveFontSizes(createTheme({
   palette: {
     primary: {
@@ -11,10 +13,13 @@ const theme = responsiveFontSizes(createTheme({
   },
   typography: {
     
-    
+    fontFamily: [
+      'Poppins',
+      'serif',
+    ].join(','),
 
     h1:{
-      fontWeight: 400
+
       
     },
     button: {
