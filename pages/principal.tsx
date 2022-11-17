@@ -36,22 +36,22 @@ export default function Principal() {
         <Search fontSize="large" sx={{ color: 'white' }} />
       </div>
       <div className={styles.botoes1}>
-        <Botao icon="Menu" />
-        <Botao icon="Calendar" />
-        <Botao icon="Download" />
-        <Botao icon="Upload" />
+        <Botao button="Menu" />
+        <Botao button="Calendar" />
+        <Botao button="Download" />
+        <Botao button="Upload" />
       </div>
       <div className={styles.botoes2}>
-        <Botao icon="Fire" />
-        <Botao icon="Forest" />
-        <Botao icon="Road" />
-        <Botao icon="Water" />
+        <Botao button="Fire" />
+        <Botao button="Forest" />
+        <Botao button="Road" />
+        <Botao button="Water" />
       </div>
       <div className={styles.botoes3}>
-        <Botao icon="Add" />
-        <Botao icon="Remove" />
-        <Botao icon="Crop" />
-        <Botao icon="Map" />
+        <Botao button="Add" />
+        <Botao button="Remove" />
+        <Botao button="Crop" />
+        <Botao button="Map" />
       </div>
     </>
   );
