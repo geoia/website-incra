@@ -1,6 +1,7 @@
 import Botao from '../components/principal/botoes';
 import Head from 'next/head';
 import styles from '../styles/Principal.module.css';
+import Mapa from './Mapa';
 
 import React from 'react';
 import dynamic from 'next/dynamic';
@@ -8,9 +9,6 @@ import dynamic from 'next/dynamic';
 import Search from '@mui/icons-material/Search';
 
 export default function Principal() {
-  const MapWithNoSSR = dynamic(() => import('../components/Map'), {
-    ssr: false,
-  });
   return (
     <>
       <Head>
@@ -29,14 +27,13 @@ export default function Principal() {
           `}
         </style>
       </Head>
-      <div id="map" style={{ width: '100%', height: '100%', position: 'relative', zIndex: '0' }}>
-        <MapWithNoSSR />
-      </div>
+
+      <Mapa />
 
       <div className={styles.pesquisa}>
         <div className={styles.logo}></div>
         <input type="text" className={styles.searchInput} placeholder="Pesquise um endereço" />
-        <Search fontSize="large" sx={{ color: 'white' }}/>
+        <Search fontSize="large" sx={{ color: 'white' }} />
       </div>
       <div className={styles.botoes1}>
         <Botao icon="Menu" />
