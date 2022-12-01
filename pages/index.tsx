@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Head from 'next/head';
 import styles from '../styles/inicio.module.css';
 import Button from '@mui/material/Button';
