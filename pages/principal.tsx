@@ -41,7 +41,7 @@ export default function Principal() {
           alignItems: 'center',
           width: '40%',
           height: '40px',
-          background: 'blue',
+          background: '#509CBF',
           borderRadius: '0 20px 20px 0px',
         }}
       >
@@ -58,11 +58,12 @@ export default function Principal() {
           placeholder="Pesquise um endereço"
           sx={{
             width: '72%',
+            marginLeft: '5px',
             border: 0,
             input: {
               color: 'white',
               '&::placeholder': {
-                opacity: 1,
+                opacity: 1
               },
             },
           }}
