@@ -7,6 +7,8 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 
 import Search from '@mui/icons-material/Search';
+import { Grid } from '@mui/material';
+import TextField from '@mui/material/TextField';
 
 export default function Principal() {
   return (
@@ -30,11 +32,44 @@ export default function Principal() {
 
       <Mapa />
 
-      <div className={styles.pesquisa}>
-        <div className={styles.logo}></div>
-        <input type="text" className={styles.searchInput} placeholder="Pesquise um endereço" />
+      <Grid
+        sx={{
+          position: 'absolute',
+          top: 0,
+          margin: '1%',
+          display: 'flex',
+          alignItems: 'center',
+          width: '40%',
+          height: '40px',
+          background: 'blue',
+          borderRadius: '0 20px 20px 0px',
+        }}
+      >
+        <Grid
+          sx={{
+            width: '20%',
+            height: '100%',
+            background: 'white',
+          }}
+        />
+        <TextField
+          variant="standard"
+          size="small"
+          placeholder="Pesquise um endereço"
+          sx={{
+            width: '72%',
+            border: 0,
+            input: {
+              color: 'white',
+              '&::placeholder': {
+                opacity: 1,
+              },
+            },
+          }}
+        />
         <Search fontSize="large" sx={{ color: 'white' }} />
-      </div>
+      </Grid>
+
       <div className={styles.botoes1}>
         <Botao button="Menu" />
         <Botao button="Calendar" />
