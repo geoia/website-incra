@@ -23,24 +23,16 @@ export default function Login() {
             width: '100%',
           }}
         >
-          {/* <img
-            src="/logo.svg"
-            title="Logo teste"
-          /> */}
           <Grid>
-            <Avatar
-              alt="Remy Sharp"
-              src="/logo.svg"
-              sx={{ width: '100%', height: '100%' }}
-            />
+            <Avatar alt="Remy Sharp" src="/logo.svg" sx={{ width: '100%', height: '100%' }} />
           </Grid>
-          <Typography variant="h2" sx={{marginLeft: 2 }}>
-            WebGis<br/>GeoIA
+          <Typography variant="h2" sx={{ marginLeft: 2 }}>
+            WebGis
+            <br />
+            GeoIA
           </Typography>
-          
         </Grid>
         <Grid
-
           sm={8}
           xs={10}
           md={6}
@@ -49,7 +41,7 @@ export default function Login() {
             flexDirection: 'column',
             alignItems: 'center',
             width: '100%',
-            marginTop: 10 
+            marginTop: 10,
           }}
         >
           <TextField
@@ -79,7 +71,7 @@ export default function Login() {
             //  background: '#000'
           }}
         >
-          <Link href="#" underline="hover" color="secondary" sx={{mr: 2}}>
+          <Link href="/cadastro" underline="hover" color="secondary" sx={{ mr: 2 }}>
             Cadastrar-se
           </Link>
           <Button type="submit" variant="contained" color="secondary">
