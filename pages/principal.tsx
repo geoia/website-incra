@@ -36,7 +36,7 @@ export default function Principal() {
         sx={{
           position: 'absolute',
           top: 0,
-          margin: '1%',
+          margin: '1rem',
           display: 'flex',
           alignItems: 'center',
           width: '40%',
@@ -71,24 +71,61 @@ export default function Principal() {
         <Search fontSize="large" sx={{ color: 'white' }} />
       </Grid>
 
-      <div className={styles.botoes1}>
+      <Grid 
+        sx={{
+          position: 'absolute',
+          width: '40px',
+          height: '180px',
+          top: 0,
+          right: 0,
+          margin: '1rem',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between'
+        }}
+      >
         <Botao button="Menu" />
         <Botao button="Calendar" />
         <Botao button="Download" />
         <Botao button="Upload" />
-      </div>
-      <div className={styles.botoes2}>
+      </Grid>
+      <Grid 
+          sx={{
+            position: 'absolute',
+            width: '40px',
+            height: '180px',
+            top: '50%',
+            right: 0,
+            margin: '1rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            transform: 'translateY(-50%)'
+          }}
+      >
         <Botao button="Fire" />
         <Botao button="Forest" />
         <Botao button="Road" />
         <Botao button="Water" />
-      </div>
-      <div className={styles.botoes3}>
+      </Grid>
+      <Grid
+        sx={{
+          position: 'absolute',
+          width: '180px',
+          height: '40px',
+          bottom: 0,
+          right: 0,
+          margin: '1rem',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between'
+        }}
+      >
         <Botao button="Add" />
         <Botao button="Remove" />
         <Botao button="Crop" />
         <Botao button="Map" />
-      </div>
+      </Grid>
     </>
   );
 }
