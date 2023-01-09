@@ -3,8 +3,9 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { Grid } from '@mui/material';
 import Link from '@mui/material/Link';
-import TextField from '@mui/material/TextField';
 import Avatar from '@mui/material/Avatar';
+
+import TextField from '../components/ui/input/TextField';
 
 export default function Login() {
   return (
@@ -44,20 +45,8 @@ export default function Login() {
             marginTop: 10,
           }}
         >
-          <TextField
-            variant="outlined"
-            size="small"
-            fullWidth
-            placeholder="Email"
-            sx={{ background: '#fff', borderRadius: 3 }}
-          />
-          <TextField
-            variant="outlined"
-            size="small"
-            fullWidth
-            placeholder="Senha"
-            sx={{ background: '#fff', margin: 1.5, borderRadius: 3 }}
-          />
+          <TextField placeholder="Email" />
+          <TextField placeholder="Senha" sx={{ margin: 1.5 }} />
         </Grid>
         <Grid
           sm={8}

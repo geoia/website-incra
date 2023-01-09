@@ -5,8 +5,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
-import TextField from '@mui/material/TextField';
 import Avatar from '@mui/material/Avatar';
+
+import TextField from '../components/ui/input/TextField';
 
 export default function Cadastro() {
   return (
@@ -55,55 +56,14 @@ export default function Cadastro() {
         >
           <form action="#" method="post">
             <p>Informações Pessoais</p>
-            <TextField
-              variant="outlined"
-              size="small"
-              fullWidth
-              placeholder="Nome"
-              sx={{ background: '#fff', borderRadius: 3, marginBottom: 2 }}
-            />
+            <TextField placeholder="Nome" sx={{ marginBottom: 2 }} />
             <SelectEscolaridade />
-            <TextField
-              variant="outlined"
-              size="small"
-              fullWidth
-              placeholder="Email"
-              type={'email'}
-              sx={{ background: '#fff', borderRadius: 3, marginBottom: 2 }}
-            />
-            <TextField
-              variant="outlined"
-              size="small"
-              fullWidth
-              placeholder="Crie uma senha"
-              type={'senha'}
-              sx={{ background: '#fff', borderRadius: 3, marginBottom: 2 }}
-            />
-            <TextField
-              variant="outlined"
-              size="small"
-              fullWidth
-              placeholder="Repita a senha"
-              type={'senha'}
-              sx={{ background: '#fff', borderRadius: 3, marginBottom: 2 }}
-            />
+            <TextField placeholder="Email" type="email" sx={{ marginBottom: 2 }} />
+            <TextField placeholder="Crie uma senha" type="password" sx={{ marginBottom: 2 }} />
+            <TextField placeholder="Repita a senha" type="password" sx={{ marginBottom: 2 }} />
             <p>Localização</p>
-            <TextField
-              variant="outlined"
-              size="small"
-              fullWidth
-              placeholder="Estado"
-              type={'senha'}
-              sx={{ background: '#fff', borderRadius: 3, marginBottom: 2 }}
-            />
-            <TextField
-              variant="outlined"
-              size="small"
-              fullWidth
-              placeholder="Cidade"
-              type={'senha'}
-              sx={{ background: '#fff', borderRadius: 3, marginBottom: 1 }}
-            />
+            <TextField placeholder="Estado" sx={{ marginBottom: 2 }} />
+            <TextField placeholder="Cidade" sx={{ marginBottom: 1 }} />
             <FormControlLabel
               control={<Checkbox defaultChecked size="small" />}
               label="Eu li e aceito os termos de contrado e permito o uso dos dados"
