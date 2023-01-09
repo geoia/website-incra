@@ -1,72 +1,8 @@
-.mapa {
-  width: 100%;
-  height: 100%;
-}
-.pesquisa {
-  position: absolute;
-  top: 0;
-  margin: 1rem;
-  display: flex;
-  align-items: center;
-  background-color: blue;
-  width: 40%;
-  height: 40px;
-  border-radius: 0 20px 20px 0px;
-}
-.logo {
-  width: 20%;
-  height: 100%;
-  background-color: white;
-}
-.searchInput {
-  width: 72%;
-  height: 90%;
-  border: 0;
-  background-color: blue;
-}
-.searchInput::placeholder {
-  color: white;
-  font-size: 1.1em;
-}
-.botoes1 {
-  position: absolute;
-  width: 40px;
-  height: 180px;
-  top: 0;
-  right: 0;
-  margin: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.botoes2 {
-  position: absolute;
-  width: 40px;
-  height: 180px;
-  top: 50%;
-  right: 0;
-  margin: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transform: translateY(-50%);
-}
-.botoes3 {
-  position: absolute;
-  width: 180px;
-  height: 40px;
-  bottom: 0;
-  right: 0;
-  margin: 1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
 .botao {
   width: 40px;
   height: 40px;
   border-radius: 20px;
-  background-color: blue;
+  background-color: #509CBF;
   border: 0;
 }
 .botao:hover {

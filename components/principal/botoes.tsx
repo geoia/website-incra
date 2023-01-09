@@ -55,7 +55,7 @@ export default function Botao(props: Props) {
           className={styles.botao}
           type="button"
           style={{
-            backgroundColor: fireButton ? 'red' : 'blue',
+            backgroundColor: fireButton ? 'red' : '#509CBF',
           }}
           onClick={() => setFireButton(!fireButton)}
         >
@@ -68,7 +68,7 @@ export default function Botao(props: Props) {
           className={styles.botao}
           type="button"
           style={{
-            backgroundColor: forestButton ? 'darkgreen' : 'blue',
+            backgroundColor: forestButton ? 'darkgreen' : '#509CBF',
           }}
           onClick={() => setForestButton(!forestButton)}
         >
@@ -81,7 +81,7 @@ export default function Botao(props: Props) {
           className={styles.botao}
           type="button"
           style={{
-            backgroundColor: roadButton ? 'rgb(107, 38, 38)' : 'blue',
+            backgroundColor: roadButton ? 'rgb(107, 38, 38)' : '#509CBF',
           }}
           onClick={() => setRoadButton(!roadButton)}
         >
@@ -94,7 +94,7 @@ export default function Botao(props: Props) {
           className={styles.botao}
           type="button"
           style={{
-            backgroundColor: waterButton ? 'rgb(4, 4, 65)' : 'blue',
+            backgroundColor: waterButton ? 'rgb(4, 4, 65)' : '#509CBF',
           }}
           onClick={() => setWaterButton(!waterButton)}
         >
