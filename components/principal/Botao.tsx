@@ -10,6 +10,7 @@ function BaseBotao({ children, sx, ...props }: ButtonProps) {
       variant="contained"
       sx={{
         width: 40,
+        minWidth: 40,
         height: 40,
         borderRadius: 20,
         backgroundColor: '#509CBF',

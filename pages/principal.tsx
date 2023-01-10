@@ -9,11 +9,6 @@ import dynamic from 'next/dynamic';
 import Search from '@mui/icons-material/Search';
 import { Grid } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import { CalendarBotao, MenuBotao } from '../components/principal/Botao';
-
-const menuBotaoAction = () => {
-  alert('.....');
-};
 
 export default function Principal() {
   return (
@@ -61,14 +56,15 @@ export default function Principal() {
           variant="standard"
           size="small"
           placeholder="Pesquise um endereço"
+          InputProps={{ disableUnderline: true }}
           sx={{
             width: '72%',
             marginLeft: '5px',
-            border: 0,
             input: {
               color: 'white',
+              fontWeight: 400,
               '&::placeholder': {
-                opacity: 1,
+                opacity: 1
               },
             },
           }}
@@ -76,7 +72,7 @@ export default function Principal() {
         <Search fontSize="large" sx={{ color: 'white' }} />
       </Grid>
 
-      <Grid
+      <Grid 
         sx={{
           position: 'absolute',
           width: '40px',
@@ -86,28 +82,27 @@ export default function Principal() {
           margin: '1rem',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
+          justifyContent: 'space-between'
         }}
       >
-        <MenuBotao onClick={menuBotaoAction} />
-        <CalendarBotao onClick={menuBotaoAction} />
-
+        <Botao button="Menu" />
+        <Botao button="Calendar" />
         <Botao button="Download" />
         <Botao button="Upload" />
       </Grid>
-      <Grid
-        sx={{
-          position: 'absolute',
-          width: '40px',
-          height: '180px',
-          top: '50%',
-          right: 0,
-          margin: '1rem',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          transform: 'translateY(-50%)',
-        }}
+      <Grid 
+          sx={{
+            position: 'absolute',
+            width: '40px',
+            height: '180px',
+            top: '50%',
+            right: 0,
+            margin: '1rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            transform: 'translateY(-50%)'
+          }}
       >
         <Botao button="Fire" />
         <Botao button="Forest" />
@@ -124,7 +119,7 @@ export default function Principal() {
           margin: '1rem',
           display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          justifyContent: 'space-between'
         }}
       >
         <Botao button="Add" />

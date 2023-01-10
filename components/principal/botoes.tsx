@@ -130,3 +130,32 @@ export default function Botao(props: Props) {
 
   return <>{buttons()}</>;
 }
+/*
+const icon = () => {
+    if (props.icon == 'Menu') {
+      return <Menu fontSize="medium" sx={{ color: 'white' }}/>;
+    } else if (props.icon == 'Calendar') {
+      return <Calendar fontSize="medium" sx={{ color: 'white' }}/>;
+    } else if (props.icon == 'Download') {
+      return <Download fontSize="medium" sx={{ color: 'white' }}/>;
+    } else if (props.icon == 'Upload') {
+      return <Upload fontSize="medium" sx={{ color: 'white' }}/>;
+    } else if (props.icon == 'Fire') {
+      return <Fire fontSize="medium" sx={{ color: 'white' }}/>;
+    } else if (props.icon == 'Forest') {
+      return <Forest fontSize="medium" sx={{ color: 'white' }}/>;
+    } else if (props.icon == 'Road') {
+      return <Road sx={{ color: 'white' }}/>;
+    } else if (props.icon == 'Water') {
+      return <Water fontSize="medium" sx={{ color: 'white' }}/>;
+    } else if (props.icon == 'Add') {
+      return <Add fontSize="medium" sx={{ color: 'white' }}/>;
+    } else if (props.icon == 'Remove') {
+      return <Remove fontSize="medium" sx={{ color: 'white' }}/>;
+    } else if (props.icon == 'Crop') {
+      return <Crop fontSize="medium" sx={{ color: 'white' }}/>;
+    } else if (props.icon == 'Map') {
+      return <Map fontSize="medium" sx={{ color: 'white' }}/>;
+    }
+  };
+  */
