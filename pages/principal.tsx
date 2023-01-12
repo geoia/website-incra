@@ -1,4 +1,3 @@
-import Botao from '../components/principal/botoes';
 import Head from 'next/head';
 import styles from '../styles/Principal.module.css';
 import Mapa from './Mapa';
@@ -9,6 +8,24 @@ import dynamic from 'next/dynamic';
 import Search from '@mui/icons-material/Search';
 import { Grid } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import {
+  CalendarBotao,
+  MenuBotao,
+  DownloadBotao,
+  UploadBotao,
+  FireBotao,
+  ForestBotao,
+  RoadBotao,
+  WaterBotao,
+  AddBotao,
+  RemoveBotao,
+  CropBotao,
+  MapBotao,
+} from '../components/principal/Botao';
+
+const menuBotaoAction = () => {
+  alert('.....');
+};
 
 export default function Principal() {
   return (
@@ -64,7 +81,7 @@ export default function Principal() {
               color: 'white',
               fontWeight: 400,
               '&::placeholder': {
-                opacity: 1
+                opacity: 1,
               },
             },
           }}
@@ -72,7 +89,7 @@ export default function Principal() {
         <Search fontSize="large" sx={{ color: 'white' }} />
       </Grid>
 
-      <Grid 
+      <Grid
         sx={{
           position: 'absolute',
           width: '40px',
@@ -82,32 +99,32 @@ export default function Principal() {
           margin: '1rem',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
         }}
       >
-        <Botao button="Menu" />
-        <Botao button="Calendar" />
-        <Botao button="Download" />
-        <Botao button="Upload" />
+        <MenuBotao onClick={menuBotaoAction} />
+        <CalendarBotao onClick={menuBotaoAction} />
+        <DownloadBotao />
+        <UploadBotao />
       </Grid>
-      <Grid 
-          sx={{
-            position: 'absolute',
-            width: '40px',
-            height: '180px',
-            top: '50%',
-            right: 0,
-            margin: '1rem',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            transform: 'translateY(-50%)'
-          }}
+      <Grid
+        sx={{
+          position: 'absolute',
+          width: '40px',
+          height: '180px',
+          top: '50%',
+          right: 0,
+          margin: '1rem',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          transform: 'translateY(-50%)',
+        }}
       >
-        <Botao button="Fire" />
-        <Botao button="Forest" />
-        <Botao button="Road" />
-        <Botao button="Water" />
+        <FireBotao onClick={menuBotaoAction} />
+        <ForestBotao />
+        <RoadBotao />
+        <WaterBotao />
       </Grid>
       <Grid
         sx={{
@@ -119,13 +136,13 @@ export default function Principal() {
           margin: '1rem',
           display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
         }}
       >
-        <Botao button="Add" />
-        <Botao button="Remove" />
-        <Botao button="Crop" />
-        <Botao button="Map" />
+        <AddBotao />
+        <RemoveBotao />
+        <CropBotao />
+        <MapBotao />
       </Grid>
     </>
   );

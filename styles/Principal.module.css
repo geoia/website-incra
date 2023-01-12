@@ -1,15 +1,3 @@
-.botao {
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  background-color: #509CBF;
-  border: 0;
-}
-.botao:hover {
-  cursor: pointer;
-  background-color: rgb(37, 37, 240);
-  transition: 0.2s;
-}
 .leaflet-control-zoom-out {
   position: relative;
   padding-left: 100px;
