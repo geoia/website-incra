@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import styles from '../styles/Principal.module.css';
 import Mapa from './Mapa';
 
 import React from 'react';
@@ -13,7 +12,6 @@ import {
   CalendarBotao,
   MenuBotao,
   DownloadBotao,
-  UploadBotao,
   FireBotao,
   ForestBotao,
   RoadBotao,
@@ -30,6 +28,11 @@ const menuBotaoAction = () => {
 
 export default function Principal() {
   const [open, setOpen] = React.useState(false);
+
+  const downloadBotaoAction= () => {
+    setOpen(!open);
+  }
+
   return (
     <>
       <Head>
@@ -95,7 +98,7 @@ export default function Principal() {
         sx={{
           position: 'absolute',
           width: '40px',
-          height: '180px',
+          height: '133px',
           top: 0,
           right: 0,
           margin: '1rem',
@@ -106,8 +109,7 @@ export default function Principal() {
       >
         <MenuBotao onClick={menuBotaoAction} />
         <CalendarBotao onClick={menuBotaoAction} />
-        <DownloadBotao onClick={() => {setOpen(!open)}}/>
-        <UploadBotao />
+        <DownloadBotao onClick={downloadBotaoAction}/>
       </Grid>
       <Grid
         sx={{

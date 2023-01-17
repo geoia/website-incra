@@ -1,7 +1,6 @@
 import Menu from '@mui/icons-material/Menu';
 import Calendar from '@mui/icons-material/CalendarMonth';
 import Download from '@mui/icons-material/Download';
-import Upload from '@mui/icons-material/FileUpload';
 import Fire from '@mui/icons-material/LocalFireDepartment';
 import Forest from '@mui/icons-material/Forest';
 import Road from '@mui/icons-material/AddRoad';
@@ -58,14 +57,6 @@ export function DownloadBotao(props: ButtonProps) {
   return (
     <BaseBotao {...props}>
       <Download fontSize="medium" sx={{ color: 'white' }} />
-    </BaseBotao>
-  );
-}
-
-export function UploadBotao(props: ButtonProps) {
-  return (
-    <BaseBotao {...props}>
-      <Upload fontSize="medium" sx={{ color: 'white' }} />
     </BaseBotao>
   );
 }
