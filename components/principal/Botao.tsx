@@ -65,7 +65,7 @@ export function DownloadBotao(props: ButtonProps) {
 export function UploadBotao(props: ButtonProps) {
   return (
     <BaseBotao {...props}>
-      <Download fontSize="medium" sx={{ color: 'white' }} />
+      <Upload fontSize="medium" sx={{ color: 'white' }} />
     </BaseBotao>
   );
 }

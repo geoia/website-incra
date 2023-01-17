@@ -5,6 +5,7 @@ import Mapa from './Mapa';
 import React from 'react';
 import dynamic from 'next/dynamic';
 
+import DownloadModal from '../components/principal/DownloadModal';
 import Search from '@mui/icons-material/Search';
 import { Grid } from '@mui/material';
 import TextField from '@mui/material/TextField';
@@ -28,6 +29,7 @@ const menuBotaoAction = () => {
 };
 
 export default function Principal() {
+  const [open, setOpen] = React.useState(false);
   return (
     <>
       <Head>
@@ -104,7 +106,7 @@ export default function Principal() {
       >
         <MenuBotao onClick={menuBotaoAction} />
         <CalendarBotao onClick={menuBotaoAction} />
-        <DownloadBotao />
+        <DownloadBotao onClick={() => {setOpen(!open)}}/>
         <UploadBotao />
       </Grid>
       <Grid
@@ -144,6 +146,7 @@ export default function Principal() {
         <CropBotao />
         <MapBotao />
       </Grid>
+      {open? <DownloadModal/> : null}
     </>
   );
 }
