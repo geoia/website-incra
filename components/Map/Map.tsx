@@ -17,7 +17,7 @@ export default function Map() {
   return (
     <MapContainer
       center = {center}
-      zoom={5}
+      zoom={7}
       zoomControl={false}
       minZoom={5}
       scrollWheelZoom={true}
@@ -26,6 +26,9 @@ export default function Map() {
       inertiaDeceleration={0}
       zoomAnimation={false}
       maxBoundsViscosity={10}
+      updateWhenZooming = {false}
+      updateWhenIdle = {true}
+      preferCanvas = {true}
       maxBounds={[
         //sudoeste
         [-32.63463151377654, -90.89969605983609],
@@ -57,7 +60,7 @@ export default function Map() {
                 fillOpacity: 0.3,
                 weight: 2,
                 opacity: 1,
-                color: '#4f4f4f',
+                color: '#d3d3d3',
               }}
               positions={coordinates}
               eventHandlers={{
@@ -69,7 +72,7 @@ export default function Map() {
                     fillOpacity: 0.5,
                     weight: 2,
                     opacity: 1,
-                    color: '#0f0f0f',
+                    color: '#d3d3d3',
                   });
                 },
                 mouseout: (e) => {
@@ -78,7 +81,7 @@ export default function Map() {
                     fillOpacity: 0.3,
                     weight: 2,
                     dashArray: '3',
-                    color: '#4f4f4f',
+                    color: '#d3d3d3',
                     fillColor: '#90ee90',
                   });
                 },
