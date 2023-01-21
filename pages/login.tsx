@@ -3,9 +3,9 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { Grid } from '@mui/material';
 import Link from '@mui/material/Link';
-import Avatar from '@mui/material/Avatar';
 
 import TextField from '../components/ui/input/TextField';
+import Logo from '../components/ui/logo/logo';
 
 export default function Login() {
   return (
@@ -24,10 +24,8 @@ export default function Login() {
             width: '100%',
           }}
         >
-          <Grid>
-            <Avatar alt="Remy Sharp" src="/logo.svg" sx={{ width: '100%', height: '100%' }} />
-          </Grid>
-          <Typography variant="h2" sx={{ marginLeft: 2 }}>
+          <Logo />
+          <Typography variant="h3" sx={{ fontWeight: 500, marginLeft: 2, lineHeight: 1.1 }}>
             WebGis
             <br />
             GeoIA
@@ -42,7 +40,7 @@ export default function Login() {
             flexDirection: 'column',
             alignItems: 'center',
             width: '100%',
-            marginTop: 10,
+            marginTop: 8,
           }}
         >
           <TextField placeholder="Email" />

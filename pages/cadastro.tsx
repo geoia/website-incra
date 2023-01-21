@@ -1,49 +1,40 @@
-import SelectEscolaridade from '../components/ui/select/selectEscolaridade';
-import { Grid } from '@mui/material/';
+import { Grid, Box } from '@mui/material/';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
 
+import SelectEscolaridade from '../components/ui/select/selectEscolaridadecopy';
 import TextField from '../components/ui/input/TextField';
+import Logo from '../components/ui/logo/logo';
 
 export default function Cadastro() {
   return (
     <>
       <Grid
         container
-        direction="row"
-        justifyContent="space-around"
-        alignItems="center"
-        sx={{ height: '100vh' }}
+        sx={{
+          display: 'flex',
+          height: '100vh',
+          maxWidth: '95%',
+          margin: '0px auto',
+          alignItems: 'center',
+          justifyContent: 'space-around'
+        }}
       >
-        <Grid
-          lg={3}
-          md={3}
-          sm={4.5}
-          xs={5.6}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          <Grid>
-            <Avatar
-              alt="logo Geomatica WebGis"
-              src="/logo.svg"
-              sx={{ width: '100%', height: '100%' }}
-            />
-          </Grid>
-          <Typography variant="h2" component="h1" sx={{ lineHeight: 1.1 }}>
-            WebGis
-            <br />
-            GeoIA
-          </Typography>
+        <Grid item lg={4.5} md={5} sm={4} sx={{ alignSelf: 'start', marginTop: 15 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Logo />
+            <Typography variant="h3" component="h1" sx={{ marginLeft: 2,fontWeight: 500, lineHeight: 1.1 }}>
+              WebGis
+              <br />
+              GeoIA
+            </Typography>
+          </Box>
         </Grid>
         <Grid
-          lg={8}
+          lg={7}
           md={11}
           sm={11}
           xs={11}
@@ -52,6 +43,7 @@ export default function Cadastro() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            paddingBottom: 3
           }}
         >
           <form action="#" method="post">
@@ -65,7 +57,7 @@ export default function Cadastro() {
             <TextField placeholder="Estado" sx={{ marginBottom: 2 }} />
             <TextField placeholder="Cidade" sx={{ marginBottom: 1 }} />
             <FormControlLabel
-              control={<Checkbox defaultChecked size="small" />}
+              control={<Checkbox defaultChecked color='primary' size="small" sx={{color: 'white'}} />}
               label="Eu li e aceito os termos de contrado e permito o uso dos dados"
             />
 
