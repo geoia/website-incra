@@ -3,6 +3,7 @@ import Menu from '@mui/material/Menu';
 import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 import Button from '@mui/material/Button';
 import Download from '@mui/icons-material/Download';
+import FormCheckbox from '../ui/FormCheckbox/FormCheckbox';
 
 interface Props {
   anchorEl: null | HTMLElement;
@@ -70,48 +71,37 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
           marginLeft: '10px',
         }}
       >
-        <FormControlLabel
+        <FormCheckbox
           label="Selecionar todas"
-          control={
-            <Checkbox
-              checked={checked[0] && checked[1] && checked[2] && checked[3]}
-              indeterminate={
-                checked[0] !== checked[1] || checked[0] !== checked[2] || checked[0] != checked[3]
-              }
-              onChange={handleChangeInParentCheckbox}
-              sx={{
-                height: '30px',
-              }}
-            />
+          checked={checked[0] && checked[1] && checked[2] && checked[3]}
+          onChange={handleChangeInParentCheckbox}
+          indeterminate={
+            checked[0] !== checked[1] || checked[0] !== checked[2] || checked[0] != checked[3]
           }
         />
-        <FormControlLabel
+        <FormCheckbox
           label="Queimadas"
-          control={<Checkbox checked={checked[0]} onChange={handleChangeInFireCheckbox} />}
-          sx={{
-            height: '30px',
-          }}
+          checked={checked[0]}
+          onChange={handleChangeInFireCheckbox}
+          indeterminate={undefined}
         />
-        <FormControlLabel
+        <FormCheckbox
           label="Vegetação"
-          control={<Checkbox checked={checked[1]} onChange={handleChangeInForestCheckbox} />}
-          sx={{
-            height: '30px',
-          }}
+          checked={checked[1]}
+          onChange={handleChangeInForestCheckbox}
+          indeterminate={undefined}
         />
-        <FormControlLabel
+        <FormCheckbox
           label="Infraestrutura"
-          control={<Checkbox checked={checked[2]} onChange={handleChangeInInfrastructure} />}
-          sx={{
-            height: '30px',
-          }}
+          checked={checked[2]}
+          onChange={handleChangeInInfrastructure}
+          indeterminate={undefined}
         />
-        <FormControlLabel
+        <FormCheckbox
           label="Inundação"
-          control={<Checkbox checked={checked[3]} onChange={handleChangeInWaterCheckbox} />}
-          sx={{
-            height: '30px',
-          }}
+          checked={checked[3]}
+          onChange={handleChangeInWaterCheckbox}
+          indeterminate={undefined}
         />
       </FormGroup>
       <Button
