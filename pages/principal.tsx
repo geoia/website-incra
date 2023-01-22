@@ -5,6 +5,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 
 import DownloadModal from '../components/principal/DownloadModal';
+import MenuModal from '../components/principal/MenuModal';
 import Search from '@mui/icons-material/Search';
 import { Grid } from '@mui/material';
 import TextField from '@mui/material/TextField';
@@ -22,16 +23,13 @@ import {
   MapBotao,
 } from '../components/principal/Botao';
 
-const menuBotaoAction = () => {
-  alert('.....');
-};
-
 export default function Principal() {
-  const [open, setOpen] = React.useState(false);
+  const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] = React.useState<null | HTMLElement>(null);
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 
-  const downloadBotaoAction= () => {
-    setOpen(!open);
-  }
+  const handleClickDownloadBotao = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElementOfDownloadButton(event.currentTarget);
+  };
 
   return (
     <>
@@ -52,7 +50,7 @@ export default function Principal() {
         </style>
       </Head>
 
-      <Mapa />
+      <Mapa/>
 
       <Grid
         sx={{
@@ -107,9 +105,9 @@ export default function Principal() {
           justifyContent: 'space-between',
         }}
       >
-        <MenuBotao onClick={menuBotaoAction} />
-        <CalendarBotao onClick={menuBotaoAction} />
-        <DownloadBotao onClick={downloadBotaoAction}/>
+        <MenuBotao onClick={() => setIsDrawerOpen(true)} />
+        <CalendarBotao />
+        <DownloadBotao onClick={handleClickDownloadBotao}/>
       </Grid>
       <Grid
         sx={{
@@ -125,7 +123,7 @@ export default function Principal() {
           transform: 'translateY(-50%)',
         }}
       >
-        <FireBotao onClick={menuBotaoAction} />
+        <FireBotao />
         <ForestBotao />
         <RoadBotao />
         <WaterBotao />
@@ -148,7 +146,8 @@ export default function Principal() {
         <CropBotao />
         <MapBotao />
       </Grid>
-      {open? <DownloadModal/> : null}
+      <DownloadModal anchorEl={anchorElementOfDownloadButton} setAnchorEl={setAnchorElementOfDownloadButton}/>
+      <MenuModal isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen}/>
     </>
   );
 }

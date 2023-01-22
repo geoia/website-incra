@@ -1,11 +1,22 @@
 import { useState } from 'react';
-import { Grid } from '@mui/material';
+import Menu from '@mui/material/Menu';
 import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 import Button from '@mui/material/Button';
 import Download from '@mui/icons-material/Download';
 
-export default function DownloadModal() {
+interface Props {
+  anchorEl: null | HTMLElement;
+  setAnchorEl: (val: null | HTMLElement) => void;
+}
+
+export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
   const [checked, setChecked] = useState([false, false, false, false]);
+
+  const open = Boolean(anchorEl);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleChangeInParentCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked([
@@ -33,24 +44,30 @@ export default function DownloadModal() {
   };
 
   return (
-    <Grid
+    <Menu
+      anchorEl={anchorEl}
+      open={open}
+      onClose={handleClose}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'left',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
       sx={{
-        position: 'absolute',
-        top: 'calc(1rem + 93px)',
-        right: '60px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '190px',
-        height: '220px',
-        background: '#509CBF',
-        borderRadius: '15px',
+        '& .MuiPaper-root': {
+          backgroundColor: '#509CBF',
+          left: 'auto!important',
+          right: 'calc(50px + 1rem)',
+        },
       }}
     >
       <FormGroup
         sx={{
-          height: 'min-content'
+          height: 'min-content',
+          marginLeft: '10px',
         }}
       >
         <FormControlLabel
@@ -63,7 +80,7 @@ export default function DownloadModal() {
               }
               onChange={handleChangeInParentCheckbox}
               sx={{
-                height: '30px'
+                height: '30px',
               }}
             />
           }
@@ -72,28 +89,28 @@ export default function DownloadModal() {
           label="Queimadas"
           control={<Checkbox checked={checked[0]} onChange={handleChangeInFireCheckbox} />}
           sx={{
-            height: '30px'
+            height: '30px',
           }}
         />
         <FormControlLabel
           label="Vegetação"
           control={<Checkbox checked={checked[1]} onChange={handleChangeInForestCheckbox} />}
           sx={{
-            height: '30px'
+            height: '30px',
           }}
         />
         <FormControlLabel
           label="Infraestrutura"
           control={<Checkbox checked={checked[2]} onChange={handleChangeInInfrastructure} />}
           sx={{
-            height: '30px'
+            height: '30px',
           }}
         />
         <FormControlLabel
           label="Inundação"
           control={<Checkbox checked={checked[3]} onChange={handleChangeInWaterCheckbox} />}
           sx={{
-            height: '30px'
+            height: '30px',
           }}
         />
       </FormGroup>
@@ -108,6 +125,7 @@ export default function DownloadModal() {
           marginTop: '10px',
           height: '40px',
           width: '160px',
+          marginLeft: '10px',
           '&:hover': {
             cursor: 'pointer',
             backgroundColor: '#ffffffc3',
@@ -117,6 +135,6 @@ export default function DownloadModal() {
       >
         Download
       </Button>
-    </Grid>
+    </Menu>
   );
 }
