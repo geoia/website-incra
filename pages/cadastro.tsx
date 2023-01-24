@@ -9,8 +9,11 @@ import NextLink from 'next/link';
 import SelectEscolaridade from '../components/ui/select/selectEscolaridadecopy';
 import TextField from '../components/ui/input/TextField';
 import Logo from '../components/ui/logo/logo';
+import { useState } from 'react';
 
 export default function Cadastro() {
+  const [{}, setUsuario] = useState({});
+
   return (
     <>
       <Grid
@@ -63,7 +66,7 @@ export default function Cadastro() {
             <TextField placeholder="Cidade" sx={{ marginBottom: 1 }} />
             <FormControlLabel
               control={
-                <Checkbox defaultChecked color="primary" size="small" sx={{ color: 'white' }} />
+                <Checkbox color="primary" size="small" sx={{ color: 'white' }} />
               }
               label="Eu li e aceito os termos de contrado e permito o uso dos dados"
             />
@@ -82,7 +85,6 @@ export default function Cadastro() {
                   Já tenho conta
                 </Link>
               </NextLink>
-
               <Button type="submit" variant="contained" color="secondary">
                 Login
               </Button>
