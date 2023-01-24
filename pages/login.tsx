@@ -3,6 +3,7 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { Grid } from '@mui/material';
 import Link from '@mui/material/Link';
+import NextLink from 'next/link';
 
 import TextField from '../components/ui/input/TextField';
 import Logo from '../components/ui/logo/logo';
@@ -58,9 +59,12 @@ export default function Login() {
             //  background: '#000'
           }}
         >
-          <Link href="/cadastro" underline="hover" color="secondary" sx={{ mr: 2 }}>
-            Cadastrar-se
-          </Link>
+          <NextLink href="/cadastro" passHref>
+            <Link underline="hover" color="secondary" sx={{ mr: 2 }}>
+              Cadastrar-se
+            </Link>
+          </NextLink>
+
           <Button type="submit" variant="contained" color="secondary">
             Login
           </Button>
