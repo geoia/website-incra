@@ -1,11 +1,9 @@
-import Titulo from './titulo';
-import styles from '../../../styles/Cadastro.module.css';
+import { Grid, Avatar } from '@mui/material';
 
 export default function Logo() {
   return (
-    <div className={styles.divLogo}>
-      <img src="/imgLogo.png" className={styles.img} />
-      <Titulo />
-    </div>
+    <Grid xl={3} lg={3} md={3} sm={3} xs={3}>
+      <Avatar alt="Remy Sharp" src="/logo.svg" sx={{ width: '100%', height: '100%' }} />
+    </Grid>
   );
 }

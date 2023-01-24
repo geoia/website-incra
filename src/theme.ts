@@ -5,7 +5,7 @@ import "typeface-cormorant";
 const theme = responsiveFontSizes(createTheme({
   palette: {
     primary: {
-      main: '#509CBF',
+      main: '#FFF',
     },
     secondary: {
       main: '#0F1C3C',
