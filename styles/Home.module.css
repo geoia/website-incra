@@ -1,7 +1,3 @@
-.container {
-  padding: 0 2rem;
-}
-
 .main {
   min-height: 100vh;
   padding: 4rem 0;
@@ -12,6 +8,10 @@
   align-items: center;
 }
 
+.tucano {
+  margin-right: 30rem;
+}
+
 .footer {
   display: flex;
   flex: 1;
@@ -19,6 +19,7 @@
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
+  background-color: white;
 }
 
 .footer a {
@@ -42,18 +43,22 @@
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 4rem;
+  font-size: 8rem;
+  color: white;
+  font-family: "Josefin Sans";
 }
 
 .title,
 .description {
   text-align: center;
+  font-family: "Josefin Sans";
 }
 
 .description {
-  margin: 4rem 0;
+  margin: 2rem 0;
   line-height: 1.5;
-  font-size: 1.5rem;
+  font-size: 2.0rem;
+  font-family: "Josefin Sans";
 }
 
 .code {
@@ -76,6 +81,7 @@
 .card {
   margin: 1rem;
   padding: 1.5rem;
+  background-color: white;
   text-align: left;
   color: inherit;
   text-decoration: none;
