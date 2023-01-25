@@ -18,11 +18,15 @@ const center = {
   lng: -54.3847,
 };
 
-export default function Map() {
+interface Zoom {
+  zoom: number;
+}
+
+export default function Map({zoom}: Zoom) {
   return (
     <MapContainer
       center={center}
-      zoom={7}
+      zoom={zoom}
       zoomControl={false}
       minZoom={5}
       scrollWheelZoom={true}

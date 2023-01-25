@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Menu from '@mui/material/Menu';
-import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
+import { FormGroup } from '@mui/material';
 import Button from '@mui/material/Button';
 import Download from '@mui/icons-material/Download';
 import FormCheckbox from '../ui/FormCheckbox/FormCheckbox';
@@ -22,9 +22,7 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
   const handleChangeInParentCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked([
       event.target.checked,
-      event.target.checked,
-      event.target.checked,
-      event.target.checked,
+      event.target.checked
     ]);
   };
 
@@ -36,7 +34,7 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
     setChecked([checked[0], event.target.checked, checked[2], checked[3]]);
   };
 
-  const handleChangeInInfrastructure = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInInfrastructureCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked([checked[0], checked[1], event.target.checked, checked[3]]);
   };
 
@@ -62,46 +60,60 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
           backgroundColor: '#509CBF',
           left: 'auto!important',
           right: 'calc(50px + 1rem)',
+          color: 'white',
+          minWidth: '230px!important',
+          minHeight: '245px'
         },
+        '& .MuiList-root': {
+          paddingTop: 0,
+          paddingBottom: 0
+        }
       }}
     >
       <FormGroup
         sx={{
           height: 'min-content',
-          marginLeft: '10px',
+          marginLeft: '20px',
+          width: '190px',
+          marginTop: '10px'
         }}
       >
         <FormCheckbox
           label="Selecionar todas"
-          checked={checked[0] && checked[1] && checked[2] && checked[3]}
+          checked={checked[0] && checked[1]}
           onChange={handleChangeInParentCheckbox}
           indeterminate={
-            checked[0] !== checked[1] || checked[0] !== checked[2] || checked[0] != checked[3]
+            checked[0] !== checked[1]
           }
+          disabled={false}
         />
         <FormCheckbox
           label="Queimadas"
           checked={checked[0]}
           onChange={handleChangeInFireCheckbox}
           indeterminate={undefined}
+          disabled={false}
         />
         <FormCheckbox
           label="Vegetação"
           checked={checked[1]}
           onChange={handleChangeInForestCheckbox}
           indeterminate={undefined}
+          disabled={false}
         />
         <FormCheckbox
           label="Infraestrutura"
           checked={checked[2]}
-          onChange={handleChangeInInfrastructure}
+          onChange={handleChangeInInfrastructureCheckbox}
           indeterminate={undefined}
+          disabled={true}
         />
         <FormCheckbox
           label="Inundação"
           checked={checked[3]}
           onChange={handleChangeInWaterCheckbox}
           indeterminate={undefined}
+          disabled={true}
         />
       </FormGroup>
       <Button
@@ -114,8 +126,8 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
           color: '#509cbf',
           marginTop: '10px',
           height: '40px',
-          width: '160px',
-          marginLeft: '10px',
+          width: '190px',
+          marginLeft: '20px',
           '&:hover': {
             cursor: 'pointer',
             backgroundColor: '#ffffffc3',

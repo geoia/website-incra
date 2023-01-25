@@ -36,8 +36,8 @@ export default function ItemList({ texts }: Props) {
           marginBlockStart: 0,
           marginBlockEnd: 0,
           paddingInlineStart: 0,
-          width: '200px',
-          marginLeft: '10px',
+          width: '260px',
+          marginLeft: '20px',
         }}
       >
         {text}

@@ -19,7 +19,7 @@ export default function MenuModal({ isDrawerOpen, setIsDrawerOpen }: Props) {
         '& .MuiPaper-root': {
           backgroundColor: '#509CBF',
           height: '100%',
-          width: '220px',
+          width: '300px',
           color: 'white',
         },
       }}
@@ -30,8 +30,8 @@ export default function MenuModal({ isDrawerOpen, setIsDrawerOpen }: Props) {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          width: '200px',
-          marginLeft: '10px',
+          width: '260px',
+          marginLeft: '20px',
         }}
       >
         <h3 style={{ fontWeight: '100', fontSize: '1.2rem' }}>Nome Do User</h3>
@@ -43,8 +43,8 @@ export default function MenuModal({ isDrawerOpen, setIsDrawerOpen }: Props) {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'flex-start',
-          width: '200px',
-          marginLeft: '10px',
+          width: '260px',
+          marginLeft: '20px',
           height: '25px',
           fontSize: '0.8rem',
         }}
@@ -58,10 +58,10 @@ export default function MenuModal({ isDrawerOpen, setIsDrawerOpen }: Props) {
             whiteSpace: 'nowrap',
           }}
         >
-          email do user muito extenso
+          email do user muito extensoooooooooooooooooooooooooooooo
         </p>
       </Grid>
-      <ItemList texts={['Menu', 'Informações Pessoais', 'Dados', 'Idioma', 'Sobre', 'Ajuda']} />
+      <ItemList texts={['Menu', 'Informações Pessoais', 'Dados', 'Idioma', 'Sobre', 'Ajuda', ]} />
       <a
         href="#"
         style={{
@@ -72,7 +72,7 @@ export default function MenuModal({ isDrawerOpen, setIsDrawerOpen }: Props) {
           justifyContent: 'space-between',
           alignItems: 'center',
           width: '70px',
-          marginLeft: '10px',
+          marginLeft: '20px',
           position: 'absolute',
           top: '90%',
         }}

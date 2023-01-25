@@ -23,10 +23,9 @@ function BaseBotao({ children, sx, ...props }: ButtonProps) {
         borderRadius: 20,
         backgroundColor: '#509CBF',
         border: 0,
+        color: 'white',
         '&:hover': {
-          cursor: 'pointer',
-          backgroundColor: '#2384b1',
-          transition: '0.2s',
+          cursor: 'pointer'
         },
         ...sx,
       }}
@@ -40,7 +39,7 @@ function BaseBotao({ children, sx, ...props }: ButtonProps) {
 export function MenuBotao(props: ButtonProps) {
   return (
     <BaseBotao {...props}>
-      <Menu fontSize="medium" sx={{ color: 'white' }} />
+      <Menu fontSize="medium" />
     </BaseBotao>
   );
 }
@@ -48,7 +47,7 @@ export function MenuBotao(props: ButtonProps) {
 export function CalendarBotao(props: ButtonProps) {
   return (
     <BaseBotao {...props}>
-      <Calendar fontSize="medium" sx={{ color: 'white' }} />
+      <Calendar fontSize="medium" />
     </BaseBotao>
   );
 }
@@ -56,7 +55,7 @@ export function CalendarBotao(props: ButtonProps) {
 export function DownloadBotao(props: ButtonProps) {
   return (
     <BaseBotao {...props}>
-      <Download fontSize="medium" sx={{ color: 'white' }} />
+      <Download fontSize="medium" />
     </BaseBotao>
   );
 }
@@ -70,7 +69,7 @@ export function FireBotao(props: ButtonProps) {
       sx={{ background: fireButton ? 'red' : '#509CBF' }}
       onClick={() => setFireButton(!fireButton)}
     >
-      <Fire fontSize="medium" sx={{ color: 'white' }} />
+      <Fire fontSize="medium" />
     </BaseBotao>
   );
 }
@@ -84,7 +83,7 @@ export function ForestBotao(props: ButtonProps) {
       sx={{ background: forestButton ? 'green' : '#509CBF' }}
       onClick={() => setForestButton(!forestButton)}
     >
-      <Forest fontSize="medium" sx={{ color: 'white' }} />
+      <Forest fontSize="medium" />
     </BaseBotao>
   );
 }
@@ -98,7 +97,7 @@ export function RoadBotao(props: ButtonProps) {
       sx={{ background: roadButton ? 'brown' : '#509CBF' }}
       onClick={() => setRoadButton(!roadButton)}
     >
-      <Road fontSize="medium" sx={{ color: 'white' }} />
+      <Road fontSize="medium" />
     </BaseBotao>
   );
 }
@@ -112,7 +111,7 @@ export function WaterBotao(props: ButtonProps) {
       sx={{ background: waterButton ? 'blue' : '#509CBF' }}
       onClick={() => setWaterButton(!waterButton)}
     >
-      <Water fontSize="medium" sx={{ color: 'white' }} />
+      <Water fontSize="medium" />
     </BaseBotao>
   );
 }
@@ -120,7 +119,7 @@ export function WaterBotao(props: ButtonProps) {
 export function AddBotao(props: ButtonProps) {
   return (
     <BaseBotao {...props}>
-      <Add fontSize="medium" sx={{ color: 'white' }} />
+      <Add fontSize="medium" />
     </BaseBotao>
   );
 }
@@ -128,7 +127,7 @@ export function AddBotao(props: ButtonProps) {
 export function RemoveBotao(props: ButtonProps) {
   return (
     <BaseBotao {...props}>
-      <Remove fontSize="medium" sx={{ color: 'white' }} />
+      <Remove fontSize="medium" />
     </BaseBotao>
   );
 }
@@ -136,7 +135,7 @@ export function RemoveBotao(props: ButtonProps) {
 export function CropBotao(props: ButtonProps) {
   return (
     <BaseBotao {...props}>
-      <Crop fontSize="medium" sx={{ color: 'white' }} />
+      <Crop fontSize="medium" />
     </BaseBotao>
   );
 }
@@ -144,7 +143,7 @@ export function CropBotao(props: ButtonProps) {
 export function MapBotao(props: ButtonProps) {
   return (
     <BaseBotao {...props}>
-      <Map fontSize="medium" sx={{ color: 'white' }} />
+      <Map fontSize="medium" />
     </BaseBotao>
   );
 }
