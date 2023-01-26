@@ -59,10 +59,13 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
         '& .MuiPaper-root': {
           backgroundColor: '#509CBF',
           left: 'auto!important',
-          right: 'calc(50px + 1rem)',
+          right: 'calc(70px + 1rem)',
           color: 'white',
           minWidth: '230px!important',
-          minHeight: '245px'
+          minHeight: '245px',
+          '@media (max-width: 1500px)': {
+            right: 'calc(55px + 1rem)'
+          } 
         },
         '& .MuiList-root': {
           paddingTop: 0,

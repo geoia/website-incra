@@ -93,14 +93,18 @@ export default function Principal() {
       <Grid
         sx={{
           position: 'absolute',
-          width: '40px',
-          height: '133px',
+          width: '60px',
+          height: '200px',
           top: 0,
           right: 0,
           margin: '1rem',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
+          '@media (max-width: 1500px)': {
+            width: '45px',
+            height: '148px'
+          } 
         }}
       >
         <MenuBotao onClick={() => setIsDrawerOpen(true)} />
@@ -114,8 +118,8 @@ export default function Principal() {
       <Grid
         sx={{
           position: 'absolute',
-          width: '40px',
-          height: '180px',
+          width: '60px',
+          height: '270px',
           top: '50%',
           right: 0,
           margin: '1rem',
@@ -123,6 +127,10 @@ export default function Principal() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           transform: 'translateY(-50%)',
+          '@media (max-width: 1500px)': {
+            width: '45px',
+            height: '200px'
+          } 
         }}
       >
         <FireBotao />
@@ -133,14 +141,18 @@ export default function Principal() {
       <Grid
         sx={{
           position: 'absolute',
-          width: '180px',
-          height: '40px',
+          width: '270px',
+          height: '60px',
           bottom: 0,
           right: 0,
           margin: '1rem',
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
+          '@media (max-width: 1500px)': {
+            width: '200px',
+            height: '45px'
+          }      
         }}
       >
         <AddBotao onClick={() => setZoom(10)}/>

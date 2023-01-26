@@ -17,16 +17,23 @@ function BaseBotao({ children, sx, ...props }: ButtonProps) {
     <Button
       variant="contained"
       sx={{
-        width: 40,
-        minWidth: 40,
-        height: 40,
+        width: '60px',
+        minWidth: '60px',
+        height: '60px',
         borderRadius: 20,
         backgroundColor: '#509CBF',
         border: 0,
         color: 'white',
         '&:hover': {
-          cursor: 'pointer'
+          cursor: 'pointer',
+          backgroundColor: '#509cbf9b68'
         },
+        '@media (max-width: 1500px)': {
+          width: '45px',
+          minWidth: '45px',
+          height: '45px'
+        }   
+        ,
         ...sx,
       }}
       {...props}
@@ -66,7 +73,12 @@ export function FireBotao(props: ButtonProps) {
   return (
     <BaseBotao
       {...props}
-      sx={{ background: fireButton ? 'red' : '#509CBF' }}
+      sx={{ 
+        background: fireButton ? 'red' : '#509CBF',
+        '&:hover': {
+          background: '#ff0000ca'
+        }
+      }}
       onClick={() => setFireButton(!fireButton)}
     >
       <Fire fontSize="medium" />
@@ -80,7 +92,12 @@ export function ForestBotao(props: ButtonProps) {
   return (
     <BaseBotao
       {...props}
-      sx={{ background: forestButton ? 'green' : '#509CBF' }}
+      sx={{ 
+        background: forestButton ? 'green' : '#509CBF', 
+        '&:hover': {
+          background: '#0c850ceb'
+        }
+      }}
       onClick={() => setForestButton(!forestButton)}
     >
       <Forest fontSize="medium" />
@@ -94,7 +111,12 @@ export function RoadBotao(props: ButtonProps) {
   return (
     <BaseBotao
       {...props}
-      sx={{ background: roadButton ? 'brown' : '#509CBF' }}
+      sx={{ 
+        background: roadButton ? '#964b00' : '#509CBF',
+        '&:hover': {
+          background: '#97510ced'
+        }
+      }}
       onClick={() => setRoadButton(!roadButton)}
     >
       <Road fontSize="medium" />
@@ -108,7 +130,12 @@ export function WaterBotao(props: ButtonProps) {
   return (
     <BaseBotao
       {...props}
-      sx={{ background: waterButton ? 'blue' : '#509CBF' }}
+      sx={{ 
+        background: waterButton ? 'blue' : '#509CBF',
+        '&:hover': {
+          background: '#1414f7dd'
+        }
+      }}
       onClick={() => setWaterButton(!waterButton)}
     >
       <Water fontSize="medium" />
