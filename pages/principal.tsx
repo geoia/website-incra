@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import Mapa from './Mapa';
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 
 import DownloadModal from '../components/principal/DownloadModal';
 import MenuModal from '../components/principal/MenuModal';
+import CalendarModal from '../components/principal/CalendarModal';
 import Search from '@mui/icons-material/Search';
 import { Grid } from '@mui/material';
 import TextField from '@mui/material/TextField';
@@ -27,6 +28,7 @@ export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
     useState<null | HTMLElement>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [zoom, setZoom] = useState(7);
 
   return (
@@ -48,7 +50,7 @@ export default function Principal() {
         </style>
       </Head>
 
-      <Mapa zoom={zoom}/>
+      <Mapa zoom={zoom} />
 
       <Grid
         sx={{
@@ -103,12 +105,12 @@ export default function Principal() {
           justifyContent: 'space-between',
           '@media (max-width: 1500px)': {
             width: '45px',
-            height: '148px'
-          } 
+            height: '148px',
+          },
         }}
       >
         <MenuBotao onClick={() => setIsDrawerOpen(true)} />
-        <CalendarBotao onClick={()=> console.log(zoom)}/>
+        <CalendarBotao onClick={() => setIsCalendarModalOpen(true)} />
         <DownloadBotao
           onClick={(event: React.MouseEvent<HTMLElement>) =>
             setAnchorElementOfDownloadButton(event.currentTarget)
@@ -129,8 +131,8 @@ export default function Principal() {
           transform: 'translateY(-50%)',
           '@media (max-width: 1500px)': {
             width: '45px',
-            height: '200px'
-          } 
+            height: '200px',
+          },
         }}
       >
         <FireBotao />
@@ -151,12 +153,12 @@ export default function Principal() {
           justifyContent: 'space-between',
           '@media (max-width: 1500px)': {
             width: '200px',
-            height: '45px'
-          }      
+            height: '45px',
+          },
         }}
       >
-        <AddBotao onClick={() => setZoom(10)}/>
-        <RemoveBotao onClick={() => setZoom(7)}/>
+        <AddBotao onClick={() => setZoom(10)} />
+        <RemoveBotao onClick={() => setZoom(7)} />
         <CropBotao />
         <MapBotao />
       </Grid>
@@ -165,6 +167,10 @@ export default function Principal() {
         setAnchorEl={setAnchorElementOfDownloadButton}
       />
       <MenuModal isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
+      <CalendarModal
+        isCalendarModalOpen={isCalendarModalOpen}
+        setIsCalendarModalOpen={setIsCalendarModalOpen}
+      />
     </>
   );
 }
