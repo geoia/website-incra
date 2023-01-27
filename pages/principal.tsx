@@ -96,7 +96,7 @@ export default function Principal() {
         sx={{
           position: 'absolute',
           width: '60px',
-          height: '200px',
+          height: '180px',
           top: 0,
           right: 0,
           margin: '1rem',
@@ -104,8 +104,7 @@ export default function Principal() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           '@media (max-width: 1500px)': {
-            width: '45px',
-            height: '148px',
+            height: '160px',
           },
         }}
       >
@@ -121,7 +120,7 @@ export default function Principal() {
         sx={{
           position: 'absolute',
           width: '60px',
-          height: '270px',
+          height: '240px',
           top: '50%',
           right: 0,
           margin: '1rem',
@@ -130,8 +129,7 @@ export default function Principal() {
           justifyContent: 'space-between',
           transform: 'translateY(-50%)',
           '@media (max-width: 1500px)': {
-            width: '45px',
-            height: '200px',
+            height: '215px',
           },
         }}
       >
@@ -143,7 +141,7 @@ export default function Principal() {
       <Grid
         sx={{
           position: 'absolute',
-          width: '270px',
+          width: '240px',
           height: '60px',
           bottom: 0,
           right: 0,
@@ -152,8 +150,7 @@ export default function Principal() {
           flexDirection: 'row',
           justifyContent: 'space-between',
           '@media (max-width: 1500px)': {
-            width: '200px',
-            height: '45px',
+            width: '215px',
           },
         }}
       >
