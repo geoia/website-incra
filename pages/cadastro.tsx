@@ -8,7 +8,7 @@ import NextLink from 'next/link';
 
 import SelectEscolaridade from '../components/ui/select/selectEscolaridadecopy';
 import TextField from '../components/ui/input/TextField';
-import Logo from '../components/ui/logo/logo';
+import Logo from '../components/ui/logo/Logo';
 import { useState } from 'react';
 
 export default function Cadastro() {
@@ -65,9 +65,7 @@ export default function Cadastro() {
             <TextField placeholder="Estado" sx={{ marginBottom: 2 }} />
             <TextField placeholder="Cidade" sx={{ marginBottom: 1 }} />
             <FormControlLabel
-              control={
-                <Checkbox color="primary" size="small" sx={{ color: 'white' }} />
-              }
+              control={<Checkbox color="primary" size="small" sx={{ color: 'white' }} />}
               label="Eu li e aceito os termos de contrado e permito o uso dos dados"
             />
 

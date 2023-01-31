@@ -6,7 +6,7 @@ import Link from '@mui/material/Link';
 import NextLink from 'next/link';
 
 import TextField from '../components/ui/input/TextField';
-import Logo from '../components/ui/logo/logo';
+import Logo from '../components/ui/logo/Logo';
 
 export default function Login() {
   return (

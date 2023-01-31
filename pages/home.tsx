@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import HeaderInstitucional from '../components/ui/header/header';
+import HeaderInstitucional from '../components/ui/header/Header';
 import homeTucano from '../images/home-tucano.png';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import NextLink from 'next/link';

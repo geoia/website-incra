@@ -1,26 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&display=swap');
-
-html,
-body {
+* {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, Josefin Sans, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-    Helvetica Neue, sans-serif;
+  box-sizing: border-box;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+
+}
+
+body{
+  background-color: #509CBF;
+  color: white;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  display: inline;
 }
 
 a {
-  color: inherit;
+  font-weight: 500;
+  color: #0F1C3C;
   text-decoration: none;
+  padding: 14px 20px;
+  transition: background .2s;
 }
 
-* {
-  box-sizing: border-box;
-
-  font-family: 'Poppins', sans-serif;
-  background-color: #509CBF;
+a:hover {
   color: white;
+  background-color: #0F1C3C;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from '../../../styles/Select.module.css';
+import styles from './Select.module.css';
 
 export default function SelectEscolaridade() {
   return (
