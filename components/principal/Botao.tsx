@@ -29,7 +29,7 @@ function BaseBotao({ children, sx, ...props }: ButtonProps) {
           backgroundColor: '#509cbf9b68',
         },
         '&:disabled': {
-          backgroundColor : 'rgba(0, 0, 0, 0.445);',
+          backgroundColor : 'rgba(18, 18, 133, 0.39);',
         },
         '@media (max-width: 1500px)': {
           width: '45px',
