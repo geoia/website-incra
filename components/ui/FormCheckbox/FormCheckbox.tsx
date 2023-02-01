@@ -17,7 +17,10 @@ export default function FormCheckbox({label, checked, onChange, indeterminate, d
         height: '35px',
         '& .MuiTypography-root': {
           fontSize: '1.18rem'
-        }
+        },
+        '& .MuiSvgIcon-root': {
+          color: disabled ? 'rgba(0, 0, 0, 0.26)' : 'white',
+        },
       }}
     />
   );

@@ -20,10 +20,7 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
   };
 
   const handleChangeInParentCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked([
-      event.target.checked,
-      event.target.checked
-    ]);
+    setChecked([event.target.checked]);
   };
 
   const handleChangeInFireCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,18 +56,18 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
         '& .MuiPaper-root': {
           backgroundColor: '#509CBF',
           left: 'auto!important',
-          right: 'calc(70px + 1rem)',
+          right: 'calc(65px + 1rem)',
           color: 'white',
           minWidth: '230px!important',
           minHeight: '245px',
           '@media (max-width: 1500px)': {
-            right: 'calc(55px + 1rem)'
-          } 
+            right: 'calc(55px + 1rem)',
+          },
         },
         '& .MuiList-root': {
           paddingTop: 0,
-          paddingBottom: 0
-        }
+          paddingBottom: 0,
+        },
       }}
     >
       <FormGroup
@@ -78,16 +75,14 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
           height: 'min-content',
           marginLeft: '20px',
           width: '190px',
-          marginTop: '10px'
+          marginTop: '10px',
         }}
       >
         <FormCheckbox
           label="Selecionar todas"
-          checked={checked[0] && checked[1]}
+          checked={checked[0]}
           onChange={handleChangeInParentCheckbox}
-          indeterminate={
-            checked[0] !== checked[1]
-          }
+          indeterminate={!checked[0]}
           disabled={false}
         />
         <FormCheckbox
@@ -102,7 +97,7 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
           checked={checked[1]}
           onChange={handleChangeInForestCheckbox}
           indeterminate={undefined}
-          disabled={false}
+          disabled={true}
         />
         <FormCheckbox
           label="Infraestrutura"

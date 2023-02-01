@@ -28,6 +28,9 @@ function BaseBotao({ children, sx, ...props }: ButtonProps) {
           cursor: 'pointer',
           backgroundColor: '#509cbf9b68',
         },
+        '&:disabled': {
+          backgroundColor : 'rgba(0, 0, 0, 0.445);',
+        },
         '@media (max-width: 1500px)': {
           width: '45px',
           minWidth: '45px',
@@ -98,6 +101,7 @@ export function ForestBotao(props: ButtonProps) {
         },
       }}
       onClick={() => setForestButton(!forestButton)}
+      disabled
     >
       <Forest fontSize="medium" />
     </BaseBotao>
@@ -117,6 +121,7 @@ export function RoadBotao(props: ButtonProps) {
         },
       }}
       onClick={() => setRoadButton(!roadButton)}
+      disabled
     >
       <Road fontSize="medium" />
     </BaseBotao>
@@ -136,6 +141,7 @@ export function WaterBotao(props: ButtonProps) {
         },
       }}
       onClick={() => setWaterButton(!waterButton)}
+      disabled
     >
       <Water fontSize="medium" />
     </BaseBotao>

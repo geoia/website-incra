@@ -1,11 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-interface Zoom {
-  zoom: number;
-}
-
-function Mapa({zoom}: Zoom) {
+function Mapa() {
   const Map = React.useMemo(
     () =>
       dynamic(
@@ -19,7 +15,7 @@ function Mapa({zoom}: Zoom) {
       /* list variables which should trigger a re-render here */
     ]
   );
-  return <Map zoom={zoom} />;
+  return <Map />;
 }
 
 export default Mapa;

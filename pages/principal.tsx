@@ -29,7 +29,6 @@ export default function Principal() {
     useState<null | HTMLElement>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
-  const [zoom, setZoom] = useState(7);
 
   return (
     <>
@@ -50,7 +49,7 @@ export default function Principal() {
         </style>
       </Head>
 
-      <Mapa zoom={zoom} />
+      <Mapa />
 
       <Grid
         sx={{
@@ -78,7 +77,7 @@ export default function Principal() {
           placeholder="Pesquise um endereço"
           InputProps={{ disableUnderline: true }}
           sx={{
-            width: '72%',
+            width: '70%',
             marginLeft: '5px',
             input: {
               color: 'white',
@@ -89,13 +88,22 @@ export default function Principal() {
             },
           }}
         />
-        <Search fontSize="large" sx={{ color: 'white' }} />
+        <Search
+          fontSize="large"
+          sx={{
+            color: 'white',
+            padding: '15px',
+            '&:hover': {
+              cursor: 'pointer',
+            },
+          }}
+        />
       </Grid>
 
       <Grid
         sx={{
           position: 'absolute',
-          width: '60px',
+          width: '50px',
           height: '180px',
           top: 0,
           right: 0,
@@ -104,6 +112,7 @@ export default function Principal() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           '@media (max-width: 1500px)': {
+            width: '45px',
             height: '160px',
           },
         }}
@@ -119,7 +128,7 @@ export default function Principal() {
       <Grid
         sx={{
           position: 'absolute',
-          width: '60px',
+          width: '50px',
           height: '240px',
           top: '50%',
           right: 0,
@@ -129,6 +138,7 @@ export default function Principal() {
           justifyContent: 'space-between',
           transform: 'translateY(-50%)',
           '@media (max-width: 1500px)': {
+            width: '45px',
             height: '215px',
           },
         }}
@@ -142,7 +152,7 @@ export default function Principal() {
         sx={{
           position: 'absolute',
           width: '240px',
-          height: '60px',
+          height: '50px',
           bottom: 0,
           right: 0,
           margin: '1rem',
@@ -150,12 +160,13 @@ export default function Principal() {
           flexDirection: 'row',
           justifyContent: 'space-between',
           '@media (max-width: 1500px)': {
+            height: '45px',
             width: '215px',
           },
         }}
       >
-        <AddBotao onClick={() => setZoom(10)} />
-        <RemoveBotao onClick={() => setZoom(7)} />
+        <AddBotao />
+        <RemoveBotao />
         <CropBotao />
         <MapBotao />
       </Grid>
