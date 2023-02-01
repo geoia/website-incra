@@ -4,9 +4,20 @@ import dynamic from 'next/dynamic';
 interface Props {
   isFullScreen: boolean;
   setIsFullScreen: (val: boolean) => void;
+  isZoomInClicked: boolean;
+  setIsZoomInClicked: (val: boolean) => void;
+  isZoomOutClicked: boolean;
+  setIsZoomOutClicked: (val: boolean) => void;
 }
 
-function Mapa({ isFullScreen, setIsFullScreen }: Props) {
+function Mapa({
+  isFullScreen,
+  setIsFullScreen,
+  isZoomInClicked,
+  setIsZoomInClicked,
+  isZoomOutClicked,
+  setIsZoomOutClicked,
+}: Props) {
   const Map = React.useMemo(
     () =>
       dynamic(
@@ -20,7 +31,16 @@ function Mapa({ isFullScreen, setIsFullScreen }: Props) {
       /* list variables which should trigger a re-render here */
     ]
   );
-  return <Map isFullScreen={isFullScreen} setIsFullScreen={setIsFullScreen} />;
+  return (
+    <Map
+      isFullScreen={isFullScreen}
+      setIsFullScreen={setIsFullScreen}
+      isZoomInClicked={isZoomInClicked}
+      setIsZoomInClicked={setIsZoomInClicked}
+      isZoomOutClicked={isZoomOutClicked}
+      setIsZoomOutClicked={setIsZoomOutClicked}
+    />
+  );
 }
 
 export default Mapa;

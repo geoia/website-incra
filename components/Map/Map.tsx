@@ -7,12 +7,12 @@ import {
   LayersControl,
   LayerGroup,
   FeatureGroup,
-  useMapEvents,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { estados } from './brasil';
 import Dados from './jsons/01response_1674240947890.json';
 import Dados2 from './jsons/0response_1674238134734.json';
+import EventsListenerOfMap from './EventsListenerOfMap'
 
 const center = {
   lat: -20.2634,
@@ -22,20 +22,20 @@ const center = {
 interface Props {
   isFullScreen: boolean;
   setIsFullScreen: (val: boolean) => void;
+  isZoomInClicked: boolean;
+  setIsZoomInClicked: (val: boolean) => void;
+  isZoomOutClicked: boolean;
+  setIsZoomOutClicked: (val: boolean) => void;
 }
 
-function EventsListener({ isFullScreen, setIsFullScreen }: Props) {
-  const listener = useMapEvents({
-    click: () => {
-      if (isFullScreen) {
-        setIsFullScreen(false);
-      }
-    },
-  });
-  return null;
-}
-
-export default function Map({ isFullScreen, setIsFullScreen }: Props) {
+export default function Map({
+  isFullScreen,
+  setIsFullScreen,
+  isZoomInClicked,
+  setIsZoomInClicked,
+  isZoomOutClicked,
+  setIsZoomOutClicked,
+}: Props) {
   return (
     <MapContainer
       center={center}
@@ -54,7 +54,14 @@ export default function Map({ isFullScreen, setIsFullScreen }: Props) {
         [5.63463151377654, -20.89969605983609],
       ]}
     >
-      <EventsListener isFullScreen={isFullScreen} setIsFullScreen={setIsFullScreen} />
+      <EventsListenerOfMap
+        isFullScreen={isFullScreen}
+        setIsFullScreen={setIsFullScreen}
+        isZoomInClicked={isZoomInClicked}
+        setIsZoomInClicked={setIsZoomInClicked}
+        isZoomOutClicked={isZoomOutClicked}
+        setIsZoomOutClicked={setIsZoomOutClicked}
+      />
       <TileLayer
         url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWF0aGV1cy1uYW50ZXMiLCJhIjoiY2xhMXpoeTRrMDBvYTNvbWZvZXpua2htOCJ9.PeFH8oujEq1AI6a8-tkk7w"
         attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'

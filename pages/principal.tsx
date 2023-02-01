@@ -30,6 +30,8 @@ export default function Principal() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isZoomInClicked, setIsZoomInClicked] = useState(false);
+  const [isZoomOutClicked, setIsZoomOutClicked] = useState(false);
 
   return (
     <>
@@ -50,7 +52,14 @@ export default function Principal() {
         </style>
       </Head>
 
-      <Mapa isFullScreen={isFullScreen} setIsFullScreen={setIsFullScreen} />
+      <Mapa
+        isFullScreen={isFullScreen}
+        setIsFullScreen={setIsFullScreen}
+        isZoomInClicked={isZoomInClicked}
+        setIsZoomInClicked={setIsZoomInClicked}
+        isZoomOutClicked={isZoomOutClicked}
+        setIsZoomOutClicked={setIsZoomOutClicked}
+      />
 
       <Grid
         sx={{
@@ -170,9 +179,9 @@ export default function Principal() {
           },
         }}
       >
-        <AddBotao />
-        <RemoveBotao />
-        <CropBotao onClick={() => setIsFullScreen(!isFullScreen)} />
+        <AddBotao onClick={() => setIsZoomInClicked(true)} />
+        <RemoveBotao onClick={() => setIsZoomOutClicked(true)} />
+        <CropBotao onClick={() => setIsFullScreen(true)} />
         <MapBotao />
       </Grid>
       <DownloadModal
