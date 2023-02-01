@@ -29,6 +29,7 @@ export default function Principal() {
     useState<null | HTMLElement>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   return (
     <>
@@ -49,7 +50,7 @@ export default function Principal() {
         </style>
       </Head>
 
-      <Mapa />
+      <Mapa isFullScreen={isFullScreen} setIsFullScreen={setIsFullScreen} />
 
       <Grid
         sx={{
@@ -62,6 +63,7 @@ export default function Principal() {
           height: '40px',
           background: '#509CBF',
           borderRadius: '0 20px 20px 0px',
+          zIndex: isFullScreen ? '-1' : '1',
         }}
       >
         <Grid
@@ -111,6 +113,7 @@ export default function Principal() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
+          zIndex: isFullScreen ? '-1' : '1',
           '@media (max-width: 1500px)': {
             width: '45px',
             height: '160px',
@@ -137,6 +140,7 @@ export default function Principal() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           transform: 'translateY(-50%)',
+          zIndex: isFullScreen ? '-1' : '1',
           '@media (max-width: 1500px)': {
             width: '45px',
             height: '215px',
@@ -159,6 +163,7 @@ export default function Principal() {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
+          zIndex: isFullScreen ? '-1' : '1',
           '@media (max-width: 1500px)': {
             height: '45px',
             width: '215px',
@@ -167,7 +172,7 @@ export default function Principal() {
       >
         <AddBotao />
         <RemoveBotao />
-        <CropBotao />
+        <CropBotao onClick={() => setIsFullScreen(!isFullScreen)} />
         <MapBotao />
       </Grid>
       <DownloadModal

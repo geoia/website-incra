@@ -1,7 +1,12 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-function Mapa() {
+interface Props {
+  isFullScreen: boolean;
+  setIsFullScreen: (val: boolean) => void;
+}
+
+function Mapa({ isFullScreen, setIsFullScreen }: Props) {
   const Map = React.useMemo(
     () =>
       dynamic(
@@ -15,7 +20,7 @@ function Mapa() {
       /* list variables which should trigger a re-render here */
     ]
   );
-  return <Map />;
+  return <Map isFullScreen={isFullScreen} setIsFullScreen={setIsFullScreen} />;
 }
 
 export default Mapa;

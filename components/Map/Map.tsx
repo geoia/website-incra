@@ -7,6 +7,7 @@ import {
   LayersControl,
   LayerGroup,
   FeatureGroup,
+  useMapEvents,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { estados } from './brasil';
@@ -18,7 +19,23 @@ const center = {
   lng: -54.3847,
 };
 
-export default function Map() {
+interface Props {
+  isFullScreen: boolean;
+  setIsFullScreen: (val: boolean) => void;
+}
+
+function EventsListener({ isFullScreen, setIsFullScreen }: Props) {
+  const listener = useMapEvents({
+    click: () => {
+      if (isFullScreen) {
+        setIsFullScreen(false);
+      }
+    },
+  });
+  return null;
+}
+
+export default function Map({ isFullScreen, setIsFullScreen }: Props) {
   return (
     <MapContainer
       center={center}
@@ -37,6 +54,7 @@ export default function Map() {
         [5.63463151377654, -20.89969605983609],
       ]}
     >
+      <EventsListener isFullScreen={isFullScreen} setIsFullScreen={setIsFullScreen} />
       <TileLayer
         url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWF0aGV1cy1uYW50ZXMiLCJhIjoiY2xhMXpoeTRrMDBvYTNvbWZvZXpua2htOCJ9.PeFH8oujEq1AI6a8-tkk7w"
         attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
