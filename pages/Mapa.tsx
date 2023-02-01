@@ -8,6 +8,8 @@ interface Props {
   setIsZoomInClicked: (val: boolean) => void;
   isZoomOutClicked: boolean;
   setIsZoomOutClicked: (val: boolean) => void;
+  isLocationClicked: boolean;
+  setIsLocationClicked: (val: boolean) => void;
 }
 
 function Mapa({
@@ -17,6 +19,8 @@ function Mapa({
   setIsZoomInClicked,
   isZoomOutClicked,
   setIsZoomOutClicked,
+  isLocationClicked,
+  setIsLocationClicked,
 }: Props) {
   const Map = React.useMemo(
     () =>
@@ -39,6 +43,8 @@ function Mapa({
       setIsZoomInClicked={setIsZoomInClicked}
       isZoomOutClicked={isZoomOutClicked}
       setIsZoomOutClicked={setIsZoomOutClicked}
+      isLocationClicked={isLocationClicked}
+      setIsLocationClicked={setIsLocationClicked}
     />
   );
 }

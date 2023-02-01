@@ -8,6 +8,8 @@ interface Props {
   setIsZoomInClicked: (val: boolean) => void;
   isZoomOutClicked: boolean;
   setIsZoomOutClicked: (val: boolean) => void;
+  isLocationClicked: boolean;
+  setIsLocationClicked: (val: boolean) => void;
 }
 
 export default function EventsListener({
@@ -17,6 +19,8 @@ export default function EventsListener({
   setIsZoomInClicked,
   isZoomOutClicked,
   setIsZoomOutClicked,
+  isLocationClicked,
+  setIsLocationClicked,
 }: Props) {
   const map = useMapEvents({
     click: () => {
@@ -25,7 +29,10 @@ export default function EventsListener({
       }
     },
   });
-
+  if (isLocationClicked) {
+    map.locate({ setView: true });
+    setIsLocationClicked(false);
+  }
   if (isZoomInClicked) {
     map.zoomIn();
     setIsZoomInClicked(false);

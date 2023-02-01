@@ -32,6 +32,7 @@ export default function Principal() {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isZoomInClicked, setIsZoomInClicked] = useState(false);
   const [isZoomOutClicked, setIsZoomOutClicked] = useState(false);
+  const [isLocationClicked, setIsLocationClicked] = useState(false);
 
   return (
     <>
@@ -59,6 +60,8 @@ export default function Principal() {
         setIsZoomInClicked={setIsZoomInClicked}
         isZoomOutClicked={isZoomOutClicked}
         setIsZoomOutClicked={setIsZoomOutClicked}
+        isLocationClicked={isLocationClicked}
+        setIsLocationClicked={setIsLocationClicked}
       />
 
       <Grid
@@ -182,7 +185,7 @@ export default function Principal() {
         <AddBotao onClick={() => setIsZoomInClicked(true)} />
         <RemoveBotao onClick={() => setIsZoomOutClicked(true)} />
         <CropBotao onClick={() => setIsFullScreen(true)} />
-        <MapBotao />
+        <MapBotao onClick={() => setIsLocationClicked(true)} />
       </Grid>
       <DownloadModal
         anchorEl={anchorElementOfDownloadButton}

@@ -12,7 +12,7 @@ import 'leaflet/dist/leaflet.css';
 import { estados } from './brasil';
 import Dados from './jsons/01response_1674240947890.json';
 import Dados2 from './jsons/0response_1674238134734.json';
-import EventsListenerOfMap from './EventsListenerOfMap'
+import EventsListenerOfMap from './EventsListenerOfMap';
 
 const center = {
   lat: -20.2634,
@@ -26,6 +26,8 @@ interface Props {
   setIsZoomInClicked: (val: boolean) => void;
   isZoomOutClicked: boolean;
   setIsZoomOutClicked: (val: boolean) => void;
+  isLocationClicked: boolean;
+  setIsLocationClicked: (val: boolean) => void;
 }
 
 export default function Map({
@@ -35,6 +37,8 @@ export default function Map({
   setIsZoomInClicked,
   isZoomOutClicked,
   setIsZoomOutClicked,
+  isLocationClicked,
+  setIsLocationClicked,
 }: Props) {
   return (
     <MapContainer
@@ -61,6 +65,8 @@ export default function Map({
         setIsZoomInClicked={setIsZoomInClicked}
         isZoomOutClicked={isZoomOutClicked}
         setIsZoomOutClicked={setIsZoomOutClicked}
+        isLocationClicked={isLocationClicked}
+        setIsLocationClicked={setIsLocationClicked}
       />
       <TileLayer
         url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWF0aGV1cy1uYW50ZXMiLCJhIjoiY2xhMXpoeTRrMDBvYTNvbWZvZXpua2htOCJ9.PeFH8oujEq1AI6a8-tkk7w"
