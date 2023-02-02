@@ -11,14 +11,40 @@ import sobreAnimais from '../images/sobre-animais.png';
 
 export default function Home() {
   return (
-    <Grid height={'100vh'}>
+    <Grid container sx={{ flexDirection: 'column', height: '100vh' }}>
       <HeaderInstitucional />
-      <Grid item sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography variant="h1">GeoIA</Typography>
-        <Typography variant="subtitle1" color={'secondary'}>Universidade Federal de Mato Grosso do Sul</Typography>
-        <Typography variant="h3">Lorem ipsum dolor sit amet consectetur</Typography>
-        <Typography variant="h2" color={'secondary'}>Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor</Typography>
-        <Typography variant="body1" color={'secondary'}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi aut repellendus expedita cupiditate dolores at nam ipsam minima in? Eveniet dolorum at quidem quaerat suscipit saepe, sed voluptatibus et earum!</Typography>
+      <Grid
+        item
+        sx={{
+          maxWidth: 900,
+          display: 'flex',
+          flexDirection: 'column',
+          alignSelf: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
+          gap: 6,
+          marginTop: 8,
+        }}
+      >
+        <Grid item>
+          <Typography variant="h1" sx={{ fontWeight: 600, color: 'white' }}>
+            GeoIA
+          </Typography>
+          <Typography variant="subtitle1" fontWeight={500}>
+            Universidade Federal de Mato Grosso do Sul
+          </Typography>
+        </Grid>
+        <Typography variant="h4" color={'white'} fontWeight={500}>
+          <em>Lorem ipsum dolor sit amet consectetur</em>
+        </Typography>
+        <Typography variant="h3" color={'secondary'} fontWeight={500}>
+          Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor
+        </Typography>
+        <Typography variant="body1" color={'secondary'} maxWidth={600}>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi aut repellendus expedita
+          cupiditate dolores at nam ipsam minima in? Eveniet dolorum at quidem quaerat suscipit
+          saepe, sed voluptatibus et earum!
+        </Typography>
       </Grid>
     </Grid>
   );
