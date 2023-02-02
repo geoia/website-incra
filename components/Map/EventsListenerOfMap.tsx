@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
-import { useMapEvents } from 'react-leaflet';
+import React, { useState, useEffect } from 'react';
+import { Popup, useMapEvents, Marker } from 'react-leaflet';
+import L from 'leaflet';
 
 interface Props {
   isFullScreen: boolean;
@@ -12,6 +13,11 @@ interface Props {
   setIsLocationClicked: (val: boolean) => void;
 }
 
+const iconMarker = new L.Icon({
+  iconUrl: '/markerImg.svg',
+  iconSize: [60, 55],
+})
+
 export default function EventsListener({
   isFullScreen,
   setIsFullScreen,
@@ -22,6 +28,9 @@ export default function EventsListener({
   isLocationClicked,
   setIsLocationClicked,
 }: Props) {
+  const [lat, setLat] = useState<null | number>(null)
+  const [lng, setLng] = useState<null | number>(null)
+
   useEffect(() => {
     locationButtonAction();
     zoomInButtonAction();
@@ -59,7 +68,15 @@ export default function EventsListener({
     click: () => {
       fullScreenAction();
     },
+    locationfound(e) {
+      setLat(e.latlng.lat)
+      setLng(e.latlng.lng)
+    },
   });
 
-  return null;
+  return lat === null || lng == null ? null : (
+    <Marker icon={iconMarker} position={[lat, lng]}>
+      <Popup>You are here</Popup>
+    </Marker>
+  )
 }
