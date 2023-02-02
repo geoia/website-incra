@@ -1,3 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+.menu ul {
+  list-style: none;
+}
+
+.menu li {
+  display: inline;
+}
+
+.menu a {
+  font-weight: 500;
+  color: #0F1C3C;
+  text-decoration: none;
+  padding: 14px 20px;
+  transition: background .2s;
+}
+
+.menu a:hover {
+  color: white;
+  background-color: #0F1C3C;
+}
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
@@ -45,20 +68,20 @@
   line-height: 1.15;
   font-size: 8rem;
   color: white;
-  font-family: "Josefin Sans";
+  font-family: "Poppins";
 }
 
 .title,
 .description {
   text-align: center;
-  font-family: "Josefin Sans";
+  font-family: "Poppins";
 }
 
 .description {
   margin: 2rem 0;
   line-height: 1.5;
   font-size: 2.0rem;
-  font-family: "Josefin Sans";
+  font-family: "Poppins";
 }
 
 .code {

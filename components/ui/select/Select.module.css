@@ -1,0 +1,21 @@
+.container select {
+    margin-bottom: 16px;
+    width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+    font-family: 'Poppins';
+    font-size: 16px;
+    background-color: white;
+}
+
+.container select:required:invalid {
+    color: rgb(153, 153, 153);
+  }
+
+.container  option[value=""][disabled] {
+    display: none;
+}
+  
+.container  option {
+    color: black;
+}
