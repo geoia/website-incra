@@ -18,26 +18,6 @@ button {
   cursor: pointer;
 }
 
-ul {
-  list-style: none;
-}
-
-li {
-  display: inline;
-}
-
-a {
-  font-weight: 500;
-  color: #0F1C3C;
-  text-decoration: none;
-  padding: 14px 20px;
-  transition: background .2s;
-}
-
-a:hover {
-  color: white;
-  background-color: #0F1C3C;
-}
 
 @media (prefers-color-scheme: dark) {
   html {

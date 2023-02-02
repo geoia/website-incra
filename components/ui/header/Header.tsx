@@ -3,6 +3,7 @@ import { Grid, Avatar } from '@mui/material';
 import NextLink from 'next/link';
 import Typography from '@mui/material/Typography';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import styles from '../../../styles/Home.module.css';
 
 export default function HeaderInstitucional() {
   return (
@@ -15,6 +16,8 @@ export default function HeaderInstitucional() {
         padding: '0 2em',
         alignItems: 'center',
         justifyContent: 'space-between',
+        top:0,
+        left: 0,
       }}
     >
       <Grid item display={'flex'} alignItems={'center'}>
@@ -24,7 +27,7 @@ export default function HeaderInstitucional() {
         </Typography>
       </Grid>
       <Grid item display={'flex'} alignItems={'center'}>
-        <nav>
+        <nav className={styles.menu}>
           <ul>
             <li>
               <NextLink href="/home" passHref>

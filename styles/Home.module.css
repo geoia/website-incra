@@ -1,5 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
+.menu ul {
+  list-style: none;
+}
+
+.menu li {
+  display: inline;
+}
+
+.menu a {
+  font-weight: 500;
+  color: #0F1C3C;
+  text-decoration: none;
+  padding: 14px 20px;
+  transition: background .2s;
+}
+
+.menu a:hover {
+  color: white;
+  background-color: #0F1C3C;
+}
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
