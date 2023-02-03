@@ -10,8 +10,11 @@ export default function HeaderInstitucional() {
     <Grid
       item
       sx={{
+        position: 'fixed',
+        zIndex: 1,
         backgroundColor: 'white',
-        height: 50,
+        width: '100%',
+        height: 65,
         display: 'flex',
         padding: '0 2em',
         alignItems: 'center',
