@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Popup, useMapEvents, Marker } from 'react-leaflet';
+import {
+  locationButtonAction,
+  zoomInButtonAction,
+  zoomOutButtonAction,
+  fullScreenAction,
+} from '../../buttonsActions/buttonsActions';
 import L from 'leaflet';
 
 interface Props {
@@ -33,41 +39,19 @@ export default function EventsListener({
   const [isMarkerOpen, setIsMarkerOpen] = useState(false);
 
   useEffect(() => {
-    locationButtonAction();
-    zoomInButtonAction();
-    zoomOutButtonAction();
+    locationButtonAction(
+      isLocationClicked,
+      setIsLocationClicked,
+      isMarkerOpen,
+      setIsMarkerOpen,
+      map
+    );
+    zoomInButtonAction(isZoomInClicked, setIsZoomInClicked, map);
+    zoomOutButtonAction(isZoomOutClicked, setIsZoomOutClicked, map);
   }, [isLocationClicked, isZoomInClicked, isZoomOutClicked]);
 
-  function locationButtonAction() {
-    if (isLocationClicked) {
-      map.locate({ setView: true });
-      setIsLocationClicked(false);
-      setIsMarkerOpen(!isMarkerOpen);
-    }
-  }
-
-  function zoomInButtonAction() {
-    if (isZoomInClicked) {
-      map.zoomIn();
-      setIsZoomInClicked(false);
-    }
-  }
-
-  function zoomOutButtonAction() {
-    if (isZoomOutClicked) {
-      map.zoomOut();
-      setIsZoomOutClicked(false);
-    }
-  }
-
-  function fullScreenAction() {
-    if (isFullScreen) {
-      setIsFullScreen(false);
-    }
-  }
-
-  function setLagitudeAndLongitude(latitude:number, longitude:number) {
-    if(isMarkerOpen == false) {
+  function setLagitudeAndLongitude(latitude: number, longitude: number) {
+    if (isMarkerOpen == false) {
       setLat(latitude);
       setLng(longitude);
     } else {
@@ -75,7 +59,7 @@ export default function EventsListener({
       setLng(null);
     }
   }
-  
+
   function openAndCloseMarker() {
     if (lat == null || lng == null) {
       return null;
@@ -90,10 +74,10 @@ export default function EventsListener({
 
   const map = useMapEvents({
     click: () => {
-      fullScreenAction();
+      fullScreenAction(isFullScreen, setIsFullScreen);
     },
     locationfound(e) {
-      setLagitudeAndLongitude(e.latlng.lat, e.latlng.lng)
+      setLagitudeAndLongitude(e.latlng.lat, e.latlng.lng);
     },
   });
 
