@@ -14,8 +14,8 @@ interface Props {
 }
 
 const iconMarker = new L.Icon({
-  iconUrl: '/markerImg.svg',
-  iconSize: [60, 55],
+  iconUrl: '/location.png',
+  iconSize: [50, 50],
 });
 
 export default function EventsListener({
