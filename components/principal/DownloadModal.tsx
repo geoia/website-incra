@@ -15,10 +15,6 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
 
   const open = Boolean(anchorEl);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   const handleChangeInParentCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked([event.target.checked]);
   };
@@ -43,7 +39,7 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
     <Menu
       anchorEl={anchorEl}
       open={open}
-      onClose={handleClose}
+      onClose={() => setAnchorEl(null)}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'left',

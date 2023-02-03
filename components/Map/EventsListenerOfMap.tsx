@@ -16,7 +16,7 @@ interface Props {
 const iconMarker = new L.Icon({
   iconUrl: '/markerImg.svg',
   iconSize: [60, 55],
-})
+});
 
 export default function EventsListener({
   isFullScreen,
@@ -28,8 +28,9 @@ export default function EventsListener({
   isLocationClicked,
   setIsLocationClicked,
 }: Props) {
-  const [lat, setLat] = useState<null | number>(null)
-  const [lng, setLng] = useState<null | number>(null)
+  const [lat, setLat] = useState<null | number>(null);
+  const [lng, setLng] = useState<null | number>(null);
+  const [isMarkerOpen, setIsMarkerOpen] = useState(false);
 
   useEffect(() => {
     locationButtonAction();
@@ -41,6 +42,7 @@ export default function EventsListener({
     if (isLocationClicked) {
       map.locate({ setView: true });
       setIsLocationClicked(false);
+      setIsMarkerOpen(!isMarkerOpen);
     }
   }
 
@@ -64,19 +66,36 @@ export default function EventsListener({
     }
   }
 
+  function setLagitudeAndLongitude(latitude:number, longitude:number) {
+    if(isMarkerOpen == false) {
+      setLat(latitude);
+      setLng(longitude);
+    } else {
+      setLat(null);
+      setLng(null);
+    }
+  }
+  
+  function openAndCloseMarker() {
+    if (lat == null || lng == null) {
+      return null;
+    } else {
+      return (
+        <Marker icon={iconMarker} position={[lat, lng]}>
+          <Popup>You are here</Popup>
+        </Marker>
+      );
+    }
+  }
+
   const map = useMapEvents({
     click: () => {
       fullScreenAction();
     },
     locationfound(e) {
-      setLat(e.latlng.lat)
-      setLng(e.latlng.lng)
+      setLagitudeAndLongitude(e.latlng.lat, e.latlng.lng)
     },
   });
 
-  return lat === null || lng == null ? null : (
-    <Marker icon={iconMarker} position={[lat, lng]}>
-      <Popup>You are here</Popup>
-    </Marker>
-  )
+  return openAndCloseMarker();
 }
