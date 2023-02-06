@@ -14,7 +14,7 @@ export default function HeaderInstitucional() {
         zIndex: 1,
         backgroundColor: 'white',
         width: '100%',
-        height: 65,
+        height: 55,
         display: 'flex',
         padding: '0 2em',
         alignItems: 'center',

@@ -53,7 +53,7 @@ export default function Home() {
             alignItems: 'center',
             textAlign: 'center',
             gap: 6,
-            marginTop: 8,
+            marginTop: 10,
           }}
         >
           <Grid item>
@@ -90,10 +90,19 @@ export default function Home() {
             marginTop: 5,
           }}
         >
-          <Typography variant="h2" fontWeight={600} textAlign={'center'}>
+          <Typography variant="h2" fontWeight={600} textAlign={'center'} marginTop={5}>
             WebGis
           </Typography>
-          <Grid item sx={{ marginTop: 5, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 5 }}>
+          <Grid
+            item
+            sx={{
+              marginTop: 4,
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: 5,
+              maxHeight: 400,
+            }}
+          >
             <Grid item sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
               <Imagem src="https://source.unsplash.com/random" />
               <Grid item>
@@ -101,7 +110,6 @@ export default function Home() {
                 <Typography variant="body2">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero fugiat et
                   temporibus accusamus necessitatibus minima quae sapiente dolor atque nobis sit,
-                  deserunt nihil odio delectus omnis consectetur sed accusantium. Aspernatur?
                 </Typography>
               </Grid>
             </Grid>
@@ -112,7 +120,6 @@ export default function Home() {
                 <Typography variant="body2">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero fugiat et
                   temporibus accusamus necessitatibus minima quae sapiente dolor atque nobis sit,
-                  deserunt nihil odio delectus omnis consectetur sed accusantium. Aspernatur?
                 </Typography>
               </Grid>
             </Grid>
@@ -123,7 +130,6 @@ export default function Home() {
                 <Typography variant="body2">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero fugiat et
                   temporibus accusamus necessitatibus minima quae sapiente dolor atque nobis sit,
-                  deserunt nihil odio delectus omnis consectetur sed accusantium. Aspernatur?
                 </Typography>
               </Grid>
             </Grid>
@@ -134,11 +140,11 @@ export default function Home() {
                 <Typography variant="body2">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero fugiat et
                   temporibus accusamus necessitatibus minima quae sapiente dolor atque nobis sit,
-                  deserunt nihil odio delectus omnis consectetur sed accusantium. Aspernatur?
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
+          <Box></Box>
           <Button color={'primary'} sx={{ marginTop: 3, fontSize: 20, bgColor: '#FFF' }}>
             Webgis
           </Button>
