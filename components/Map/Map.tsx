@@ -11,7 +11,14 @@ import {
 import 'leaflet/dist/leaflet.css';
 import { estados } from './brasil';
 import Dados from './jsons/01response_1674240947890.json';
-import Dados2 from './jsons/0response_1674238134734.json';
+import DadosS from './jsons/0response_1674238134734.json';
+import Dados1 from './jsons/response_1674159027012.json';
+import Dados1S from './jsons/Sresponse_1674158232241.json';
+import Dados2 from './jsons/response_1674159049779.json';
+import Dados2S from './jsons/Sresponse_1674158344922.json';
+import Dados3 from './jsons/response_1674159089248.json';
+import Dados3S from './jsons/Sresponse_1674158379064.json';
+
 import EventsListenerOfMap from './EventsListenerOfMap';
 
 const center = {
@@ -50,7 +57,7 @@ export default function Map({
       style={{ width: '100vw', height: '100vh', zIndex: '0' }}
       inertia={false}
       inertiaDeceleration={0}
-      zoomAnimation={false}
+      zoomAnimation={true}
       maxBoundsViscosity={10}
       preferCanvas={true}
       maxBounds={[
@@ -77,7 +84,7 @@ export default function Map({
         <LayersControl.Overlay name="Queimadas Sem Simplificação">
           <LayerGroup>
             <GeoJSON
-              data={Dados as any}
+              data={[Dados, Dados1, Dados2, Dados3] as any}
               pathOptions={{
                 fillColor: '#ff5500',
                 fillOpacity: 0.7,
@@ -92,7 +99,7 @@ export default function Map({
         <LayersControl.Overlay name="Queimadas Com Simplificação">
           <LayerGroup>
             <GeoJSON
-              data={Dados2 as any}
+              data={[DadosS, Dados1S, Dados2S, Dados3S] as any}
               pathOptions={{
                 fillColor: '#0055ff',
                 fillOpacity: 0.7,
