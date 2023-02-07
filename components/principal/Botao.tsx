@@ -12,6 +12,11 @@ import Map from '@mui/icons-material/FmdGood';
 import Button, { ButtonProps } from '@mui/material/Button';
 import { useState } from 'react';
 
+interface Props {
+  isFireButtonClicked: boolean;
+  setIsFireButtonClicked: (val: boolean) => void;
+}
+
 function BaseBotao({ children, sx, ...props }: ButtonProps) {
   return (
     <Button
@@ -29,7 +34,7 @@ function BaseBotao({ children, sx, ...props }: ButtonProps) {
           backgroundColor: '#509cbf9b68',
         },
         '&:disabled': {
-          backgroundColor : 'rgba(18, 18, 133, 0.39);',
+          backgroundColor: 'rgba(18, 18, 133, 0.39);',
         },
         '@media (max-width: 1500px)': {
           width: '45px',
@@ -69,19 +74,16 @@ export function DownloadBotao(props: ButtonProps) {
   );
 }
 
-export function FireBotao(props: ButtonProps) {
-  const [fireButton, setFireButton] = useState(false);
-
+export function FireBotao({ isFireButtonClicked, setIsFireButtonClicked }: Props) {
   return (
     <BaseBotao
-      {...props}
       sx={{
-        background: fireButton ? 'red' : '#509CBF',
+        background: isFireButtonClicked ? 'red' : '#509CBF',
         '&:hover': {
           background: '#ff0000ca',
         },
       }}
-      onClick={() => setFireButton(!fireButton)}
+      onClick={() => setIsFireButtonClicked(!isFireButtonClicked)}
     >
       <Fire fontSize="medium" />
     </BaseBotao>

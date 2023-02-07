@@ -35,6 +35,7 @@ interface Props {
   setIsZoomOutClicked: (val: boolean) => void;
   isLocationClicked: boolean;
   setIsLocationClicked: (val: boolean) => void;
+  isFireButtonClicked: boolean;
 }
 
 export default function Map({
@@ -46,6 +47,7 @@ export default function Map({
   setIsZoomOutClicked,
   isLocationClicked,
   setIsLocationClicked,
+  isFireButtonClicked
 }: Props) {
   return (
     <MapContainer
@@ -83,31 +85,35 @@ export default function Map({
       <LayersControl position="bottomleft">
         <LayersControl.Overlay name="Queimadas Sem Simplificação">
           <LayerGroup>
-            <GeoJSON
-              data={[Dados, Dados1, Dados2, Dados3] as any}
-              pathOptions={{
-                fillColor: '#ff5500',
-                fillOpacity: 0.7,
-                weight: 2,
-                opacity: 1,
-                color: '#ff5500',
-              }}
-            />
+            {isFireButtonClicked ? (
+              <GeoJSON
+                data={[Dados, Dados1, Dados2, Dados3] as any}
+                pathOptions={{
+                  fillColor: '#ff5500',
+                  fillOpacity: 0.7,
+                  weight: 2,
+                  opacity: 1,
+                  color: '#ff5500',
+                }}
+              />
+            ) : null}
           </LayerGroup>
         </LayersControl.Overlay>
 
         <LayersControl.Overlay name="Queimadas Com Simplificação">
           <LayerGroup>
-            <GeoJSON
-              data={[DadosS, Dados1S, Dados2S, Dados3S] as any}
-              pathOptions={{
-                fillColor: '#0055ff',
-                fillOpacity: 0.7,
-                weight: 2,
-                opacity: 1,
-                color: '#0055ff',
-              }}
-            />
+            {isFireButtonClicked ? (
+              <GeoJSON
+                data={[DadosS, Dados1S, Dados2S, Dados3S] as any}
+                pathOptions={{
+                  fillColor: '#0055ff',
+                  fillOpacity: 0.7,
+                  weight: 2,
+                  opacity: 1,
+                  color: '#0055ff',
+                }}
+              />
+            ) : null}
           </LayerGroup>
         </LayersControl.Overlay>
 

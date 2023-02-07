@@ -50,6 +50,15 @@ export default function EventsListener({
     zoomOutButtonAction(isZoomOutClicked, setIsZoomOutClicked, map);
   }, [isLocationClicked, isZoomInClicked, isZoomOutClicked]);
 
+  const map = useMapEvents({
+    click: () => {
+      fullScreenAction(isFullScreen, setIsFullScreen);
+    },
+    locationfound(e) {
+      setLagitudeAndLongitude(e.latlng.lat, e.latlng.lng);
+    },
+  });
+
   function setLagitudeAndLongitude(latitude: number, longitude: number) {
     if (isMarkerOpen == false) {
       setLat(latitude);
@@ -66,20 +75,11 @@ export default function EventsListener({
     } else {
       return (
         <Marker icon={iconMarker} position={[lat, lng]}>
-          <Popup>You are here</Popup>
+          <Popup>Você está aqui</Popup>
         </Marker>
       );
     }
   }
-
-  const map = useMapEvents({
-    click: () => {
-      fullScreenAction(isFullScreen, setIsFullScreen);
-    },
-    locationfound(e) {
-      setLagitudeAndLongitude(e.latlng.lat, e.latlng.lng);
-    },
-  });
 
   return openAndCloseMarker();
 }

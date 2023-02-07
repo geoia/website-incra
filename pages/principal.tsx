@@ -29,6 +29,7 @@ export default function Principal() {
     useState<null | HTMLElement>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+  const [isFireButtonClicked, setIsFireButtonClicked] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isZoomInClicked, setIsZoomInClicked] = useState(false);
   const [isZoomOutClicked, setIsZoomOutClicked] = useState(false);
@@ -62,6 +63,7 @@ export default function Principal() {
         setIsZoomOutClicked={setIsZoomOutClicked}
         isLocationClicked={isLocationClicked}
         setIsLocationClicked={setIsLocationClicked}
+        isFireButtonClicked={isFireButtonClicked}
       />
 
       <Grid
@@ -159,7 +161,10 @@ export default function Principal() {
           },
         }}
       >
-        <FireBotao />
+        <FireBotao
+          isFireButtonClicked={isFireButtonClicked}
+          setIsFireButtonClicked={setIsFireButtonClicked}
+        />
         <ForestBotao />
         <RoadBotao />
         <WaterBotao />
