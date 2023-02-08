@@ -190,7 +190,7 @@ export default function Principal() {
         <AddBotao onClick={() => setIsZoomInClicked(true)} />
         <RemoveBotao onClick={() => setIsZoomOutClicked(true)} />
         <CropBotao onClick={() => setIsFullScreen(true)} />
-        <MapBotao onClick={() => setIsLocationClicked(true)} />
+        <MapBotao onClick={() => setIsLocationClicked(!isLocationClicked)} />
       </Grid>
       <DownloadModal
         anchorEl={anchorElementOfDownloadButton}

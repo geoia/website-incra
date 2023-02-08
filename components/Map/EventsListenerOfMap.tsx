@@ -34,15 +34,13 @@ export default function EventsListener({
   isLocationClicked,
   setIsLocationClicked,
 }: Props) {
-  const [lat, setLat] = useState<null | number>(null);
-  const [lng, setLng] = useState<null | number>(null);
+  const [lat, setLat] = useState(0);
+  const [lng, setLng] = useState(0);
   const [isMarkerOpen, setIsMarkerOpen] = useState(false);
 
   useEffect(() => {
     locationButtonAction(
       isLocationClicked,
-      setIsLocationClicked,
-      isMarkerOpen,
       setIsMarkerOpen,
       map
     );
@@ -60,24 +58,19 @@ export default function EventsListener({
   });
 
   function setLagitudeAndLongitude(latitude: number, longitude: number) {
-    if (isMarkerOpen == false) {
-      setLat(latitude);
-      setLng(longitude);
-    } else {
-      setLat(null);
-      setLng(null);
-    }
+    setLat(latitude);
+    setLng(longitude);
   }
 
   function openAndCloseMarker() {
-    if (lat == null || lng == null) {
-      return null;
-    } else {
+    if (isMarkerOpen) {
       return (
         <Marker icon={iconMarker} position={[lat, lng]}>
           <Popup>Você está aqui</Popup>
         </Marker>
       );
+    } else {
+      return null;
     }
   }
 
