@@ -62,7 +62,6 @@ export default function Principal() {
         isZoomOutClicked={isZoomOutClicked}
         setIsZoomOutClicked={setIsZoomOutClicked}
         isLocationClicked={isLocationClicked}
-        setIsLocationClicked={setIsLocationClicked}
         isFireButtonClicked={isFireButtonClicked}
       />
 

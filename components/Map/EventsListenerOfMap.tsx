@@ -16,7 +16,6 @@ interface Props {
   isZoomOutClicked: boolean;
   setIsZoomOutClicked: (val: boolean) => void;
   isLocationClicked: boolean;
-  setIsLocationClicked: (val: boolean) => void;
 }
 
 const iconMarker = new L.Icon({
@@ -32,11 +31,15 @@ export default function EventsListener({
   isZoomOutClicked,
   setIsZoomOutClicked,
   isLocationClicked,
-  setIsLocationClicked,
 }: Props) {
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
   const [isMarkerOpen, setIsMarkerOpen] = useState(false);
+
+  useEffect(() => {
+    zoomInButtonAction(isZoomInClicked, setIsZoomInClicked, map);
+    zoomOutButtonAction(isZoomOutClicked, setIsZoomOutClicked, map);
+  }, [isZoomInClicked, isZoomOutClicked]);
 
   useEffect(() => {
     locationButtonAction(
@@ -44,9 +47,7 @@ export default function EventsListener({
       setIsMarkerOpen,
       map
     );
-    zoomInButtonAction(isZoomInClicked, setIsZoomInClicked, map);
-    zoomOutButtonAction(isZoomOutClicked, setIsZoomOutClicked, map);
-  }, [isLocationClicked, isZoomInClicked, isZoomOutClicked]);
+  }, [isLocationClicked])
 
   const map = useMapEvents({
     click: () => {
