@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   MapContainer,
-  GeoJSON,
   TileLayer,
   Polygon,
   LayersControl,
@@ -10,14 +9,7 @@ import {
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { estados } from './brasil';
-import Dados from './jsons/01response_1674240947890.json';
-import DadosS from './jsons/0response_1674238134734.json';
-import Dados1 from './jsons/response_1674159027012.json';
-import Dados1S from './jsons/Sresponse_1674158232241.json';
-import Dados2 from './jsons/response_1674159049779.json';
-import Dados2S from './jsons/Sresponse_1674158344922.json';
-import Dados3 from './jsons/response_1674159089248.json';
-import Dados3S from './jsons/Sresponse_1674158379064.json';
+import { displayFireData } from '../../buttonsActions/buttonsActions';
 
 import EventsListenerOfMap from './EventsListenerOfMap';
 
@@ -25,6 +17,8 @@ const center = {
   lat: -20.2634,
   lng: -54.3847,
 };
+
+const simplified = true;
 
 interface Props {
   isFullScreen: boolean;
@@ -47,7 +41,7 @@ export default function Map({
   setIsZoomOutClicked,
   isLocationClicked,
   setIsLocationClicked,
-  isFireButtonClicked
+  isFireButtonClicked,
 }: Props) {
   return (
     <MapContainer
@@ -85,35 +79,13 @@ export default function Map({
       <LayersControl position="bottomleft">
         <LayersControl.Overlay name="Queimadas Sem Simplificação">
           <LayerGroup>
-            {isFireButtonClicked ? (
-              <GeoJSON
-                data={[Dados, Dados1, Dados2, Dados3] as any}
-                pathOptions={{
-                  fillColor: '#ff5500',
-                  fillOpacity: 0.7,
-                  weight: 2,
-                  opacity: 1,
-                  color: '#ff5500',
-                }}
-              />
-            ) : null}
+            {displayFireData(isFireButtonClicked, !simplified)}
           </LayerGroup>
         </LayersControl.Overlay>
 
         <LayersControl.Overlay name="Queimadas Com Simplificação">
           <LayerGroup>
-            {isFireButtonClicked ? (
-              <GeoJSON
-                data={[DadosS, Dados1S, Dados2S, Dados3S] as any}
-                pathOptions={{
-                  fillColor: '#0055ff',
-                  fillOpacity: 0.7,
-                  weight: 2,
-                  opacity: 1,
-                  color: '#0055ff',
-                }}
-              />
-            ) : null}
+            {displayFireData(isFireButtonClicked, simplified)}
           </LayerGroup>
         </LayersControl.Overlay>
 
