@@ -16,14 +16,14 @@ export default function Sobre() {
         <Grid item lg={5} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Box>
             <Typography variant="h3">Sobre o projeto</Typography>
-            <Typography variant="h4">
+            <Typography variant="h4" marginTop={3}>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit.
             </Typography>
-            <Typography variant="body2">
+            <Typography variant="body2" marginTop={3}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, unde porro deleniti,
               qui dolore officiis omnis rem necessitatibus maiores doloremque non repudiandae,
               mollitia aperiam quas fugit fuga vel eveniet numquam. Lorem ipsum dolor, sit amet
-              consectetur adipisicing elit. Facere voluptas, tempora nulla quod provident quasi
+              consectetur adipisicing elit. Facere voluptas, tempora nulla quod provident quasi Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut, reprehenderit! Dicta harum suscipit maiores ratione, perspiciatis, natus nesciunt, odio provident consequuntur nisi enim quisquam culpa nulla. Veritatis earum porro eos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit illum doloribus omnis cupiditate consequuntur, voluptatum molestias doloremque beatae similique distinctio corporis sapiente sunt consequatur voluptates qui ut natus aliquam iste. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores rem ex vel nihil commodi cumque dicta, ut praesentium facilis necessitatibus quod at officia sequi, accusamus, exercitationem inventore quasi laudantium! Eum?
             </Typography>
           </Box>
         </Grid>
