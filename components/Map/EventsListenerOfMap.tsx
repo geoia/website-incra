@@ -7,6 +7,7 @@ import {
   fullScreenAction,
 } from '../../buttonsActions/buttonsActions';
 import L from 'leaflet';
+import ToastError from '../principal/ToastError';
 
 interface Props {
   isFullScreen: boolean;
@@ -35,6 +36,7 @@ export default function EventsListener({
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
   const [isMarkerOpen, setIsMarkerOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     zoomInButtonAction(isZoomInClicked, setIsZoomInClicked, map);
@@ -42,19 +44,21 @@ export default function EventsListener({
   }, [isZoomInClicked, isZoomOutClicked]);
 
   useEffect(() => {
-    locationButtonAction(
-      isLocationClicked,
-      setIsMarkerOpen,
-      map
-    );
-  }, [isLocationClicked])
+    locationButtonAction(isLocationClicked, setIsMarkerOpen, isError, setIsError, map);
+  }, [isLocationClicked]);
 
   const map = useMapEvents({
     click: () => {
       fullScreenAction(isFullScreen, setIsFullScreen);
     },
     locationfound(e) {
+      setIsMarkerOpen(true);
+      setIsError(false);
       setLagitudeAndLongitude(e.latlng.lat, e.latlng.lng);
+    },
+    locationerror() {
+      setIsMarkerOpen(false);
+      setIsError(true);
     },
   });
 
@@ -70,6 +74,8 @@ export default function EventsListener({
           <Popup>Você está aqui</Popup>
         </Marker>
       );
+    } else if (isError) {
+      return <ToastError isError={isError} message="Erro ao tentar encontrar a localização" />;
     } else {
       return null;
     }

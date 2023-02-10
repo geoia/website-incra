@@ -3,11 +3,16 @@ import DisplayGeoJsons from '../components/Map/DisplayGeoJsons';
 export function locationButtonAction(
   isLocationClicked: boolean,
   setIsMarkerOpen: (val: boolean) => void,
+  isError: boolean,
+  setIsError: (val: boolean) => void,
   map: L.Map
 ) {
   if (isLocationClicked) {
+    setIsError(false);
     map.locate({ setView: true });
-    setIsMarkerOpen(true);
+  } else if (!isLocationClicked && isError) {
+    setIsError(false);
+    map.locate({ setView: true });
   } else {
     setIsMarkerOpen(false);
   }
