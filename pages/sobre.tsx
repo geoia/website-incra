@@ -15,11 +15,11 @@ export default function Sobre() {
         </Grid>
         <Grid item lg={5} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Box>
-            <Typography variant="h3">Sobre o projeto</Typography>
-            <Typography variant="h4" marginTop={3}>
+            <Typography variant="h3" component={'h1'} sx={{color: '#509CBF', fontWeight: 800, marginTop:3}}>Sobre o projeto</Typography>
+            <Typography variant="h4" sx={{color: '#A6DFFA', fontWeight: 800, marginTop:3}}>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit.
             </Typography>
-            <Typography variant="body2" marginTop={3}>
+            <Typography variant="body2" sx={{color: '#FFF', marginTop:3}}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, unde porro deleniti,
               qui dolore officiis omnis rem necessitatibus maiores doloremque non repudiandae,
               mollitia aperiam quas fugit fuga vel eveniet numquam. Lorem ipsum dolor, sit amet
