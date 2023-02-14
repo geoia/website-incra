@@ -10,6 +10,7 @@ import CalendarModal from '../components/principal/CalendarModal';
 import Search from '@mui/icons-material/Search';
 import { Grid } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import Escolha from '../components/principal/Autocompletar';
 import {
   CalendarBotao,
   MenuBotao,
@@ -86,23 +87,7 @@ export default function Principal() {
             background: 'white',
           }}
         />
-        <TextField
-          variant="standard"
-          size="small"
-          placeholder="Pesquise um endereço"
-          InputProps={{ disableUnderline: true }}
-          sx={{
-            width: '70%',
-            marginLeft: '5px',
-            input: {
-              color: 'white',
-              fontWeight: 400,
-              '&::placeholder': {
-                opacity: 1,
-              },
-            },
-          }}
-        />
+        <Escolha />
         <Search
           fontSize="large"
           sx={{
