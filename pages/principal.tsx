@@ -7,10 +7,8 @@ import dynamic from 'next/dynamic';
 import DownloadModal from '../components/principal/DownloadModal';
 import MenuModal from '../components/principal/MenuModal';
 import CalendarModal from '../components/principal/CalendarModal';
-import Search from '@mui/icons-material/Search';
 import { Grid } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import Escolha from '../components/principal/Autocompletar';
+import Pesquisa from '../components/principal/Autocompletar';
 import {
   CalendarBotao,
   MenuBotao,
@@ -76,28 +74,12 @@ export default function Principal() {
           width: '40%',
           height: '40px',
           background: '#509CBF',
-          borderRadius: '0 20px 20px 0px',
+          borderRadius: '20px',
           zIndex: isFullScreen ? '-1' : '1',
         }}
       >
-        <Grid
-          sx={{
-            width: '20%',
-            height: '100%',
-            background: 'white',
-          }}
-        />
-        <Escolha />
-        <Search
-          fontSize="large"
-          sx={{
-            color: 'white',
-            padding: '15px',
-            '&:hover': {
-              cursor: 'pointer',
-            },
-          }}
-        />
+        <img src="/logo.svg" title="Logo" height="60px" />
+        <Pesquisa />
       </Grid>
 
       <Grid

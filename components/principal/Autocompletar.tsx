@@ -1,22 +1,19 @@
 import React from 'react';
 import { useAutocomplete } from '@mui/base/AutocompleteUnstyled';
 import { styled } from '@mui/system';
-
-const largura = '30vw';
-
-const Label = styled('label')({
-  display: 'block',
-  width: '100%',
-});
+import Search from '@mui/icons-material/Search';
 
 const Input = styled('input')(({ theme }) => ({
-  width: largura,
-  height: '4.5vh',
+  width: '100%',
+  height: '38px',
   backgroundColor: '#509CBF',
-  borderWidth: 0,
-  marginLeft: '10px',
+  marginLeft: '20px',
+  border: '0px',
   borderColor: '#509CBF',
+  borderRadius: '20px',
   color: 'white',
+  fontSize: '16px',
+  fontWeight: 'normal',
   '::-webkit-input-placeholder': {
     color: 'white',
   },
@@ -24,56 +21,68 @@ const Input = styled('input')(({ theme }) => ({
 }));
 
 const Listbox = styled('ul')(({ theme }) => ({
-  width: largura,
+  width: '99.4%',
+  zIndex: '-1',
+  position: 'absolute',
+  top: '15px',
   margin: 0,
   padding: 0,
-  zIndex: 1,
-  position: 'absolute',
+  paddingTop: '25px',
   listStyle: 'none',
-  backgroundColor: 'rgba(255, 255, 255, 0.5)',
-  color: '#000',
-  overflow: 'auto',
+  backgroundColor: 'rgba(80,156,191, 1)',
+  color: '#fff',
+  fontWeight: 'normal',
+  overflow: 'hidden',
   maxHeight: 100,
-  border: '1px solid rgba(0,0,0,.25)',
+  borderRadius: '10px',
   '& li.Mui-focused': {
-    backgroundColor: '#dddddd',
+    backgroundColor: 'rgba(34, 115, 153, 0.4)',
     cursor: 'pointer',
   },
   '& li:active': {
-    backgroundColor: '#aaaaaa',
-    color: 'white',
+    backgroundColor: 'rgba(34, 115, 153, 7)',
   },
-  '::-webkit-scrollbar': { width: '10px' },
-  '::-webkit-scrollbar-track': { boxShadow: 'inset 0 0 2px grey' },
-  '::-webkit-scrollbar-thumb': { background: 'gray' },
 }));
 
-export default function Escolha() {
-  const {
-    getRootProps,
-    getInputLabelProps,
-    getInputProps,
-    getListboxProps,
-    getOptionProps,
-    groupedOptions,
-  } = useAutocomplete({
-    options: cidades,
-    getOptionLabel: (option) => option.nome,
-  });
+export default function Pesquisa() {
+  const { getRootProps, getInputProps, getListboxProps, getOptionProps, groupedOptions } =
+    useAutocomplete({
+      options: cidades,
+      getOptionLabel: (option) => option.nome,
+    });
 
   return (
-    <div>
+    <div style={{ width: '100%', margin: '-1rem' }}>
       <div {...getRootProps()}>
-        <Label {...getInputLabelProps()}></Label>
+        <Search
+          fontSize="large"
+          sx={{
+            width: '25px',
+            color: 'white',
+            position: 'absolute',
+            right: '-20px',
+            '&:hover': {
+              cursor: 'pointer',
+            },
+          }}
+        />
         <Input {...getInputProps()} placeholder="Pesquise um endereço" />
+        {groupedOptions.length > 0 ? (
+          <Listbox {...getListboxProps()}>
+            {(groupedOptions as typeof cidades).map((option, index) => (
+              <li
+                style={{
+                  borderBottom: '1px solid white',
+                }}
+                {...getOptionProps({ option, index })}
+              >
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {option.nome}
+              </li>
+            ))}
+          </Listbox>
+        ) : null}
       </div>
-      {groupedOptions.length > 0 ? (
-        <Listbox {...getListboxProps()}>
-          {(groupedOptions as typeof cidades).map((option, index) => (
-            <li {...getOptionProps({ option, index })}>{option.nome}</li>
-          ))}
-        </Listbox>
-      ) : null}
     </div>
   );
 }
@@ -86,4 +95,17 @@ const cidades = [
   { nome: 'Eldorado' },
   { nome: 'Figueirão' },
   { nome: 'Naviraí' },
+  { nome: 'São Gabriel do Oeste' },
+  { nome: 'Rio Verde' },
+  { nome: 'Alcinópolis' },
+  { nome: 'Bandeirantes' },
+  { nome: 'Jaraguari' },
+  { nome: 'Sidrolândia' },
+  { nome: 'Maracaju' },
+  { nome: 'Dois Irmãos do Buriti' },
+  { nome: 'Aparecida do Taboado' },
+  { nome: 'Chapadão do Sul' },
+  { nome: 'Bonito' },
+  { nome: 'Camapuã' },
+  { nome: 'Campo Grande' },
 ];
