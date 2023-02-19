@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import DownloadModal from '../components/principal/DownloadModal';
 import MenuModal from '../components/principal/MenuModal';
 import CalendarModal from '../components/principal/CalendarModal';
+import Settings from '../components/principal/Settings';
 import { Grid } from '@mui/material';
 import Pesquisa from '../components/principal/Autocompletar';
 import {
@@ -28,11 +29,13 @@ export default function Principal() {
     useState<null | HTMLElement>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
   const [isFireButtonClicked, setIsFireButtonClicked] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isZoomInClicked, setIsZoomInClicked] = useState(false);
   const [isZoomOutClicked, setIsZoomOutClicked] = useState(false);
   const [isLocationClicked, setIsLocationClicked] = useState(false);
+  const [isSimplifiedDatas, setIsSimplifiedDatas] = useState(false);
 
   return (
     <>
@@ -162,10 +165,19 @@ export default function Principal() {
         anchorEl={anchorElementOfDownloadButton}
         setAnchorEl={setAnchorElementOfDownloadButton}
       />
-      <MenuModal isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
+      <MenuModal
+        isDrawerOpen={isDrawerOpen}
+        setIsDrawerOpen={setIsDrawerOpen}
+        setIsSettingsVisible={setIsSettingsVisible}
+      />
       <CalendarModal
         isCalendarModalOpen={isCalendarModalOpen}
         setIsCalendarModalOpen={setIsCalendarModalOpen}
+      />
+      <Settings
+        isSettingsVisible={isSettingsVisible}
+        setIsSettingsVisible={setIsSettingsVisible}
+        setIsSimplifiedDatas={setIsSimplifiedDatas}
       />
     </>
   );
