@@ -5,17 +5,22 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
+import { Checkbox } from '@mui/material';
 
 interface Props {
   isSettingsVisible: boolean;
   setIsSettingsVisible: (val: boolean) => void;
   setIsSimplifiedDatas: (val: boolean) => void;
+  areMunicipalBoundariesVisible: boolean;
+  setAreMunicipalBoundariesVisible: (val: boolean) => void;
 }
 
 export default function Settings({
   isSettingsVisible,
   setIsSettingsVisible,
   setIsSimplifiedDatas,
+  areMunicipalBoundariesVisible,
+  setAreMunicipalBoundariesVisible,
 }: Props) {
   const [value, setValue] = useState('Sem Simplificação');
 
@@ -26,6 +31,10 @@ export default function Settings({
       setIsSimplifiedDatas(false);
     }
     setValue((event.target as HTMLInputElement).value);
+  };
+
+  const handleChangeInCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAreMunicipalBoundariesVisible(event.target.checked);
   };
 
   return (
@@ -42,8 +51,8 @@ export default function Settings({
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          height: '550px',
-          width: '650px',
+          height: '450px',
+          width: '550px',
           backgroundColor: '#509CBF',
           borderRadius: '15px',
           color: 'white',
@@ -57,6 +66,8 @@ export default function Settings({
         <Grid
           sx={{
             marginLeft: '20px',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
           <FormControl>
@@ -85,6 +96,26 @@ export default function Settings({
               />
             </RadioGroup>
           </FormControl>
+          <FormControlLabel
+            label="Exibir limites municipais"
+            control={
+              <Checkbox checked={areMunicipalBoundariesVisible} onChange={handleChangeInCheckbox} />
+            }
+            sx={{
+              height: '35px',
+              position: 'absolute',
+              top: 'calc(50% + 170px)',
+              '& .MuiTypography-root': {
+                fontSize: '1.2rem',
+              },
+              '& .MuiSvgIcon-root': {
+                color: 'white',
+              },
+              '@media (max-width: 1500px)': {
+                top: 'calc(50% + 125px)',
+              },
+            }}
+          />
         </Grid>
       </Grid>
     </Modal>

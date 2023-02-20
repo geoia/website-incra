@@ -75,7 +75,7 @@ export default function EventsListener({
         </Marker>
       );
     } else if (isError) {
-      return <ToastError isError={isError} message="Erro ao tentar encontrar a localização" />;
+      return <ToastError message="Erro ao tentar encontrar a localização" />;
     } else {
       return null;
     }

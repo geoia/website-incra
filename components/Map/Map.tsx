@@ -28,7 +28,59 @@ interface Props {
   isLocationClicked: boolean;
   isFireButtonClicked: boolean;
   isSimplifiedDatas: boolean;
+  areMunicipalBoundariesVisible: boolean;
 }
+
+const municipalBoundaries = (areMuncipalBoundariesVisibles: boolean) => {
+  if (areMuncipalBoundariesVisibles) {
+    return (
+      <FeatureGroup pathOptions={{ color: '#d3d3d3' }}>
+        {estados.features.map((state) => {
+          const coordinates = state.geometry.coordinates[0].map((item) => [item[1], item[0]]);
+          return (
+            <>
+              <Polygon
+                pathOptions={{
+                  dashArray: '3',
+                  fillColor: '#90ee90',
+                  fillOpacity: 0.3,
+                  weight: 2,
+                  opacity: 1,
+                  color: '#d3d3d3',
+                }}
+                positions={coordinates as any}
+                eventHandlers={{
+                  mouseover: (e) => {
+                    const layer = e.target;
+                    layer.setStyle({
+                      dashArray: '3',
+                      fillColor: '#90ee90',
+                      fillOpacity: 0.5,
+                      weight: 2,
+                      opacity: 1,
+                      color: '#d3d3d3',
+                    });
+                  },
+                  mouseout: (e) => {
+                    const layer = e.target;
+                    layer.setStyle({
+                      fillOpacity: 0.3,
+                      weight: 2,
+                      dashArray: '3',
+                      color: '#d3d3d3',
+                      fillColor: '#90ee90',
+                    });
+                  },
+                  click: (e) => {},
+                }}
+              />
+            </>
+          );
+        })}
+      </FeatureGroup>
+    );
+  }
+};
 
 export default function Map({
   isFullScreen,
@@ -40,6 +92,7 @@ export default function Map({
   isLocationClicked,
   isFireButtonClicked,
   isSimplifiedDatas,
+  areMunicipalBoundariesVisible,
 }: Props) {
   return (
     <MapContainer
@@ -73,56 +126,9 @@ export default function Map({
         attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
       />
 
-      <DisplayGeoJsons isFireButtonClicked={isFireButtonClicked} simplified={isSimplifiedDatas}/>
+      <DisplayGeoJsons isFireButtonClicked={isFireButtonClicked} simplified={isSimplifiedDatas} />
 
-      <LayersControl position="bottomleft">
-        <LayersControl.Overlay checked name="Limites municipais">
-          <FeatureGroup pathOptions={{ color: '#d3d3d3' }}>
-            {estados.features.map((state) => {
-              const coordinates = state.geometry.coordinates[0].map((item) => [item[1], item[0]]);
-              return (
-                <>
-                  <Polygon
-                    pathOptions={{
-                      dashArray: '3',
-                      fillColor: '#90ee90',
-                      fillOpacity: 0.3,
-                      weight: 2,
-                      opacity: 1,
-                      color: '#d3d3d3',
-                    }}
-                    positions={coordinates as any}
-                    eventHandlers={{
-                      mouseover: (e) => {
-                        const layer = e.target;
-                        layer.setStyle({
-                          dashArray: '3',
-                          fillColor: '#90ee90',
-                          fillOpacity: 0.5,
-                          weight: 2,
-                          opacity: 1,
-                          color: '#d3d3d3',
-                        });
-                      },
-                      mouseout: (e) => {
-                        const layer = e.target;
-                        layer.setStyle({
-                          fillOpacity: 0.3,
-                          weight: 2,
-                          dashArray: '3',
-                          color: '#d3d3d3',
-                          fillColor: '#90ee90',
-                        });
-                      },
-                      click: (e) => {},
-                    }}
-                  />
-                </>
-              );
-            })}
-          </FeatureGroup>
-        </LayersControl.Overlay>
-      </LayersControl>
+      {municipalBoundaries(areMunicipalBoundariesVisible)}
     </MapContainer>
   );
 }

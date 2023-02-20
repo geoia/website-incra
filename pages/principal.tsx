@@ -36,6 +36,7 @@ export default function Principal() {
   const [isZoomOutClicked, setIsZoomOutClicked] = useState(false);
   const [isLocationClicked, setIsLocationClicked] = useState(false);
   const [isSimplifiedDatas, setIsSimplifiedDatas] = useState(false);
+  const [areMunicipalBoundariesVisible, setAreMunicipalBoundariesVisible] = useState(true);
 
   return (
     <>
@@ -66,6 +67,7 @@ export default function Principal() {
         isLocationClicked={isLocationClicked}
         isFireButtonClicked={isFireButtonClicked}
         isSimplifiedDatas={isSimplifiedDatas}
+        areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
       />
 
       <Grid
@@ -182,6 +184,8 @@ export default function Principal() {
         isSettingsVisible={isSettingsVisible}
         setIsSettingsVisible={setIsSettingsVisible}
         setIsSimplifiedDatas={setIsSimplifiedDatas}
+        areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
+        setAreMunicipalBoundariesVisible={setAreMunicipalBoundariesVisible}
       />
     </>
   );

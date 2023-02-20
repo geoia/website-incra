@@ -3,7 +3,6 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 interface Props {
-  isError: boolean;
   message: string;
 }
 
@@ -11,8 +10,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function ToastError({ isError, message }: Props) {
-  const [isToastOpen, setIsToastOpen] = React.useState(isError);
+export default function ToastError({ message }: Props) {
+  const [isToastOpen, setIsToastOpen] = React.useState(true);
 
   const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
