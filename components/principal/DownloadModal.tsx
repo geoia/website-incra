@@ -8,18 +8,29 @@ import FormCheckbox from '../ui/FormCheckbox/FormCheckbox';
 interface Props {
   anchorEl: null | HTMLElement;
   setAnchorEl: (val: null | HTMLElement) => void;
+  isFireButtonClicked: boolean;
+  setIsFireButtonClicked: (val: boolean) => void;
+  isSimplifiedDatas: boolean;
 }
 
-export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
+export default function DownloadModal({
+  anchorEl,
+  setAnchorEl,
+  isFireButtonClicked,
+  setIsFireButtonClicked,
+  isSimplifiedDatas,
+}: Props) {
   const [checked, setChecked] = useState([false, false, false, false]);
 
   const open = Boolean(anchorEl);
 
   const handleChangeInParentCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsFireButtonClicked(event.target.checked);
     setChecked([event.target.checked]);
   };
 
   const handleChangeInFireCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsFireButtonClicked(event.target.checked);
     setChecked([event.target.checked, checked[1], checked[2], checked[3]]);
   };
 
@@ -33,6 +44,27 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
 
   const handleChangeInWaterCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked([checked[0], checked[1], checked[2], event.target.checked]);
+  };
+
+  async function downloadDatas() {
+    const {returnDatas} = await import("../Map/DisplayGeoJsons")
+
+    let anchor = createDownloadAnchor();
+    let datas = returnDatas(isFireButtonClicked, isSimplifiedDatas);
+    let dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(datas));
+    
+    anchor.href = dataStr;
+
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+  };
+
+  const createDownloadAnchor = () => {
+    let anchor = document.createElement('a');
+    anchor.download = '.json';
+
+    return anchor;
   };
 
   return (
@@ -76,14 +108,14 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
       >
         <FormCheckbox
           label="Selecionar todas"
-          checked={checked[0]}
+          checked={isFireButtonClicked}
           onChange={handleChangeInParentCheckbox}
-          indeterminate={!checked[0]}
+          indeterminate={!isFireButtonClicked}
           disabled={false}
         />
         <FormCheckbox
           label="Queimadas"
-          checked={checked[0]}
+          checked={isFireButtonClicked}
           onChange={handleChangeInFireCheckbox}
           indeterminate={undefined}
           disabled={false}
@@ -111,6 +143,7 @@ export default function DownloadModal({ anchorEl, setAnchorEl }: Props) {
         />
       </FormGroup>
       <Button
+        onClick={downloadDatas}
         variant="contained"
         startIcon={<Download />}
         sx={{

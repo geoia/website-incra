@@ -1,5 +1,3 @@
-import DisplayGeoJsons from '../components/Map/DisplayGeoJsons';
-
 export function locationButtonAction(
   isLocationClicked: boolean,
   setIsMarkerOpen: (val: boolean) => void,
@@ -46,10 +44,3 @@ export function fullScreenAction(isFullScreen: boolean, setIsFullScreen: (val: b
   }
 }
 
-export function displayFireData(isFireButtonActive: boolean, isSimplified: boolean) {
-  if (isFireButtonActive && isSimplified) {
-    return <DisplayGeoJsons simplified={isSimplified} />;
-  } else if (isFireButtonActive && !isSimplified) {
-    return <DisplayGeoJsons simplified={isSimplified} />;
-  }
-}

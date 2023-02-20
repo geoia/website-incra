@@ -9,27 +9,42 @@ import Dados3 from './jsons/response_1674159089248.json';
 import Dados3S from './jsons/Sresponse_1674158379064.json';
 
 interface Props {
+  isFireButtonClicked: boolean;
   simplified: boolean;
 }
 
-export default function DisplayGeoJsons({ simplified }: Props) {
-  const datas = () => {
-    if (simplified) {
-      return ([DadosS, Dados1S, Dados2S, Dados3S] as any);
+const datas = (simplified: boolean) => {
+  if (simplified) {
+    return [DadosS, Dados1S, Dados2S, Dados3S] as any;
+  }
+  return [Dados, Dados1, Dados2, Dados3] as any;
+};
+
+export default function DisplayGeoJsons({ isFireButtonClicked, simplified }: Props) {
+  const verifyFireButtonClickedToReturn = () => {
+    if (isFireButtonClicked) {
+      return (
+        <GeoJSON
+          data={datas(simplified)}
+          pathOptions={{
+            fillColor: simplified ? '#0055ff' : '#ff5500',
+            fillOpacity: 0.7,
+            weight: 2,
+            opacity: 1,
+            color: simplified ? '#0055ff' : '#ff5500',
+          }}
+        />
+      );
+    } else {
+      return null;
     }
-    return([Dados, Dados1, Dados2, Dados3] as any)
   };
 
-  return (
-    <GeoJSON
-      data={datas()}
-      pathOptions={{
-        fillColor: simplified? '#0055ff': '#ff5500',
-        fillOpacity: 0.7,
-        weight: 2,
-        opacity: 1,
-        color: simplified? '#0055ff': '#ff5500',
-      }}
-    />
-  );
+  return verifyFireButtonClickedToReturn();
+}
+
+export function returnDatas(isFireButtonClicked: boolean, simplified: boolean) {
+  if(isFireButtonClicked) {
+   return datas(simplified);
+  }
 }

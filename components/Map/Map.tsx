@@ -9,7 +9,7 @@ import {
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { estados } from './brasil';
-import { displayFireData } from '../../buttonsActions/buttonsActions';
+import DisplayGeoJsons from './DisplayGeoJsons';
 
 import EventsListenerOfMap from './EventsListenerOfMap';
 
@@ -17,8 +17,6 @@ const center = {
   lat: -20.2634,
   lng: -54.3847,
 };
-
-const simplified = true;
 
 interface Props {
   isFullScreen: boolean;
@@ -29,6 +27,7 @@ interface Props {
   setIsZoomOutClicked: (val: boolean) => void;
   isLocationClicked: boolean;
   isFireButtonClicked: boolean;
+  isSimplifiedDatas: boolean;
 }
 
 export default function Map({
@@ -40,6 +39,7 @@ export default function Map({
   setIsZoomOutClicked,
   isLocationClicked,
   isFireButtonClicked,
+  isSimplifiedDatas,
 }: Props) {
   return (
     <MapContainer
@@ -73,19 +73,9 @@ export default function Map({
         attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
       />
 
+      <DisplayGeoJsons isFireButtonClicked={isFireButtonClicked} simplified={isSimplifiedDatas}/>
+
       <LayersControl position="bottomleft">
-        <LayersControl.Overlay name="Queimadas Sem Simplificação">
-          <LayerGroup>
-            {displayFireData(isFireButtonClicked, !simplified)}
-          </LayerGroup>
-        </LayersControl.Overlay>
-
-        <LayersControl.Overlay name="Queimadas Com Simplificação">
-          <LayerGroup>
-            {displayFireData(isFireButtonClicked, simplified)}
-          </LayerGroup>
-        </LayersControl.Overlay>
-
         <LayersControl.Overlay checked name="Limites municipais">
           <FeatureGroup pathOptions={{ color: '#d3d3d3' }}>
             {estados.features.map((state) => {

@@ -65,6 +65,7 @@ export default function Principal() {
         setIsZoomOutClicked={setIsZoomOutClicked}
         isLocationClicked={isLocationClicked}
         isFireButtonClicked={isFireButtonClicked}
+        isSimplifiedDatas={isSimplifiedDatas}
       />
 
       <Grid
@@ -164,6 +165,9 @@ export default function Principal() {
       <DownloadModal
         anchorEl={anchorElementOfDownloadButton}
         setAnchorEl={setAnchorElementOfDownloadButton}
+        isFireButtonClicked={isFireButtonClicked}
+        setIsFireButtonClicked={setIsFireButtonClicked}
+        isSimplifiedDatas={isSimplifiedDatas}
       />
       <MenuModal
         isDrawerOpen={isDrawerOpen}
