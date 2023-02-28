@@ -7,6 +7,7 @@ import Dados2 from './jsons/response_1674159049779.json';
 import Dados2S from './jsons/Sresponse_1674158344922.json';
 import Dados3 from './jsons/response_1674159089248.json';
 import Dados3S from './jsons/Sresponse_1674158379064.json';
+import turf from 'turf';
 
 interface Props {
   isFireButtonClicked: boolean;
@@ -44,7 +45,23 @@ export default function DisplayGeoJsons({ isFireButtonClicked, simplified }: Pro
 }
 
 export function returnDatas(isFireButtonClicked: boolean, simplified: boolean) {
-  if(isFireButtonClicked) {
-   return datas(simplified);
+  if (isFireButtonClicked) {
+    const datasToBeReturned = organizeDatasToDoAFeatureCollection(simplified);
+ 
+    return turf.featureCollection(datasToBeReturned);
   }
+}
+function organizeDatasToDoAFeatureCollection(simplified: boolean) {
+    const fireDatas = datas(simplified);
+    let datasToBeReturned = [];
+
+    for (let fireData of fireDatas) {
+      if (fireData.type == 'FeatureCollection') {
+        datasToBeReturned.push(fireData.features[0].geometry);
+      } else {
+        datasToBeReturned.push(fireData.geometry);
+      }
+    }
+
+    return datasToBeReturned;
 }
