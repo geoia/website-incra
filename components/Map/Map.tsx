@@ -12,6 +12,7 @@ import { estados } from './brasil';
 import DisplayGeoJsons from './DisplayGeoJsons';
 
 import EventsListenerOfMap from './EventsListenerOfMap';
+import QueimadasGeoJson from './QueimadasGeoJson';
 
 const center = {
   lat: -20.2634,
@@ -126,7 +127,9 @@ export default function Map({
         attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
       />
 
-      <DisplayGeoJsons isFireButtonClicked={isFireButtonClicked} simplified={isSimplifiedDatas} />
+      {isFireButtonClicked && (
+        <QueimadasGeoJson municipio={5003207} simplified={isSimplifiedDatas} />
+      )}
 
       {municipalBoundaries(areMunicipalBoundariesVisible)}
     </MapContainer>
