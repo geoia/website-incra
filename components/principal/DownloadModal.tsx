@@ -51,11 +51,13 @@ export default function DownloadModal({
 
     let anchor = createDownloadAnchor();
     let datas = returnDatas(isFireButtonClicked, isSimplifiedDatas);
+
     let dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(datas));
     
     anchor.href = dataStr;
 
     document.body.appendChild(anchor);
+    
     anchor.click();
     anchor.remove();
   };
