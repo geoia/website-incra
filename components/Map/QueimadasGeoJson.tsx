@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { GeoJSON } from 'react-leaflet';
 import axios from 'axios';
+import turf from 'turf';
 
 interface ObservableProps {
   onStart?: () => void;
@@ -28,6 +29,7 @@ async function requestData(opts: BaseProps & PaginationProps & { controller?: Ab
   const querystring = new URLSearchParams({
     page: `${opts.page || 1}`,
     per_page: `${opts.per_page || 1000}`,
+    detailed: `${!opts.simplified}`,
   }).toString();
 
   const { data, headers, status } = await axios.get<Record<string, any>>(
@@ -57,6 +59,11 @@ export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
   const [data, setData] = useState<Record<string, any>[]>([]);
 
   useEffect(() => setPages({ current: 0, next: 1 }), []);
+
+  useEffect(() => {
+    setData([]);
+    setPages({ current: 0, next: 1 });
+  }, [props.municipio, props.simplified]);
 
   useEffect(() => {
     if (!pages || !pages.next) {
@@ -94,5 +101,26 @@ export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
       }}
       key={pages?.current}
     />
+  );
+}
+
+export async function getQueimadasData(props: BaseProps) {
+  let nextPage: number | undefined = 1;
+  let dadosCompilados: any[] = [];
+
+  while (nextPage) {
+    await requestData({ ...props, page: nextPage, per_page: 1000 }).then((resultado) => {
+      if (resultado.data === null) {
+        nextPage = undefined;
+        return;
+      }
+
+      dadosCompilados.push(resultado.data);
+      nextPage = resultado.pages.next;
+    });
+  }
+
+  return turf.featureCollection(
+    dadosCompilados.reduce((memo, atual) => memo.concat(atual.features), [])
   );
 }

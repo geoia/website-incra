@@ -1,15 +1,7 @@
 import React from 'react';
-import {
-  MapContainer,
-  TileLayer,
-  Polygon,
-  LayersControl,
-  LayerGroup,
-  FeatureGroup,
-} from 'react-leaflet';
+import { MapContainer, TileLayer, Polygon, FeatureGroup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { estados } from './brasil';
-import DisplayGeoJsons from './DisplayGeoJsons';
 
 import EventsListenerOfMap from './EventsListenerOfMap';
 import QueimadasGeoJson from './QueimadasGeoJson';

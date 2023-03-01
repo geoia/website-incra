@@ -47,20 +47,23 @@ export default function DownloadModal({
   };
 
   async function downloadDatas() {
-    const {returnDatas} = await import("../Map/DisplayGeoJsons")
+    const { getQueimadasData } = await import('../Map/QueimadasGeoJson');
 
     let anchor = createDownloadAnchor();
-    let datas = returnDatas(isFireButtonClicked, isSimplifiedDatas);
 
-    let dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(datas));
-    
+    let data = isFireButtonClicked
+      ? await getQueimadasData({ municipio: 5003207, simplified: isSimplifiedDatas })
+      : {};
+
+    let dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+
     anchor.href = dataStr;
 
     document.body.appendChild(anchor);
-    
+
     anchor.click();
     anchor.remove();
-  };
+  }
 
   const createDownloadAnchor = () => {
     let anchor = document.createElement('a');
