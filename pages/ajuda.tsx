@@ -4,11 +4,12 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Image from 'next/image';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import EmailIcon from '@mui/icons-material/Email';
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
 
 import HeaderInstitucional from '../components/ui/header/Header';
 import TextField from '../components/ui/input/TextField';
-import SelectEscolaridade from '../components/ui/select/selectEscolaridadecopy';
 
 export default function Ajuda() {
   return (
@@ -55,19 +56,63 @@ export default function Ajuda() {
               </Typography>
             </AccordionDetails>
           </Accordion>
-
+          <Accordion sx={{marginTop: 2}}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography>Lorem ipsum dolor sit amet consectetur</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus
+                ex, sit amet blandit leo lobortis eget.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion sx={{marginTop: 2}}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography>Lorem ipsum dolor sit amet consectetur</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus
+                ex, sit amet blandit leo lobortis eget.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion sx={{marginTop: 2}}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography>Lorem ipsum dolor sit amet consectetur</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus
+                ex, sit amet blandit leo lobortis eget.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
         </Grid>
         <Grid item lg={8} sx={{ marginTop: 5, bgColor: '#000' }}>
           {/* <Typography variant='h4' sx={{fontWeight: 500, color: 'secondary'}}>Ainda tem dúvida? <br/> Entre em contato com a gente?</Typography> */}
           <Grid item sx={{ marginTop: 5, display: 'flex', justifyContent: 'space-around' }}>
             <Grid item sx={{ bgcolor: '#FFF', width: 200, height: 200 }}>
-              Email
+              <EmailIcon color='secondary'/>
             </Grid>
             <Grid item sx={{ bgcolor: '#FFF' }}>
-              Telefone
+              <LocalPhoneIcon color='secondary'/>
             </Grid>
             <Grid item sx={{ bgcolor: '#FFF' }}>
-              Formulário
+              <NoteAltIcon color='secondary'/>
             </Grid>
           </Grid>
         </Grid>
