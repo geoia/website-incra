@@ -22,6 +22,7 @@ interface Props {
   isFireButtonClicked: boolean;
   isSimplifiedDatas: boolean;
   areMunicipalBoundariesVisible: boolean;
+  isSettingsVisible: boolean;
 }
 
 const municipalBoundaries = (areMuncipalBoundariesVisibles: boolean) => {
@@ -86,6 +87,7 @@ export default function Map({
   isFireButtonClicked,
   isSimplifiedDatas,
   areMunicipalBoundariesVisible,
+  isSettingsVisible,
 }: Props) {
   return (
     <MapContainer
@@ -119,7 +121,7 @@ export default function Map({
         attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
       />
 
-      {isFireButtonClicked && (
+      {isFireButtonClicked && !isSettingsVisible && (
         <QueimadasGeoJson municipio={5003207} simplified={isSimplifiedDatas} />
       )}
 

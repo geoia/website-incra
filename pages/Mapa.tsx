@@ -12,6 +12,7 @@ interface Props {
   isFireButtonClicked: boolean;
   isSimplifiedDatas: boolean;
   areMunicipalBoundariesVisible: boolean;
+  isSettingsVisible: boolean;
 }
 
 function Mapa({
@@ -25,6 +26,7 @@ function Mapa({
   isFireButtonClicked,
   isSimplifiedDatas,
   areMunicipalBoundariesVisible,
+  isSettingsVisible,
 }: Props) {
   const Map = React.useMemo(
     () =>
@@ -51,6 +53,7 @@ function Mapa({
       isFireButtonClicked={isFireButtonClicked}
       isSimplifiedDatas={isSimplifiedDatas}
       areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
+      isSettingsVisible={isSettingsVisible}
     />
   );
 }

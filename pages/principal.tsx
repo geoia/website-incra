@@ -68,6 +68,7 @@ export default function Principal() {
         isFireButtonClicked={isFireButtonClicked}
         isSimplifiedDatas={isSimplifiedDatas}
         areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
+        isSettingsVisible={isSettingsVisible}
       />
 
       <Grid
