@@ -1,33 +1,33 @@
 import React from 'react';
 import Image from 'next/image';
-import { Grid, Typography, Box } from '@mui/material';
+import { Grid, Typography, Box, Container } from '@mui/material';
 
+import CrouselParticipant from '../components/ui/Carousel';
 import HeaderInstitucional from '../components/ui/header/Header';
 import sobreAnimais from '../images/sobre-animais.png';
 import ufmsClaro from '../images/ufms-escuro.png';
 import laboratorioClaro from '../images/laboratorio-escuro.png';
 
-export default function Sobre() {
+export default function Sobre() { 
   return (
     <>
-      <HeaderInstitucional />
+      <HeaderInstitucional /> 
       <Grid container sx={{ height: '100vh', backgroundColor: '#0F1C3C' }}>
-        <Grid item lg={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Image src={sobreAnimais} alt="Imagens do pantanal" width={400} height={480} />
+        <Grid item lg md sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Image src={sobreAnimais} alt="Imagens do pantanal" width={500} height={580} />
         </Grid>
-        <Grid item lg={5} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Grid item lg={7} md={6} sm sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 8 }}>
           <Box>
             <Typography
-              variant="h3"
-              component={'h1'}
+              variant="h2"
               sx={{ color: '#509CBF', fontWeight: 800, marginTop: 3 }}
             >
               Sobre o projeto
             </Typography>
-            <Typography variant="h4" sx={{ color: '#A6DFFA', fontWeight: 800, marginTop: 3 }}>
+            <Typography variant="h3" sx={{ color: '#A6DFFA', fontWeight: 800, marginTop: 3 }}>
               EcoGis
             </Typography>
-            <Typography variant="body2" sx={{ color: '#FFF', marginTop: 3 }}>
+            <Typography variant="body1" sx={{ color: '#FFF', marginTop: 3 }}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, unde porro deleniti,
               qui dolore officiis omnis rem necessitatibus maiores doloremque non repudiandae,
               mollitia aperiam quas fugit fuga vel eveniet numquam. Lorem ipsum dolor, sit amet
@@ -45,7 +45,7 @@ export default function Sobre() {
           </Box>
         </Grid>
       </Grid>
-
+      
       <Grid container sx={{ height: '100vh', flexDirection:'column', justifyContent: 'center', alignItems: 'center' }}>
         <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
           <Grid item>
@@ -94,6 +94,19 @@ export default function Sobre() {
               dedica à pesquisa, à extensão e à preservação dos recursos naturais, especialmente da
               fauna e flora do Pantanal.
             </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid container sx={{alignItems: 'center', justifyContent: 'center', height: '100vh', backgroundColor: "#0F1C3C"}}>
+        <Grid item sx={{textAlign: 'center'}}>
+          <Typography variant='h2' sx={{color: '#fff'}}>
+            Nosso time
+          </Typography>
+          <Typography variant='subtitle1' sx={{color: '#fff'}}>
+            Professores, pesquisadores e estudantes <br/> da Universidade Federal de Mato Grosso do Sul
+          </Typography>
+          <Grid item sx={{marginTop: 5}}>
+            <CrouselParticipant></CrouselParticipant>
           </Grid>
         </Grid>
       </Grid>
