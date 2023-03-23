@@ -1,11 +1,12 @@
 import React from 'react';
+import Image from 'next/image';
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Button } from '@mui/material'
+import { Paper, Button, Box, Typography} from '@mui/material'
 
-import photoLourdes from '../images/photo-lourdes.svg';
-import photoMarcus from '../images/photo-marcus.svg';
-import photoRafael from '../images/photo-rafael.svg';
-import photoAllan from '../images/photo-allan.svg';
+import photoLourdes from '../../../images/photo-lourdes.svg';
+import photoMarcus from '../../../images/photo-marcus.svg';
+// import photoRafael from '../images/photo-rafael.svg';
+// import photoAllan from '../images/photo-allan.svg';
 
 export default function CrouselParticipant(props)
 {
@@ -23,7 +24,7 @@ export default function CrouselParticipant(props)
     ]
 
     return (
-        <Carousel>
+        <Carousel animation="slide">
             {
                 items.map( (item, i) => <Item key={i} item={item} /> )
             }
@@ -34,14 +35,10 @@ export default function CrouselParticipant(props)
 function Item(props)
 {
     return (
-        <Paper>
-            <h2>{props.item.name}</h2>
-            <p>{props.item.description}</p>
-            
-
-            <Button className="CheckButton">
-                Check it out!
-            </Button>
-        </Paper>
+        <Box>
+            <Image src={props.item.photo} alt="" />
+            <Typography variant='subtitle1' sx={{color: '#FFF'}}>{props.item.name}</Typography>
+            <Typography variant='body1'sx={{color: '#FFF'}}>{props.item.course}</Typography>
+        </Box>
     )
 }
