@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Carousel from 'react-material-ui-carousel'
-import { Box, Typography, Grid } from '@mui/material'
+import { Typography, Grid } from '@mui/material'
 
 import photoLourdes from '../../../images/photo-lourdes.svg';
 import photoMarcus from '../../../images/photo-marcus.svg';
@@ -9,7 +9,7 @@ import photoRafael from '../../../images/photo-rafael.svg';
 import photoAllan from '../../../images/photo-allan.svg';
 import photoMatheus from '../../../images/photo-matheus.svg';
 
-export default function CrouselParticipant(props) {
+export default function CrouselParticipant() {
     var items = [
         {
             name: "Lourdes Oshiro Igarashi",
@@ -47,7 +47,7 @@ export default function CrouselParticipant(props) {
     )
 }
 
-function Item(props) {
+function Item(props: { array: string | any[]; ind: any; item: {}}) {
 
     const order = [];
     const sizeArray = props.array.length;
