@@ -102,10 +102,10 @@ export default function Sobre() {
           <Typography variant='h2' sx={{color: '#fff'}}>
             Nosso time
           </Typography>
-          <Typography variant='subtitle1' sx={{color: '#fff'}}>
+          <Typography variant='h6' sx={{color: '#fff'}}>
             Professores, pesquisadores e estudantes <br/> da Universidade Federal de Mato Grosso do Sul
           </Typography>
-          <Grid item sx={{marginTop: 5}}>
+          <Grid sx={{marginTop: 5, width: '100%'}}>
             <CrouselParticipant></CrouselParticipant>
           </Grid>
         </Grid>
