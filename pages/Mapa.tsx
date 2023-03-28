@@ -13,6 +13,7 @@ interface Props {
   isSimplifiedDatas: boolean;
   areMunicipalBoundariesVisible: boolean;
   isSettingsVisible: boolean;
+  cityId: number;
 }
 
 function Mapa({
@@ -27,6 +28,7 @@ function Mapa({
   isSimplifiedDatas,
   areMunicipalBoundariesVisible,
   isSettingsVisible,
+  cityId,
 }: Props) {
   const Map = React.useMemo(
     () =>
@@ -54,6 +56,7 @@ function Mapa({
       isSimplifiedDatas={isSimplifiedDatas}
       areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
       isSettingsVisible={isSettingsVisible}
+      cityId={cityId}
     />
   );
 }

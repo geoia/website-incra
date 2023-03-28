@@ -23,6 +23,7 @@ interface Props {
   isSimplifiedDatas: boolean;
   areMunicipalBoundariesVisible: boolean;
   isSettingsVisible: boolean;
+  cityId: number;
 }
 
 const municipalBoundaries = (areMuncipalBoundariesVisibles: boolean) => {
@@ -88,6 +89,7 @@ export default function Map({
   isSimplifiedDatas,
   areMunicipalBoundariesVisible,
   isSettingsVisible,
+  cityId,
 }: Props) {
   return (
     <MapContainer
@@ -122,7 +124,7 @@ export default function Map({
       />
 
       {isFireButtonClicked && !isSettingsVisible && (
-        <QueimadasGeoJson municipio={5003207} simplified={isSimplifiedDatas} />
+        <QueimadasGeoJson municipio={cityId} simplified={isSimplifiedDatas} />
       )}
 
       {municipalBoundaries(areMunicipalBoundariesVisible)}

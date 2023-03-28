@@ -37,6 +37,7 @@ export default function Principal() {
   const [isLocationClicked, setIsLocationClicked] = useState(false);
   const [isSimplifiedDatas, setIsSimplifiedDatas] = useState(false);
   const [areMunicipalBoundariesVisible, setAreMunicipalBoundariesVisible] = useState(true);
+  const [cityId, setCityId] = useState(5003207);
 
   return (
     <>
@@ -69,6 +70,7 @@ export default function Principal() {
         isSimplifiedDatas={isSimplifiedDatas}
         areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
         isSettingsVisible={isSettingsVisible}
+        cityId={cityId}
       />
 
       <Grid
