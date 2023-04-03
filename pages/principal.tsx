@@ -88,7 +88,7 @@ export default function Principal() {
         }}
       >
         <img src="/logo.svg" title="Logo" height="60px" />
-        <Pesquisa />
+        <Pesquisa setCityId={setCityId}/>
       </Grid>
 
       <Grid

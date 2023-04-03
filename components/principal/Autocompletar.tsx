@@ -49,11 +49,15 @@ const filtro = createFilterOptions({
   matchFrom: 'start',
 });
 
-function Enviar(valor: any) {
-  console.log(valor);
+function Enviar(valor: any, setCityId: (val: number) => void) {
+  setCityId(valor);
 }
 
-export default function Pesquisa(this: any) {
+interface Props {
+  setCityId: (val: number) => void;
+}
+
+export default function Pesquisa(this: any, {setCityId}: Props) {
   const { getRootProps, getInputProps, getListboxProps, getOptionProps, groupedOptions } =
     useAutocomplete({
       options: cidades,
@@ -61,7 +65,7 @@ export default function Pesquisa(this: any) {
       filterOptions: filtro,
       selectOnFocus: true,
       onInputChange: async (event: object, value: string, reason: string) => {
-        cidades.map((option, index) => (value == option.nome ? Enviar(option.id) : null));
+        cidades.map((option, index) => (value == option.nome ? Enviar(option.id, setCityId) : null));
       },
     });
 
