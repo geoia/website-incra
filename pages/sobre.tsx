@@ -98,6 +98,7 @@ export default function Sobre() {
         </Grid>
       </Grid>
       <Grid container sx={{alignItems: 'center', justifyContent: 'center', height: '100vh', backgroundColor: "#0F1C3C"}}>
+        
         <Grid item sx={{textAlign: 'center'}}>
           <Typography variant='h2' sx={{color: '#fff'}}>
             Nosso time

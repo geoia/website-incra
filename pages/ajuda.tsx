@@ -9,15 +9,19 @@ import EmailIcon from '@mui/icons-material/Email';
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import Image from 'next/image';
 
 import HeaderInstitucional from '../components/ui/header/Header';
 import TextField from '../components/ui/input/TextField';
-import { fontWeight } from '@mui/system';
+import plantaDeFundo from '../images/planta-de-fundo.svg';
 
 export default function Ajuda() {
   return (
     <>
       <HeaderInstitucional />
+      <Grid sx={{position: 'absolute',zIndex: -1, top: '50px', right: 0}}>
+        <Image src={plantaDeFundo}/>
+      </Grid>
       <Grid container direction={'column'} alignItems={'center'} margin={'80px auto'}>
         <Grid item>
           <Typography variant="h2" sx={{ textAlign: 'center', fontWeight: 800, color: '#FFF' }}>
