@@ -1,3 +1,6 @@
+import turf from "turf";
+import { estados } from '../components/Map/brasil'
+
 export function locationButtonAction(
   isLocationClicked: boolean,
   setIsMarkerOpen: (val: boolean) => void,
@@ -44,3 +47,17 @@ export function fullScreenAction(isFullScreen: boolean, setIsFullScreen: (val: b
   }
 }
 
+export function changeCenter(map: L.Map, cityId: number) {
+  for(let i = 0; i < estados.features.length; i ++) {
+    const id = parseInt(estados.features[i].properties.id);
+
+    if(id == cityId) {
+      const polygon = turf.polygon(estados.features[i].geometry.coordinates);
+
+      const center = turf.centroid(polygon).geometry.coordinates;
+      map.setView({lng: center[0], lat: center[1]});
+
+      break;
+    }
+}
+}
