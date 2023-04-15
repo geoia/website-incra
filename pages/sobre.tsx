@@ -7,21 +7,28 @@ import HeaderInstitucional from '../components/ui/header/Header';
 import sobreAnimais from '../images/sobre-animais.png';
 import ufmsClaro from '../images/ufms-escuro.png';
 import laboratorioClaro from '../images/laboratorio-escuro.png';
+import plantAboutLeft from '../images/plant-about-left.svg';
+import plantAboutRight from '../images/plant-about-right.svg';
+import plantAboutBottom from '../images/plant-about-bottom.svg';
+import { Translate } from '@mui/icons-material';
 
-export default function Sobre() { 
+export default function Sobre() {
   return (
     <>
-      <HeaderInstitucional /> 
+      <HeaderInstitucional />
       <Grid container sx={{ height: '100vh', backgroundColor: '#0F1C3C' }}>
         <Grid item lg md sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Image src={sobreAnimais} alt="Imagens do pantanal" width={500} height={580} />
         </Grid>
-        <Grid item lg={7} md={6} sm sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 8 }}>
+        <Grid
+          item
+          lg={7}
+          md={6}
+          sm
+          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 8 }}
+        >
           <Box>
-            <Typography
-              variant="h2"
-              sx={{ color: '#509CBF', fontWeight: 800, marginTop: 3 }}
-            >
+            <Typography variant="h2" sx={{ color: '#509CBF', fontWeight: 800, marginTop: 3 }}>
               Sobre o projeto
             </Typography>
             <Typography variant="h3" sx={{ color: '#A6DFFA', fontWeight: 800, marginTop: 3 }}>
@@ -45,8 +52,16 @@ export default function Sobre() {
           </Box>
         </Grid>
       </Grid>
-      
-      <Grid container sx={{ height: '100vh', flexDirection:'column', justifyContent: 'center', alignItems: 'center' }}>
+
+      <Grid
+        container
+        sx={{
+          height: '100vh',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
           <Grid item>
             <Image src={laboratorioClaro} alt="ufmsEscuro" width={300} height={300} />
@@ -97,16 +112,35 @@ export default function Sobre() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid container sx={{alignItems: 'center', justifyContent: 'center', height: '100vh', backgroundColor: "#0F1C3C"}}>
-        
-        <Grid item sx={{textAlign: 'center'}}>
-          <Typography variant='h2' sx={{color: '#fff'}}>
+      <Grid
+        container
+        sx={{
+          position: 'relative',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+          
+          backgroundColor: '#0F1C3C',
+        }}
+      >
+        <Grid item sx={{position: 'absolute', left: 0}}>
+          <Image src={plantAboutLeft} alt="Planta" width={500} height={500} style={{transform: 'translateX(-40%)'}}/>
+        </Grid>
+        <Grid item sx={{position: 'absolute', right: 0}}>
+          <Image src={plantAboutRight} alt="Planta" width={500} height={500} style={{transform: 'translateX(50%)'}}/>
+        </Grid>
+        <Grid item sx={{position: 'absolute', bottom: 0}}>
+          <Image src={plantAboutBottom} alt="Planta" width={400} height={400}style={{transform: 'translateY(50%)'}}/>
+        </Grid>
+        <Grid item sx={{ textAlign: 'center' }}>
+          <Typography variant="h2" sx={{ color: '#fff' }}>
             Nosso time
           </Typography>
-          <Typography variant='h6' sx={{color: '#fff'}}>
-            Professores, pesquisadores e estudantes <br/> da Universidade Federal de Mato Grosso do Sul
+          <Typography variant="h6" sx={{ color: '#fff' }}>
+            Professores, pesquisadores e estudantes <br /> da Universidade Federal de Mato Grosso do
+            Sul
           </Typography>
-          <Grid sx={{marginTop: 5, width: '100%'}}>
+          <Grid sx={{ marginTop: 5, width: '100%' }}>
             <CrouselParticipant></CrouselParticipant>
           </Grid>
         </Grid>
