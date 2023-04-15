@@ -38,6 +38,7 @@ export default function Principal() {
   const [isSimplifiedDatas, setIsSimplifiedDatas] = useState(false);
   const [areMunicipalBoundariesVisible, setAreMunicipalBoundariesVisible] = useState(true);
   const [cityId, setCityId] = useState(5003207);
+  const [isAutocomplete, setIsAutocomplete] = useState(false);
 
   return (
     <>
@@ -71,6 +72,7 @@ export default function Principal() {
         areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
         isSettingsVisible={isSettingsVisible}
         cityId={cityId}
+        isAutocomplete={isAutocomplete}
       />
 
       <Grid
@@ -88,7 +90,7 @@ export default function Principal() {
         }}
       >
         <img src="/logo.svg" title="Logo" height="60px" />
-        <Pesquisa setCityId={setCityId}/>
+        <Pesquisa setCityId={setCityId} setIsAutocomplete={setIsAutocomplete} />
       </Grid>
 
       <Grid

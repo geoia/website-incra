@@ -14,6 +14,7 @@ interface Props {
   areMunicipalBoundariesVisible: boolean;
   isSettingsVisible: boolean;
   cityId: number;
+  isAutocomplete: boolean;
 }
 
 function Mapa({
@@ -29,6 +30,7 @@ function Mapa({
   areMunicipalBoundariesVisible,
   isSettingsVisible,
   cityId,
+  isAutocomplete,
 }: Props) {
   const Map = React.useMemo(
     () =>
@@ -57,6 +59,7 @@ function Mapa({
       areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
       isSettingsVisible={isSettingsVisible}
       cityId={cityId}
+      isAutocomplete={isAutocomplete}
     />
   );
 }

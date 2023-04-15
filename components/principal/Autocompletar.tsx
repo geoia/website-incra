@@ -49,15 +49,17 @@ const filtro = createFilterOptions({
   matchFrom: 'start',
 });
 
-function Enviar(valor: any, setCityId: (val: number) => void) {
+function Enviar(valor: any, setCityId: (val: number) => void, setIsAutocomplete: (val: boolean) => void) {
   setCityId(valor);
+  setIsAutocomplete(true);
 }
 
 interface Props {
   setCityId: (val: number) => void;
+  setIsAutocomplete: (val: boolean) => void;
 }
 
-export default function Pesquisa(this: any, { setCityId }: Props) {
+export default function Pesquisa(this: any, { setCityId, setIsAutocomplete }: Props) {
   const { getRootProps, getInputProps, getListboxProps, getOptionProps, groupedOptions } =
     useAutocomplete({
       options: cidades,
@@ -66,7 +68,7 @@ export default function Pesquisa(this: any, { setCityId }: Props) {
       selectOnFocus: true,
       onInputChange: async (event: object, value: string, reason: string) => {
         cidades.map((option, index) =>
-          value == option.nome ? Enviar(option.id, setCityId) : null
+          value == option.nome ? Enviar(option.id, setCityId, setIsAutocomplete) : null
         );
       },
     });

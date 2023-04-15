@@ -19,6 +19,7 @@ interface Props {
   setIsZoomOutClicked: (val: boolean) => void;
   isLocationClicked: boolean;
   cityId: number;
+  isAutocomplete: boolean;
 }
 
 const iconMarker = new L.Icon({
@@ -35,6 +36,7 @@ export default function EventsListener({
   setIsZoomOutClicked,
   isLocationClicked,
   cityId,
+  isAutocomplete,
 }: Props) {
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
@@ -51,7 +53,7 @@ export default function EventsListener({
   }, [isLocationClicked]);
 
   useEffect(() => {
-    changeCenter(map, cityId);
+    changeCenter(map, cityId, isAutocomplete);
   }, [cityId]);
 
   const map = useMapEvents({
