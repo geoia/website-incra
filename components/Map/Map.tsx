@@ -33,9 +33,7 @@ const municipalBoundaries = (areMuncipalBoundariesVisibles: boolean, idMunicipio
         {estados.features.map((state) => {
           const coordinates = state.geometry.coordinates[0].map((item) => [item[1], item[0]]);
           const id = parseInt(state.properties.id);
-          console.log(id + ' = ' + idMunicipio);
           if (id == idMunicipio) {
-            console.log('V');
             return (
               <>
                 <Polygon
@@ -122,6 +120,7 @@ export default function Map({
         isZoomOutClicked={isZoomOutClicked}
         setIsZoomOutClicked={setIsZoomOutClicked}
         isLocationClicked={isLocationClicked}
+        cityId={cityId}
       />
       <TileLayer
         url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWF0aGV1cy1uYW50ZXMiLCJhIjoiY2xhMXpoeTRrMDBvYTNvbWZvZXpua2htOCJ9.PeFH8oujEq1AI6a8-tkk7w"
