@@ -3,6 +3,9 @@
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .coluna {
@@ -11,8 +14,98 @@
   justify-content: center;
 }
 
-.colunaDireita {
-  display: flex;
-  flex-flow: column wrap;
+.colunaCentral {
+  background: #509cbf;
+  width: 50%;
+  height: 100vh;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.logo {
+  width: 250px;
+  height: 40%;
+  padding-right: 20px;
+}
+.entrada {
+  background-color: white;
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-left: 4%;
+}
+
+.linhaBotoes {
+  width: 100%;
+}
+
+.Blogin {
+  width: 25vh;
+  height: 50px;
+  background-color: #0f1c3c;
+  color: white;
+  border-radius: 15px;
+  border: none;
+  margin: 10px;
+  font-size: 20px;
+  font-weight: bold;
   float: right;
+}
+
+.Bcadastro {
+  width: 25vh;
+  height: 50px;
+  background-color: #509cbf;
+  color: #0f1c3c;
+  border-radius: 10px;
+  border: none;
+  margin: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  float: right;
+}
+
+.linha input::placeholder {
+  color: #509cbf;
+}
+
+@media (max-width: 1010px) {
+  .Blogin {
+    font-weight: bold;
+    border-radius: 10px;
+    width: 25vh;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: none;
+  }
+
+  .Bcadastro {
+    font-weight: bold;
+    border-radius: 10px;
+    width: 25vh;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: none;
+  }
+
+  .linhaBotoes {
+    width: 50%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .logo {
+    display: none;
+  }
+}
+
+@media (max-width: 920px) {
+  .linhaBotoes {
+    width: 220px;
+    padding-left: 15px;
+  }
 }

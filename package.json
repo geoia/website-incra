@@ -20,7 +20,9 @@
     "next": "12.3.1",
     "pg": "^8.8.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-leaflet": "^4.1.0",
+    "turf": "^3.0.14"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
@@ -28,6 +30,7 @@
     "@types/node": "18.11.2",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "@types/turf": "^3.5.32",
     "commitizen": "^4.2.5",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "8.25.0",
