@@ -13,6 +13,7 @@ import infraestrutura from '../images/infraestrutura.png';
 import alagadas from '../images/alagadas.png';
 import queimadas from '../images/queimadas.png';
 import vegetacao from '../images/vegetacao.png';
+import plantHomeLeft from '../images/plant-home-left.svg';
 
 export default function Home() {
   return (
@@ -89,6 +90,7 @@ export default function Home() {
           bgcolor: ' #0F1C3C',
           alignItems: 'center',
           justifyContent: 'center',
+          position: 'relative',
         }}
       >
         <Grid item>
@@ -183,6 +185,9 @@ export default function Home() {
           <Button color={'primary'} sx={{ marginTop: 3, fontSize: 20, bgColor: '#FFF' }}>
             Webgis
           </Button>
+        </Grid>
+        <Grid item sx={{position: 'absolute', left: 0, bottom: 0}}>
+          <Image src={plantHomeLeft} alt='planta verde' width={300} height={300}style={{transform: 'translate(-30%, 20%)'}}/>
         </Grid>
       </Grid>
     </>
