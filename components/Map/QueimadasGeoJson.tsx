@@ -12,6 +12,7 @@ interface ObservableProps {
 interface BaseProps {
   municipio: number;
   simplified: boolean;
+  setIsDataLoading: (val: boolean) => void;
 }
 
 interface PaginationProps {
@@ -25,6 +26,8 @@ type PagesMeta = {
   last?: number;
 };
 
+const nothing = [{}];
+
 async function requestData(opts: BaseProps & PaginationProps & { controller?: AbortController }) {
   const querystring = new URLSearchParams({
     page: `${opts.page || 1}`,
@@ -37,7 +40,7 @@ async function requestData(opts: BaseProps & PaginationProps & { controller?: Ab
     { signal: opts?.controller?.signal }
   );
 
-  if (status !== 200) return { data: null };
+  if (status !== 200) return { data: nothing };
 
   const nextHeader = headers['x-queimadas-pages-next'];
   const lastHeader = headers['x-queimadas-pages-last'];
@@ -53,7 +56,7 @@ async function requestData(opts: BaseProps & PaginationProps & { controller?: Ab
 }
 
 export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
-  const { municipio, simplified } = props;
+  const { municipio, simplified, setIsDataLoading } = props;
 
   const [pages, setPages] = useState<PagesMeta>({ current: 0 });
   const [data, setData] = useState<Record<string, any>[]>([]);
@@ -61,13 +64,18 @@ export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
   useEffect(() => setPages({ current: 0, next: 1 }), []);
 
   useEffect(() => {
+    setIsDataLoading(true);
     setData([]);
     setPages({ current: 0, next: 1 });
   }, [props.municipio, props.simplified]);
 
   useEffect(() => {
     if (!pages || !pages.next) {
-      if (props.onFinish) props.onFinish(pages.current);
+      if (props.onFinish) {
+        props.onFinish(pages.current);
+      }
+      setIsDataLoading(false);
+
       return;
     }
 
@@ -75,15 +83,23 @@ export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
 
     const controller = new AbortController();
 
-    requestData({ municipio, simplified, page: pages.next, per_page: 1000, controller })
+    requestData({
+      municipio,
+      simplified,
+      page: pages.next,
+      per_page: 1000,
+      controller,
+      setIsDataLoading,
+    })
       .then((result) => {
         if (result.data !== null) {
           setData([...data, result.data]);
-          setPages(result.pages);
-          if (props.onUpdate) props.onUpdate(result.pages.current, result.pages.last);
+          setPages(result.pages as PagesMeta);
+          if (props.onUpdate)
+            props.onUpdate(result.pages?.current as any, result.pages?.last as any);
         }
       })
-      .catch((err) => (err.name !== 'AbortError' ? Promise.reject(err) : Promise.resolve()));
+      .catch((err) => (err.name !== 'CanceledError' ? Promise.reject(err) : Promise.resolve()));
 
     return () => controller.abort('unmounted');
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,11 +128,12 @@ export async function getQueimadasData(props: BaseProps) {
     await requestData({ ...props, page: nextPage, per_page: 1000 }).then((resultado) => {
       if (resultado.data === null) {
         nextPage = undefined;
+        console.log(1);
         return;
       }
 
       dadosCompilados.push(resultado.data);
-      nextPage = resultado.pages.next;
+      nextPage = resultado.pages?.next;
     });
   }
 

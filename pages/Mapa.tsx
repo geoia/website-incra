@@ -15,6 +15,7 @@ interface Props {
   isSettingsVisible: boolean;
   cityId: number;
   isAutocomplete: boolean;
+  setIsDataLoading: (val: boolean) => void;
 }
 
 function Mapa({
@@ -31,6 +32,7 @@ function Mapa({
   isSettingsVisible,
   cityId,
   isAutocomplete,
+  setIsDataLoading,
 }: Props) {
   const Map = React.useMemo(
     () =>
@@ -60,6 +62,7 @@ function Mapa({
       isSettingsVisible={isSettingsVisible}
       cityId={cityId}
       isAutocomplete={isAutocomplete}
+      setIsDataLoading={setIsDataLoading}
     />
   );
 }

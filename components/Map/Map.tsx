@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MapContainer, TileLayer, Polygon, FeatureGroup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { estados } from './brasil';
@@ -25,6 +25,7 @@ interface Props {
   isSettingsVisible: boolean;
   cityId: number;
   isAutocomplete: boolean;
+  setIsDataLoading: (val: boolean) => void;
 }
 
 const municipalBoundaries = (areMuncipalBoundariesVisibles: boolean, idMunicipio: number) => {
@@ -95,6 +96,7 @@ export default function Map({
   isSettingsVisible,
   cityId,
   isAutocomplete,
+  setIsDataLoading,
 }: Props) {
   return (
     <MapContainer
@@ -131,7 +133,11 @@ export default function Map({
       />
 
       {isFireButtonClicked && !isSettingsVisible && (
-        <QueimadasGeoJson municipio={cityId} simplified={isSimplifiedDatas} />
+        <QueimadasGeoJson
+          municipio={cityId}
+          simplified={isSimplifiedDatas}
+          setIsDataLoading={setIsDataLoading}
+        />
       )}
 
       {municipalBoundaries(areMunicipalBoundariesVisible, cityId)}

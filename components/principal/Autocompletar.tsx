@@ -2,7 +2,13 @@ import React from 'react';
 import { useAutocomplete } from '@mui/base/AutocompleteUnstyled';
 import { styled } from '@mui/system';
 import Search from '@mui/icons-material/Search';
-import { createFilterOptions } from '@mui/material';
+import {
+  Box,
+  CircularProgress,
+  CircularProgressProps,
+  circularProgressClasses,
+  createFilterOptions,
+} from '@mui/material';
 
 const Input = styled('input')(({ theme }) => ({
   width: '100%',
@@ -49,17 +55,16 @@ const filtro = createFilterOptions({
   matchFrom: 'start',
 });
 
-function Enviar(valor: any, setCityId: (val: number) => void, setIsAutocomplete: (val: boolean) => void) {
+function Enviar(valor: any, setCityId: (val: number) => void) {
   setCityId(valor);
-  setIsAutocomplete(true);
 }
 
 interface Props {
   setCityId: (val: number) => void;
-  setIsAutocomplete: (val: boolean) => void;
+  isDataLoading: boolean;
 }
 
-export default function Pesquisa(this: any, { setCityId, setIsAutocomplete }: Props) {
+export default function Pesquisa(this: any, { setCityId, isDataLoading }: Props) {
   const { getRootProps, getInputProps, getListboxProps, getOptionProps, groupedOptions } =
     useAutocomplete({
       options: cidades,
@@ -68,7 +73,7 @@ export default function Pesquisa(this: any, { setCityId, setIsAutocomplete }: Pr
       selectOnFocus: true,
       onInputChange: async (event: object, value: string, reason: string) => {
         cidades.map((option, index) =>
-          value == option.nome ? Enviar(option.id, setCityId, setIsAutocomplete) : null
+          value == option.nome ? Enviar(option.id, setCityId) : null
         );
       },
     });
@@ -88,22 +93,24 @@ export default function Pesquisa(this: any, { setCityId, setIsAutocomplete }: Pr
             },
           }}
         />
-        <Input {...getInputProps()} placeholder="Pesquise um endereço" />
-        {groupedOptions.length > 0 ? (
-          <Listbox {...getListboxProps()}>
-            {(groupedOptions as typeof cidades).map((option, index) => (
-              <li
-                style={{
-                  borderBottom: '1px solid white',
-                }}
-                {...getOptionProps({ option, index })}
-              >
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {option.nome}
-              </li>
-            ))}
-          </Listbox>
-        ) : null}
+        <div>
+          <Input {...getInputProps()} placeholder="Pesquise um endereço" />
+          {groupedOptions.length > 0 ? (
+            <Listbox {...getListboxProps()}>
+              {(groupedOptions as typeof cidades).map((option, index) => (
+                <li
+                  style={{
+                    borderBottom: '1px solid white',
+                  }}
+                  {...getOptionProps({ option, index })}
+                >
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  {option.nome}
+                </li>
+              ))}
+            </Listbox>
+          ) : null}
+        </div>
       </div>
     </div>
   );
