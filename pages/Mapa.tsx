@@ -12,7 +12,6 @@ interface Props {
   isFireButtonClicked: boolean;
   isSimplifiedDatas: boolean;
   areMunicipalBoundariesVisible: boolean;
-  isSettingsVisible: boolean;
   cityId: number;
   isAutocomplete: boolean;
   setIsDataLoading: (val: boolean) => void;
@@ -29,7 +28,6 @@ function Mapa({
   isFireButtonClicked,
   isSimplifiedDatas,
   areMunicipalBoundariesVisible,
-  isSettingsVisible,
   cityId,
   isAutocomplete,
   setIsDataLoading,
@@ -59,7 +57,6 @@ function Mapa({
       isFireButtonClicked={isFireButtonClicked}
       isSimplifiedDatas={isSimplifiedDatas}
       areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
-      isSettingsVisible={isSettingsVisible}
       cityId={cityId}
       isAutocomplete={isAutocomplete}
       setIsDataLoading={setIsDataLoading}

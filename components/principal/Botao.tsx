@@ -30,8 +30,9 @@ function BaseBotao({ children, sx, ...props }: ButtonProps) {
         border: 0,
         color: 'white',
         '&:hover': {
+          transform: 'translateY(-2px)',
           cursor: 'pointer',
-          backgroundColor: '#509cbf9b68',
+          backgroundColor: '#509CBF',
         },
         '&:disabled': {
           backgroundColor: 'rgba(18, 18, 133, 0.39);',
@@ -80,7 +81,8 @@ export function FireBotao({ isFireButtonClicked, setIsFireButtonClicked }: Props
       sx={{
         background: isFireButtonClicked ? 'red' : '#509CBF',
         '&:hover': {
-          background: '#ff0000ca',
+          transform: 'translateY(-2px)',
+          background: isFireButtonClicked ? 'red' : '#509CBF'
         },
       }}
       onClick={() => setIsFireButtonClicked(!isFireButtonClicked)}

@@ -76,6 +76,7 @@ export default function Pesquisa(this: any, { setCityId, isDataLoading }: Props)
           value == option.nome ? Enviar(option.id, setCityId) : null
         );
       },
+      defaultValue: { id: 5003207, nome: 'Corumbá' },
     });
 
   return (

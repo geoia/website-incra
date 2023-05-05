@@ -30,7 +30,7 @@ export default function Principal() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
-  const [isFireButtonClicked, setIsFireButtonClicked] = useState(false);
+  const [isFireButtonClicked, setIsFireButtonClicked] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isZoomInClicked, setIsZoomInClicked] = useState(false);
   const [isZoomOutClicked, setIsZoomOutClicked] = useState(false);
@@ -70,7 +70,6 @@ export default function Principal() {
         isFireButtonClicked={isFireButtonClicked}
         isSimplifiedDatas={isSimplifiedDatas}
         areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
-        isSettingsVisible={isSettingsVisible}
         cityId={cityId}
         isAutocomplete={isAutocomplete}
         setIsDataLoading={setIsDataLoading}
