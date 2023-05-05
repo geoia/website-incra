@@ -9,12 +9,18 @@ import Add from '@mui/icons-material/Add';
 import Remove from '@mui/icons-material/Remove';
 import Crop from '@mui/icons-material/CropFree';
 import Map from '@mui/icons-material/FmdGood';
+import SettingsIcon from '@mui/icons-material/Settings';
 import Button, { ButtonProps } from '@mui/material/Button';
 import { useState } from 'react';
 
-interface Props {
+interface PropsFireBotao {
   isFireButtonClicked: boolean;
   setIsFireButtonClicked: (val: boolean) => void;
+}
+
+interface PropsSettingsBotao {
+  isSettingsVisible: boolean;
+  setIsSettingsVisible: (val: boolean) => void;
 }
 
 function BaseBotao({ children, sx, ...props }: ButtonProps) {
@@ -75,7 +81,17 @@ export function DownloadBotao(props: ButtonProps) {
   );
 }
 
-export function FireBotao({ isFireButtonClicked, setIsFireButtonClicked }: Props) {
+export function SettingsBotao({ isSettingsVisible, setIsSettingsVisible }: PropsSettingsBotao) {
+  return (
+    <BaseBotao 
+      onClick={() => setIsSettingsVisible(!isSettingsVisible)}
+    >
+      <SettingsIcon fontSize="medium" />
+    </BaseBotao>
+  );
+}
+
+export function FireBotao({ isFireButtonClicked, setIsFireButtonClicked }: PropsFireBotao) {
   return (
     <BaseBotao
       sx={{

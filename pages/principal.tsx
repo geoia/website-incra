@@ -22,6 +22,7 @@ import {
   RemoveBotao,
   CropBotao,
   MapBotao,
+  SettingsBotao,
 } from '../components/principal/Botao';
 
 export default function Principal() {
@@ -111,7 +112,10 @@ export default function Principal() {
           },
         }}
       >
-        <MenuBotao onClick={() => setIsDrawerOpen(true)} />
+        <SettingsBotao
+          isSettingsVisible={isSettingsVisible}
+          setIsSettingsVisible={setIsSettingsVisible}
+        />
         <CalendarBotao onClick={() => setIsCalendarModalOpen(true)} />
         <DownloadBotao
           onClick={(event: React.MouseEvent<HTMLElement>) =>
