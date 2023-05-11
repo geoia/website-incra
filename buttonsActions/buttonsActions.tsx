@@ -1,5 +1,5 @@
-import turf from "turf";
-import { estados } from '../components/Map/brasil'
+import turf from 'turf';
+import { estados } from '../components/Map/brasil';
 
 export function locationButtonAction(
   isLocationClicked: boolean,
@@ -48,10 +48,10 @@ export function fullScreenAction(isFullScreen: boolean, setIsFullScreen: (val: b
 }
 
 function returnCityPosition(cityId: number) {
-  for(let i = 0; i < estados.features.length; i ++) {
+  for (let i = 0; i < estados.features.length; i++) {
     const id = parseInt(estados.features[i].properties.id);
 
-    if(id == cityId) {
+    if (id == cityId) {
       return i;
     }
   }
@@ -59,12 +59,19 @@ function returnCityPosition(cityId: number) {
   return 0;
 }
 
-export function changeCenter(map: L.Map, cityId: number, isAutocomplete: boolean) {
-  if(isAutocomplete) {
-    const cityPositon = returnCityPosition(cityId)
-    const polygon = turf.polygon(estados.features[cityPositon].geometry.coordinates);
-  
-    const center = turf.centroid(polygon).geometry.coordinates;
-    map.flyTo({lng: center[0], lat: center[1]}, 8);
+function returnZoomLevel(cityId: number) {
+  if (cityId == 5003207) {
+    return 7;
   }
+
+  return 8;
+}
+export function changeCenter(map: L.Map, cityId: number) {
+  const cityPositon = returnCityPosition(cityId);
+  const polygon = turf.polygon(estados.features[cityPositon].geometry.coordinates);
+
+  const zoom = returnZoomLevel(cityId);
+
+  const center = turf.centroid(polygon).geometry.coordinates;
+  map.flyTo({ lng: center[0], lat: center[1] }, zoom);
 }
