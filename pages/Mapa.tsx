@@ -13,7 +13,6 @@ interface Props {
   isSimplifiedDatas: boolean;
   areMunicipalBoundariesVisible: boolean;
   cityId: number;
-  isAutocomplete: boolean;
   setIsDataLoading: (val: boolean) => void;
 }
 
@@ -29,7 +28,6 @@ function Mapa({
   isSimplifiedDatas,
   areMunicipalBoundariesVisible,
   cityId,
-  isAutocomplete,
   setIsDataLoading,
 }: Props) {
   const Map = React.useMemo(
@@ -58,7 +56,6 @@ function Mapa({
       isSimplifiedDatas={isSimplifiedDatas}
       areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
       cityId={cityId}
-      isAutocomplete={isAutocomplete}
       setIsDataLoading={setIsDataLoading}
     />
   );

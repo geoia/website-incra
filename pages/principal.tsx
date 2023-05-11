@@ -39,7 +39,6 @@ export default function Principal() {
   const [isSimplifiedDatas, setIsSimplifiedDatas] = useState(false);
   const [areMunicipalBoundariesVisible, setAreMunicipalBoundariesVisible] = useState(true);
   const [cityId, setCityId] = useState(5003207);
-  const [isAutocomplete, setIsAutocomplete] = useState(false);
   const [isDataLoading, setIsDataLoading] = useState<boolean>(false);
   return (
     <>
@@ -72,7 +71,6 @@ export default function Principal() {
         isSimplifiedDatas={isSimplifiedDatas}
         areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
         cityId={cityId}
-        isAutocomplete={isAutocomplete}
         setIsDataLoading={setIsDataLoading}
       />
 

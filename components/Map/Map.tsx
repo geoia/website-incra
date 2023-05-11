@@ -23,7 +23,6 @@ interface Props {
   isSimplifiedDatas: boolean;
   areMunicipalBoundariesVisible: boolean;
   cityId: number;
-  isAutocomplete: boolean;
   setIsDataLoading: (val: boolean) => void;
 }
 
@@ -93,7 +92,6 @@ export default function Map({
   isSimplifiedDatas,
   areMunicipalBoundariesVisible,
   cityId,
-  isAutocomplete,
   setIsDataLoading,
 }: Props) {
   return (
@@ -123,7 +121,6 @@ export default function Map({
         setIsZoomOutClicked={setIsZoomOutClicked}
         isLocationClicked={isLocationClicked}
         cityId={cityId}
-        isAutocomplete={isAutocomplete}
       />
       <TileLayer
         url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWF0aGV1cy1uYW50ZXMiLCJhIjoiY2xhMXpoeTRrMDBvYTNvbWZvZXpua2htOCJ9.PeFH8oujEq1AI6a8-tkk7w"
