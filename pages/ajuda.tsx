@@ -27,14 +27,6 @@ export default function Ajuda() {
           <Typography variant="h2" sx={{ textAlign: 'center', fontWeight: 800, color: '#FFF' }}>
             Como podemos <br />
             te ajudar?
-            <TextField placeholder='Descreva sua dúvida' sx={{ marginTop: 7 }} InputProps={{
-          endAdornment: (
-            <InputAdornment position="start">
-              <SearchOutlinedIcon color='secondary'/>
-            </InputAdornment>
-          ),
-          disableUnderline: true,
-        }}/>
           </Typography>
         </Grid>
         <Grid item sx={{ marginTop: 5 }}>
