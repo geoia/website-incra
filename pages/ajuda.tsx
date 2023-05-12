@@ -1,39 +1,36 @@
 import React from 'react';
-import { Grid, Box, Typography } from '@mui/material';
+import { Grid, Box, Typography, Container, SxProps } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
-import NoteAltIcon from '@mui/icons-material/NoteAlt';
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Image from 'next/image';
 
 import HeaderInstitucional from '../components/ui/header/Header';
-import TextField from '../components/ui/input/TextField';
 import plantaDeFundo from '../images/planta-de-fundo.svg';
 
 export default function Ajuda() {
+  const box: SxProps = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    bgcolor: '#FFF',
+    width: 200,
+    height: 200,
+    border: 'none',
+    borderRadius: 10,
+  };
+
   return (
     <>
       <HeaderInstitucional />
-      <Grid sx={{position: 'absolute',zIndex: -1, top: '50px', right: 0}}>
-        <Image src={plantaDeFundo}/>
-      </Grid>
-      <Grid container direction={'column'} alignItems={'center'} margin={'80px auto'}>
-        <Grid item>
-          <Typography variant="h2" sx={{ textAlign: 'center', fontWeight: 800, color: '#FFF' }}>
-            Como podemos <br />
-            te ajudar?
-          </Typography>
-        </Grid>
+      <Box sx={{ position: 'absolute', zIndex: -1, top: '50px', right: 0 }}>
+        <Image src={plantaDeFundo} />
+      </Box>
+      <Container sx={{marginTop: '50px'}}>
         <Grid item sx={{ marginTop: 5 }}>
-          <Typography
-            variant="h3"
-            sx={{ fontWeight: 500, marginBottom: 5, color: 'secondary', textAlign: 'center' }}
-          >
+          <Typography variant="h3" sx={{ fontWeight: 500, marginBottom: 5, textAlign: 'center' }}>
             Tópicos frequentes
           </Typography>
           <Accordion>
@@ -114,77 +111,24 @@ export default function Ajuda() {
             </AccordionDetails>
           </Accordion>
         </Grid>
+
         <Grid item lg={8} sx={{ marginTop: 5, bgColor: '#000' }}>
-          <Typography variant='h4' sx={{fontWeight: 500, color: 'secondary'}}>Ainda tem dúvida? <br/> Entre em contato com a gente?</Typography>
-          <Grid
-            item
-            sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              marginTop: 5,
-              gap: 3,
-            }}
-          >
-            <Typography></Typography>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                bgcolor: '#FFF',
-                width: 200,
-                height: 200,
-                border: 'none',
-                borderRadius: 10
-              }}
-            >
+          <Typography variant="h4" sx={{ fontWeight: 500, color: 'secondary' }}>
+            Ainda tem dúvida? <br /> Entre em contato com a gente?
+          </Typography>
+          <Grid item>
+            <Box sx={box}>
               <Grid item textAlign={'center'}>
-                <EmailIcon color="secondary" sx={{fontSize: 60}} />
-                <Typography variant="body1"><strong>Email</strong></Typography>
-                <Typography variant="body2" marginTop={2}>geoiawebgiz@gmail.com</Typography>
-              </Grid>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                bgcolor: '#FFF',
-                width: 200,
-                height: 200,
-                border: 'none',
-                borderRadius: 10
-              }}
-            >
-              <Grid item textAlign={'center'}>
-                <LocalPhoneIcon color="secondary" sx={{fontSize: 60}}/>
-                <Typography variant="body1"><strong>Telefone</strong></Typography>
-                <Typography variant="body2" marginTop={2}>(67) 99999-9999</Typography>
-              </Grid>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                bgcolor: '#FFF',
-                width: 200,
-                height: 200,
-                border: 'none',
-                borderRadius: 10
-              }}
-            >
-              <Grid item textAlign={'center'}>
-                <NoteAltIcon color="secondary" sx={{fontSize: 60}}/>
-                <Typography variant="body1"><strong>Fomulário</strong></Typography>
-                <Typography variant="body2" marginTop={1}>
-                  Envie-nos sua dúvida por meio do formulário de contato.
+                <EmailIcon color="secondary" sx={{ fontSize: 60 }} />
+                <Typography variant="body1">Email</Typography>
+                <Typography variant="body2" marginTop={2}>
+                  geoiawebgiz@gmail.com
                 </Typography>
               </Grid>
             </Box>
           </Grid>
         </Grid>
-      </Grid>
+      </Container>
     </>
   );
 }
