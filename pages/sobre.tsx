@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Grid, Typography, Box, Container } from '@mui/material';
 
 import CrouselParticipant from '../components/ui/Carousel';
-import HeaderInstitucional from '../components/ui/header/Header';
+import Menu from '../components/ui/header/Menu';
 import sobreAnimais from '../images/sobre-animais.png';
 import ufmsClaro from '../images/ufms-escuro.png';
 import laboratorioClaro from '../images/laboratorio-escuro.png';
@@ -15,7 +15,7 @@ import { Translate } from '@mui/icons-material';
 export default function Sobre() {
   return (
     <>
-      <HeaderInstitucional />
+      <Menu />
       <Grid container sx={{ height: '100vh', backgroundColor: '#0F1C3C' }}>
         <Grid item lg md sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Image src={sobreAnimais} alt="Imagens do pantanal" width={500} height={580} />
@@ -119,18 +119,36 @@ export default function Sobre() {
           alignItems: 'center',
           justifyContent: 'center',
           height: '100vh',
-          
+
           backgroundColor: '#0F1C3C',
         }}
       >
-        <Grid item sx={{position: 'absolute', left: 0}}>
-          <Image src={plantAboutLeft} alt="Planta" width={500} height={500} style={{transform: 'translateX(-40%)'}}/>
+        <Grid item sx={{ position: 'absolute', left: 0 }}>
+          <Image
+            src={plantAboutLeft}
+            alt="Planta"
+            width={500}
+            height={500}
+            style={{ transform: 'translateX(-40%)' }}
+          />
         </Grid>
-        <Grid item sx={{position: 'absolute', right: 0}}>
-          <Image src={plantAboutRight} alt="Planta" width={500} height={500} style={{transform: 'translateX(50%)'}}/>
+        <Grid item sx={{ position: 'absolute', right: 0 }}>
+          <Image
+            src={plantAboutRight}
+            alt="Planta"
+            width={500}
+            height={500}
+            style={{ transform: 'translateX(50%)' }}
+          />
         </Grid>
-        <Grid item sx={{position: 'absolute', bottom: 0}}>
-          <Image src={plantAboutBottom} alt="Planta" width={400} height={400}style={{transform: 'translateY(50%)'}}/>
+        <Grid item sx={{ position: 'absolute', bottom: 0 }}>
+          <Image
+            src={plantAboutBottom}
+            alt="Planta"
+            width={400}
+            height={400}
+            style={{ transform: 'translateY(50%)' }}
+          />
         </Grid>
         <Grid item sx={{ textAlign: 'center' }}>
           <Typography variant="h2" sx={{ color: '#fff' }}>

@@ -1,25 +1,23 @@
-import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Home.module.css';
-import HeaderInstitucional from '../components/ui/header/Header';
 import homeLogoUfms from '../images/home-logo-ufms.png';
 import homeFolhas from '../images/home-folhas.png';
 import homeTucano from '../images/home-tucano.png';
 import { Box, Button, Grid, Typography, Avatar, AvatarProps } from '@mui/material';
-import NextLink from 'next/link';
-import logoGeoIA from '../public/logo.ico';
-import sobreAnimais from '../images/sobre-animais.png';
 import infraestrutura from '../images/infraestrutura.png';
 import alagadas from '../images/alagadas.png';
 import queimadas from '../images/queimadas.png';
 import vegetacao from '../images/vegetacao.png';
 import plantHomeLeft from '../images/plant-home-left.svg';
 
+import Menu from '../components/ui/header/Menu';
+
 export default function Home() {
   return (
     <>
-      <Grid sx={{ display: 'flex', flexDirection: 'column', height: '100vh', justifyContent: 'center' }}>
-        <HeaderInstitucional />
+      <Menu />
+      <Grid
+        sx={{ display: 'flex', flexDirection: 'column', height: '100vh', justifyContent: 'center' }}
+      >
         <Box
           sx={{
             position: 'absolute',
@@ -102,7 +100,7 @@ export default function Home() {
           </Typography>
         </Grid>
 
-        <Grid item sx={{display: 'flex', marginTop: 5, flexWrap: 'wrap'}}>
+        <Grid item sx={{ display: 'flex', marginTop: 5, flexWrap: 'wrap' }}>
           <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
             <Image src={queimadas} alt="Queimadas" width={150} height={150} />
             <Grid item>
@@ -142,7 +140,7 @@ export default function Home() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item sx={{display: 'flex', marginTop: 2, flexWrap: 'wrap'}}>
+        <Grid item sx={{ display: 'flex', marginTop: 2, flexWrap: 'wrap' }}>
           <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
             <Image src={infraestrutura} alt="Infraestrutura" width={150} height={150} />
             <Grid item>
@@ -186,8 +184,14 @@ export default function Home() {
             Webgis
           </Button>
         </Grid>
-        <Grid item sx={{position: 'absolute', left: 0, bottom: 0}}>
-          <Image src={plantHomeLeft} alt='planta verde' width={300} height={300}style={{transform: 'translate(-30%, 20%)'}}/>
+        <Grid item sx={{ position: 'absolute', left: 0, bottom: 0 }}>
+          <Image
+            src={plantHomeLeft}
+            alt="planta verde"
+            width={300}
+            height={300}
+            style={{ transform: 'translate(-30%, 20%)' }}
+          />
         </Grid>
       </Grid>
     </>

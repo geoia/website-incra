@@ -8,15 +8,13 @@ import EmailIcon from '@mui/icons-material/Email';
 import Image from 'next/image';
 import Paper from '@mui/material/Paper';
 
-import HeaderInstitucional from '../components/ui/header/Header';
 import plantaDeFundo from '../images/planta-de-fundo.svg';
-import DrawerAppBar from '../components/ui/header/Menu';
+import Menu from '../components/ui/header/Menu';
 
 export default function Ajuda() {
   return (
     <>
-      {/* <HeaderInstitucional /> */}
-      <DrawerAppBar></DrawerAppBar>
+      <Menu />
       <Box sx={{ position: 'absolute', zIndex: -1, top: '50px', right: 0 }}>
         <Image src={plantaDeFundo} alt="planta de fundo" />
       </Box>

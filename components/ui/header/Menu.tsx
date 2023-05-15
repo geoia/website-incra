@@ -8,16 +8,17 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import Link from 'next/link';
 
+const pages = [
+  ['Apresentação', 'home'],
+  ['Sobre', 'sobre'],
+  ['WebGis', 'webgis'],
+  ['Ajuda', 'ajuda'],
+];
 
-const pages = ['Apresentação', 'Sobre', 'WebGis', 'Ajuda'];
-
-function ResponsiveAppBar() {
+function GeneralMenu() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -41,11 +42,11 @@ function ResponsiveAppBar() {
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Avatar src='/logo.svg' sx={{width: 56, height: 56}}/>
+              <Avatar src="/logo.svg" sx={{ width: 56, height: 56 }} />
               <Typography
                 variant="h6"
                 component="a"
-                href="/"
+                href="/home"
                 sx={{
                   fontWeight: 700,
                   color: '#0F1C3C',
@@ -55,15 +56,29 @@ function ResponsiveAppBar() {
                 GeoIA
               </Typography>
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', }}>
-                
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               {pages.map((page) => {
                 return (
-                    <>
-                    <Link href="/sobre" passHref key={page} onClick={handleCloseNavMenu}>
-                  {page}
-                </Link>
-                    </>
+                  <>
+                    <Link href={`/${page[1]}`} passHref key={page[1]} onClick={handleCloseNavMenu}>
+                      <Typography
+                        component="a"
+                        sx={{
+                          cursor: 'pointer',
+                          fontWeight: 600,
+                          padding: '20px 15px',
+                          textDecoration: 'none',
+                          color: '#0F1C3C',
+                          '&:hover': {
+                            backgroundColor: '#0F1C3C',
+                            color: '#FFF',
+                          },
+                        }}
+                      >
+                        {page[0]}
+                      </Typography>
+                    </Link>
+                  </>
                 );
               })}
             </Box>
@@ -77,8 +92,8 @@ function ResponsiveAppBar() {
               alignItems: 'center',
             }}
           >
-            <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>
-              <Avatar src='/logo.svg' sx={{width: 50, height: 50}}/>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Avatar src="/logo.svg" sx={{ width: 50, height: 50 }} />
               <Typography
                 variant="h5"
                 component="a"
@@ -122,8 +137,10 @@ function ResponsiveAppBar() {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                  <MenuItem key={page[1]} onClick={handleCloseNavMenu}>
+                    <Link href={`/${page[1]}`} passHref key={page[1]} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page[0]}</Typography>
+                    </Link>
                   </MenuItem>
                 ))}
               </Menu>
@@ -134,4 +151,4 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default GeneralMenu;
