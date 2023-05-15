@@ -10,15 +10,17 @@ import Paper from '@mui/material/Paper';
 
 import HeaderInstitucional from '../components/ui/header/Header';
 import plantaDeFundo from '../images/planta-de-fundo.svg';
+import DrawerAppBar from '../components/ui/header/Menu';
 
 export default function Ajuda() {
   return (
     <>
-      <HeaderInstitucional />
+      {/* <HeaderInstitucional /> */}
+      <DrawerAppBar></DrawerAppBar>
       <Box sx={{ position: 'absolute', zIndex: -1, top: '50px', right: 0 }}>
         <Image src={plantaDeFundo} alt="planta de fundo" />
       </Box>
-      <Container sx={{ marginTop: '100px' }}>
+      <Container>
         <Grid item sx={{ marginTop: 5 }}>
           <Typography variant="h3" sx={{ fontWeight: 500, marginBottom: 5, textAlign: 'center' }}>
             Tópicos frequentes
@@ -108,7 +110,7 @@ export default function Ajuda() {
           </Typography>
         </Grid>
         <Grid container justifyContent={'center'} marginTop={5}>
-          <Paper sx={{ maxWidth: '200px', textAlign: 'center', padding: '10px' }}>
+          <Paper sx={{ maxWidth: '200px', textAlign: 'center', padding: '10px', color: '#0F1C3C' }}>
             <EmailIcon color="secondary" sx={{ fontSize: 60 }} />
             <Typography variant="body1">Email</Typography>
             <Typography variant="body2" marginTop={2}>
