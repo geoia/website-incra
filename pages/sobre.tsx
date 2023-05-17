@@ -1,6 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
-import { Grid, Typography, Box, Container } from '@mui/material';
+import { Grid, Typography, Box } from '@mui/material';
+import Head from 'next/head';
+
 
 import CrouselParticipant from '../components/ui/Carousel';
 import Menu from '../components/ui/header/Menu';
@@ -15,6 +17,9 @@ import { Translate } from '@mui/icons-material';
 export default function Sobre() {
   return (
     <>
+      <Head>
+          <title>GeoIA - Sobre</title>
+      </Head>
       <Menu />
       <Grid container sx={{ height: '100vh', backgroundColor: '#0F1C3C' }}>
         <Grid item lg md sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

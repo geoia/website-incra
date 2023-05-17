@@ -44,7 +44,7 @@ function GeneralMenu() {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Avatar src="/logo.svg" sx={{ width: 56, height: 56 }} />
               <Typography
-                variant="h6"
+                variant="h5"
                 component="a"
                 href="/home"
                 sx={{

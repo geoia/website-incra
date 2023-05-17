@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import { Grid, Box, Typography, Container, SxProps } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -14,6 +15,9 @@ import Menu from '../components/ui/header/Menu';
 export default function Ajuda() {
   return (
     <>
+      <Head>
+        <title>GeoIA - Ajuda</title>
+      </Head>
       <Menu />
       <Box sx={{ position: 'absolute', zIndex: -1, top: '50px', right: 0 }}>
         <Image src={plantaDeFundo} alt="planta de fundo" />

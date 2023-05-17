@@ -1,19 +1,24 @@
 import Image from 'next/image';
-import homeLogoUfms from '../images/home-logo-ufms.png';
-import homeFolhas from '../images/home-folhas.png';
-import homeTucano from '../images/home-tucano.png';
+import Head from 'next/head';
 import { Box, Button, Grid, Typography, Avatar, AvatarProps } from '@mui/material';
+
 import infraestrutura from '../images/infraestrutura.png';
 import alagadas from '../images/alagadas.png';
 import queimadas from '../images/queimadas.png';
 import vegetacao from '../images/vegetacao.png';
 import plantHomeLeft from '../images/plant-home-left.svg';
+import homeLogoUfms from '../images/home-logo-ufms.png';
+import homeFolhas from '../images/home-folhas.png';
+import homeTucano from '../images/home-tucano.png';
 
 import Menu from '../components/ui/header/Menu';
 
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>GeoIA - Home</title>
+      </Head>
       <Menu />
       <Grid
         sx={{ display: 'flex', flexDirection: 'column', height: '100vh', justifyContent: 'center' }}

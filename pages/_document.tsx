@@ -8,7 +8,7 @@ export default function Document() {
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <meta name="viewport" content="width=device-width, initial-scale=0.9" />
         <title>GeoIA</title>
-        <link rel="icon" href="/imgLogo.png" />
+        <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
       </Head>
       <body>
         <Main />
