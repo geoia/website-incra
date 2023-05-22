@@ -89,7 +89,7 @@ export default function Principal() {
         }}
       >
         <img src="/logo.svg" title="Logo" height="60px" />
-        <Pesquisa setCityId={setCityId} isDataLoading={isDataLoading} />
+        <Pesquisa cityId={cityId} onChange={(id) => id && setCityId(id)} />
       </Grid>
 
       <Grid
