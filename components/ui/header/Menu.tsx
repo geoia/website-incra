@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const pages = [
   ['Apresentação', 'home'],
@@ -19,6 +20,7 @@ const pages = [
 ];
 
 function GeneralMenu() {
+  const { pathname } = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -65,14 +67,18 @@ function GeneralMenu() {
                         component="a"
                         sx={{
                           cursor: 'pointer',
-                          fontWeight: 600,
-                          padding: '20px 15px',
+                          fontSize: 18,
+                          padding: '15px 15px',
                           textDecoration: 'none',
-                          color: '#0F1C3C',
-                          '&:hover': {
-                            backgroundColor: '#0F1C3C',
-                            color: '#FFF',
+                          borderRadius: 5,
+                          color: pathname === `/${page[1]}` ? '#FFF' : '#0F1C3C',
+                          backgroundColor: pathname === `/${page[1]}` ? '#0F1C3C' : '#FFF',
+                          '&:hover' : {
+                            borderRadius: pathname === `/${page[1]}` ? 5 : 0,
+                            borderBottom: pathname === `/${page[1]}` ? '' : 4,
+                            borderBottomColor: '#0F1C3C',
                           },
+                          
                         }}
                       >
                         {page[0]}
