@@ -13,6 +13,11 @@ import plantaDeFundo from '../images/planta-de-fundo.svg';
 import Menu from '../components/ui/header/Menu';
 
 export default function Ajuda() {
+
+  const topicos = [
+    {titulo: 'Qualquer coisa', conteudo: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. At expedita ex repudiandae'},
+  ]
+
   return (
     <>
       <Head>
@@ -23,89 +28,33 @@ export default function Ajuda() {
         <Image src={plantaDeFundo} alt="planta de fundo" />
       </Box>
       <Container>
-        <Grid item sx={{ marginTop: 5 }}>
+        <Grid container sx={{ marginTop: 5, justifyContent: 'center' }}>
           <Typography variant="h3" sx={{ fontWeight: 500, marginBottom: 5, textAlign: 'center' }}>
             Tópicos frequentes
           </Typography>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography>Lorem ipsum dolor sit amet consectetur</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. At expedita ex repudiandae
-                eos. <br />
-                Atque esse vitae beatae dolorum soluta ex fugit impedit aperiam corporis, eveniet
-                quae sit vel, saepe nihil.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion sx={{ marginTop: 2 }}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>Lorem ipsum dolor sit amet consectetur</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus
-                ex, sit amet blandit leo lobortis eget.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion sx={{ marginTop: 2 }}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>Lorem ipsum dolor sit amet consectetur</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus
-                ex, sit amet blandit leo lobortis eget.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion sx={{ marginTop: 2 }}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>Lorem ipsum dolor sit amet consectetur</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus
-                ex, sit amet blandit leo lobortis eget.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion sx={{ marginTop: 2 }}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>Lorem ipsum dolor sit amet consectetur</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus
-                ex, sit amet blandit leo lobortis eget.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
+          <Grid item>
+            {topicos.map((topico) => {
+              return (
+              <>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography>{topico.titulo}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      {topico.conteudo}
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+              </>)
+            })}
+          </Grid>
         </Grid>
-
+        
         <Grid lg={8} sx={{ marginTop: 5, bgColor: '#000' }}>
           <Typography variant="h4" sx={{ fontWeight: 500, color: 'secondary' }}>
             Ainda tem dúvida? <br /> Entre em contato com a gente?
