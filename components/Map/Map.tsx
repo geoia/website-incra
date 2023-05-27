@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { MapContainer, TileLayer, Polygon, FeatureGroup, GeoJSON } from 'react-leaflet';
+import React from 'react';
+import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import EventsListenerOfMap from './EventsListenerOfMap';
@@ -21,7 +21,6 @@ interface Props {
   isLocationClicked: boolean;
   isFireButtonClicked: boolean;
   isSimplifiedDatas: boolean;
-  areMunicipalBoundariesVisible: boolean;
   cityId: number;
   setIsDataLoading: (val: boolean) => void;
 }
@@ -36,7 +35,6 @@ export default function Map({
   isLocationClicked,
   isFireButtonClicked,
   isSimplifiedDatas,
-  areMunicipalBoundariesVisible,
   cityId,
   setIsDataLoading,
 }: Props) {

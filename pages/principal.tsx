@@ -37,7 +37,6 @@ export default function Principal() {
   const [isZoomOutClicked, setIsZoomOutClicked] = useState(false);
   const [isLocationClicked, setIsLocationClicked] = useState(false);
   const [isSimplifiedDatas, setIsSimplifiedDatas] = useState(false);
-  const [areMunicipalBoundariesVisible, setAreMunicipalBoundariesVisible] = useState(true);
   const [cityId, setCityId] = useState(5003207);
   const [isDataLoading, setIsDataLoading] = useState<boolean>(false);
   return (
@@ -69,7 +68,6 @@ export default function Principal() {
         isLocationClicked={isLocationClicked}
         isFireButtonClicked={isFireButtonClicked}
         isSimplifiedDatas={isSimplifiedDatas}
-        areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
         cityId={cityId}
         setIsDataLoading={setIsDataLoading}
       />
@@ -191,8 +189,6 @@ export default function Principal() {
         isSettingsVisible={isSettingsVisible}
         setIsSettingsVisible={setIsSettingsVisible}
         setIsSimplifiedDatas={setIsSimplifiedDatas}
-        areMunicipalBoundariesVisible={areMunicipalBoundariesVisible}
-        setAreMunicipalBoundariesVisible={setAreMunicipalBoundariesVisible}
       />
     </>
   );
