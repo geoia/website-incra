@@ -13,10 +13,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const pages = [
-  ['Apresentação', 'home'],
-  ['Sobre', 'sobre'],
-  ['WebGis', 'webgis'],
-  ['Ajuda', 'ajuda'],
+  {titulo:'Apresentação', rota: 'home'},
+  {titulo: 'Sobre', rota: 'sobre'},
+  {titulo: 'WebGis', rota: 'webgis'},
+  {titulo: 'Ajuda', rota: 'ajuda'},
 ];
 
 function GeneralMenu() {
@@ -62,7 +62,7 @@ function GeneralMenu() {
               {pages.map((page) => {
                 return (
                   <>
-                    <Link href={`/${page[1]}`} passHref key={page[1]} onClick={handleCloseNavMenu}>
+                    <Link href={`/${page.rota}`} passHref key={page.rota} onClick={handleCloseNavMenu}>
                       <Typography
                         component="a"
                         sx={{
@@ -71,17 +71,17 @@ function GeneralMenu() {
                           padding: '15px 15px',
                           textDecoration: 'none',
                           borderRadius: 5,
-                          color: pathname === `/${page[1]}` ? '#FFF' : '#0F1C3C',
-                          backgroundColor: pathname === `/${page[1]}` ? '#0F1C3C' : '#FFF',
+                          color: pathname === `/${page.rota}` ? '#FFF' : '#0F1C3C',
+                          backgroundColor: pathname === `/${page.rota}` ? '#0F1C3C' : '#FFF',
                           '&:hover' : {
-                            borderRadius: pathname === `/${page[1]}` ? 5 : 0,
-                            borderBottom: pathname === `/${page[1]}` ? '' : 4,
+                            borderRadius: pathname === `/${page.rota}` ? 5 : 0,
+                            borderBottom: pathname === `/${page.rota}` ? '' : 4,
                             borderBottomColor: '#0F1C3C',
                           },
                           
                         }}
                       >
-                        {page[0]}
+                        {page.titulo}
                       </Typography>
                     </Link>
                   </>
@@ -143,9 +143,9 @@ function GeneralMenu() {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page[1]} onClick={handleCloseNavMenu}>
-                    <Link href={`/${page[1]}`} passHref key={page[1]} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{page[0]}</Typography>
+                  <MenuItem key={page.rota} onClick={handleCloseNavMenu}>
+                    <Link href={`/${page.rota}`} passHref key={page.rota} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page.titulo}</Typography>
                     </Link>
                   </MenuItem>
                 ))}

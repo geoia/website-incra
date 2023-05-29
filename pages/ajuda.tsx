@@ -16,6 +16,7 @@ export default function Ajuda() {
 
   const topicos = [
     {titulo: 'Qualquer coisa', conteudo: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. At expedita ex repudiandae'},
+    {titulo: 'Qualquer coisa', conteudo: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. At expedita ex repudiandae'},
   ]
 
   return (
@@ -36,7 +37,7 @@ export default function Ajuda() {
             {topicos.map((topico) => {
               return (
               <>
-                <Accordion>
+                <Accordion sx={{marginTop: 2}}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -57,7 +58,7 @@ export default function Ajuda() {
         
         <Grid lg={8} sx={{ marginTop: 5, bgColor: '#000' }}>
           <Typography variant="h4" sx={{ fontWeight: 500, color: 'secondary' }}>
-            Ainda tem dúvida? <br /> Entre em contato com a gente?
+            Ainda tem dúvida, <br /> Entre em contato com a gente:
           </Typography>
         </Grid>
         <Grid container justifyContent={'center'} marginTop={5}>
