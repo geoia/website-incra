@@ -10,7 +10,7 @@ import Image from 'next/image';
 import Paper from '@mui/material/Paper';
 
 import plantaDeFundo from '../images/planta-de-fundo.svg';
-import Menu from '../components/ui/Menu';
+import Menu from '../components/Menu';
 
 export default function Ajuda() {
   const topicos: Array<{ titulo: string; conteudo: string }> = [];

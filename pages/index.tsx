@@ -11,7 +11,7 @@ import homeLogoUfms from '../images/home-logo-ufms.png';
 import homeFolhas from '../images/home-folhas.png';
 import homeTucano from '../images/home-tucano.png';
 
-import Menu from '../components/ui/Menu';
+import Menu from '../components/Menu';
 
 export default function Home() {
   return (

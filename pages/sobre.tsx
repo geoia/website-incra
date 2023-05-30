@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { Grid, Typography, Box } from '@mui/material';
 import Head from 'next/head';
 
-import CrouselParticipant from '../components/ui/Carousel';
-import Menu from '../components/ui/Menu';
+import CrouselParticipant from '../components/Carousel';
+import Menu from '../components/Menu';
 
 import sobreAnimais from '../images/sobre-animais.png';
 import ufmsClaro from '../images/ufms-escuro.png';

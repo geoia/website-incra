@@ -3,11 +3,11 @@ import Image from 'next/image';
 import Carousel from 'react-material-ui-carousel';
 import { Typography, Grid } from '@mui/material';
 
-import photoLourdes from '../../../images/photo-lourdes.svg';
-import photoMarcus from '../../../images/photo-marcus.svg';
-import photoRafael from '../../../images/photo-rafael.svg';
-import photoAllan from '../../../images/photo-allan.svg';
-import photoMatheus from '../../../images/photo-matheus.svg';
+import photoLourdes from '../../images/photo-lourdes.svg';
+import photoMarcus from '../../images/photo-marcus.svg';
+import photoRafael from '../../images/photo-rafael.svg';
+import photoAllan from '../../images/photo-allan.svg';
+import photoMatheus from '../../images/photo-matheus.svg';
 
 export default function CrouselParticipant() {
   var items = [

@@ -5,8 +5,8 @@ import { Grid } from '@mui/material';
 import Link from '@mui/material/Link';
 import NextLink from 'next/link';
 
-import { TextField } from '../components/ui/Input';
-import Logo from '../components/ui/Logo';
+import { TextField } from '../components/Input';
+import Logo from '../components/Logo';
 
 export default function Login() {
   return (
