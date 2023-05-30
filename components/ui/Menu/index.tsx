@@ -12,11 +12,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const pages = [
-  {titulo:'Apresentação', rota: 'home'},
-  {titulo: 'Sobre', rota: 'sobre'},
-  {titulo: 'WebGis', rota: 'webgis'},
-  {titulo: 'Ajuda', rota: 'ajuda'},
+const pages: Array<{ titulo: string; rota: string }> = [
+  { titulo: 'Apresentação', rota: '' },
+  { titulo: 'Sobre', rota: 'sobre' },
+  { titulo: 'WebGis', rota: 'webgis' },
+  { titulo: 'Ajuda', rota: 'ajuda' },
 ];
 
 function GeneralMenu() {
@@ -62,7 +62,12 @@ function GeneralMenu() {
               {pages.map((page) => {
                 return (
                   <>
-                    <Link href={`/${page.rota}`} passHref key={page.rota} onClick={handleCloseNavMenu}>
+                    <Link
+                      href={`/${page.rota}`}
+                      passHref
+                      key={page.rota}
+                      onClick={handleCloseNavMenu}
+                    >
                       <Typography
                         component="a"
                         sx={{
@@ -73,12 +78,11 @@ function GeneralMenu() {
                           borderRadius: 5,
                           color: pathname === `/${page.rota}` ? '#FFF' : '#0F1C3C',
                           backgroundColor: pathname === `/${page.rota}` ? '#0F1C3C' : '#FFF',
-                          '&:hover' : {
+                          '&:hover': {
                             borderRadius: pathname === `/${page.rota}` ? 5 : 0,
                             borderBottom: pathname === `/${page.rota}` ? '' : 4,
                             borderBottomColor: '#0F1C3C',
                           },
-                          
                         }}
                       >
                         {page.titulo}
@@ -144,7 +148,12 @@ function GeneralMenu() {
               >
                 {pages.map((page) => (
                   <MenuItem key={page.rota} onClick={handleCloseNavMenu}>
-                    <Link href={`/${page.rota}`} passHref key={page.rota} onClick={handleCloseNavMenu}>
+                    <Link
+                      href={`/${page.rota}`}
+                      passHref
+                      key={page.rota}
+                      onClick={handleCloseNavMenu}
+                    >
                       <Typography textAlign="center">{page.titulo}</Typography>
                     </Link>
                   </MenuItem>

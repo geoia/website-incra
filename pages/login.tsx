@@ -5,17 +5,17 @@ import { Grid } from '@mui/material';
 import Link from '@mui/material/Link';
 import NextLink from 'next/link';
 
-import TextField from '../components/ui/input/TextField';
-import Logo from '../components/ui/logo/Logo';
+import { TextField } from '../components/ui/Input';
+import Logo from '../components/ui/Logo';
 
 export default function Login() {
   return (
     <>
       <Grid container component="main" direction={'column'} alignItems="center">
         <Grid
-          md={5}
-          sm={8}
           xs={10}
+          sm={8}
+          md={5}
           sx={{
             marginTop: 20,
             display: 'flex',
@@ -33,8 +33,8 @@ export default function Login() {
           </Typography>
         </Grid>
         <Grid
-          sm={8}
           xs={10}
+          sm={8}
           md={6}
           sx={{
             display: 'flex',
@@ -48,8 +48,8 @@ export default function Login() {
           <TextField placeholder="Senha" sx={{ margin: 1.5 }} />
         </Grid>
         <Grid
-          sm={8}
           xs={10}
+          sm={8}
           md={6}
           sx={{
             display: 'flex',

@@ -1,8 +1,8 @@
-import TextField, { TextFieldProps } from '@mui/material/TextField';
+import { default as MuiTextField, StandardTextFieldProps } from '@mui/material/TextField';
 
-export default function CustomTextField({ sx, ...props }: TextFieldProps) {
+export function TextField({ sx, InputProps, ...props }: StandardTextFieldProps) {
   return (
-    <TextField
+    <MuiTextField
       variant="standard"
       size="small"
       InputProps={{ disableUnderline: true }}

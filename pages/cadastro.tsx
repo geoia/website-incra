@@ -1,4 +1,4 @@
-import { Grid, Box } from '@mui/material/';
+import { Grid, Box, Select, MenuItem } from '@mui/material/';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Link from '@mui/material/Link';
@@ -6,9 +6,8 @@ import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 import NextLink from 'next/link';
 
-import SelectEscolaridade from '../components/ui/select/selectEscolaridadecopy';
-import TextField from '../components/ui/input/TextField';
-import Logo from '../components/ui/logo/Logo';
+import { TextField } from '../components/ui/Input';
+import Logo from '../components/ui/Logo';
 import { useState } from 'react';
 
 export default function Cadastro() {
@@ -57,7 +56,28 @@ export default function Cadastro() {
           <form action="#" method="post">
             <p>Informações Pessoais</p>
             <TextField placeholder="Nome" sx={{ marginBottom: 2 }} />
-            <SelectEscolaridade />
+            <Select
+              placeholder="Escolaridade"
+              sx={{
+                marginBottom: 2,
+                background: '#fff',
+                borderRadius: 3,
+              }}
+              size="small"
+              displayEmpty
+              required
+              fullWidth
+            >
+              <MenuItem disabled selected>
+                Escolaridade
+              </MenuItem>
+              <MenuItem value="1">Fundamental Incompleto</MenuItem>
+              <MenuItem value="2">Fundamental Completo</MenuItem>
+              <MenuItem value="3">Ensino Médio Incompleto</MenuItem>
+              <MenuItem value="4">Ensino Médio Completo</MenuItem>
+              <MenuItem value="5">Ensino Superior Incompleto</MenuItem>
+              <MenuItem value="6">Ensino Superior Completo</MenuItem>
+            </Select>
             <TextField placeholder="Email" type="email" sx={{ marginBottom: 2 }} />
             <TextField placeholder="Crie uma senha" type="password" sx={{ marginBottom: 2 }} />
             <TextField placeholder="Repita a senha" type="password" sx={{ marginBottom: 2 }} />

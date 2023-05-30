@@ -3,22 +3,21 @@ import Image from 'next/image';
 import { Grid, Typography, Box } from '@mui/material';
 import Head from 'next/head';
 
-
 import CrouselParticipant from '../components/ui/Carousel';
-import Menu from '../components/ui/header/Menu';
+import Menu from '../components/ui/Menu';
+
 import sobreAnimais from '../images/sobre-animais.png';
 import ufmsClaro from '../images/ufms-escuro.png';
 import laboratorioClaro from '../images/laboratorio-escuro.png';
 import plantAboutLeft from '../images/plant-about-left.svg';
 import plantAboutRight from '../images/plant-about-right.svg';
 import plantAboutBottom from '../images/plant-about-bottom.svg';
-import { Translate } from '@mui/icons-material';
 
 export default function Sobre() {
   return (
     <>
       <Head>
-          <title>GeoIA - Sobre</title>
+        <title>GeoIA - Sobre</title>
       </Head>
       <Menu />
       <Grid container sx={{ height: '100vh', backgroundColor: '#0F1C3C' }}>
