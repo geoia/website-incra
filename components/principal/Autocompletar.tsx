@@ -28,12 +28,11 @@ export default function Pesquisa(props: {
 }) {
   const { data } = useMunicipios();
 
-  console.log(data?.find((option) => props.cityId == option.id));
-
   return (
-    <>
-      <style>
-        {`
+    data && (
+      <>
+        <style>
+          {`
           .MuiAutocomplete-listbox::-webkit-scrollbar {
             width: 15px;
           }
@@ -46,96 +45,95 @@ export default function Pesquisa(props: {
             border: 3px solid #0f1c3c;
           }
         `}
-      </style>
-      <Autocomplete
-        id="grouped-demo"
-        groupBy={(option) => option.sigla}
-        options={
-          data
-            ? data.filter((d) => d.queimadas).sort((a, b) => -b.sigla.localeCompare(a.sigla))
-            : []
-        }
-        getOptionDisabled={(option) => !option.queimadas}
-        getOptionLabel={(option) => option.nome}
-        noOptionsText="Não existem dados para essa localidade"
-        defaultValue={data ? data.find((option) => props.cityId == option.id) : undefined}
-        sx={{
-          width: '100%',
-          borderRadius: '50px, 50px, 50px, 50px',
-          '& .MuiAutocomplete': { overflowY: 'hidden', overflowX: 'hidden' },
-          '& .MuiAutocomplete-listbox': {
-            scrollbarWidth: 'thin',
-            scrollbarColor: '#509CBF #0f1c3c',
-          },
-          '& 	.MuiAutocomplete-input': {
-            color: '#ffffff',
-          },
-          '& .MuiOutlinedInput-root': {
-            borderRadius: '50px',
-            backgroundColor: '#509CBF',
-            color: '#ffffff',
-            '.MuiOutlinedInput-notchedOutline': {
-              border: 'none',
+        </style>
+        <Autocomplete
+          id="grouped-demo"
+          groupBy={(option) => option.sigla}
+          options={data.filter((d) => d.queimadas).sort((a, b) => -b.sigla.localeCompare(a.sigla))}
+          getOptionDisabled={(option) => !option.queimadas}
+          getOptionLabel={(option) => option.nome}
+          noOptionsText="Não existem dados para essa localidade"
+          value={data.find((option) => props.cityId == option.id)}
+          sx={{
+            width: '100%',
+            borderRadius: '50px, 50px, 50px, 50px',
+            '& .MuiAutocomplete': { overflowY: 'hidden', overflowX: 'hidden' },
+            '& .MuiAutocomplete-listbox': {
+              scrollbarWidth: 'thin',
+              scrollbarColor: '#509CBF #0f1c3c',
             },
-          },
-          '& .MuiAutocomplete-inputRoot': {
-            borderRadius: '50px',
-            padding: '0',
-          },
-          '&	.MuiAutocomplete-inputFocused': {
-            borderColor: '#0f1c3c00',
-          },
-          '& .MuiInputLabel-outlined': {
-            paddingLeft: '20px',
-            color: '#ffffff',
-          },
-          '& .MuiInputLabel-Noshrink': {
-            paddingBottom: '20px',
-          },
-          '& .MuiAutocomplete-endAdornment': {
-            right: '0px !important',
-          },
-          '& .MuiInputLabel-shrink': {
-            marginLeft: '10px',
-            paddingLeft: '10px',
-            paddingRight: 0,
-            background: '#509CBF00',
-            color: '#000000',
-            borderColor: '#0f1c3c00',
-            transform: 'translate(0, 0) scale(0.75)',
-            transformOrigin: 'top left',
-          },
-        }}
-        PopperComponent={(props) => {
-          return <Popper {...props} style={{ width: '30%' }} />;
-        }}
-        PaperComponent={CustomPaper}
-        onInputChange={(_, value) => {
-          if (props.onChange)
-            props.onChange(data ? data.find((option) => value == option.nome)?.id : undefined);
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            placeholder="Escolha uma localidade"
-            style={{ color: '#ffffff', margin: '0' }}
-          />
-        )}
-        renderGroup={(params) => (
-          <li style={{ border: '2px', borderColor: '#ffffff', color: '#ffffff' }}>
-            <GroupHeader
-              sx={{
-                '& .MuiAutocomplete-listbox': {
-                  scrollbarWidth: '100px',
-                },
-              }}
+            '& 	.MuiAutocomplete-input': {
+              color: '#ffffff',
+            },
+            '& .MuiOutlinedInput-root': {
+              borderRadius: '50px',
+              backgroundColor: '#509CBF',
+              color: '#ffffff',
+              '.MuiOutlinedInput-notchedOutline': {
+                border: 'none',
+              },
+            },
+            '& .MuiAutocomplete-inputRoot': {
+              borderRadius: '50px',
+              padding: '0',
+            },
+            '&	.MuiAutocomplete-inputFocused': {
+              borderColor: '#0f1c3c00',
+            },
+            '& .MuiInputLabel-outlined': {
+              paddingLeft: '20px',
+              color: '#ffffff',
+            },
+            '& .MuiInputLabel-Noshrink': {
+              paddingBottom: '20px',
+            },
+            '& .MuiAutocomplete-endAdornment': {
+              right: '0px !important',
+            },
+            '& .MuiInputLabel-shrink': {
+              marginLeft: '10px',
+              paddingLeft: '10px',
+              paddingRight: 0,
+              background: '#509CBF00',
+              color: '#000000',
+              borderColor: '#0f1c3c00',
+              transform: 'translate(0, 0) scale(0.75)',
+              transformOrigin: 'top left',
+            },
+          }}
+          PopperComponent={(props) => {
+            return <Popper {...props} style={{ width: '30%' }} />;
+          }}
+          PaperComponent={CustomPaper}
+          onInputChange={(_, value) => {
+            if (props.onChange) props.onChange(data.find((option) => value == option.nome)?.id);
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              placeholder="Escolha uma localidade"
+              style={{ color: '#ffffff', margin: '0' }}
+            />
+          )}
+          renderGroup={(params) => (
+            <li
+              style={{ border: '2px', borderColor: '#ffffff', color: '#ffffff' }}
+              key={params.key}
             >
-              {params.group}
-            </GroupHeader>
-            <GroupItems>{params.children}</GroupItems>
-          </li>
-        )}
-      />
-    </>
+              <GroupHeader
+                sx={{
+                  '& .MuiAutocomplete-listbox': {
+                    scrollbarWidth: '100px',
+                  },
+                }}
+              >
+                {params.group}
+              </GroupHeader>
+              <GroupItems>{params.children}</GroupItems>
+            </li>
+          )}
+        />
+      </>
+    )
   );
 }
