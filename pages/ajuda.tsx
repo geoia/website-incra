@@ -31,29 +31,27 @@ export default function Ajuda() {
               Tópicos frequentes
             </Typography>
             <Grid item>
-              {topicos.map((topico) => {
+              {topicos.map((topico, index) => {
                 return (
-                  <>
-                    <Accordion sx={{ marginTop: 2 }}>
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                      >
-                        <Typography>{topico.titulo}</Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Typography>{topico.conteudo}</Typography>
-                      </AccordionDetails>
-                    </Accordion>
-                  </>
+                  <Accordion sx={{ marginTop: 2 }} key={index}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                    >
+                      <Typography>{topico.titulo}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography>{topico.conteudo}</Typography>
+                    </AccordionDetails>
+                  </Accordion>
                 );
               })}
             </Grid>
           </Grid>
         )}
 
-        <Grid lg={8} sx={{ marginTop: 5, bgColor: '#000' }}>
+        <Grid item lg={8} sx={{ marginTop: 5, bgColor: '#000' }}>
           <Typography
             variant="h4"
             sx={{ fontWeight: 500, color: 'secondary', textAlign: 'center' }}

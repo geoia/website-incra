@@ -61,34 +61,28 @@ function GeneralMenu() {
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               {pages.map((page) => {
                 return (
-                  <>
-                    <Link
-                      href={`/${page.rota}`}
-                      passHref
-                      key={page.rota}
+                  <Link href={`/${page.rota}`} passHref key={page.rota}>
+                    <Typography
+                      component="a"
+                      sx={{
+                        cursor: 'pointer',
+                        fontSize: 18,
+                        padding: '15px 15px',
+                        textDecoration: 'none',
+                        borderRadius: 5,
+                        color: pathname === `/${page.rota}` ? '#FFF' : '#0F1C3C',
+                        backgroundColor: pathname === `/${page.rota}` ? '#0F1C3C' : '#FFF',
+                        '&:hover': {
+                          borderRadius: pathname === `/${page.rota}` ? 5 : 0,
+                          borderBottom: pathname === `/${page.rota}` ? '' : 4,
+                          borderBottomColor: '#0F1C3C',
+                        },
+                      }}
                       onClick={handleCloseNavMenu}
                     >
-                      <Typography
-                        component="a"
-                        sx={{
-                          cursor: 'pointer',
-                          fontSize: 18,
-                          padding: '15px 15px',
-                          textDecoration: 'none',
-                          borderRadius: 5,
-                          color: pathname === `/${page.rota}` ? '#FFF' : '#0F1C3C',
-                          backgroundColor: pathname === `/${page.rota}` ? '#0F1C3C' : '#FFF',
-                          '&:hover': {
-                            borderRadius: pathname === `/${page.rota}` ? 5 : 0,
-                            borderBottom: pathname === `/${page.rota}` ? '' : 4,
-                            borderBottomColor: '#0F1C3C',
-                          },
-                        }}
-                      >
-                        {page.titulo}
-                      </Typography>
-                    </Link>
-                  </>
+                      {page.titulo}
+                    </Typography>
+                  </Link>
                 );
               })}
             </Box>
