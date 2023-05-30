@@ -30,7 +30,6 @@ export default function Principal() {
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
   const [isFireButtonClicked, setIsFireButtonClicked] = useState(true);
-  const [isFullScreen, setIsFullScreen] = useState(false);
   const [isZoomInClicked, setIsZoomInClicked] = useState(false);
   const [isZoomOutClicked, setIsZoomOutClicked] = useState(false);
   const [isLocationClicked, setIsLocationClicked] = useState(false);
@@ -58,8 +57,6 @@ export default function Principal() {
       </Head>
 
       <Mapa
-        isFullScreen={isFullScreen}
-        setIsFullScreen={setIsFullScreen}
         isZoomInClicked={isZoomInClicked}
         setIsZoomInClicked={setIsZoomInClicked}
         isZoomOutClicked={isZoomOutClicked}
@@ -81,7 +78,6 @@ export default function Principal() {
           height: '40px',
           background: '#509CBF',
           borderRadius: '20px',
-          zIndex: isFullScreen ? '-1' : '1',
         }}
       >
         <picture>
@@ -101,7 +97,6 @@ export default function Principal() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          zIndex: isFullScreen ? '-1' : '1',
           '@media (max-width: 1500px)': {
             width: '45px',
             height: '160px',
@@ -131,7 +126,6 @@ export default function Principal() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           transform: 'translateY(-50%)',
-          zIndex: isFullScreen ? '-1' : '1',
           '@media (max-width: 1500px)': {
             width: '45px',
             height: '215px',
@@ -157,7 +151,6 @@ export default function Principal() {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
-          zIndex: isFullScreen ? '-1' : '1',
           '@media (max-width: 1500px)': {
             height: '45px',
             width: '215px',
@@ -166,7 +159,12 @@ export default function Principal() {
       >
         <AddBotao onClick={() => setIsZoomInClicked(true)} />
         <RemoveBotao onClick={() => setIsZoomOutClicked(true)} />
-        <CropBotao onClick={() => setIsFullScreen(true)} />
+        <CropBotao
+          onClick={() => {
+            var elem = document.documentElement;
+            if (elem.requestFullscreen) elem.requestFullscreen();
+          }}
+        />
         <MapBotao onClick={() => setIsLocationClicked(!isLocationClicked)} />
       </Grid>
       <DownloadModal

@@ -41,12 +41,6 @@ export function zoomOutButtonAction(
   }
 }
 
-export function fullScreenAction(isFullScreen: boolean, setIsFullScreen: (val: boolean) => void) {
-  if (isFullScreen) {
-    setIsFullScreen(false);
-  }
-}
-
 function returnCityPosition(cityId: number) {
   for (let i = 0; i < estados.features.length; i++) {
     const id = parseInt(estados.features[i].properties.id);

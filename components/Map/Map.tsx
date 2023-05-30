@@ -12,8 +12,6 @@ const center = {
 };
 
 interface Props {
-  isFullScreen: boolean;
-  setIsFullScreen: (val: boolean) => void;
   isZoomInClicked: boolean;
   setIsZoomInClicked: (val: boolean) => void;
   isZoomOutClicked: boolean;
@@ -25,8 +23,6 @@ interface Props {
 }
 
 export default function Map({
-  isFullScreen,
-  setIsFullScreen,
   isZoomInClicked,
   setIsZoomInClicked,
   isZoomOutClicked,
@@ -57,8 +53,6 @@ export default function Map({
       ]}
     >
       <EventsListenerOfMap
-        isFullScreen={isFullScreen}
-        setIsFullScreen={setIsFullScreen}
         isZoomInClicked={isZoomInClicked}
         setIsZoomInClicked={setIsZoomInClicked}
         isZoomOutClicked={isZoomOutClicked}

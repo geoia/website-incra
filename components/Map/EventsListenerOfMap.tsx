@@ -4,15 +4,12 @@ import {
   locationButtonAction,
   zoomInButtonAction,
   zoomOutButtonAction,
-  fullScreenAction,
   changeCenter,
 } from '../../buttonsActions/buttonsActions';
 import L from 'leaflet';
 import ToastError from '../principal/ToastError';
 
 interface Props {
-  isFullScreen: boolean;
-  setIsFullScreen: (val: boolean) => void;
   isZoomInClicked: boolean;
   setIsZoomInClicked: (val: boolean) => void;
   isZoomOutClicked: boolean;
@@ -27,8 +24,6 @@ const iconMarker = new L.Icon({
 });
 
 export default function EventsListener({
-  isFullScreen,
-  setIsFullScreen,
   isZoomInClicked,
   setIsZoomInClicked,
   isZoomOutClicked,
@@ -55,9 +50,6 @@ export default function EventsListener({
   }, [cityId]);
 
   const map = useMapEvents({
-    click: () => {
-      fullScreenAction(isFullScreen, setIsFullScreen);
-    },
     locationfound(e) {
       setIsMarkerOpen(true);
       setIsError(false);
