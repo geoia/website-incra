@@ -1,8 +1,6 @@
 import Head from 'next/head';
-import Mapa from './Mapa';
 
 import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
 
 import DownloadModal from '../components/principal/DownloadModal';
 import MenuModal from '../components/principal/MenuModal';
@@ -12,7 +10,6 @@ import { Grid } from '@mui/material';
 import Pesquisa from '../components/principal/Autocompletar';
 import {
   CalendarBotao,
-  MenuBotao,
   DownloadBotao,
   FireBotao,
   ForestBotao,
@@ -24,6 +21,7 @@ import {
   MapBotao,
   SettingsBotao,
 } from '../components/principal/Botao';
+import dynamic from 'next/dynamic';
 
 export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
@@ -38,24 +36,25 @@ export default function Principal() {
   const [isLocationClicked, setIsLocationClicked] = useState(false);
   const [isSimplifiedDatas, setIsSimplifiedDatas] = useState(false);
   const [cityId, setCityId] = useState(5003207);
-  const [isDataLoading, setIsDataLoading] = useState<boolean>(false);
+
+  const Mapa = React.useMemo(
+    () =>
+      dynamic(
+        () => import('../components/Map/Map'), // replace '@components/map' with your component's location
+        {
+          loading: () => <p>O mapa está carregando</p>,
+          ssr: false, // This line is important. It's what prevents server-side render
+        }
+      ),
+    [
+      /* list variables which should trigger a re-render here */
+    ]
+  );
+
   return (
     <>
       <Head>
-        <title>GeoIA - Principal</title>
-        <style>
-          {`
-            body {            
-                width: 100vw;
-                height: 100vh;
-                position: relative;
-            }
-            #__next{
-                width: 100%;
-                height: 100%;
-            }
-          `}
-        </style>
+        <title>GeoIA - WebGis</title>
       </Head>
 
       <Mapa
@@ -69,7 +68,6 @@ export default function Principal() {
         isFireButtonClicked={isFireButtonClicked}
         isSimplifiedDatas={isSimplifiedDatas}
         cityId={cityId}
-        setIsDataLoading={setIsDataLoading}
       />
 
       <Grid
@@ -86,7 +84,9 @@ export default function Principal() {
           zIndex: isFullScreen ? '-1' : '1',
         }}
       >
-        <img src="/logo.svg" title="Logo" height="60px" />
+        <picture>
+          <img src="/logo.svg" title="Logo" height="60px" alt="" />
+        </picture>
         <Pesquisa cityId={cityId} onChange={(id) => id && setCityId(id)} />
       </Grid>
 

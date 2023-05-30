@@ -12,7 +12,6 @@ interface ObservableProps {
 interface BaseProps {
   municipio: number;
   simplified: boolean;
-  setIsDataLoading: (val: boolean) => void;
 }
 
 interface PaginationProps {
@@ -56,7 +55,7 @@ async function requestData(opts: BaseProps & PaginationProps & { controller?: Ab
 }
 
 export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
-  const { municipio, simplified, setIsDataLoading } = props;
+  const { municipio, simplified } = props;
 
   const [pages, setPages] = useState<PagesMeta>({ current: 0 });
   const [data, setData] = useState<Record<string, any>[]>([]);
@@ -64,7 +63,6 @@ export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
   useEffect(() => setPages({ current: 0, next: 1 }), []);
 
   useEffect(() => {
-    setIsDataLoading(true);
     setData([]);
     setPages({ current: 0, next: 1 });
   }, [props.municipio, props.simplified]);
@@ -74,7 +72,6 @@ export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
       if (props.onFinish) {
         props.onFinish(pages.current);
       }
-      setIsDataLoading(false);
 
       return;
     }
@@ -89,7 +86,6 @@ export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
       page: pages.next,
       per_page: 1000,
       controller,
-      setIsDataLoading,
     })
       .then((result) => {
         if (result.data !== null) {
