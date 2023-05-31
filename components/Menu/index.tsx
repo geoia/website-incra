@@ -48,7 +48,7 @@ function GeneralMenu() {
               <Typography
                 variant="h5"
                 component="a"
-                href="/home"
+                href="/"
                 sx={{
                   fontWeight: 700,
                   color: '#0F1C3C',
