@@ -6,7 +6,7 @@ import DownloadModal from '../components/principal/DownloadModal';
 import MenuModal from '../components/principal/MenuModal';
 import CalendarModal from '../components/principal/CalendarModal';
 import Settings from '../components/principal/Settings';
-import { Grid } from '@mui/material';
+import { Avatar, Grid } from '@mui/material';
 import Pesquisa from '../components/principal/Autocompletar';
 import {
   CalendarBotao,
@@ -23,6 +23,7 @@ import {
 } from '../components/principal/Botao';
 import dynamic from 'next/dynamic';
 import { MapEvents } from '../components/Map/Controlador';
+import Link from 'next/link';
 
 export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
@@ -78,9 +79,9 @@ export default function Principal() {
           borderRadius: '20px',
         }}
       >
-        <picture>
-          <img src="/logo.svg" title="Logo" height="60px" alt="" />
-        </picture>
+        <Link href="/">
+          <Avatar src="/logo.svg" sx={{ width: 60, height: 60 }} />
+        </Link>
         <Pesquisa cityId={cityId} onChange={(id) => id && setCityId(id)} />
       </Grid>
 
