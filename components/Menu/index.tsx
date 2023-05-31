@@ -12,6 +12,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import logo from '../public/images/logo.png';
+import Logo from '../Logo';
+
 const pages: Array<{ titulo: string; rota: string }> = [
   { titulo: 'Apresentação', rota: '' },
   { titulo: 'Sobre', rota: 'sobre' },
@@ -43,25 +46,28 @@ function GeneralMenu() {
               alignItems: 'center',
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Avatar src="/logo.svg" sx={{ width: 56, height: 56 }} />
+            <Link href="/" passHref legacyBehavior>
               <Typography
                 variant="h5"
-                component="a"
-                href="/home"
+                component="span"
                 sx={{
                   fontWeight: 700,
                   color: '#0F1C3C',
                   textDecoration: 'none',
+                  cursor: 'pointer',
                 }}
               >
-                GeoIA
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Logo sx={{ width: 56, height: 56 }} />
+                  GeoIA
+                </Box>
               </Typography>
-            </Box>
+            </Link>
+
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               {pages.map((page) => {
                 return (
-                  <Link href={`/${page.rota}`} passHref key={page.rota}>
+                  <Link href={`/${page.rota}`} passHref key={page.rota} legacyBehavior>
                     <Typography
                       component="a"
                       sx={{
@@ -97,7 +103,7 @@ function GeneralMenu() {
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Avatar src="/logo.svg" sx={{ width: 50, height: 50 }} />
+              <Avatar src="/images/logo.svg" sx={{ width: 50, height: 50 }} />
               <Typography
                 variant="h5"
                 component="a"

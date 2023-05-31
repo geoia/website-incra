@@ -9,7 +9,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import Image from 'next/image';
 import Paper from '@mui/material/Paper';
 
-import plantaDeFundo from '../images/planta-de-fundo.svg';
+import plantaDeFundo from '../public/images/planta-de-fundo.svg';
 import Menu from '../components/Menu';
 
 export default function Ajuda() {

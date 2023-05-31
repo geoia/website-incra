@@ -11,6 +11,9 @@ const theme = responsiveFontSizes(
       secondary: {
         main: '#0F1C3C',
       },
+      background: {
+        default: '#509CBF',
+      },
     },
     typography: {
       fontFamily: ['Poppins', 'serif'].join(','),

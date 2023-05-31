@@ -2,14 +2,14 @@ import Image from 'next/image';
 import Head from 'next/head';
 import { Box, Button, Grid, Typography, Avatar, AvatarProps } from '@mui/material';
 
-import infraestrutura from '../images/infraestrutura.png';
-import alagadas from '../images/alagadas.png';
-import queimadas from '../images/queimadas.png';
-import vegetacao from '../images/vegetacao.png';
-import plantHomeLeft from '../images/plant-home-left.svg';
-import homeLogoUfms from '../images/home-logo-ufms.png';
-import homeFolhas from '../images/home-folhas.png';
-import homeTucano from '../images/home-tucano.png';
+import infraestrutura from '../public/images/infraestrutura.png';
+import alagadas from '../public/images/alagadas.png';
+import queimadas from '../public/images/queimadas.png';
+import vegetacao from '../public/images/vegetacao.png';
+import plantHomeLeft from '../public/images/plant-home-left.svg';
+import homeLogoUfms from '../public/images/home-logo-ufms.png';
+import homeFolhas from '../public/images/home-folhas.png';
+import homeTucano from '../public/images/home-tucano.png';
 
 import Menu from '../components/Menu';
 

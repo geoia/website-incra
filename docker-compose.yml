@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BACKEND_URL: ${BACKEND_URL:-http://127.0.0.1:3001}
+    restart: unless-stopped
+    ports:
+      - ${PORT:-3000}:3000
