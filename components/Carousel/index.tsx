@@ -8,6 +8,7 @@ import photoMarcus from '../../images/photo-marcus.svg';
 import photoRafael from '../../images/photo-rafael.svg';
 import photoAllan from '../../images/photo-allan.svg';
 import photoMatheus from '../../images/photo-matheus.svg';
+import photoThiago from '../../images/photo-thiago.svg';
 
 export default function CrouselParticipant() {
   var items = [
@@ -20,6 +21,11 @@ export default function CrouselParticipant() {
       name: 'Marcus Vinícius Gajozo',
       course: 'Sistemas de Informações',
       photo: photoMarcus,
+    },
+    {
+      name: 'Thiago Aparecido Alves Corrêa',
+      course: 'Ciência da Computação',
+      photo: photoThiago,
     },
     {
       name: 'Rafael Torres Nantes',
