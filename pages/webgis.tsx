@@ -24,6 +24,7 @@ import {
 import dynamic from 'next/dynamic';
 import { MapEvents } from '../components/Map/Controlador';
 import Link from 'next/link';
+import Logo from '../components/Logo';
 
 export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
@@ -80,7 +81,7 @@ export default function Principal() {
         }}
       >
         <Link href="/">
-          <Avatar src="/logo.svg" sx={{ width: 60, height: 60 }} />
+          <Logo sx={{ width: 64, height: 64 }} />
         </Link>
         <Pesquisa cityId={cityId} onChange={(id) => id && setCityId(id)} />
       </Grid>

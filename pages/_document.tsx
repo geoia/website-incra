@@ -9,7 +9,7 @@ export default function Document() {
           rel="stylesheet"
         />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-        <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+        <link rel="shortcut icon" href="/images/logo.svg" type="image/x-icon" />
       </Head>
       <body>
         <Main />

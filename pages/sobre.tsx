@@ -6,12 +6,12 @@ import Head from 'next/head';
 import CrouselParticipant from '../components/Carousel';
 import Menu from '../components/Menu';
 
-import sobreAnimais from '../images/sobre-animais.png';
-import ufmsClaro from '../images/ufms-escuro.png';
-import laboratorioClaro from '../images/laboratorio-escuro.png';
-import plantAboutLeft from '../images/plant-about-left.svg';
-import plantAboutRight from '../images/plant-about-right.svg';
-import plantAboutBottom from '../images/plant-about-bottom.svg';
+import sobreAnimais from '../public/images/sobre-animais.png';
+import ufmsClaro from '../public/images/ufms-escuro.png';
+import laboratorioClaro from '../public/images/laboratorio-escuro.png';
+import plantAboutLeft from '../public/images/plant-about-left.svg';
+import plantAboutRight from '../public/images/plant-about-right.svg';
+import plantAboutBottom from '../public/images/plant-about-bottom.svg';
 
 export default function Sobre() {
   return (

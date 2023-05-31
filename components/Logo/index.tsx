@@ -1,10 +1,7 @@
-import { Grid, Avatar, SxProps, Theme } from '@mui/material';
-import { HTMLAttributes } from 'react';
+import { Avatar, AvatarProps } from '@mui/material';
 
-export default function Logo() {
+export default function Logo({ sx: sxProps }: Pick<AvatarProps, 'sx'>) {
   return (
-    <Grid xs={3}>
-      <Avatar alt="Remy Sharp" src="/logo.svg" sx={{ width: '100%', height: '100%' }} />
-    </Grid>
+    <Avatar src="/images/logo.svg" sx={Object.assign({ width: '100%', height: '100%' }, sxProps)} />
   );
 }

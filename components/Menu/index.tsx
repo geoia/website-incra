@@ -12,6 +12,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import logo from '../public/images/logo.png';
+import Logo from '../Logo';
+
 const pages: Array<{ titulo: string; rota: string }> = [
   { titulo: 'Apresentação', rota: '' },
   { titulo: 'Sobre', rota: 'sobre' },
@@ -55,7 +58,7 @@ function GeneralMenu() {
                 }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Avatar src="/logo.svg" sx={{ width: 56, height: 56 }} />
+                  <Logo sx={{ width: 56, height: 56 }} />
                   GeoIA
                 </Box>
               </Typography>
