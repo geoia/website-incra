@@ -103,7 +103,7 @@ function GeneralMenu() {
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Avatar src="/logo.svg" sx={{ width: 50, height: 50 }} />
+              <Avatar src="/images/logo.svg" sx={{ width: 50, height: 50 }} />
               <Typography
                 variant="h5"
                 component="a"
