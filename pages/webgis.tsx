@@ -22,6 +22,7 @@ import {
   SettingsBotao,
 } from '../components/principal/Botao';
 import dynamic from 'next/dynamic';
+import { MapEvents } from '../components/Map/Controlador';
 
 export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
@@ -30,16 +31,16 @@ export default function Principal() {
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
   const [isFireButtonClicked, setIsFireButtonClicked] = useState(true);
-  const [isZoomInClicked, setIsZoomInClicked] = useState(false);
-  const [isZoomOutClicked, setIsZoomOutClicked] = useState(false);
   const [isLocationClicked, setIsLocationClicked] = useState(false);
   const [isSimplifiedDatas, setIsSimplifiedDatas] = useState(false);
   const [cityId, setCityId] = useState(5003207);
 
+  const ref = React.createRef<MapEvents>();
+
   const Mapa = React.useMemo(
     () =>
       dynamic(
-        () => import('../components/Map/Map'), // replace '@components/map' with your component's location
+        () => import('../components/Map'), // replace '@components/map' with your component's location
         {
           loading: () => <p>O mapa está carregando</p>,
           ssr: false, // This line is important. It's what prevents server-side render
@@ -57,14 +58,11 @@ export default function Principal() {
       </Head>
 
       <Mapa
-        isZoomInClicked={isZoomInClicked}
-        setIsZoomInClicked={setIsZoomInClicked}
-        isZoomOutClicked={isZoomOutClicked}
-        setIsZoomOutClicked={setIsZoomOutClicked}
-        isLocationClicked={isLocationClicked}
-        isFireButtonClicked={isFireButtonClicked}
-        isSimplifiedDatas={isSimplifiedDatas}
-        cityId={cityId}
+        showLocalizacao={isLocationClicked}
+        showQueimadas={isFireButtonClicked}
+        simplificado={isSimplifiedDatas}
+        municipio={cityId}
+        forwardRef={ref}
       />
 
       <Grid
@@ -157,8 +155,8 @@ export default function Principal() {
           },
         }}
       >
-        <AddBotao onClick={() => setIsZoomInClicked(true)} />
-        <RemoveBotao onClick={() => setIsZoomOutClicked(true)} />
+        <AddBotao onClick={() => ref.current?.zoomIn()} />
+        <RemoveBotao onClick={() => ref.current?.zoomOut()} />
         <CropBotao
           onClick={() => {
             var elem = document.documentElement;

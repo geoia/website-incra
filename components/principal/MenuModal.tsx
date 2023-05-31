@@ -79,8 +79,7 @@ export default function MenuModal({ isDrawerOpen, setIsDrawerOpen, setIsSettings
         onClick={() => {
           setIsDrawerOpen(false);
           setIsSettingsVisible(true);
-          }
-        }
+        }}
         sx={{
           position: 'absolute',
           display: 'flex',

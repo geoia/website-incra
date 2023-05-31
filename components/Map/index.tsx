@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import EventsListenerOfMap from './EventsListenerOfMap';
+import EventsListenerOfMap, { MapEvents } from './Controlador';
 import QueimadasGeoJson from './QueimadasGeoJson';
 import useLimitesMunicipios from '../../hooks/useLimitesMunicipios';
+import Localizacao from './Localizacao';
 
 const center = {
   lat: -20.2634,
@@ -12,29 +13,21 @@ const center = {
 };
 
 interface Props {
-  isZoomInClicked: boolean;
-  setIsZoomInClicked: (val: boolean) => void;
-  isZoomOutClicked: boolean;
-  setIsZoomOutClicked: (val: boolean) => void;
-  isLocationClicked: boolean;
-  isFireButtonClicked: boolean;
-  isSimplifiedDatas: boolean;
-  cityId: number;
+  showLocalizacao: boolean;
+  showQueimadas: boolean;
+  simplificado: boolean;
+  municipio: number;
+  forwardRef?: React.RefObject<MapEvents>;
 }
 
-export default function Map({
-  isZoomInClicked,
-  setIsZoomInClicked,
-  isZoomOutClicked,
-  setIsZoomOutClicked,
-  isLocationClicked,
-  isFireButtonClicked,
-  isSimplifiedDatas,
-  cityId,
-}: Props) {
-  const { data, isLoading } = useLimitesMunicipios(cityId);
+function Map({ showLocalizacao, showQueimadas, simplificado, municipio, forwardRef }: Props) {
+  const { data } = useLimitesMunicipios(municipio);
 
-  return !isLoading ? (
+  useEffect(() => {
+    if (data) forwardRef?.current?.centralize(data.coordinates);
+  }, [data, forwardRef]);
+
+  return (
     <MapContainer
       center={center}
       zoom={7}
@@ -52,26 +45,18 @@ export default function Map({
         [5.63463151377654, -20.89969605983609],
       ]}
     >
-      <EventsListenerOfMap
-        isZoomInClicked={isZoomInClicked}
-        setIsZoomInClicked={setIsZoomInClicked}
-        isZoomOutClicked={isZoomOutClicked}
-        setIsZoomOutClicked={setIsZoomOutClicked}
-        isLocationClicked={isLocationClicked}
-        cityId={cityId}
-      />
+      <EventsListenerOfMap ref={forwardRef} />
+      {showLocalizacao && <Localizacao />}
       <TileLayer
         url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWF0aGV1cy1uYW50ZXMiLCJhIjoiY2xhMXpoeTRrMDBvYTNvbWZvZXpua2htOCJ9.PeFH8oujEq1AI6a8-tkk7w"
         attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
       />
 
-      {isFireButtonClicked && (
-        <QueimadasGeoJson municipio={cityId} simplified={isSimplifiedDatas} />
-      )}
+      {showQueimadas && <QueimadasGeoJson municipio={municipio} simplified={simplificado} />}
 
       {data && (
         <GeoJSON
-          key={cityId}
+          key={municipio}
           data={data}
           pathOptions={{
             dashArray: '3',
@@ -108,7 +93,7 @@ export default function Map({
         />
       )}
     </MapContainer>
-  ) : (
-    <span>Loading map...</span>
   );
 }
+
+export default Map;

@@ -83,9 +83,7 @@ export function DownloadBotao(props: ButtonProps) {
 
 export function SettingsBotao({ isSettingsVisible, setIsSettingsVisible }: PropsSettingsBotao) {
   return (
-    <BaseBotao 
-      onClick={() => setIsSettingsVisible(!isSettingsVisible)}
-    >
+    <BaseBotao onClick={() => setIsSettingsVisible(!isSettingsVisible)}>
       <SettingsIcon fontSize="medium" />
     </BaseBotao>
   );
@@ -98,7 +96,7 @@ export function FireBotao({ isFireButtonClicked, setIsFireButtonClicked }: Props
         background: isFireButtonClicked ? 'red' : '#509CBF',
         '&:hover': {
           transform: 'translateY(-2px)',
-          background: isFireButtonClicked ? 'red' : '#509CBF'
+          background: isFireButtonClicked ? 'red' : '#509CBF',
         },
       }}
       onClick={() => setIsFireButtonClicked(!isFireButtonClicked)}
