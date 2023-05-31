@@ -43,25 +43,28 @@ function GeneralMenu() {
               alignItems: 'center',
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Avatar src="/logo.svg" sx={{ width: 56, height: 56 }} />
+            <Link href="/" passHref legacyBehavior>
               <Typography
                 variant="h5"
-                component="a"
-                href="/"
+                component="span"
                 sx={{
                   fontWeight: 700,
                   color: '#0F1C3C',
                   textDecoration: 'none',
+                  cursor: 'pointer',
                 }}
               >
-                GeoIA
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Avatar src="/logo.svg" sx={{ width: 56, height: 56 }} />
+                  GeoIA
+                </Box>
               </Typography>
-            </Box>
+            </Link>
+
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               {pages.map((page) => {
                 return (
-                  <Link href={`/${page.rota}`} passHref key={page.rota}>
+                  <Link href={`/${page.rota}`} passHref key={page.rota} legacyBehavior>
                     <Typography
                       component="a"
                       sx={{
