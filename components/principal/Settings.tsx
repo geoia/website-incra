@@ -42,27 +42,37 @@ export default function Settings({
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          height: '400px',
+          height: '275px',
           width: '550px',
           backgroundColor: '#509CBF',
           borderRadius: '15px',
           color: 'white',
           '@media (max-width: 1500px)': {
-            height: '300px',
+            height: '250px',
             width: '450px',
           },
         }}
       >
-        <h1 style={{ textAlign: 'center', fontSize: '1.5rem' }}>Configurações</h1>
+        <h1
+          style={{
+            textAlign: 'center',
+            fontSize: '1.3rem',
+            fontWeight: '500',
+            marginTop: '15px',
+          }}
+        >
+          Configurações
+        </h1>
         <Grid
           sx={{
             marginLeft: '20px',
             display: 'flex',
             flexDirection: 'column',
+            marginTop: '30px',
           }}
         >
           <FormControl>
-            <p style={{ fontSize: '1.2rem' }}>Exibir dados de qual forma?</p>
+            <p style={{ fontSize: '1.1rem' }}>Exibir dados de qual forma?</p>
             <RadioGroup
               aria-labelledby="demo-controlled-radio-buttons-group"
               name="controlled-radio-buttons-group"
@@ -70,6 +80,7 @@ export default function Settings({
               onChange={handleChange}
               sx={{
                 color: 'white',
+                marginTop: '5px',
                 '& .MuiSvgIcon-root': {
                   color: 'white!important',
                 },
@@ -78,12 +89,12 @@ export default function Settings({
               <FormControlLabel
                 value="Sem Simplificação"
                 control={<Radio />}
-                label="Sem Simplificação"
+                label={<span style={{ fontSize: '1rem' }}>Sem Simplificação</span>}
               />
               <FormControlLabel
                 value="Com Simplificação"
                 control={<Radio />}
-                label="Com Simplificação"
+                label={<span style={{ fontSize: '1rem' }}>Com Simplificação</span>}
               />
             </RadioGroup>
           </FormControl>
