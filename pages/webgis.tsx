@@ -78,6 +78,12 @@ export default function Principal() {
           height: '40px',
           background: '#509CBF',
           borderRadius: '20px',
+          '@media (max-width: 950px)': {
+            width: '50%'
+          },
+          '@media (max-width: 600px)': {
+            width: 'calc(100% - 2rem)'
+          },
         }}
       >
         <Link href="/">
@@ -100,6 +106,10 @@ export default function Principal() {
           '@media (max-width: 1500px)': {
             width: '45px',
             height: '160px',
+          },
+          '@media (max-width: 600px)': {
+            top: 'calc(3rem + 40px)',
+            marginTop: 0,
           },
         }}
       >
@@ -129,6 +139,10 @@ export default function Principal() {
           '@media (max-width: 1500px)': {
             width: '45px',
             height: '215px',
+          },
+          '@media (max-width: 600px)': {
+            transform: 'none',
+            marginTop: 0,
           },
         }}
       >
