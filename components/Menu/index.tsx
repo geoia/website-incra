@@ -11,6 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import logo from '../public/images/logo.png';
 import Logo from '../Logo';
@@ -24,14 +25,10 @@ const pages: Array<{ titulo: string; rota: string }> = [
 
 function GeneralMenu() {
   const { pathname } = useRouter();
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [showMenu, setShowMenu] = useState(false);
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleToggleMenu = () => {
+    setShowMenu(!showMenu);
   };
 
   return (
@@ -41,7 +38,7 @@ function GeneralMenu() {
           <Box
             sx={{
               width: '100%',
-              display: { xs: 'none', md: 'flex' },
+              display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
             }}
@@ -64,7 +61,7 @@ function GeneralMenu() {
               </Typography>
             </Link>
 
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ display: {md: 'flex', xs:'none'}, alignItems: 'center' }}>
               {pages.map((page) => {
                 return (
                   <Link href={`/${page.rota}`} passHref key={page.rota} legacyBehavior>
@@ -84,7 +81,6 @@ function GeneralMenu() {
                           borderBottomColor: '#0F1C3C',
                         },
                       }}
-                      onClick={handleCloseNavMenu}
                     >
                       {page.titulo}
                     </Typography>
@@ -92,74 +88,23 @@ function GeneralMenu() {
                 );
               })}
             </Box>
-          </Box>
-
-          <Box
-            sx={{
-              display: { xs: 'flex', md: 'none' },
-              width: '100%',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Avatar src="/images/logo.svg" sx={{ width: 50, height: 50 }} />
-              <Typography
-                variant="h5"
-                component="a"
-                href="/home"
-                sx={{
-                  fontWeight: 700,
-                  color: '#0F1C3C',
-                  textDecoration: 'none',
-                }}
-              >
-                GeoIA
-              </Typography>
-            </Box>
-            <Box>
+            <Box sx={{ display: {md: 'none'}}}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                onClick={handleOpenNavMenu}
                 color="inherit"
+                onClick={handleToggleMenu}
               >
                 <MenuIcon />
               </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }}
-              >
-                {pages.map((page) => (
-                  <MenuItem key={page.rota} onClick={handleCloseNavMenu}>
-                    <Link
-                      href={`/${page.rota}`}
-                      passHref
-                      key={page.rota}
-                      onClick={handleCloseNavMenu}
-                    >
-                      <Typography textAlign="center">{page.titulo}</Typography>
-                    </Link>
-                  </MenuItem>
-                ))}
-              </Menu>
             </Box>
+            {showMenu && (
+                <Box sx={{position: 'absolute', height: '100vh'}} mt={2} p={2} bgcolor="lightblue">
+                  <p>Div visível!</p>
+                </Box>
+            )}
           </Box>
         </Toolbar>
       </Container>
