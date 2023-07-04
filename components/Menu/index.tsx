@@ -105,6 +105,7 @@ function GeneralMenu() {
             {showMenu && (
               <Box
                 sx={{
+                  backgroundColor: '#FFF',
                   position: 'fixed',
                   width: '100%',
                   height: '100%',
@@ -116,7 +117,6 @@ function GeneralMenu() {
                   top: 0,
                   zIndex: 2,
                 }}
-                bgcolor="lightblue"
               >
                 <Box
                   sx={{
