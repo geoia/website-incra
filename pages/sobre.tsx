@@ -20,9 +20,11 @@ export default function Sobre() {
         <title>GeoIA - Sobre</title>
       </Head>
       <Menu />
-      <Grid container sx={{ height: '100vh', backgroundColor: '#0F1C3C' }}>
+      <Grid container sx={{ minHeight: '100vh', backgroundColor: '#0F1C3C' }}>
         <Grid item lg md sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Image src={sobreAnimais} alt="Imagens do pantanal" width={500} height={580} />
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Image src={sobreAnimais} alt="Imagens do pantanal" width={500} height={580} />
+          </Box>
         </Grid>
         <Grid
           item
@@ -60,15 +62,18 @@ export default function Sobre() {
       <Grid
         container
         sx={{
-          height: '100vh',
+          minHeight: '100vh',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          padding: 5
         }}
       >
         <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
           <Grid item>
-            <Image src={laboratorioClaro} alt="ufmsEscuro" width={300} height={300} />
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Image src={laboratorioClaro} alt="ufmsEscuro" width={300} height={300} />
+            </Box>
           </Grid>
           <Grid item>
             <Typography variant="h5" component={'h2'} sx={{ fontWeight: 600, color: '#0F1C3C' }}>
@@ -90,9 +95,11 @@ export default function Sobre() {
             </Typography>
           </Grid>
         </Grid>
-        <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+        <Grid item sx={{ marginTop: 3, display: 'flex', alignItems: 'center' }}>
           <Grid item>
-            <Image src={ufmsClaro} alt="ufmsEscuro" width={300} height={300} />
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Image src={ufmsClaro} alt="ufmsEscuro" width={300} height={300} />
+            </Box>
           </Grid>
           <Grid item>
             <Typography variant="h5" component={'h2'} sx={{ fontWeight: 600, color: '#0F1C3C' }}>
@@ -127,7 +134,7 @@ export default function Sobre() {
           backgroundColor: '#0F1C3C',
         }}
       >
-        <Grid item sx={{ position: 'absolute', left: 0 }}>
+        <Grid item sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', left: 0 }}>
           <Image
             src={plantAboutLeft}
             alt="Planta"
@@ -136,16 +143,16 @@ export default function Sobre() {
             style={{ transform: 'translateX(-40%)' }}
           />
         </Grid>
-        <Grid item sx={{ position: 'absolute', right: 0 }}>
+        <Grid item sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', right: 0 }}>
           <Image
             src={plantAboutRight}
             alt="Planta"
             width={500}
             height={500}
-            style={{ transform: 'translateX(50%)' }}
+            style={{ transform: 'translateX(-50%)' }}
           />
         </Grid>
-        <Grid item sx={{ position: 'absolute', bottom: 0 }}>
+        <Grid item sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', bottom: 0 }}>
           <Image
             src={plantAboutBottom}
             alt="Planta"
@@ -163,7 +170,9 @@ export default function Sobre() {
             Sul
           </Typography>
           <Grid sx={{ marginTop: 5, width: '100%' }}>
-            <CrouselParticipant></CrouselParticipant>
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <CrouselParticipant />
+            </Box>
           </Grid>
         </Grid>
       </Grid>
