@@ -102,9 +102,9 @@ export default function Home() {
           </Typography>
         </Grid>
 
-        <Grid container sx={{ marginTop: 6, justifyContent: 'center', alignItems: 'center'}}>
+        <Grid container sx={{ marginTop: 6, justifyContent: 'center', alignItems: 'center' }}>
           <Grid item sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <Grid item sx={{ display: 'flex', alignItems: 'center', margin: 1.5}}>
+            <Grid item sx={{ display: 'flex', alignItems: 'center', margin: 1.5 }}>
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <Image src={queimadas} alt="Queimadas" width={150} height={150} />
               </Box>
@@ -194,12 +194,21 @@ export default function Home() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item sx={{display: 'flex', justifyContent: 'center'}}>
+        <Grid item sx={{ display: 'flex', justifyContent: 'center' }}>
           <Button color={'primary'} sx={{ marginTop: 3, fontSize: 20, bgColor: '#FFF' }}>
             Webgis
           </Button>
         </Grid>
-        <Grid item sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', left: 0, bottom: 0 }}>
+        <Grid
+          item
+          sx={{
+            display: { xs: 'none', md: 'flex' },
+            position: 'absolute',
+            overflow: 'hidden',
+            left: 0,
+            bottom: 0,
+          }}
+        >
           <Image
             src={plantHomeLeft}
             alt="planta verde"
