@@ -59,33 +59,33 @@ function Map({ showLocalizacao, showQueimadas, simplificado, municipio, forwardR
           key={municipio}
           data={data}
           pathOptions={{
-            dashArray: '3',
-            fillColor: '#90ee90',
-            fillOpacity: 0.3,
+            dashArray: '0',
+            fillColor: '#000000',
+            fillOpacity: 0.1,
             weight: 2,
             opacity: 1,
-            color: '#d3d3d3',
+            color: '#4f4f4f',
           }}
           eventHandlers={{
             mouseover: (e) => {
               const layer = e.target;
               layer.setStyle({
-                dashArray: '3',
-                fillColor: '#90ee90',
-                fillOpacity: 0.5,
+                dashArray: '0',
+                fillColor: '#000000',
+                fillOpacity: 0.2,
                 weight: 2,
                 opacity: 1,
-                color: '#d3d3d3',
+                color: '#3f3f3f',
               });
             },
             mouseout: (e) => {
               const layer = e.target;
               layer.setStyle({
-                fillOpacity: 0.3,
+                fillOpacity: 0.1,
                 weight: 2,
-                dashArray: '3',
-                color: '#d3d3d3',
-                fillColor: '#90ee90',
+                dashArray: '0',
+                color: '#4f4f4f',
+                fillColor: '#000000',
               });
             },
             click: (e) => {},
