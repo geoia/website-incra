@@ -76,7 +76,7 @@ export default function Principal() {
           alignItems: 'center',
           width: '40%',
           height: '40px',
-          background: '#509CBF',
+
           borderRadius: '20px',
           '@media (max-width: 950px)': {
             width: '50%'
