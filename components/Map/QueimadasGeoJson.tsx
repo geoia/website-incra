@@ -105,11 +105,11 @@ export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
     <GeoJSON
       data={data as any}
       pathOptions={{
-        fillColor: simplified ? '#0055ff' : '#ff5500',
+        fillColor: simplified ? '#ff0000' : '#ff0000',
         fillOpacity: 0.7,
         weight: 2,
         opacity: 1,
-        color: simplified ? '#0055ff' : '#ff5500',
+        color: simplified ? '#ff0000' : '#ff0000',
       }}
       key={pages?.current}
     />
