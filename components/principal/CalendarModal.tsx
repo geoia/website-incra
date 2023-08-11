@@ -1,42 +1,33 @@
+import React, { useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { Grid } from '@mui/material';
 import Button from '@mui/material/Button';
-import CalendarInput from '../Input/calendarInput';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 interface Props {
   isCalendarModalOpen: boolean;
   setIsCalendarModalOpen: (val: boolean) => void;
 }
 
-interface DivYearProps {
-  text: string;
-}
-
-export function DivYear({ text }: DivYearProps) {
-  return (
-    <Grid
-      sx={{
-        width: '100px',
-        height: '100px',
-        backgroundColor: '#509CBF',
-        display: 'flex',
-        fontSize: '2rem',
-        borderColor: 'white',
-        borderStyle: 'solid',
-        borderLeft: 'none',
-        borderRight: 'none',
-        borderWidth: '2px',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'white',
-      }}
-    >
-      {text}
-    </Grid>
-  );
-}
-
 export default function CalendarModal({ isCalendarModalOpen, setIsCalendarModalOpen }: Props) {
+  const currentDate = new Date();
+  const startMonth = new Date(2022, 10); // Novembro de 2022 (mês 10)
+
+  const months: string[] = [];
+  let date: Date = startMonth;
+  while (date <= currentDate) {
+    const month = date.toLocaleString('default', { month: 'short' }).replace('.', '');
+    const year = date.getFullYear();
+    months.push(`${month}/${year}`);
+    date.setMonth(date.getMonth() + 1);
+  }
+
+  const [selectedMonth, setSelectedMonth] = useState<string>(months[months.length - 1]);
+
+  const handleMonthChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setSelectedMonth(event.target.value as string);
+  };
+
   return (
     <Modal
       open={isCalendarModalOpen}
@@ -53,94 +44,83 @@ export default function CalendarModal({ isCalendarModalOpen, setIsCalendarModalO
           alignItems: 'center',
           justifyContent: 'space-between',
           flexDirection: 'column',
-          height: '500px',
+          height: '400px',
           width: '500px',
           backgroundColor: '#509CBF',
           borderRadius: '20px 0 20px 0',
           fontSize: '1.5rem',
           '@media (max-width: 1500px)': {
-            height: '500px',
+            height: '350px',
             width: '500px',
             fontSize: '1rem',
           },
         }}
       >
-        <Grid
-          sx={{
-            height: '220px',
-            width: '500px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
+        <h1
+          style={{
+            fontSize: '2rem',
+            fontWeight: '500',
+            marginTop: '20px',
           }}
         >
-          <h1
-            style={{
-              fontSize: '2rem',
-              fontWeight: '500',
-              marginTop: '10px',
-            }}
-          >
-            Selecione o ano
-          </h1>
-          <Grid
-            sx={{
-              width: '450px',
-              height: 'calc(220px - 2rem)',
-              backgroundColor: '#509CBF',
-              display: 'flex',
-              justifyContent: 'space-between',
-              textAlign: 'center',
-              borderRight: 'none',
-              marginTop: '20px'
-            }}
-          >
-            <DivYear text="2"/>
-            <DivYear text="0"/>
-            <CalendarInput defaultValue={2} />
-            <CalendarInput defaultValue={3} />
-          </Grid>
-        </Grid>
-        <Grid
+          Selecione a data
+        </h1>
+        <FormControl
+          variant="outlined" 
           sx={{
-            height: '220px',
-            width: '500px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
+            width: '275px',
+            '& .MuiInputBase-root': {
+              height: '80px',
+              fontSize: '2rem',
+              fontWeight: '400',
+              textAlign: 'center',
+              padding: 0,
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: '#0F1C3C', // Cor da borda normal
+              },
+              '&:hover fieldset': {
+                borderColor: '#0F1C3C', // Cor da borda ao passar o mouse
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: '#0F1C3C', // Cor da borda quando focado
+              },
+            },
           }}
         >
-          <h1
-            style={{
-              fontSize: '2rem',
-              fontWeight: '500',
-              marginTop: '10px',
+          <Select value={selectedMonth} onChange={handleMonthChange}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  bgcolor: '#509CBF',
+                  height: '200px', 
+                  '& .MuiMenuItem-root': {
+                    padding: 2,
+                  },
+                },
+              },
             }}
           >
-            Selecione o mês
-          </h1>
-          <Grid
-            sx={{
-              width: '250px',
-              height: 'calc(220px - 2rem)',
-              backgroundColor: '#509CBF',
-              display: 'flex',
-              justifyContent: 'space-between',
-              textAlign: 'center',
-              borderRight: 'none',
-              marginTop: '20px'
-            }}
-          >
-            <CalendarInput defaultValue={0} />
-            <CalendarInput defaultValue={1} />
-          </Grid>
-        </Grid>
+            {months.map((month, index) => (
+              <MenuItem key={index} value={month}
+              sx={{
+                fontSize: '1.2rem',
+                color: '#0F1C3C',
+                '&:hover': {
+                  backgroundColor: '#4689a8',
+                },
+              }}>
+                {month}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <Button
           variant="contained"
           sx={{
             fontSize: '1rem',
             fontWeight: '500',
-            alignSelf: 'flex-end',
             backgroundColor: '#fff',
             border: 0,
             marginBottom: '20px',
