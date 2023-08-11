@@ -23,17 +23,12 @@ const CustomPaper = styled(Paper)({
   borderRadius: '0px 0px 10px 10px',
 });
 
-export default function Pesquisa(props: {
-  cityId: number;
-  onChange?: (newCityId?: number) => void;
-}) {
-  
+export default function Pesquisa(props: { cityId: number; onChange?: (id?: number) => void }) {
   const { data } = useMunicipios();
 
   const [inputWidth, setInputWidth] = React.useState('100%');
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const [isInputFocused, setIsInputFocused] = React.useState(false);
-
 
   React.useEffect(() => {
     const resize = () => {
@@ -49,7 +44,6 @@ export default function Pesquisa(props: {
       window.removeEventListener('resize', resize);
     };
   }, []);
-  
 
   return data ? (
     <>
@@ -66,6 +60,9 @@ export default function Pesquisa(props: {
             border-radius: 20px;
             border: 3px solid #0f1c3c;
           }
+          .MuiAutocomplete-endAdornment {
+            padding-right: 10px;
+          }
         `}
       </style>
       <Autocomplete
@@ -76,19 +73,23 @@ export default function Pesquisa(props: {
         getOptionLabel={(option) => option.nome}
         noOptionsText="Não existem dados para essa localidade"
         value={data.find((option) => props.cityId == option.id)}
-        onChange={()=> setTimeout(() => {
-          if (inputRef.current) {
-            inputRef.current.blur(); 
-          }
-        }, 0)}
-        onFocus={()=> setIsInputFocused(true)}
-        onBlur={()=> setIsInputFocused(false)}
+        onChange={() =>
+          setTimeout(() => {
+            if (inputRef.current) {
+              inputRef.current.blur();
+            }
+          }, 0)
+        }
+        onFocus={() => setIsInputFocused(true)}
+        onBlur={() => setIsInputFocused(false)}
         sx={{
           width: '100%',
           '& .MuiOutlinedInput-root': {
             height: '50px',
             borderRadius: isInputFocused ? '25px 25px 0px 0px' : '50px',
             backgroundColor: '#509CBF',
+            padding: 0,
+            paddingLeft: '1em',
             color: '#ffffff',
             '.MuiOutlinedInput-notchedOutline': {
               border: 'none',
@@ -97,11 +98,8 @@ export default function Pesquisa(props: {
           '& .MuiAutocomplete-endAdornment': {
             right: '0px !important',
           },
-          
         }}
-        PopperComponent={(props) => {
-          return <Popper {...props} />;
-        }}
+        PopperComponent={Popper}
         PaperComponent={CustomPaper}
         onInputChange={(_, value) => {
           if (props.onChange) props.onChange(data.find((option) => value == option.nome)?.id);
@@ -110,18 +108,13 @@ export default function Pesquisa(props: {
           <TextField
             {...params}
             placeholder="Escolha uma localidade"
-            style={{ color: '#ffffff', margin: '0' }}
-            inputRef={(input) => {
-                inputRef.current = input;
-            }}
-            
+            style={{ color: '#ffffff', margin: 0, padding: 0 }}
+            inputRef={(input) => (inputRef.current = input)}
           />
         )}
         renderGroup={(params) => (
           <li style={{ border: '2px', borderColor: '#ffffff', color: '#ffffff' }} key={params.key}>
-            <GroupHeader>
-              {params.group}
-            </GroupHeader>
+            <GroupHeader>{params.group}</GroupHeader>
             <GroupItems>{params.children}</GroupItems>
           </li>
         )}

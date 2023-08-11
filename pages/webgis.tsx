@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import React, { useState } from 'react';
+import React, { HTMLAttributes, useState } from 'react';
 
 import DownloadModal from '../components/principal/DownloadModal';
 import MenuModal from '../components/principal/MenuModal';
@@ -67,30 +67,7 @@ export default function Principal() {
         forwardRef={ref}
       />
 
-      <Grid
-        sx={{
-          position: 'absolute',
-          top: 0,
-          margin: '1rem',
-          display: 'flex',
-          alignItems: 'center',
-          width: '40%',
-          height: '40px',
-
-          borderRadius: '20px',
-          '@media (max-width: 950px)': {
-            width: '50%'
-          },
-          '@media (max-width: 600px)': {
-            width: 'calc(100% - 2rem)'
-          },
-        }}
-      >
-        <Link href="/">
-          <Logo sx={{ width: 64, height: 64 }} />
-        </Link>
-        <Pesquisa cityId={cityId} onChange={(id) => id && setCityId(id)} />
-      </Grid>
+      <SearchMenu cityId={cityId} setCityId={setCityId} />
 
       <Grid
         sx={{
@@ -203,5 +180,35 @@ export default function Principal() {
         setIsSimplifiedDatas={setIsSimplifiedDatas}
       />
     </>
+  );
+}
+
+function SearchMenu(props: { cityId: number; setCityId: (v: number) => void }) {
+  return (
+    <Grid
+      sx={{
+        position: 'absolute',
+        top: 0,
+        margin: '1rem',
+        display: 'flex',
+        alignItems: 'center',
+        width: '40%',
+        height: '50px',
+        backgroundColor: '#509CBF',
+
+        borderRadius: '20px',
+        '@media (max-width: 950px)': {
+          width: '50%',
+        },
+        '@media (max-width: 600px)': {
+          width: 'calc(100% - 2rem)',
+        },
+      }}
+    >
+      <Link href="/">
+        <Logo sx={{ width: 64, height: 64 }} />
+      </Link>
+      <Pesquisa cityId={props.cityId} onChange={(id) => id && props.setCityId(id)} />
+    </Grid>
   );
 }
