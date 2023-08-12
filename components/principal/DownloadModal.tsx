@@ -115,7 +115,7 @@ export default function DownloadModal({
         }}
       >
         <FormCheckbox
-          label="Selecionar todas"
+          label="Todas"
           checked={isFireButtonClicked}
           onChange={handleChangeInParentCheckbox}
           indeterminate={!isFireButtonClicked}
