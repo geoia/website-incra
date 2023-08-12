@@ -94,9 +94,9 @@ export default function CalendarModal({ isCalendarModalOpen, setIsCalendarModalO
               PaperProps: {
                 sx: {
                   bgcolor: '#509CBF',
-                  height: '200px', 
-                  '& .MuiMenuItem-root': {
-                    padding: 2,
+                  height: '300px', 
+                  '@media (max-width:1500px)': {
+                    height: '200px',
                   },
                 },
               },
@@ -105,8 +105,11 @@ export default function CalendarModal({ isCalendarModalOpen, setIsCalendarModalO
             {months.map((month, index) => (
               <MenuItem key={index} value={month}
               sx={{
-                fontSize: '1.2rem',
                 color: '#0F1C3C',
+                fontSize: '1.5rem',
+                '@media (max-width:1500px)': {
+                  fontSize: '1.2rem',
+                },
                 '&:hover': {
                   backgroundColor: '#4689a8',
                 },
