@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { Grid } from '@mui/material';
 import Button from '@mui/material/Button';
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { FormControl, Select, MenuItem } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material/Select'
 
 interface Props {
   isCalendarModalOpen: boolean;
@@ -24,7 +25,7 @@ export default function CalendarModal({ isCalendarModalOpen, setIsCalendarModalO
 
   const [selectedMonth, setSelectedMonth] = useState<string>(months[months.length - 1]);
 
-  const handleMonthChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleMonthChange = (event: SelectChangeEvent<string>) => {
     setSelectedMonth(event.target.value as string);
   };
 
@@ -78,13 +79,13 @@ export default function CalendarModal({ isCalendarModalOpen, setIsCalendarModalO
             },
             '& .MuiOutlinedInput-root': {
               '& fieldset': {
-                borderColor: '#0F1C3C', // Cor da borda normal
+                borderColor: '#0F1C3C',
               },
               '&:hover fieldset': {
-                borderColor: '#0F1C3C', // Cor da borda ao passar o mouse
+                borderColor: '#0F1C3C',
               },
               '&.Mui-focused fieldset': {
-                borderColor: '#0F1C3C', // Cor da borda quando focado
+                borderColor: '#0F1C3C', 
               },
             },
           }}
