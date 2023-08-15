@@ -12,6 +12,7 @@ interface ObservableProps {
 interface BaseProps {
   municipio: number;
   simplified: boolean;
+  source?: string;
 }
 
 interface PaginationProps {
@@ -28,11 +29,15 @@ type PagesMeta = {
 const nothing = [{}];
 
 async function requestData(opts: BaseProps & PaginationProps & { controller?: AbortController }) {
-  const querystring = new URLSearchParams({
+  const params: Record<string, string> = {
     page: `${opts.page || 1}`,
     per_page: `${opts.per_page || 1000}`,
     detailed: `${!opts.simplified}`,
-  }).toString();
+  };
+
+  if (opts.source) params.source = opts.source;
+
+  const querystring = new URLSearchParams(params).toString();
 
   const { data, headers, status } = await axios.get<Record<string, any>>(
     `/api/queimadas/municipio/${opts.municipio}?${querystring}`,
@@ -55,7 +60,7 @@ async function requestData(opts: BaseProps & PaginationProps & { controller?: Ab
 }
 
 export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
-  const { municipio, simplified } = props;
+  const { municipio, simplified, source } = props;
 
   const [pages, setPages] = useState<PagesMeta>({ current: 0 });
   const [data, setData] = useState<Record<string, any>[]>([]);
@@ -65,7 +70,7 @@ export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
   useEffect(() => {
     setData([]);
     setPages({ current: 0, next: 1 });
-  }, [props.municipio, props.simplified]);
+  }, [props.municipio, props.simplified, props.source]);
 
   useEffect(() => {
     if (!pages || !pages.next) {
@@ -85,6 +90,7 @@ export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
       simplified,
       page: pages.next,
       per_page: 1000,
+      source: props.source,
       controller,
     })
       .then((result) => {

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import React, { HTMLAttributes, useState } from 'react';
+import React, { HTMLAttributes, useEffect, useState } from 'react';
 
 import DownloadModal from '../components/principal/DownloadModal';
 import MenuModal from '../components/principal/MenuModal';
@@ -25,6 +25,7 @@ import dynamic from 'next/dynamic';
 import { MapEvents } from '../components/Map/Controlador';
 import Link from 'next/link';
 import Logo from '../components/Logo';
+import useSources from '../hooks/useSources';
 
 export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
@@ -38,6 +39,9 @@ export default function Principal() {
   const [cityId, setCityId] = useState(5003207);
 
   const ref = React.createRef<MapEvents>();
+
+  const [selectedSource, setSelectedSource] = useState<string | undefined>();
+  const { data: sources, isLoading: isSourcesLoading } = useSources();
 
   const Mapa = React.useMemo(
     () =>
@@ -64,6 +68,7 @@ export default function Principal() {
         showQueimadas={isFireButtonClicked}
         simplificado={isSimplifiedDatas}
         municipio={cityId}
+        source={selectedSource}
         forwardRef={ref}
       />
 
@@ -170,10 +175,17 @@ export default function Principal() {
         setIsDrawerOpen={setIsDrawerOpen}
         setIsSettingsVisible={setIsSettingsVisible}
       />
-      <CalendarModal
-        isCalendarModalOpen={isCalendarModalOpen}
-        setIsCalendarModalOpen={setIsCalendarModalOpen}
-      />
+      {!isSourcesLoading && (
+        <CalendarModal
+          options={sources?.map((s) => s.label) || []}
+          open={isCalendarModalOpen}
+          onSelect={(value) => {
+            setSelectedSource(sources?.find((s) => s.label === value)?.source);
+            setIsCalendarModalOpen(false);
+          }}
+          onClose={() => setIsCalendarModalOpen(false)}
+        />
+      )}
       <Settings
         isSettingsVisible={isSettingsVisible}
         setIsSettingsVisible={setIsSettingsVisible}

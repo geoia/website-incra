@@ -17,10 +17,18 @@ interface Props {
   showQueimadas: boolean;
   simplificado: boolean;
   municipio: number;
+  source?: string;
   forwardRef?: React.RefObject<MapEvents>;
 }
 
-function Map({ showLocalizacao, showQueimadas, simplificado, municipio, forwardRef }: Props) {
+function Map({
+  showLocalizacao,
+  showQueimadas,
+  simplificado,
+  municipio,
+  source,
+  forwardRef,
+}: Props) {
   const { data } = useLimitesMunicipios(municipio);
 
   useEffect(() => {
@@ -52,7 +60,9 @@ function Map({ showLocalizacao, showQueimadas, simplificado, municipio, forwardR
         attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
       />
 
-      {showQueimadas && <QueimadasGeoJson municipio={municipio} simplified={simplificado} />}
+      {showQueimadas && (
+        <QueimadasGeoJson municipio={municipio} simplified={simplificado} source={source} />
+      )}
 
       {data && (
         <GeoJSON

@@ -102,7 +102,7 @@ export default function DownloadModal({
           paddingBottom: 0,
         },
         '& .MuiTypography-root': {
-          fontSize: '0.95rem',
+          fontSize: '1em',
         },
       }}
     >
@@ -115,7 +115,7 @@ export default function DownloadModal({
         }}
       >
         <FormCheckbox
-          label="Todas"
+          label="Tudo"
           checked={isFireButtonClicked}
           onChange={handleChangeInParentCheckbox}
           indeterminate={!isFireButtonClicked}

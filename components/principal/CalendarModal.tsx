@@ -3,36 +3,23 @@ import Modal from '@mui/material/Modal';
 import { Grid } from '@mui/material';
 import Button from '@mui/material/Button';
 import { FormControl, Select, MenuItem } from '@mui/material';
-import { SelectChangeEvent } from '@mui/material/Select'
+import { SelectChangeEvent } from '@mui/material/Select';
 
 interface Props {
-  isCalendarModalOpen: boolean;
-  setIsCalendarModalOpen: (val: boolean) => void;
+  open: boolean;
+  options: string[];
+  defaultOption?: string;
+  onClose?: (val: string) => void;
+  onSelect?: (val: string) => void;
 }
 
-export default function CalendarModal({ isCalendarModalOpen, setIsCalendarModalOpen }: Props) {
-  const currentDate = new Date();
-  const startMonth = new Date(2022, 10); // Novembro de 2022 (mês 10)
-
-  const months: string[] = [];
-  let date: Date = startMonth;
-  while (date <= currentDate) {
-    const month = date.toLocaleString('default', { month: 'short' }).replace('.', '');
-    const year = date.getFullYear();
-    months.push(`${month}/${year}`);
-    date.setMonth(date.getMonth() + 1);
-  }
-
-  const [selectedMonth, setSelectedMonth] = useState<string>(months[months.length - 1]);
-
-  const handleMonthChange = (event: SelectChangeEvent<string>) => {
-    setSelectedMonth(event.target.value as string);
-  };
+export default function CalendarModal({ open, onClose, options, defaultOption, onSelect }: Props) {
+  const [selectedOption, setSelectedOption] = useState<string>(defaultOption || options[0]);
 
   return (
     <Modal
-      open={isCalendarModalOpen}
-      onClose={() => setIsCalendarModalOpen(false)}
+      open={open}
+      onClose={() => onClose && onClose(selectedOption)}
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -45,7 +32,7 @@ export default function CalendarModal({ isCalendarModalOpen, setIsCalendarModalO
           alignItems: 'center',
           justifyContent: 'space-between',
           flexDirection: 'column',
-          height: '400px',
+          height: '300px',
           width: '500px',
           backgroundColor: '#509CBF',
           borderRadius: '20px 0 20px 0',
@@ -59,7 +46,7 @@ export default function CalendarModal({ isCalendarModalOpen, setIsCalendarModalO
       >
         <h1
           style={{
-            fontSize: '2rem',
+            fontSize: '1.5rem',
             fontWeight: '500',
             marginTop: '20px',
           }}
@@ -67,35 +54,32 @@ export default function CalendarModal({ isCalendarModalOpen, setIsCalendarModalO
           Selecione a data
         </h1>
         <FormControl
-          variant="outlined" 
+          variant="outlined"
           sx={{
             width: '275px',
             '& .MuiInputBase-root': {
-              height: '80px',
-              fontSize: '2rem',
+              height: '60px',
+              color: 'white',
+              fontSize: '1.25rem',
               fontWeight: '400',
               textAlign: 'center',
               padding: 0,
             },
             '& .MuiOutlinedInput-root': {
-              '& fieldset': {
-                borderColor: '#0F1C3C',
-              },
-              '&:hover fieldset': {
-                borderColor: '#0F1C3C',
-              },
-              '&.Mui-focused fieldset': {
-                borderColor: '#0F1C3C', 
+              '& fieldset, &:hover fieldset, &.Mui-focused fieldset': {
+                borderColor: 'white',
               },
             },
           }}
         >
-          <Select value={selectedMonth} onChange={handleMonthChange}
+          <Select
+            value={selectedOption}
+            onChange={(v) => setSelectedOption(v.target.value)}
             MenuProps={{
               PaperProps: {
                 sx: {
                   bgcolor: '#509CBF',
-                  height: '300px', 
+                  height: '300px',
                   '@media (max-width:1500px)': {
                     height: '200px',
                   },
@@ -103,18 +87,21 @@ export default function CalendarModal({ isCalendarModalOpen, setIsCalendarModalO
               },
             }}
           >
-            {months.map((month, index) => (
-              <MenuItem key={index} value={month}
-              sx={{
-                color: '#0F1C3C',
-                fontSize: '1.5rem',
-                '@media (max-width:1500px)': {
-                  fontSize: '1.2rem',
-                },
-                '&:hover': {
-                  backgroundColor: '#4689a8',
-                },
-              }}>
+            {options.map((month, index) => (
+              <MenuItem
+                key={index}
+                value={month}
+                sx={{
+                  color: '#0F1C3C',
+                  fontSize: '1.5rem',
+                  '@media (max-width:1500px)': {
+                    fontSize: '1.2rem',
+                  },
+                  '&:hover': {
+                    backgroundColor: '#4689a8',
+                  },
+                }}
+              >
                 {month}
               </MenuItem>
             ))}
@@ -140,7 +127,7 @@ export default function CalendarModal({ isCalendarModalOpen, setIsCalendarModalO
               transition: '0.2s',
             },
           }}
-          onClick={() => setIsCalendarModalOpen(false)}
+          onClick={() => onSelect && onSelect(selectedOption)}
         >
           Ok
         </Button>
