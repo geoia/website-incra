@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import React, { useState } from 'react';
+import React, { HTMLAttributes, useEffect, useState } from 'react';
 
 import DownloadModal from '../components/principal/DownloadModal';
 import MenuModal from '../components/principal/MenuModal';
@@ -25,6 +25,7 @@ import dynamic from 'next/dynamic';
 import { MapEvents } from '../components/Map/Controlador';
 import Link from 'next/link';
 import Logo from '../components/Logo';
+import useSources from '../hooks/useSources';
 
 export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
@@ -38,6 +39,9 @@ export default function Principal() {
   const [cityId, setCityId] = useState(5003207);
 
   const ref = React.createRef<MapEvents>();
+
+  const [selectedSource, setSelectedSource] = useState<string | undefined>();
+  const { data: sources, isLoading: isSourcesLoading } = useSources();
 
   const Mapa = React.useMemo(
     () =>
@@ -64,27 +68,11 @@ export default function Principal() {
         showQueimadas={isFireButtonClicked}
         simplificado={isSimplifiedDatas}
         municipio={cityId}
+        source={selectedSource}
         forwardRef={ref}
       />
 
-      <Grid
-        sx={{
-          position: 'absolute',
-          top: 0,
-          margin: '1rem',
-          display: 'flex',
-          alignItems: 'center',
-          width: '40%',
-          height: '40px',
-          background: '#509CBF',
-          borderRadius: '20px',
-        }}
-      >
-        <Link href="/">
-          <Logo sx={{ width: 64, height: 64 }} />
-        </Link>
-        <Pesquisa cityId={cityId} onChange={(id) => id && setCityId(id)} />
-      </Grid>
+      <SearchMenu cityId={cityId} setCityId={setCityId} />
 
       <Grid
         sx={{
@@ -100,6 +88,10 @@ export default function Principal() {
           '@media (max-width: 1500px)': {
             width: '45px',
             height: '160px',
+          },
+          '@media (max-width: 600px)': {
+            top: 'calc(3rem + 40px)',
+            marginTop: 0,
           },
         }}
       >
@@ -129,6 +121,10 @@ export default function Principal() {
           '@media (max-width: 1500px)': {
             width: '45px',
             height: '215px',
+          },
+          '@media (max-width: 600px)': {
+            transform: 'none',
+            marginTop: 0,
           },
         }}
       >
@@ -179,15 +175,52 @@ export default function Principal() {
         setIsDrawerOpen={setIsDrawerOpen}
         setIsSettingsVisible={setIsSettingsVisible}
       />
-      <CalendarModal
-        isCalendarModalOpen={isCalendarModalOpen}
-        setIsCalendarModalOpen={setIsCalendarModalOpen}
-      />
+      {!isSourcesLoading && (
+        <CalendarModal
+          options={sources?.map((s) => s.label) || []}
+          open={isCalendarModalOpen}
+          onSelect={(value) => {
+            setSelectedSource(sources?.find((s) => s.label === value)?.source);
+            setIsCalendarModalOpen(false);
+          }}
+          onClose={() => setIsCalendarModalOpen(false)}
+        />
+      )}
       <Settings
         isSettingsVisible={isSettingsVisible}
         setIsSettingsVisible={setIsSettingsVisible}
         setIsSimplifiedDatas={setIsSimplifiedDatas}
       />
     </>
+  );
+}
+
+function SearchMenu(props: { cityId: number; setCityId: (v: number) => void }) {
+  return (
+    <Grid
+      sx={{
+        position: 'absolute',
+        top: 0,
+        margin: '1rem',
+        display: 'flex',
+        alignItems: 'center',
+        width: '40%',
+        height: '50px',
+        backgroundColor: '#509CBF',
+
+        borderRadius: '20px',
+        '@media (max-width: 950px)': {
+          width: '50%',
+        },
+        '@media (max-width: 600px)': {
+          width: 'calc(100% - 2rem)',
+        },
+      }}
+    >
+      <Link href="/">
+        <Logo sx={{ width: 64, height: 64 }} />
+      </Link>
+      <Pesquisa cityId={props.cityId} onChange={(id) => id && props.setCityId(id)} />
+    </Grid>
   );
 }

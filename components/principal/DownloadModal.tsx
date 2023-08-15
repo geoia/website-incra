@@ -91,7 +91,7 @@ export default function DownloadModal({
           left: 'auto!important',
           right: 'calc(65px + 1rem)',
           color: 'white',
-          minWidth: '230px!important',
+          minWidth: '240px!important',
           minHeight: '245px',
           '@media (max-width: 1500px)': {
             right: 'calc(55px + 1rem)',
@@ -101,18 +101,21 @@ export default function DownloadModal({
           paddingTop: 0,
           paddingBottom: 0,
         },
+        '& .MuiTypography-root': {
+          fontSize: '1em',
+        },
       }}
     >
       <FormGroup
         sx={{
           height: 'min-content',
           marginLeft: '20px',
-          width: '190px',
+          width: '200px',
           marginTop: '10px',
         }}
       >
         <FormCheckbox
-          label="Selecionar todas"
+          label="Tudo"
           checked={isFireButtonClicked}
           onChange={handleChangeInParentCheckbox}
           indeterminate={!isFireButtonClicked}
@@ -158,7 +161,7 @@ export default function DownloadModal({
           color: '#509cbf',
           marginTop: '10px',
           height: '40px',
-          width: '190px',
+          width: '200px',
           marginLeft: '20px',
           '&:hover': {
             cursor: 'pointer',
