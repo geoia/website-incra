@@ -81,9 +81,10 @@ export default function Home() {
             <em>Mapeando a biodiversidade brasileira</em>
           </Typography>
           <Typography variant="body1" color={'secondary'} maxWidth={600}>
-            Projeto de pesquisa e extensão do laboratório Geomática e Inteligência Artificial, da
-            Universidade Federal de Mato Grosso do Sul, para monitoramento e gestão dos biomas do
-            Brasil, por meio da ferramenta WebGis
+            Projeto de pesquisa e extensão do laboratório Geomática e Inteligência Artificial em
+            parceria com o Laboratório de Engenharia de Software, da Universidade Federal de Mato
+            Grosso do Sul, para monitoramento e gestão dos biomas do Brasil, por meio da ferramenta
+            WebGis
           </Typography>
         </Grid>
       </Grid>
