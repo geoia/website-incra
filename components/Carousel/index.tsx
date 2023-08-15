@@ -10,7 +10,7 @@ import photoAllan from '../../public/images/photo-allan.svg';
 import photoMatheus from '../../public/images/photo-matheus.svg';
 import photoThiago from '../../public/images/photo-thiago.svg';
 
-export default function CrouselParticipant() {
+export default function CrouselParticipant(props: { tam: any }) {
   var items = [
     {
       name: 'Lourdes Oshiro Igarashi',
@@ -45,15 +45,15 @@ export default function CrouselParticipant() {
   ];
 
   return (
-    <Carousel indicators={false} navButtonsAlwaysVisible={true} sx={{ width: 1000 }}>
+    <Carousel indicators={false} navButtonsAlwaysVisible={true} sx={{ width: '100%' }}>
       {items.map((item, i, array) => (
-        <Item key={i} ind={i} array={array} />
+        <Item key={i} ind={i} array={array} tamTela={props.tam} />
       ))}
     </Carousel>
   );
 }
 
-function Item(props: { array: string | any[]; ind: any }) {
+function Item(props: { array: string | any[]; ind: any; tamTela: any }) {
   const order: number[] = [];
   const sizeArray = props.array.length;
   let ind = props.ind;
@@ -62,6 +62,33 @@ function Item(props: { array: string | any[]; ind: any }) {
       ind = 0;
     }
     order.push(ind++);
+  }
+
+  if (props.tamTela == 2) {
+    return (
+      <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Grid sx={{ display: 'flex', gap: 2 }}>
+          <Grid>
+            <Image src={props.array[order[0]].photo} alt="" width={150} height={150} />
+            <Typography variant="subtitle1" sx={{ color: '#FFF' }}>
+              {props.array[order[0]].name}
+            </Typography>
+            <Typography variant="body1" sx={{ color: '#FFF' }}>
+              {props.array[order[0]].course}
+            </Typography>
+          </Grid>
+          <Grid>
+            <Image src={props.array[order[1]].photo} alt="" width={150} height={150} />
+            <Typography variant="subtitle1" sx={{ color: '#FFF' }}>
+              {props.array[order[1]].name}
+            </Typography>
+            <Typography variant="body1" sx={{ color: '#FFF' }}>
+              {props.array[order[1]].course}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+    );
   }
 
   return (

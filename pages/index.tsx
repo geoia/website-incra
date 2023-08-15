@@ -25,6 +25,7 @@ export default function Home() {
       >
         <Box
           sx={{
+            display: { xs: 'none', md: 'flex' },
             position: 'absolute',
             bottom: 0,
           }}
@@ -43,6 +44,7 @@ export default function Home() {
         </Box>
         <Box
           sx={{
+            display: { xs: 'none', md: 'flex' },
             zIndex: -1,
             position: 'absolute',
             right: 60,
@@ -61,6 +63,7 @@ export default function Home() {
             alignItems: 'center',
             textAlign: 'center',
             gap: 6,
+            padding: 3,
           }}
         >
           <Grid item>
@@ -86,110 +89,126 @@ export default function Home() {
       </Grid>
 
       <Grid
-        container
         sx={{
-          flexDirection: 'column',
-          height: '100vh',
+          minHeight: '100vh',
           bgcolor: ' #0F1C3C',
-          alignItems: 'center',
-          justifyContent: 'center',
           position: 'relative',
+          padding: 5,
         }}
       >
         <Grid item>
-          <Typography
-            variant="h2"
-            sx={{ marginTop: 5, textAlign: 'center', fontWeight: 600, color: '#FFF' }}
-          >
+          <Typography variant="h2" sx={{ textAlign: 'center', fontWeight: 600, color: '#FFF' }}>
             WebGis
           </Typography>
         </Grid>
 
-        <Grid item sx={{ display: 'flex', marginTop: 5, flexWrap: 'wrap' }}>
-          <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-            <Image src={queimadas} alt="Queimadas" width={150} height={150} />
-            <Grid item>
-              <Typography variant="subtitle1" sx={{ color: '#FFFFFF' }}>
-                Queimadas
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: '#509CBF', maxWidth: 500, textAlign: 'justify' }}
-              >
-                As queimadas são incêndios que se propagam em áreas florestais, agrícolas ou
-                urbanas, causando danos socioambientais. Podem ocorrer por ação humana, como
-                desmatamento, queima de lixo ou negligência. Os efeitos incluem destruição da fauna
-                e flora, emissão de gases tóxicos e aumento do aquecimento global, colocando em
-                risco a saúde humana. Medidas incluem conscientização, fiscalização e punição dos
-                responsáveis.
-              </Typography>
+        <Grid container sx={{ marginTop: 6, justifyContent: 'center', alignItems: 'center' }}>
+          <Grid item sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Grid item sx={{ display: 'flex', alignItems: 'center', margin: 1.5 }}>
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <Image src={queimadas} alt="Queimadas" width={150} height={150} />
+              </Box>
+              <Grid item>
+                <Typography variant="subtitle1" sx={{ color: '#FFF' }}>
+                  Queimadas
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ color: '#509CBF', maxWidth: 500, textAlign: 'justify' }}
+                >
+                  As queimadas são incêndios que se propagam em áreas florestais, agrícolas ou
+                  urbanas, causando danos socioambientais. Podem ocorrer por ação humana, como
+                  desmatamento, queima de lixo ou negligência. Os efeitos incluem destruição da
+                  fauna e flora, emissão de gases tóxicos e aumento do aquecimento global, colocando
+                  em risco a saúde humana. Medidas incluem conscientização, fiscalização e punição
+                  dos responsáveis.
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item sx={{ display: 'flex', alignItems: 'center', margin: 1.5 }}>
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <Image src={alagadas} alt="Áreas alagadas" width={150} height={150} />
+              </Box>
+              <Grid item>
+                <Typography variant="subtitle1" sx={{ color: '#FFFFFF' }}>
+                  Áreas Alagadas
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ color: '#509CBF', maxWidth: 500, textAlign: 'justify' }}
+                >
+                  As áreas alagadas são essenciais para a biodiversidade e serviços ecossistêmicos,
+                  protegendo contra enchentes e apoiando atividades econômicas locais. Mas, são
+                  vulneráveis a impactos, como mudanças climáticas, exigindo gestão adequada para
+                  conservação da biodiversidade, segurança hídrica e alimentar das populações
+                  locais. Medidas como conservação, monitoramento da qualidade da água e práticas
+                  sustentáveis são cruciais.
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
-          <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-            <Image src={alagadas} alt="Áreas alagadas" width={150} height={150} />
-            <Grid item>
-              <Typography variant="subtitle1" sx={{ color: '#FFFFFF' }}>
-                Áreas Alagadas
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: '#509CBF', maxWidth: 500, textAlign: 'justify' }}
-              >
-                As áreas alagadas são essenciais para a biodiversidade e serviços ecossistêmicos,
-                protegendo contra enchentes e apoiando atividades econômicas locais. Mas, são
-                vulneráveis a impactos, como mudanças climáticas, exigindo gestão adequada para
-                conservação da biodiversidade, segurança hídrica e alimentar das populações locais.
-                Medidas como conservação, monitoramento da qualidade da água e práticas sustentáveis
-                são cruciais.
-              </Typography>
+          <Grid item sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Grid item sx={{ display: 'flex', alignItems: 'center', margin: 1.5 }}>
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <Image src={infraestrutura} alt="Infraestrutura" width={150} height={150} />
+              </Box>
+              <Grid item>
+                <Typography variant="subtitle1" sx={{ color: '#FFFFFF' }}>
+                  Infraestrutura
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ color: '#509CBF', maxWidth: 500, textAlign: 'justify' }}
+                >
+                  Infraestrutura é fundamental para o desenvolvimento econômico e social, incluindo
+                  construções, sistemas e equipamentos que oferecem serviços essenciais à sociedade.
+                  Investimentos em infraestrutura são prioritários para países em busca de
+                  progresso, pois a falta deles ou a baixa qualidade pode levar a problemas como
+                  tráfego intenso, falta de energia e água.
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item sx={{ display: 'flex', alignItems: 'center', margin: 1.5 }}>
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <Image src={vegetacao} alt="Vegetação" width={150} height={150} />
+              </Box>
+              <Grid item>
+                <Typography
+                  variant="subtitle1"
+                  sx={{ marginTop: 1, fontSize: 17, color: '#FFFFFF' }}
+                >
+                  Vegetação
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ color: '#509CBF', maxWidth: 500, textAlign: 'justify' }}
+                >
+                  A vegetação é crucial para o equilíbrio ecológico e a produção de oxigênio.
+                  Infelizmente, atividades humanas como agricultura intensiva e desmatamento
+                  prejudicam a vegetação e afetam negativamente o ecossistema. Monitorar a vegetação
+                  é importante para implementar políticas de preservação ambiental. O sensoriamento
+                  remoto pode fornecer informações precisas sobre a cobertura vegetal e identificar
+                  áreas afetadas.
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item sx={{ display: 'flex', marginTop: 2, flexWrap: 'wrap' }}>
-          <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-            <Image src={infraestrutura} alt="Infraestrutura" width={150} height={150} />
-            <Grid item>
-              <Typography variant="subtitle1" sx={{ color: '#FFFFFF' }}>
-                Infraestrutura
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: '#509CBF', maxWidth: 500, textAlign: 'justify' }}
-              >
-                Infraestrutura é fundamental para o desenvolvimento econômico e social, incluindo
-                construções, sistemas e equipamentos que oferecem serviços essenciais à sociedade.
-                Investimentos em infraestrutura são prioritários para países em busca de progresso,
-                pois a falta deles ou a baixa qualidade pode levar a problemas como tráfego intenso,
-                falta de energia e água.
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-            <Image src={vegetacao} alt="Vegetação" width={150} height={150} />
-            <Grid item>
-              <Typography variant="subtitle1" sx={{ marginTop: 1, fontSize: 17, color: '#FFFFFF' }}>
-                Vegetação
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: '#509CBF', maxWidth: 500, textAlign: 'justify' }}
-              >
-                A vegetação é crucial para o equilíbrio ecológico e a produção de oxigênio.
-                Infelizmente, atividades humanas como agricultura intensiva e desmatamento
-                prejudicam a vegetação e afetam negativamente o ecossistema. Monitorar a vegetação é
-                importante para implementar políticas de preservação ambiental. O sensoriamento
-                remoto pode fornecer informações precisas sobre a cobertura vegetal e identificar
-                áreas afetadas.
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>
+        <Grid item sx={{ display: 'flex', justifyContent: 'center' }}>
           <Button color={'primary'} sx={{ marginTop: 3, fontSize: 20, bgColor: '#FFF' }}>
             Webgis
           </Button>
         </Grid>
-        <Grid item sx={{ position: 'absolute', left: 0, bottom: 0 }}>
+        <Grid
+          item
+          sx={{
+            display: { xs: 'none', md: 'flex' },
+            position: 'absolute',
+            overflow: 'hidden',
+            left: 0,
+            bottom: 0,
+          }}
+        >
           <Image
             src={plantHomeLeft}
             alt="planta verde"
