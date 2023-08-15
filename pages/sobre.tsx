@@ -49,19 +49,16 @@ export default function Sobre() {
               EcoGis
             </Typography>
             <Typography variant="body1" sx={{ color: '#FFF', marginTop: 3 }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, unde porro deleniti,
-              qui dolore officiis omnis rem necessitatibus maiores doloremque non repudiandae,
-              mollitia aperiam quas fugit fuga vel eveniet numquam. Lorem ipsum dolor, sit amet
-              consectetur adipisicing elit. Facere voluptas, tempora nulla quod provident quasi
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut, reprehenderit! Dicta
-              harum suscipit maiores ratione, perspiciatis, natus nesciunt, odio provident
-              consequuntur nisi enim quisquam culpa nulla. Veritatis earum porro eos. Lorem ipsum
-              dolor sit amet consectetur adipisicing elit. Impedit illum doloribus omnis cupiditate
-              consequuntur, voluptatum molestias doloremque beatae similique distinctio corporis
-              sapiente sunt consequatur voluptates qui ut natus aliquam iste. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Maiores rem ex vel nihil commodi cumque dicta, ut
-              praesentium facilis necessitatibus quod at officia sequi, accusamus, exercitationem
-              inventore quasi laudantium! Eum?
+              EcoGis é uma plataforma de inteligência artificial que utiliza imagens de satélite e
+              processamento de dados para mapeamento de áreas de queimadas, áreas alagadas e
+              vegetacao com maior precisão. A plataforma também visa apoiar diversos setores da
+              sociedade, como o setor público, privado e a sociedade civil, com informações
+              geográficas e ambientais para tomada de decisão, planejamento e gestão de recursos
+              naturais. A plataforma permite acesso à dados históricos e estatísticos sobre os dados
+              monitorados. A plataforma é uma iniciativa do Laboratório de Geomática e Inteligência
+              Artificial (GeoIA) da Universidade Federal de Mato Grosso do Sul (UFMS), em parceria
+              com o Laboratório de Engenharia de Software (LEDES) da Faculdade de Computação (FACOM)
+              da UFMS.
             </Typography>
           </Box>
         </Grid>
