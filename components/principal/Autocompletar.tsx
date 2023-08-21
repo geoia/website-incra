@@ -1,34 +1,51 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
-import { styled, lighten, darken } from '@mui/system';
-import { Popper, PopperProps, colors, Paper } from '@mui/material';
+import { styled } from '@mui/system';
+import { Popper, PopperProps, Paper } from '@mui/material';
 import useMunicipios from '../../hooks/useMunicipios';
-
-const GroupHeader = styled('div')(({ theme }) => ({
-  position: 'sticky',
-  top: '-10px',
-  padding: '4px 10px',
-  color: '#ffffff',
-  backgroundColor: '#0f1c3c',
-}));
-
-const GroupItems = styled('ul')({
-  padding: 0,
-  backgroundColor: '#509CBF',
-});
+import useEstados from '../../hooks/useEstados';
 
 const CustomPaper = styled(Paper)({
-  backgroundColor: '#0f1c3c',
+  backgroundColor: '#509CBF',
+  color: '#ffffff',
   borderRadius: '0px 0px 10px 10px',
+  marginLeft: '5px',
 });
 
+type Localizacao = Array<{
+  id: number;
+  nome: string;
+  sigla: string;
+  queimadas: boolean;
+}>;
+
 export default function Pesquisa(props: { cityId: number; onChange?: (id?: number) => void }) {
-  const { data } = useMunicipios();
+  const { dataMunicipios } = useMunicipios();
+  const { dataEstados } = useEstados();
+
+  dataEstados?.sort((a, b) => a.nome.localeCompare(b.nome));
+
+  dataMunicipios?.sort((a, b) => a.nome.localeCompare(b.nome));
+
+  const data: Localizacao = [];
+
+  // Percorrer os estados e suas cidades correspondentes
+  dataEstados?.forEach((estado) => {
+    data.push(estado);
+    const municipios = dataMunicipios?.filter((municipio) => estado.sigla === municipio.sigla);
+    municipios?.forEach((cidade) => {
+      data.push(cidade);
+    });
+  });
+
+  console.log(data);
 
   const [inputWidth, setInputWidth] = React.useState('100%');
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const [isInputFocused, setIsInputFocused] = React.useState(false);
+
+  const [highlightedOption, setHighlightedOption] = React.useState<number | null>(null);
 
   React.useEffect(() => {
     const resize = () => {
@@ -67,8 +84,7 @@ export default function Pesquisa(props: { cityId: number; onChange?: (id?: numbe
       </style>
       <Autocomplete
         id="grouped-demo"
-        groupBy={(option) => option.sigla}
-        options={data.filter((d) => d.queimadas).sort((a, b) => -b.sigla.localeCompare(a.sigla))}
+        options={data.filter((d) => d.queimadas)}
         getOptionDisabled={(option) => !option.queimadas}
         getOptionLabel={(option) => option.nome}
         noOptionsText="Não existem dados para essa localidade"
@@ -112,12 +128,24 @@ export default function Pesquisa(props: { cityId: number; onChange?: (id?: numbe
             inputRef={(input) => (inputRef.current = input)}
           />
         )}
-        renderGroup={(params) => (
-          <li style={{ border: '2px', borderColor: '#ffffff', color: '#ffffff' }} key={params.key}>
-            <GroupHeader>{params.group}</GroupHeader>
-            <GroupItems>{params.children}</GroupItems>
-          </li>
-        )}
+        renderGroup={(params) => <li key={params.key}>{params.children}</li>}
+        renderOption={(props, option) => {
+          const isHighlighted = option.id === highlightedOption;
+          return (
+            <li
+              {...props}
+              onMouseEnter={() => setHighlightedOption(option.id)}
+              onMouseLeave={() => setHighlightedOption(null)}
+              style={
+                option.sigla && dataEstados?.some((estado) => estado.nome === option.nome)
+                  ? { backgroundColor: isHighlighted ? '#1f2e4c' : '#0f1c3c' }
+                  : {}
+              }
+            >
+              {option.nome}
+            </li>
+          );
+        }}
       />
     </>
   ) : (
