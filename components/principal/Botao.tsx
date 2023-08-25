@@ -1,5 +1,4 @@
 import Menu from '@mui/icons-material/Menu';
-import Calendar from '@mui/icons-material/CalendarMonth';
 import Download from '@mui/icons-material/Download';
 import Fire from '@mui/icons-material/LocalFireDepartment';
 import Forest from '@mui/icons-material/Forest';
@@ -61,14 +60,6 @@ export function MenuBotao(props: ButtonProps) {
   return (
     <BaseBotao {...props}>
       <Menu fontSize="medium" />
-    </BaseBotao>
-  );
-}
-
-export function CalendarBotao(props: ButtonProps) {
-  return (
-    <BaseBotao {...props}>
-      <Calendar fontSize="medium" />
     </BaseBotao>
   );
 }

@@ -9,7 +9,6 @@ import Settings from '../components/principal/Settings';
 import { Avatar, Grid } from '@mui/material';
 import Pesquisa from '../components/principal/Autocompletar';
 import {
-  CalendarBotao,
   DownloadBotao,
   FireBotao,
   ForestBotao,
@@ -78,7 +77,7 @@ export default function Principal() {
         sx={{
           position: 'absolute',
           width: '50px',
-          height: '180px',
+          height: '115px',
           top: 0,
           right: 0,
           margin: '1rem',
@@ -87,7 +86,7 @@ export default function Principal() {
           justifyContent: 'space-between',
           '@media (max-width: 1500px)': {
             width: '45px',
-            height: '160px',
+            height: '102.5px',
           },
           '@media (max-width: 600px)': {
             top: 'calc(3rem + 40px)',
@@ -99,7 +98,6 @@ export default function Principal() {
           isSettingsVisible={isSettingsVisible}
           setIsSettingsVisible={setIsSettingsVisible}
         />
-        <CalendarBotao onClick={() => setIsCalendarModalOpen(true)} />
         <DownloadBotao
           onClick={(event: React.MouseEvent<HTMLElement>) =>
             setAnchorElementOfDownloadButton(event.currentTarget)
