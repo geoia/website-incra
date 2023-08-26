@@ -11,17 +11,20 @@ interface Props {
 
 export default function CalendarModal({ options, defaultOption, onSelect }: Props) {
   const [selectedOption, setSelectedOption] = useState<string>(defaultOption || options[0]);
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   const handleMonthChange = (event: SelectChangeEvent) => {
-    setSelectedOption(event.target.value);
+    const newSelectedOption = event.target.value;
+    setSelectedOption(newSelectedOption);
 
-    if(onSelect) { 
-      onSelect(selectedOption);
+    if (onSelect) { 
+      onSelect(newSelectedOption);
     }
   };
 
   return (
       <Grid
+        onClick={() => setIsSelectOpen(!isSelectOpen)}
         sx={{
           position: 'absolute',
           top: '0',
@@ -34,6 +37,7 @@ export default function CalendarModal({ options, defaultOption, onSelect }: Prop
           backgroundColor: '#509CBF',
           borderRadius: '15px',
           fontSize: '1.5rem',
+          color: 'white',
           '@media (max-width: 1500px)': {
             left: 'calc(40% + 3rem)',
             fontSize: '1rem',
@@ -42,7 +46,6 @@ export default function CalendarModal({ options, defaultOption, onSelect }: Prop
       >
         <h1
           style={{
-            color: 'white',
             fontSize: '1.3rem',
             fontWeight: '400',
             marginLeft: '10px'
@@ -68,6 +71,9 @@ export default function CalendarModal({ options, defaultOption, onSelect }: Prop
           }}
         >
           <Select
+            open={isSelectOpen}
+            onClose={() => setIsSelectOpen(false)}
+            onOpen={() => setIsSelectOpen(true)}
             value={selectedOption}
             onChange={handleMonthChange}
             MenuProps={{
@@ -75,8 +81,20 @@ export default function CalendarModal({ options, defaultOption, onSelect }: Prop
                 sx: {
                   bgcolor: '#509CBF',
                   height: '300px',
+                  width: '220px',
+                  transform: 'translateX(-14%)!important',
                   '@media (max-width:1500px)': {
-                    height: '200px',
+                    height: '225px',
+                  },
+                  '&::-webkit-scrollbar': {
+                    width: '0.4em',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: 'rgba(0,0,0,.1)',
+                    outline: '1px solid slategrey',
                   },
                 },
               },
@@ -87,7 +105,7 @@ export default function CalendarModal({ options, defaultOption, onSelect }: Prop
                 key={index}
                 value={month}
                 sx={{
-                  color: '#0F1C3C',
+                  color: 'white',
                   fontSize: '1.5rem',
                   '@media (max-width:1500px)': {
                     fontSize: '1.2rem',
