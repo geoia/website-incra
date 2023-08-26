@@ -30,7 +30,6 @@ export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
     useState<null | HTMLElement>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
   const [isFireButtonClicked, setIsFireButtonClicked] = useState(true);
   const [isLocationClicked, setIsLocationClicked] = useState(false);
@@ -72,7 +71,6 @@ export default function Principal() {
       />
 
       <SearchMenu cityId={cityId} setCityId={setCityId} />
-
       <Grid
         sx={{
           position: 'absolute',
@@ -176,12 +174,9 @@ export default function Principal() {
       {!isSourcesLoading && (
         <CalendarModal
           options={sources?.map((s) => s.label) || []}
-          open={isCalendarModalOpen}
           onSelect={(value) => {
             setSelectedSource(sources?.find((s) => s.label === value)?.source);
-            setIsCalendarModalOpen(false);
           }}
-          onClose={() => setIsCalendarModalOpen(false)}
         />
       )}
       <Settings
