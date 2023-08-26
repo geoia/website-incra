@@ -29,7 +29,7 @@ export default function Localizacao() {
   }
 
   useEffect(() => {
-    map.locate({ setView: true });
+    map.locate({ setView: true, maxZoom: 7 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
