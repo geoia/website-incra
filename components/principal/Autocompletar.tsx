@@ -23,8 +23,12 @@ const CustomPaper = styled(Paper)({
   borderRadius: '0px 0px 10px 10px',
 });
 
-export default function Pesquisa(props: { cityId: number; onChange?: (id?: number) => void }) {
-  const { data } = useMunicipios();
+export default function Pesquisa(props: {
+  cityId: number;
+  source?: string;
+  onChange?: (id?: number) => void;
+}) {
+  const { data } = useMunicipios(props.source);
 
   const [inputWidth, setInputWidth] = React.useState('100%');
   const inputRef = React.useRef<HTMLInputElement | null>(null);

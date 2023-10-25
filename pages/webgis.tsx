@@ -187,6 +187,10 @@ function SearchMenu(props: {
 }) {
   const { data: sources, isLoading: isSourcesLoading } = useSources();
 
+  const [source, setSource] = useState<string>();
+
+  useEffect(() => props.setSelectedSource(source), [source, props]);
+
   return (
     <Grid
       sx={{
@@ -210,13 +214,15 @@ function SearchMenu(props: {
       <Link href="/">
         <Logo sx={{ width: 64, height: 64 }} />
       </Link>
-      <Pesquisa cityId={props.cityId} onChange={(id) => id && props.setCityId(id)} />
+      <Pesquisa
+        cityId={props.cityId}
+        source={source}
+        onChange={(id) => id && props.setCityId(id)}
+      />
       {!isSourcesLoading && (
         <CalendarModal
           options={sources?.map((s) => s.label) || []}
-          onSelect={(value) => {
-            props.setSelectedSource(sources?.find((s) => s.label === value)?.source);
-          }}
+          onSelect={(value) => setSource(sources?.find((s) => s.label === value)?.source)}
           sx={{
             borderLeft: '2px solid white',
             borderRadius: 0,
