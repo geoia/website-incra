@@ -39,7 +39,6 @@ export default function Principal() {
   const ref = React.createRef<MapEvents>();
 
   const [selectedSource, setSelectedSource] = useState<string | undefined>();
-  const { data: sources, isLoading: isSourcesLoading } = useSources();
 
   const Mapa = React.useMemo(
     () =>
@@ -70,7 +69,7 @@ export default function Principal() {
         forwardRef={ref}
       />
 
-      <SearchMenu cityId={cityId} setCityId={setCityId} />
+      <SearchMenu cityId={cityId} setCityId={setCityId} setSelectedSource={setSelectedSource} />
       <Grid
         sx={{
           position: 'absolute',
@@ -171,14 +170,7 @@ export default function Principal() {
         setIsDrawerOpen={setIsDrawerOpen}
         setIsSettingsVisible={setIsSettingsVisible}
       />
-      {!isSourcesLoading && (
-        <CalendarModal
-          options={sources?.map((s) => s.label) || []}
-          onSelect={(value) => {
-            setSelectedSource(sources?.find((s) => s.label === value)?.source);
-          }}
-        />
-      )}
+
       <Settings
         isSettingsVisible={isSettingsVisible}
         setIsSettingsVisible={setIsSettingsVisible}
@@ -188,7 +180,13 @@ export default function Principal() {
   );
 }
 
-function SearchMenu(props: { cityId: number; setCityId: (v: number) => void }) {
+function SearchMenu(props: {
+  cityId: number;
+  setCityId: (v: number) => void;
+  setSelectedSource: (v?: string) => void;
+}) {
+  const { data: sources, isLoading: isSourcesLoading } = useSources();
+
   return (
     <Grid
       sx={{
@@ -200,7 +198,6 @@ function SearchMenu(props: { cityId: number; setCityId: (v: number) => void }) {
         width: '40%',
         height: '50px',
         backgroundColor: '#509CBF',
-
         borderRadius: '20px',
         '@media (max-width: 950px)': {
           width: '50%',
@@ -214,6 +211,20 @@ function SearchMenu(props: { cityId: number; setCityId: (v: number) => void }) {
         <Logo sx={{ width: 64, height: 64 }} />
       </Link>
       <Pesquisa cityId={props.cityId} onChange={(id) => id && props.setCityId(id)} />
+      {!isSourcesLoading && (
+        <CalendarModal
+          options={sources?.map((s) => s.label) || []}
+          onSelect={(value) => {
+            props.setSelectedSource(sources?.find((s) => s.label === value)?.source);
+          }}
+          sx={{
+            borderLeft: '2px solid white',
+            borderRadius: 0,
+            margin: 0,
+            backgroundColor: 'transparent',
+          }}
+        />
+      )}
     </Grid>
   );
 }
