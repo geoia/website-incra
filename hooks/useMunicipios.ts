@@ -15,5 +15,5 @@ export default function useMunicipios(source?: string) {
     axios
   );
 
-  return { data: data?.data, isLoading, error };
+  return { dataMunicipios: data?.data, isLoading, error };
 }

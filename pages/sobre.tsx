@@ -9,6 +9,7 @@ import Menu from '../components/Menu';
 import sobreAnimais from '../public/images/sobre-animais.png';
 import ufmsClaro from '../public/images/ufms-escuro.png';
 import laboratorioClaro from '../public/images/laboratorio-escuro.png';
+import facomEscuro from '../public/images/facom-escuro.png';
 import plantAboutLeft from '../public/images/plant-about-left.svg';
 import plantAboutRight from '../public/images/plant-about-right.svg';
 import plantAboutBottom from '../public/images/plant-about-bottom.svg';
@@ -48,19 +49,16 @@ export default function Sobre() {
               EcoGis
             </Typography>
             <Typography variant="body1" sx={{ color: '#FFF', marginTop: 3 }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, unde porro deleniti,
-              qui dolore officiis omnis rem necessitatibus maiores doloremque non repudiandae,
-              mollitia aperiam quas fugit fuga vel eveniet numquam. Lorem ipsum dolor, sit amet
-              consectetur adipisicing elit. Facere voluptas, tempora nulla quod provident quasi
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut, reprehenderit! Dicta
-              harum suscipit maiores ratione, perspiciatis, natus nesciunt, odio provident
-              consequuntur nisi enim quisquam culpa nulla. Veritatis earum porro eos. Lorem ipsum
-              dolor sit amet consectetur adipisicing elit. Impedit illum doloribus omnis cupiditate
-              consequuntur, voluptatum molestias doloremque beatae similique distinctio corporis
-              sapiente sunt consequatur voluptates qui ut natus aliquam iste. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Maiores rem ex vel nihil commodi cumque dicta, ut
-              praesentium facilis necessitatibus quod at officia sequi, accusamus, exercitationem
-              inventore quasi laudantium! Eum?
+              EcoGis é uma plataforma de inteligência artificial que utiliza imagens de satélite e
+              processamento de dados para mapeamento de áreas de queimadas, áreas alagadas e
+              vegetacao com maior precisão. A plataforma também visa apoiar diversos setores da
+              sociedade, como o setor público, privado e a sociedade civil, com informações
+              geográficas e ambientais para tomada de decisão, planejamento e gestão de recursos
+              naturais. A plataforma permite acesso à dados históricos e estatísticos sobre os dados
+              monitorados. A plataforma é uma iniciativa do Laboratório de Geomática e Inteligência
+              Artificial (GeoIA) da Universidade Federal de Mato Grosso do Sul (UFMS), em parceria
+              com o Laboratório de Engenharia de Software (LEDES) da Faculdade de Computação (FACOM)
+              da UFMS.
             </Typography>
           </Box>
         </Grid>
@@ -99,6 +97,36 @@ export default function Sobre() {
               gerenciamento de desastres. O laboratório propõe projetos de pesquisa e extensão
               capazes de resolver ou minimizar problemas ambientais e urbanos, como desmatamento,
               queimadas, falta de planejamento urbano, infraestrutura e saneamento básico do Brasil.
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+          <Grid item>
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Image src={facomEscuro} alt="facomEscuro" width={300} height={300} />
+            </Box>
+          </Grid>
+          <Grid item>
+            <Typography variant="h5" component={'h2'} sx={{ fontWeight: 600, color: '#0F1C3C' }}>
+              Laboratório de Engenharia de Software (LEDES)
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ marginTop: 1, fontSize: 14, color: '#0F1C3C', maxWidth: 800 }}
+            >
+              O Laboratório de Engenharia de Software (LEDES), da Faculdade de Computação - UFMS,
+              caminha com a missão de promover o avanço do estado-da-arte e do estado-da-prática de
+              Engenharia de Software, por meio de atividades de pesquisa científica, formação humana
+              e fornecimento de soluções inovadoras para desafios reais da academia e indústria. As
+              soluções desenvolvidas no LEDES, desde sua criação em 2003, possibilitaram a formação
+              de pessoal qualificado, o aprimoramento das habilidades do grupo de Engenharia de
+              Software no desenvolvimento de soluções computacionais, bem como a formação de uma
+              infraestrutura tecnológica para fomentar a transferência do conhecimento entre
+              universidade, governo e iniciativa privada. Com a visão de futuro que o laboratório se
+              torne um centro de referência internacional, destacando-se pelo rigor científico e
+              ética profissional. E para isso, os seguintes valores no laboratório são destacados:
+              compromisso e responsabilidade; respeito ao ser humano e valorização de suas relações;
+              foco em qualidade; valorização da criatividade; rigor científico e ética profissional.
             </Typography>
           </Grid>
         </Grid>

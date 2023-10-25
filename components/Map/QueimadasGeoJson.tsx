@@ -39,10 +39,16 @@ async function requestData(opts: BaseProps & PaginationProps & { controller?: Ab
 
   const querystring = new URLSearchParams(params).toString();
 
-  const { data, headers, status } = await axios.get<Record<string, any>>(
-    `/api/queimadas/municipio/${opts.municipio}?${querystring}`,
-    { signal: opts?.controller?.signal }
-  );
+  const { data, headers, status } =
+    opts.municipio > 100
+      ? await axios.get<Record<string, any>>(
+          `/api/queimadas/municipio/${opts.municipio}?${querystring}`,
+          { signal: opts?.controller?.signal }
+        )
+      : await axios.get<Record<string, any>>(
+          `/api/queimadas/estado/${opts.municipio}?${querystring}`,
+          { signal: opts?.controller?.signal }
+        );
 
   if (status !== 200) return { data: nothing };
 
