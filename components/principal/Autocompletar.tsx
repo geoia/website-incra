@@ -26,7 +26,7 @@ export default function Pesquisa(props: {
   onChange?: (id?: number) => void;
 }) {
   const { dataMunicipios } = useMunicipios(props.source);
-  const { dataEstados } = useEstados();
+  const { dataEstados } = useEstados(props.source);
 
   dataEstados?.sort((a, b) => a.nome.localeCompare(b.nome));
 
@@ -42,8 +42,6 @@ export default function Pesquisa(props: {
       data.push(cidade);
     });
   });
-
-  console.log(data);
 
   const [inputWidth, setInputWidth] = React.useState('100%');
   const inputRef = React.useRef<HTMLInputElement | null>(null);
