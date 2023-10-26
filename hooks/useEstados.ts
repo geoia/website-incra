@@ -9,9 +9,9 @@ type EstadosResponse = Array<{
   queimadas: boolean;
 }>;
 
-export default function useEstados() {
+export default function useEstados(source?: string) {
   const { data, error, isLoading } = useSWR<AxiosResponse<EstadosResponse>>(
-    '/api/queimadas/estados',
+    `/api/queimadas/estados${source ? `?source=${source}` : ''}`,
     axios
   );
 

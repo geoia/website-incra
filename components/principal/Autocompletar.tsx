@@ -1,8 +1,8 @@
-import * as React from 'react';
+import { useRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import Autocomplete from '@mui/material/Autocomplete';
 import { styled } from '@mui/system';
-import { Popper, PopperProps, Paper } from '@mui/material';
+import { Popper, Paper } from '@mui/material';
 import useMunicipios from '../../hooks/useMunicipios';
 import useEstados from '../../hooks/useEstados';
 
@@ -13,54 +13,37 @@ const CustomPaper = styled(Paper)({
   marginLeft: '5px',
 });
 
-type Localizacao = Array<{
+type Localizacao = {
   id: number;
   nome: string;
   sigla: string;
   queimadas: boolean;
-}>;
+};
 
-export default function Pesquisa(props: { cityId: number; onChange?: (id?: number) => void }) {
-  const { dataMunicipios } = useMunicipios();
-  const { dataEstados } = useEstados();
+export default function Pesquisa(props: {
+  cityId: number;
+  source?: string;
+  onChange?: (id?: number) => void;
+}) {
+  const { dataMunicipios } = useMunicipios(props.source);
+  const { dataEstados } = useEstados(props.source);
 
   dataEstados?.sort((a, b) => a.nome.localeCompare(b.nome));
-
   dataMunicipios?.sort((a, b) => a.nome.localeCompare(b.nome));
 
-  const data: Localizacao = [];
-
   // Percorrer os estados e suas cidades correspondentes
-  dataEstados?.forEach((estado) => {
-    data.push(estado);
-    const municipios = dataMunicipios?.filter((municipio) => estado.sigla === municipio.sigla);
-    municipios?.forEach((cidade) => {
-      data.push(cidade);
-    });
-  });
+  const data = dataEstados?.reduce(
+    (memo, estado) =>
+      memo
+        .concat([estado])
+        .concat(dataMunicipios?.filter((municipio) => estado.sigla === municipio.sigla) || []),
+    [] as Localizacao[]
+  );
 
-  console.log(data);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [isInputFocused, setIsInputFocused] = useState(false);
 
-  const [inputWidth, setInputWidth] = React.useState('100%');
-  const inputRef = React.useRef<HTMLInputElement | null>(null);
-  const [isInputFocused, setIsInputFocused] = React.useState(false);
-
-  const [highlightedOption, setHighlightedOption] = React.useState<number | null>(null);
-
-  React.useEffect(() => {
-    const resize = () => {
-      if (inputRef.current) {
-        setInputWidth(`${inputRef.current.clientWidth}px`);
-      }
-    };
-
-    resize(); // Chama a função para definir a largura inicial
-    window.addEventListener('resize', resize);
-
-    return () => {
-      window.removeEventListener('resize', resize);
-    };
-  }, []);
+  const [highlightedOption, setHighlightedOption] = useState<number | null>(null);
 
   return data ? (
     <>

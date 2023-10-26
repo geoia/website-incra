@@ -9,9 +9,9 @@ type MunicipiosResponse = Array<{
   queimadas: boolean;
 }>;
 
-export default function useMunicipios() {
+export default function useMunicipios(source?: string) {
   const { data, error, isLoading } = useSWR<AxiosResponse<MunicipiosResponse>>(
-    '/api/queimadas/municipios',
+    `/api/queimadas/municipios${source ? `?source=${source}` : ''}`,
     axios
   );
 

@@ -9,7 +9,6 @@ import Settings from '../components/principal/Settings';
 import { Avatar, Grid } from '@mui/material';
 import Pesquisa from '../components/principal/Autocompletar';
 import {
-  CalendarBotao,
   DownloadBotao,
   FireBotao,
   ForestBotao,
@@ -31,7 +30,6 @@ export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
     useState<null | HTMLElement>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
   const [isFireButtonClicked, setIsFireButtonClicked] = useState(true);
   const [isLocationClicked, setIsLocationClicked] = useState(false);
@@ -41,7 +39,6 @@ export default function Principal() {
   const ref = React.createRef<MapEvents>();
 
   const [selectedSource, setSelectedSource] = useState<string | undefined>();
-  const { data: sources, isLoading: isSourcesLoading } = useSources();
 
   const Mapa = React.useMemo(
     () =>
@@ -72,13 +69,12 @@ export default function Principal() {
         forwardRef={ref}
       />
 
-      <SearchMenu cityId={cityId} setCityId={setCityId} />
-
+      <SearchMenu cityId={cityId} setCityId={setCityId} setSelectedSource={setSelectedSource} />
       <Grid
         sx={{
           position: 'absolute',
           width: '50px',
-          height: '180px',
+          height: '115px',
           top: 0,
           right: 0,
           margin: '1rem',
@@ -87,7 +83,7 @@ export default function Principal() {
           justifyContent: 'space-between',
           '@media (max-width: 1500px)': {
             width: '45px',
-            height: '160px',
+            height: '102.5px',
           },
           '@media (max-width: 600px)': {
             top: 'calc(3rem + 40px)',
@@ -99,7 +95,6 @@ export default function Principal() {
           isSettingsVisible={isSettingsVisible}
           setIsSettingsVisible={setIsSettingsVisible}
         />
-        <CalendarBotao onClick={() => setIsCalendarModalOpen(true)} />
         <DownloadBotao
           onClick={(event: React.MouseEvent<HTMLElement>) =>
             setAnchorElementOfDownloadButton(event.currentTarget)
@@ -175,17 +170,7 @@ export default function Principal() {
         setIsDrawerOpen={setIsDrawerOpen}
         setIsSettingsVisible={setIsSettingsVisible}
       />
-      {!isSourcesLoading && (
-        <CalendarModal
-          options={sources?.map((s) => s.label) || []}
-          open={isCalendarModalOpen}
-          onSelect={(value) => {
-            setSelectedSource(sources?.find((s) => s.label === value)?.source);
-            setIsCalendarModalOpen(false);
-          }}
-          onClose={() => setIsCalendarModalOpen(false)}
-        />
-      )}
+
       <Settings
         isSettingsVisible={isSettingsVisible}
         setIsSettingsVisible={setIsSettingsVisible}
@@ -195,7 +180,17 @@ export default function Principal() {
   );
 }
 
-function SearchMenu(props: { cityId: number; setCityId: (v: number) => void }) {
+function SearchMenu(props: {
+  cityId: number;
+  setCityId: (v: number) => void;
+  setSelectedSource: (v?: string) => void;
+}) {
+  const { data: sources, isLoading: isSourcesLoading } = useSources();
+
+  const [source, setSource] = useState<string>();
+
+  useEffect(() => props.setSelectedSource(source), [source, props]);
+
   return (
     <Grid
       sx={{
@@ -207,7 +202,6 @@ function SearchMenu(props: { cityId: number; setCityId: (v: number) => void }) {
         width: '40%',
         height: '50px',
         backgroundColor: '#509CBF',
-
         borderRadius: '20px',
         '@media (max-width: 950px)': {
           width: '50%',
@@ -220,7 +214,23 @@ function SearchMenu(props: { cityId: number; setCityId: (v: number) => void }) {
       <Link href="/">
         <Logo sx={{ width: 64, height: 64 }} />
       </Link>
-      <Pesquisa cityId={props.cityId} onChange={(id) => id && props.setCityId(id)} />
+      <Pesquisa
+        cityId={props.cityId}
+        source={source}
+        onChange={(id) => id && props.setCityId(id)}
+      />
+      {!isSourcesLoading && (
+        <CalendarModal
+          options={sources?.map((s) => s.label) || []}
+          onSelect={(value) => setSource(sources?.find((s) => s.label === value)?.source)}
+          sx={{
+            borderLeft: '2px solid white',
+            borderRadius: 0,
+            margin: 0,
+            backgroundColor: 'transparent',
+          }}
+        />
+      )}
     </Grid>
   );
 }
