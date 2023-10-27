@@ -35,18 +35,16 @@ async function requestData(opts: BaseProps & PaginationProps & { controller?: Ab
     detailed: `${!opts.simplified}`,
   };
 
-  if (opts.source) params.source = opts.source;
-
   const querystring = new URLSearchParams(params).toString();
 
   const { data, headers, status } =
     opts.municipio > 100
       ? await axios.get<Record<string, any>>(
-          `/api/queimadas/municipio/${opts.municipio}?${querystring}`,
+          `/api/queimadas/${opts.source || 'latest'}/municipios/${opts.municipio}?${querystring}`,
           { signal: opts?.controller?.signal }
         )
       : await axios.get<Record<string, any>>(
-          `/api/queimadas/estado/${opts.municipio}?${querystring}`,
+          `/api/queimadas/${opts.source || 'latest'}/estados/${opts.municipio}?${querystring}`,
           { signal: opts?.controller?.signal }
         );
 
