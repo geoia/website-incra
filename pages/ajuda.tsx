@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EmailIcon from '@mui/icons-material/Email';
 import Image from 'next/image';
 import Paper from '@mui/material/Paper';
+require('dotenv').config();
 
 import plantaDeFundo from '../public/images/planta-de-fundo.svg';
 import Menu from '../components/Menu';
@@ -21,8 +22,27 @@ export default function Ajuda() {
         <title>GeoIA - Ajuda</title>
       </Head>
       <Menu />
-      <Box sx={{ position: 'absolute', zIndex: -1, top: '50px', right: 0 }}>
+      <Box
+        sx={{
+          display: { xs: 'none', md: 'flex' },
+          position: 'absolute',
+          zIndex: -1,
+          top: '50px',
+          right: 0,
+        }}
+      >
         <Image src={plantaDeFundo} alt="planta de fundo" />
+      </Box>
+      <Box
+        sx={{
+          display: { sm: 'flex', md: 'none' },
+          position: 'absolute',
+          zIndex: -1,
+          // top: '50px',
+          right: 0,
+        }}
+      >
+        <Image src={plantaDeFundo} alt="planta de fundo" width={800}/>
       </Box>
       <Container>
         {topicos.length > 0 && (
@@ -64,7 +84,7 @@ export default function Ajuda() {
             <EmailIcon color="secondary" sx={{ fontSize: 60 }} />
             <Typography variant="body1">Email</Typography>
             <Typography variant="body2" marginTop={2}>
-              geoiawebgiz@gmail.com
+              {process.env.NEXT_PUBLIC_EMAIL_CONTATO}
             </Typography>
           </Paper>
         </Grid>
