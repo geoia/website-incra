@@ -34,6 +34,15 @@ export default function Home() {
         </Box>
         <Box
           sx={{
+            display: { xs: 'flex', md: 'none' },
+            position: 'absolute',
+            bottom: 0,
+          }}
+        >
+          <Image src={homeTucano} alt="homeTucano" height={220} width={100} />
+        </Box>
+        <Box
+          sx={{
             zIndex: -1,
             position: 'absolute',
             right: 0,
@@ -194,11 +203,6 @@ export default function Home() {
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Button color={'primary'} sx={{ marginTop: 3, fontSize: 20, bgColor: '#FFF' }}>
-            Webgis
-          </Button>
         </Grid>
         <Grid
           item

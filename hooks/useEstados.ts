@@ -11,7 +11,7 @@ type EstadosResponse = Array<{
 
 export default function useEstados(source?: string) {
   const { data, error, isLoading } = useSWR<AxiosResponse<EstadosResponse>>(
-    `/api/queimadas/estados${source ? `?source=${source}` : ''}`,
+    `/api/queimadas/${source || 'latest'}/estados`,
     axios
   );
 

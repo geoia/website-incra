@@ -17,6 +17,7 @@ export default function useSources() {
 
   return {
     data: data?.data
+      .filter((source) => source !== 'latest')
       .map((source) => dayjs(source, 'YYYYMM'))
       .sort((d1, d2) => (d1.isAfter(d2) ? -1 : 1))
       .map((source) => ({

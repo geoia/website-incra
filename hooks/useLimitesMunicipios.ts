@@ -7,10 +7,10 @@ type Polygon = {
 };
 
 export default function useLimitesMunicipios(id: number) {
-  const { data, error, isLoading } =
-    id > 100
-      ? useSWR<AxiosResponse<Polygon>>(`/api/mapas/municipio/${id}`, axios)
-      : useSWR<AxiosResponse<Polygon>>(`/api/mapas/estado/${id}`, axios);
+  const { data, error, isLoading } = useSWR<AxiosResponse<Polygon>>(
+    `/api/mapas/${id > 100 ? 'municipio' : 'estado'}/${id}`,
+    axios
+  );
 
   return { data: data?.data, isLoading, error };
 }

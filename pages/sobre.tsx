@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { Grid, Typography, Box } from '@mui/material';
 import Head from 'next/head';
 
-import CrouselParticipant from '../components/Carousel';
 import Menu from '../components/Menu';
 
 import sobreAnimais from '../public/images/sobre-animais.png';
@@ -25,7 +24,6 @@ export default function Sobre() {
         <Grid
           item
           lg
-          md
           sx={{
             display: { xs: 'none', md: 'none', lg: 'flex' },
             justifyContent: 'center',
@@ -36,11 +34,49 @@ export default function Sobre() {
         </Grid>
         <Grid
           item
+          md
+          sx={{
+            display: { xs: 'none', md: 'flex', lg: 'none' },
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Image src={sobreAnimais} alt="Imagens do pantanal" width={400} />
+        </Grid>
+
+        <Grid
+          item
           lg={7}
           md={6}
           sm
-          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 8 }}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 8,
+            zIndex: 1,
+            overflow: 'hidden',
+          }}
         >
+          <Grid
+            item
+            sx={{
+              display: { md: 'none', lg: 'none' },
+              zIndex: 0,
+              opacity: '10%',
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              overflow: 'hidden',
+            }}
+          >
+            <Image
+              src={sobreAnimais}
+              alt="Imagens do pantanal"
+              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+            />
+          </Grid>
+
           <Box>
             <Typography variant="h2" sx={{ color: '#509CBF', fontWeight: 800, marginTop: 3 }}>
               Sobre o projeto
@@ -100,7 +136,7 @@ export default function Sobre() {
             </Typography>
           </Grid>
         </Grid>
-        <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+        <Grid item sx={{ marginTop: 3, display: 'flex', alignItems: 'center' }}>
           <Grid item>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Image src={facomEscuro} alt="facomEscuro" width={300} height={300} />
@@ -155,87 +191,6 @@ export default function Sobre() {
               dedica à pesquisa, à extensão e à preservação dos recursos naturais, especialmente da
               fauna e flora do Pantanal.
             </Typography>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid
-        container
-        sx={{
-          position: 'relative',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100vh',
-          backgroundColor: '#0F1C3C',
-        }}
-      >
-        <Grid
-          item
-          sx={{
-            display: { xs: 'none', md: 'flex' },
-            position: 'absolute',
-            left: 0,
-            width: 250,
-            height: 500,
-            overflow: 'hidden',
-          }}
-        >
-          <Image
-            src={plantAboutLeft}
-            alt="Planta"
-            style={{ width: 'auto', height: '100%', marginLeft: -200 }}
-          />
-        </Grid>
-        <Grid
-          item
-          sx={{
-            display: { xs: 'none', md: 'flex' },
-            position: 'absolute',
-            right: 0,
-            overflow: 'hidden',
-            width: 250,
-            height: 500,
-          }}
-        >
-          <Image src={plantAboutRight} alt="Planta" />
-        </Grid>
-        <Grid
-          item
-          sx={{
-            display: { xs: 'none', md: 'flex' },
-            position: 'absolute',
-            bottom: 0,
-            overflow: 'hidden',
-            width: 550,
-            height: 300,
-          }}
-        >
-          <Image src={plantAboutBottom} alt="Planta" style={{}} />
-        </Grid>
-        <Grid item sx={{ textAlign: 'center', padding: 1 }}>
-          <Typography variant="h2" sx={{ color: '#fff' }}>
-            Nosso time
-          </Typography>
-          <Typography variant="h6" sx={{ color: '#fff' }}>
-            Professores, pesquisadores e estudantes <br /> da Universidade Federal de Mato Grosso do
-            Sul
-          </Typography>
-          <Grid
-            sx={{
-              marginTop: 5,
-              width: 1000,
-              display: { xs: 'none', md: 'flex' },
-            }}
-          >
-            <CrouselParticipant tam={5} />
-          </Grid>
-          <Grid
-            sx={{
-              marginTop: 5,
-              width: '100%',
-              display: { xs: 'flex', md: 'none' },
-            }}
-          >
-            <CrouselParticipant tam={2} />
           </Grid>
         </Grid>
       </Grid>
