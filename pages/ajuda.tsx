@@ -8,7 +8,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EmailIcon from '@mui/icons-material/Email';
 import Image from 'next/image';
 import Paper from '@mui/material/Paper';
-require('dotenv').config();
 
 import plantaDeFundo from '../public/images/planta-de-fundo.svg';
 import Menu from '../components/Menu';
@@ -42,7 +41,7 @@ export default function Ajuda() {
           right: 0,
         }}
       >
-        <Image src={plantaDeFundo} alt="planta de fundo" width={800}/>
+        <Image src={plantaDeFundo} alt="planta de fundo" width={800} />
       </Box>
       <Container>
         {topicos.length > 0 && (
