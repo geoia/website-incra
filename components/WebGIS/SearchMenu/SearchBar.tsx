@@ -3,8 +3,8 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { styled } from '@mui/system';
 import { Popper, Paper } from '@mui/material';
-import useMunicipios from '../../hooks/useMunicipios';
-import useEstados from '../../hooks/useEstados';
+import useMunicipios from '../../../hooks/useMunicipios';
+import useEstados from '../../../hooks/useEstados';
 
 const CustomPaper = styled(Paper)({
   backgroundColor: '#509CBF',
@@ -29,18 +29,18 @@ export default function SearchBar(props: {
   const { dataEstados } = useEstados(props.source);
 
   const data = useMemo(() => {
-    const sortedMunicipios = dataMunicipios?.toSorted((a, b) => a.nome.localeCompare(b.nome));
+    const sortedMunicipios = [...(dataMunicipios || [])].sort((a, b) =>
+      a.nome.localeCompare(b.nome)
+    );
 
     // Percorrer os estados e suas cidades correspondentes
-    return dataEstados
-      ?.toSorted((a, b) => a.nome.localeCompare(b.nome))
+    return [...(dataEstados || [])]
+      ?.sort((a, b) => a.nome.localeCompare(b.nome))
       ?.reduce(
         (memo, estado) =>
           memo
             .concat([estado])
-            .concat(
-              sortedMunicipios?.filter((municipio) => estado.sigla === municipio.sigla) || []
-            ),
+            .concat(sortedMunicipios.filter((municipio) => estado.sigla === municipio.sigla) || []),
         [] as Localizacao[]
       );
   }, [dataMunicipios, dataEstados]);

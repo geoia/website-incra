@@ -2,9 +2,9 @@ import Head from 'next/head';
 
 import React, { useState } from 'react';
 
-import DownloadModal from '../components/principal/DownloadModal';
-import MenuModal from '../components/principal/MenuModal';
-import Settings from '../components/principal/Settings';
+import DownloadModal from '../components/WebGIS/DownloadModal';
+import MenuModal from '../components/WebGIS/MenuModal';
+import Settings from '../components/WebGIS/Settings';
 import { Grid } from '@mui/material';
 import {
   DownloadBotao,
@@ -17,10 +17,10 @@ import {
   CropBotao,
   MapBotao,
   SettingsBotao,
-} from '../components/principal/Botao';
+} from '../components/WebGIS/Botao';
 import dynamic from 'next/dynamic';
 import { MapEvents } from '../components/Map/Controlador';
-import { SearchMenu } from '../components/SearchMenu';
+import { SearchMenu } from '../components/WebGIS/SearchMenu';
 
 export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =

@@ -3,8 +3,8 @@ import SourceList from './SourceList';
 import { Grid } from '@mui/material';
 import SearchBar from './SearchBar';
 import Link from 'next/link';
-import Logo from '../Logo';
-import useSources from '../../hooks/useSources';
+import Logo from '../../Logo';
+import useSources from '../../../hooks/useSources';
 
 export function SearchMenu(props: {
   city: number;

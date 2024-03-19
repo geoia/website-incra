@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Popup, useMapEvents, Marker } from 'react-leaflet';
 import L from 'leaflet';
-import ToastError from '../principal/ToastError';
+import ToastError from '../WebGIS/ToastError';
 
 const iconMarker = new L.Icon({
   iconUrl: '/location.png',
