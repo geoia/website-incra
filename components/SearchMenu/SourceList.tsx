@@ -11,7 +11,7 @@ interface Props {
   sx?: SxProps;
 }
 
-export default function CalendarModal({ options, defaultOption, onSelect, sx }: Props) {
+export default function SourceList({ options, defaultOption, onSelect, sx }: Props) {
   const [selectedOption, setSelectedOption] = useState<string>(defaultOption || options[0]);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
 

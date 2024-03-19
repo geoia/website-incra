@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { styled } from '@mui/system';
@@ -20,25 +20,30 @@ type Localizacao = {
   queimadas: boolean;
 };
 
-export default function Pesquisa(props: {
-  cityId: number;
+export default function SearchBar(props: {
+  city: number;
   source?: string;
   onChange?: (id?: number) => void;
 }) {
   const { dataMunicipios } = useMunicipios(props.source);
   const { dataEstados } = useEstados(props.source);
 
-  dataEstados?.sort((a, b) => a.nome.localeCompare(b.nome));
-  dataMunicipios?.sort((a, b) => a.nome.localeCompare(b.nome));
+  const data = useMemo(() => {
+    const sortedMunicipios = dataMunicipios?.toSorted((a, b) => a.nome.localeCompare(b.nome));
 
-  // Percorrer os estados e suas cidades correspondentes
-  const data = dataEstados?.reduce(
-    (memo, estado) =>
-      memo
-        .concat([estado])
-        .concat(dataMunicipios?.filter((municipio) => estado.sigla === municipio.sigla) || []),
-    [] as Localizacao[]
-  );
+    // Percorrer os estados e suas cidades correspondentes
+    return dataEstados
+      ?.toSorted((a, b) => a.nome.localeCompare(b.nome))
+      ?.reduce(
+        (memo, estado) =>
+          memo
+            .concat([estado])
+            .concat(
+              sortedMunicipios?.filter((municipio) => estado.sigla === municipio.sigla) || []
+            ),
+        [] as Localizacao[]
+      );
+  }, [dataMunicipios, dataEstados]);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -71,7 +76,7 @@ export default function Pesquisa(props: {
         getOptionDisabled={(option) => !option.queimadas}
         getOptionLabel={(option) => option.nome}
         noOptionsText="Não existem dados para essa localidade"
-        value={data.find((option) => props.cityId == option.id)}
+        value={data.find((option) => props.city == option.id)}
         onChange={() =>
           setTimeout(() => {
             if (inputRef.current) {

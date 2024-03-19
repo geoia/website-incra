@@ -1,13 +1,11 @@
 import Head from 'next/head';
 
-import React, { HTMLAttributes, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import DownloadModal from '../components/principal/DownloadModal';
 import MenuModal from '../components/principal/MenuModal';
-import CalendarModal from '../components/principal/CalendarModal';
 import Settings from '../components/principal/Settings';
-import { Avatar, Grid } from '@mui/material';
-import Pesquisa from '../components/principal/Autocompletar';
+import { Grid } from '@mui/material';
 import {
   DownloadBotao,
   FireBotao,
@@ -22,9 +20,7 @@ import {
 } from '../components/principal/Botao';
 import dynamic from 'next/dynamic';
 import { MapEvents } from '../components/Map/Controlador';
-import Link from 'next/link';
-import Logo from '../components/Logo';
-import useSources from '../hooks/useSources';
+import { SearchMenu } from '../components/SearchMenu';
 
 export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
@@ -69,7 +65,8 @@ export default function Principal() {
         forwardRef={ref}
       />
 
-      <SearchMenu cityId={cityId} setCityId={setCityId} setSelectedSource={setSelectedSource} />
+      <SearchMenu city={cityId} onCityChange={setCityId} onSourceChange={setSelectedSource} />
+
       <Grid
         sx={{
           position: 'absolute',
@@ -177,60 +174,5 @@ export default function Principal() {
         setIsSimplifiedDatas={setIsSimplifiedDatas}
       />
     </>
-  );
-}
-
-function SearchMenu(props: {
-  cityId: number;
-  setCityId: (v: number) => void;
-  setSelectedSource: (v?: string) => void;
-}) {
-  const { data: sources, isLoading: isSourcesLoading } = useSources();
-
-  const [source, setSource] = useState<string>();
-
-  useEffect(() => props.setSelectedSource(source), [source, props]);
-
-  return (
-    <Grid
-      sx={{
-        position: 'absolute',
-        top: 0,
-        margin: '1rem',
-        display: 'flex',
-        alignItems: 'center',
-        width: '40%',
-        height: '50px',
-        backgroundColor: '#509CBF',
-        borderRadius: '20px',
-        '@media (max-width: 950px)': {
-          width: '50%',
-        },
-        '@media (max-width: 600px)': {
-          width: 'calc(100% - 2rem)',
-        },
-      }}
-    >
-      <Link href="/">
-        <Logo sx={{ width: 64, height: 64 }} />
-      </Link>
-      <Pesquisa
-        cityId={props.cityId}
-        source={source}
-        onChange={(id) => id && props.setCityId(id)}
-      />
-      {!isSourcesLoading && (
-        <CalendarModal
-          options={sources?.map((s) => s.label) || []}
-          onSelect={(value) => setSource(sources?.find((s) => s.label === value)?.source)}
-          sx={{
-            borderLeft: '2px solid white',
-            borderRadius: 0,
-            margin: 0,
-            backgroundColor: 'transparent',
-          }}
-        />
-      )}
-    </Grid>
   );
 }
