@@ -22,7 +22,7 @@ interface PropsSettingsBotao {
   setIsSettingsVisible: (val: boolean) => void;
 }
 
-function BaseBotao({ children, sx, ...props }: ButtonProps) {
+function BaseButton({ children, sx, ...props }: ButtonProps) {
   return (
     <Button
       variant="contained"
@@ -56,135 +56,127 @@ function BaseBotao({ children, sx, ...props }: ButtonProps) {
   );
 }
 
-export function MenuBotao(props: ButtonProps) {
+export function MenuButton(props: ButtonProps) {
   return (
-    <BaseBotao {...props}>
+    <BaseButton {...props}>
       <Menu fontSize="medium" />
-    </BaseBotao>
+    </BaseButton>
   );
 }
 
-export function DownloadBotao(props: ButtonProps) {
+export function DownloadButton(props: ButtonProps) {
   return (
-    <BaseBotao {...props}>
+    <BaseButton {...props}>
       <Download fontSize="medium" />
-    </BaseBotao>
+    </BaseButton>
   );
 }
 
-export function SettingsBotao({ isSettingsVisible, setIsSettingsVisible }: PropsSettingsBotao) {
+export function SettingsButton(props: ButtonProps) {
   return (
-    <BaseBotao onClick={() => setIsSettingsVisible(!isSettingsVisible)}>
+    <BaseButton {...props}>
       <SettingsIcon fontSize="medium" />
-    </BaseBotao>
+    </BaseButton>
   );
 }
 
-export function FireBotao({ isFireButtonClicked, setIsFireButtonClicked }: PropsFireBotao) {
+export function FireButton({ active, sx, ...props }: ButtonProps & { active: boolean }) {
   return (
-    <BaseBotao
-      sx={{
-        background: isFireButtonClicked ? 'red' : '#509CBF',
-        '&:hover': {
-          transform: 'translateY(-2px)',
-          background: isFireButtonClicked ? 'red' : '#509CBF',
-        },
-      }}
-      onClick={() => setIsFireButtonClicked(!isFireButtonClicked)}
-    >
-      <Fire fontSize="medium" />
-    </BaseBotao>
-  );
-}
-
-export function ForestBotao(props: ButtonProps) {
-  const [forestButton, setForestButton] = useState(false);
-
-  return (
-    <BaseBotao
+    <BaseButton
       {...props}
       sx={{
-        background: forestButton ? 'green' : '#509CBF',
+        background: active ? 'red' : '#509CBF',
+        '&:hover': {
+          transform: 'translateY(-2px)',
+          background: active ? 'red' : '#509CBF',
+        },
+        ...sx,
+      }}
+    >
+      <Fire fontSize="medium" />
+    </BaseButton>
+  );
+}
+
+export function ForestButton({ active, sx, ...props }: ButtonProps & { active: boolean }) {
+  return (
+    <BaseButton
+      {...props}
+      sx={{
+        background: active ? 'green' : '#509CBF',
         '&:hover': {
           background: '#0c850ceb',
         },
+        ...sx,
       }}
-      onClick={() => setForestButton(!forestButton)}
-      disabled
     >
       <Forest fontSize="medium" />
-    </BaseBotao>
+    </BaseButton>
   );
 }
 
-export function RoadBotao(props: ButtonProps) {
-  const [roadButton, setRoadButton] = useState(false);
-
+export function RoadButton({ active, sx, ...props }: ButtonProps & { active: boolean }) {
   return (
-    <BaseBotao
+    <BaseButton
       {...props}
       sx={{
-        background: roadButton ? '#964b00' : '#509CBF',
+        background: active ? '#964b00' : '#509CBF',
         '&:hover': {
           background: '#97510ced',
         },
+        ...sx,
       }}
-      onClick={() => setRoadButton(!roadButton)}
-      disabled
     >
       <Road fontSize="medium" />
-    </BaseBotao>
+    </BaseButton>
   );
 }
 
-export function WaterBotao(props: ButtonProps) {
-  const [waterButton, setWaterButton] = useState(false);
-
+export function WaterButton({ active, sx, ...props }: ButtonProps & { active: boolean }) {
   return (
-    <BaseBotao
+    <BaseButton
       {...props}
       sx={{
-        background: waterButton ? 'blue' : '#509CBF',
+        background: active ? 'blue' : '#509CBF',
         '&:hover': {
           background: '#1414f7dd',
         },
+        ...sx,
       }}
-      onClick={() => setWaterButton(!waterButton)}
-      disabled
     >
       <Water fontSize="medium" />
-    </BaseBotao>
+    </BaseButton>
   );
 }
 
-export function AddBotao(props: ButtonProps) {
+export function AddButton(props: ButtonProps) {
   return (
-    <BaseBotao {...props}>
+    <BaseButton {...props}>
       <Add fontSize="medium" />
-    </BaseBotao>
+    </BaseButton>
   );
 }
 
-export function RemoveBotao(props: ButtonProps) {
+export function RemoveButton(props: ButtonProps) {
   return (
-    <BaseBotao {...props}>
+    <BaseButton {...props}>
       <Remove fontSize="medium" />
-    </BaseBotao>
+    </BaseButton>
   );
 }
 
-export function CropBotao(props: ButtonProps) {
+export function CropButton(props: ButtonProps) {
   return (
-    <BaseBotao {...props}>
+    <BaseButton {...props}>
       <Crop fontSize="medium" />
-    </BaseBotao>
+    </BaseButton>
   );
 }
 
-export function MapBotao(props: ButtonProps) {
+export function MapButton(props: ButtonProps) {
   return (
-    <BaseBotao {...props}>
+    <BaseButton {...props}>
       <Map fontSize="medium" />
-    </BaseBotao>
+    </BaseButton>
   );
 }

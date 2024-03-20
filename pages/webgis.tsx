@@ -7,17 +7,17 @@ import MenuModal from '../components/WebGIS/MenuModal';
 import Settings from '../components/WebGIS/Settings';
 import { Grid } from '@mui/material';
 import {
-  DownloadBotao,
-  FireBotao,
-  ForestBotao,
-  RoadBotao,
-  WaterBotao,
-  AddBotao,
-  RemoveBotao,
-  CropBotao,
-  MapBotao,
-  SettingsBotao,
-} from '../components/WebGIS/Botao';
+  DownloadButton,
+  FireButton,
+  ForestButton,
+  RoadButton,
+  WaterButton,
+  AddButton,
+  RemoveButton,
+  CropButton,
+  MapButton,
+  SettingsButton,
+} from '../components/WebGIS/Buttons';
 import dynamic from 'next/dynamic';
 import { MapEvents } from '../components/Map/Controlador';
 import { SearchMenu } from '../components/WebGIS/SearchMenu';
@@ -25,16 +25,17 @@ import { SearchMenu } from '../components/WebGIS/SearchMenu';
 export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
     useState<null | HTMLElement>(null);
+
+  const [city, setCity] = useState(5003207);
+  const [source, setSource] = useState<string | undefined>();
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
-  const [isFireButtonClicked, setIsFireButtonClicked] = useState(true);
-  const [isLocationClicked, setIsLocationClicked] = useState(false);
-  const [isSimplifiedDatas, setIsSimplifiedDatas] = useState(false);
-  const [cityId, setCityId] = useState(5003207);
+  const [showSettings, setShowSettings] = useState(false);
+  const [showFire, setShowFire] = useState(true);
+  const [showLocation, setShowLocation] = useState(false);
+  const [simplified, setSimplified] = useState(false);
 
   const ref = React.createRef<MapEvents>();
-
-  const [selectedSource, setSelectedSource] = useState<string | undefined>();
 
   const Mapa = React.useMemo(
     () =>
@@ -57,15 +58,15 @@ export default function Principal() {
       </Head>
 
       <Mapa
-        showLocalizacao={isLocationClicked}
-        showQueimadas={isFireButtonClicked}
-        simplificado={isSimplifiedDatas}
-        municipio={cityId}
-        source={selectedSource}
+        showLocalizacao={showLocation}
+        showQueimadas={showFire}
+        simplificado={simplified}
+        municipio={city}
+        source={source}
         forwardRef={ref}
       />
 
-      <SearchMenu city={cityId} onCityChange={setCityId} onSourceChange={setSelectedSource} />
+      <SearchMenu city={city} onCityChange={setCity} onSourceChange={setSource} />
 
       <Grid
         sx={{
@@ -88,11 +89,9 @@ export default function Principal() {
           },
         }}
       >
-        <SettingsBotao
-          isSettingsVisible={isSettingsVisible}
-          setIsSettingsVisible={setIsSettingsVisible}
-        />
-        <DownloadBotao
+        <SettingsButton onClick={() => setShowSettings(!showSettings)} />
+
+        <DownloadButton
           onClick={(event: React.MouseEvent<HTMLElement>) =>
             setAnchorElementOfDownloadButton(event.currentTarget)
           }
@@ -120,13 +119,11 @@ export default function Principal() {
           },
         }}
       >
-        <FireBotao
-          isFireButtonClicked={isFireButtonClicked}
-          setIsFireButtonClicked={setIsFireButtonClicked}
-        />
-        <ForestBotao />
-        <RoadBotao />
-        <WaterBotao />
+        <FireButton active={showFire} onClick={() => setShowFire(!showFire)} />
+
+        <ForestButton active={false} disabled />
+        <RoadButton active={false} disabled />
+        <WaterButton active={false} disabled />
       </Grid>
       <Grid
         sx={{
@@ -145,33 +142,33 @@ export default function Principal() {
           },
         }}
       >
-        <AddBotao onClick={() => ref.current?.zoomIn()} />
-        <RemoveBotao onClick={() => ref.current?.zoomOut()} />
-        <CropBotao
+        <AddButton onClick={() => ref.current?.zoomIn()} />
+        <RemoveButton onClick={() => ref.current?.zoomOut()} />
+        <CropButton
           onClick={() => {
             var elem = document.documentElement;
             if (elem.requestFullscreen) elem.requestFullscreen();
           }}
         />
-        <MapBotao onClick={() => setIsLocationClicked(!isLocationClicked)} />
+        <MapButton onClick={() => setShowLocation(!showLocation)} />
       </Grid>
       <DownloadModal
         anchorEl={anchorElementOfDownloadButton}
         setAnchorEl={setAnchorElementOfDownloadButton}
-        isFireButtonClicked={isFireButtonClicked}
-        setIsFireButtonClicked={setIsFireButtonClicked}
-        isSimplifiedDatas={isSimplifiedDatas}
+        isFireButtonClicked={showFire}
+        setIsFireButtonClicked={setShowFire}
+        isSimplifiedDatas={simplified}
       />
       <MenuModal
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
-        setIsSettingsVisible={setIsSettingsVisible}
+        setIsSettingsVisible={setShowSettings}
       />
 
       <Settings
-        isSettingsVisible={isSettingsVisible}
-        setIsSettingsVisible={setIsSettingsVisible}
-        setIsSimplifiedDatas={setIsSimplifiedDatas}
+        isSettingsVisible={showSettings}
+        setIsSettingsVisible={setShowSettings}
+        setIsSimplifiedDatas={setSimplified}
       />
     </>
   );
