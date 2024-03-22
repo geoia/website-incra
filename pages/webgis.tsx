@@ -143,13 +143,20 @@ export default function Principal() {
         }}
       >
         <AddButton onClick={() => ref.current?.zoomIn()} />
+
         <RemoveButton onClick={() => ref.current?.zoomOut()} />
+
         <CropButton
           onClick={() => {
             var elem = document.documentElement;
-            if (elem.requestFullscreen) elem.requestFullscreen();
+            if (document.fullscreenElement) {
+              document.exitFullscreen();
+            } else {
+              elem.requestFullscreen();
+            }
           }}
         />
+
         <MapButton onClick={() => setShowLocation(!showLocation)} />
       </Grid>
       <DownloadModal
