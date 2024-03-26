@@ -4,19 +4,14 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import MenuItem from '@mui/material/MenuItem';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import logo from '../public/images/logo.png';
-import Logo from '../Logo';
-import { Button } from '@mui/material';
+import Logo from './ui/Logo';
 
 const pages: Array<{ titulo: string; rota: string }> = [
   { titulo: 'Apresentação', rota: '' },
@@ -25,7 +20,7 @@ const pages: Array<{ titulo: string; rota: string }> = [
   { titulo: 'Ajuda', rota: 'ajuda' },
 ];
 
-function GeneralMenu() {
+function MainMenu() {
   const { pathname } = useRouter();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -175,4 +170,4 @@ function GeneralMenu() {
     </AppBar>
   );
 }
-export default GeneralMenu;
+export default MainMenu;

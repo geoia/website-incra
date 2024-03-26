@@ -6,13 +6,10 @@ import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 import NextLink from 'next/link';
 
-import { TextField } from '../components/Input';
-import Logo from '../components/Logo';
-import { useState } from 'react';
+import { TextField } from '../components/ui/Input';
+import Logo from '../components/ui/Logo';
 
 export default function Cadastro() {
-  const [{}, setUsuario] = useState({});
-
   return (
     <>
       <Grid

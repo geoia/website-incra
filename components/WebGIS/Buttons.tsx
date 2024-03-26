@@ -10,17 +10,6 @@ import Crop from '@mui/icons-material/CropFree';
 import Map from '@mui/icons-material/FmdGood';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Button, { ButtonProps } from '@mui/material/Button';
-import { useState } from 'react';
-
-interface PropsFireBotao {
-  isFireButtonClicked: boolean;
-  setIsFireButtonClicked: (val: boolean) => void;
-}
-
-interface PropsSettingsBotao {
-  isSettingsVisible: boolean;
-  setIsSettingsVisible: (val: boolean) => void;
-}
 
 function BaseButton({ children, sx, ...props }: ButtonProps) {
   return (

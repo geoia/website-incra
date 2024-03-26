@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from 'axios';
-import { useState } from 'react';
 import useSWR from 'swr';
 
 type MunicipiosResponse = Array<{

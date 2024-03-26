@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Head from 'next/head';
-import { Box, Button, Grid, Typography, Avatar, AvatarProps } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 
 import infraestrutura from '../public/images/infraestrutura.png';
 import alagadas from '../public/images/alagadas.png';
@@ -11,7 +11,7 @@ import homeLogoUfms from '../public/images/home-logo-ufms.png';
 import homeFolhas from '../public/images/home-folhas.png';
 import homeTucano from '../public/images/home-tucano.png';
 
-import Menu from '../components/Menu';
+import Menu from '../components/MainMenu';
 
 export default function Home() {
   return (
@@ -226,11 +226,3 @@ export default function Home() {
     </>
   );
 }
-
-const Imagem = ({ src }: AvatarProps) => {
-  return (
-    <>
-      <Avatar sx={{ width: 130, height: 130 }} src={src} />
-    </>
-  );
-};
