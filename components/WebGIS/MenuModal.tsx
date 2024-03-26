@@ -4,7 +4,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import MailOutlineSharpIcon from '@mui/icons-material/MailOutlineSharp';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
-import ItemList from '../ui/itemList/ItemList';
+import ItemList from '../ui/ItemList';
 
 interface Props {
   isDrawerOpen: boolean;

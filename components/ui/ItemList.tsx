@@ -1,4 +1,4 @@
-import styles from '../../../styles/Principal.module.css';
+import styles from '../../styles/Principal.module.css';
 
 interface Props {
   texts: string[];

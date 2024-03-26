@@ -3,16 +3,12 @@ import Image from 'next/image';
 import { Grid, Typography, Box } from '@mui/material';
 import Head from 'next/head';
 
-import Menu from '../components/Menu';
+import Menu from '../components/MainMenu';
 
 import sobreAnimais from '../public/images/sobre-animais.png';
 import ufmsClaro from '../public/images/ufms-escuro.png';
 import laboratorioClaro from '../public/images/laboratorio-escuro.png';
 import facomEscuro from '../public/images/facom-escuro.png';
-import plantAboutLeft from '../public/images/plant-about-left.svg';
-import plantAboutRight from '../public/images/plant-about-right.svg';
-import plantAboutBottom from '../public/images/plant-about-bottom.svg';
-
 export default function Sobre() {
   return (
     <>
