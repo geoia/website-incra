@@ -19,7 +19,6 @@ import {
   SettingsButton,
 } from '../components/WebGIS/Buttons';
 import dynamic from 'next/dynamic';
-import { MapEvents } from '../components/Map/Controlador';
 import { SearchMenu } from '../components/WebGIS/SearchMenu';
 
 export default function Principal() {
@@ -35,12 +34,12 @@ export default function Principal() {
   const [showLocation, setShowLocation] = useState(false);
   const [simplified, setSimplified] = useState(false);
 
-  const ref = React.createRef<MapEvents>();
+  const ref = React.createRef<L.Map>();
 
   const Mapa = React.useMemo(
     () =>
       dynamic(
-        () => import('../components/Map'), // replace '@components/map' with your component's location
+        () => import('../components/WebGIS/Map'), // replace '@components/map' with your component's location
         {
           loading: () => <p>O mapa está carregando</p>,
           ssr: false, // This line is important. It's what prevents server-side render
@@ -143,13 +142,19 @@ export default function Principal() {
         }}
       >
         <AddButton onClick={() => ref.current?.zoomIn()} />
+
         <RemoveButton onClick={() => ref.current?.zoomOut()} />
+
         <CropButton
           onClick={() => {
-            var elem = document.documentElement;
-            if (elem.requestFullscreen) elem.requestFullscreen();
+            if (document.fullscreenElement) {
+              document.exitFullscreen();
+            } else {
+              document.documentElement.requestFullscreen();
+            }
           }}
         />
+
         <MapButton onClick={() => setShowLocation(!showLocation)} />
       </Grid>
       <DownloadModal

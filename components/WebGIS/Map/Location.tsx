@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Popup, useMapEvents, Marker } from 'react-leaflet';
-import L from 'leaflet';
-import ToastError from '../WebGIS/ToastError';
+import L, { ErrorEvent } from 'leaflet';
+import ToastError from '../ToastError';
 
 const iconMarker = new L.Icon({
   iconUrl: '/location.png',
   iconSize: [50, 50],
 });
 
-export default function Localizacao() {
+export default function Location() {
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
-  const [isError, setIsError] = useState(false);
+
+  const [error, setError] = useState<ErrorEvent | undefined>();
 
   const map = useMapEvents({
     locationfound(e) {
-      setIsError(false);
+      setError(undefined);
       setLagitudeAndLongitude(e.latlng.lat, e.latlng.lng);
     },
-    locationerror() {
-      setIsError(true);
+    locationerror(err) {
+      setError(err);
     },
   });
 
@@ -33,7 +34,7 @@ export default function Localizacao() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return isError ? (
+  return error ? (
     <ToastError message="Erro ao tentar encontrar a localização" />
   ) : (
     <Marker icon={iconMarker} position={[lat, lng]}>

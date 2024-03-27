@@ -3,7 +3,8 @@ import Menu from '@mui/material/Menu';
 import { FormGroup } from '@mui/material';
 import Button from '@mui/material/Button';
 import Download from '@mui/icons-material/Download';
-import FormCheckbox from '../ui/FormCheckbox/FormCheckbox';
+import FormCheckbox from '../ui/FormCheckbox';
+import { getQueimadas } from '../../lib/queimadas';
 
 interface Props {
   anchorEl: null | HTMLElement;
@@ -47,12 +48,10 @@ export default function DownloadModal({
   };
 
   async function downloadDatas() {
-    const { getQueimadasData } = await import('../Map/QueimadasGeoJson');
-
     let anchor = createDownloadAnchor();
 
     let data = isFireButtonClicked
-      ? await getQueimadasData({ municipio: 5003207, simplified: isSimplifiedDatas })
+      ? await getQueimadas({ municipio: 5003207, simplified: isSimplifiedDatas })
       : {};
 
     let dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));

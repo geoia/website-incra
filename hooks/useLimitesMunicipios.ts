@@ -1,10 +1,6 @@
+import type { Polygon } from '@turf/turf';
 import axios, { AxiosResponse } from 'axios';
-import useSWR from 'swr';
-
-type Polygon = {
-  type: 'Polygon';
-  coordinates: number[][][];
-};
+import useSWR from 'swr/immutable';
 
 export default function useLimitesMunicipios(id: number) {
   const { data, error, isLoading } = useSWR<AxiosResponse<Polygon>>(
