@@ -104,7 +104,7 @@ export default function Principal() {
         sx={{
           position: 'absolute',
           width: '50px',
-          height: '440px',
+          height: '240px',
           top: '50%',
           right: 0,
           margin: '1rem',
