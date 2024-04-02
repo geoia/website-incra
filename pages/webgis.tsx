@@ -17,9 +17,11 @@ import {
   CropButton,
   MapButton,
   SettingsButton,
+  LimitVisibilityButton,
 } from '../components/WebGIS/Buttons';
 import dynamic from 'next/dynamic';
 import { SearchMenu } from '../components/WebGIS/SearchMenu';
+import { LimitsLayer } from '../components/WebGIS/Map/LimitsLayer';
 
 export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
@@ -31,6 +33,7 @@ export default function Principal() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showFire, setShowFire] = useState(true);
+  const [showLimitVisibility, setLimitVisibility] = useState(false);
   const [showLocation, setShowLocation] = useState(false);
   const [simplified, setSimplified] = useState(false);
 
@@ -58,6 +61,7 @@ export default function Principal() {
 
       <Mapa
         showLocalizacao={showLocation}
+        showLimitVisibility={showLimitVisibility}
         showQueimadas={showFire}
         simplificado={simplified}
         municipio={city}
@@ -100,7 +104,7 @@ export default function Principal() {
         sx={{
           position: 'absolute',
           width: '50px',
-          height: '240px',
+          height: '440px',
           top: '50%',
           right: 0,
           margin: '1rem',
@@ -108,16 +112,23 @@ export default function Principal() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           transform: 'translateY(-50%)',
+
           '@media (max-width: 1500px)': {
             width: '45px',
-            height: '215px',
+            height: '265px',
           },
+
           '@media (max-width: 600px)': {
             transform: 'none',
             marginTop: 0,
           },
         }}
       >
+        <LimitVisibilityButton
+          active={showLimitVisibility}
+          onClick={() => setLimitVisibility(!showLimitVisibility)}
+        />
+
         <FireButton active={showFire} onClick={() => setShowFire(!showFire)} />
 
         <ForestButton active={false} disabled />
