@@ -10,8 +10,12 @@ import Crop from '@mui/icons-material/CropFree';
 import Map from '@mui/icons-material/FmdGood';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Button, { ButtonProps } from '@mui/material/Button';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import VisibilityOn from '@mui/icons-material/Visibility';
+// import VisibilityOff from '@mui/icons-material/VisibilityOff';
+// import VisibilityOn from '@mui/icons-material/Visibility';
+// import GpsNotFixed from '@mui/icons-material/GpsNotFixed';
+// import GpsOff from '@mui/icons-material/GpsOff';
+import MapOutlined from '@mui/icons-material/MapOutlined';
+import MapIcon from '@mui/icons-material/Map';
 
 function BaseButton({ children, sx, ...props }: ButtonProps) {
   return (
@@ -84,7 +88,7 @@ export function LimitVisibilityButton({ active, sx, ...props }: ButtonProps & { 
         ...sx,
       }}
     >
-      {active ? <VisibilityOn fontSize="medium" /> : <VisibilityOff fontSize="medium" />}
+      {active ? <MapOutlined fontSize="medium" /> : <MapIcon fontSize="medium" />}
     </BaseButton>
   );
 }

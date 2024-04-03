@@ -132,7 +132,9 @@ export default function Principal() {
         <FireButton active={showFire} onClick={() => setShowFire(!showFire)} />
 
         <ForestButton active={false} disabled />
+
         <RoadButton active={false} disabled />
+
         <WaterButton active={false} disabled />
       </Grid>
       <Grid
