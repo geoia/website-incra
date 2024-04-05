@@ -1,10 +1,11 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { styled } from '@mui/system';
 import { Popper, Paper } from '@mui/material';
 import useMunicipios from '../../../hooks/useMunicipios';
 import useEstados from '../../../hooks/useEstados';
+import { useRouter } from 'next/router';
 
 const CustomPaper = styled(Paper)({
   backgroundColor: '#509CBF',
@@ -20,35 +21,52 @@ type Localizacao = {
   queimadas: boolean;
 };
 
-export default function SearchBar(props: {
-  city: number;
-  source?: string;
-  onChange?: (id?: number) => void;
-}) {
-  const { dataMunicipios } = useMunicipios(props.source);
-  const { dataEstados } = useEstados(props.source);
+const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: number) => void }> = ({
+  city,
+  source,
+  onChange,
+}) => {
+  const router = useRouter();
+  const { dataMunicipios } = useMunicipios(source);
+  const { dataEstados } = useEstados(source);
 
   const data = useMemo(() => {
-    const sortedMunicipios = [...(dataMunicipios || [])].sort((a, b) =>
-      a.nome.localeCompare(b.nome)
-    );
+    const sortedMunicipios = [...(dataMunicipios || [])].sort((a, b) => a.nome.localeCompare(b.nome));
 
     // Percorrer os estados e suas cidades correspondentes
     return [...(dataEstados || [])]
       ?.sort((a, b) => a.nome.localeCompare(b.nome))
       ?.reduce(
         (memo, estado) =>
-          memo
-            .concat([estado])
-            .concat(sortedMunicipios.filter((municipio) => estado.sigla === municipio.sigla) || []),
+          memo.concat([estado]).concat(sortedMunicipios.filter((municipio) => estado.sigla === municipio.sigla) || []),
         [] as Localizacao[]
       );
   }, [dataMunicipios, dataEstados]);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
-
   const [highlightedOption, setHighlightedOption] = useState<number | null>(null);
+
+  const handleOnChange = (selectedOption: Localizacao | null) => {
+    if (selectedOption && onChange) {
+      onChange(selectedOption.id);
+      router.push(`/webgis?municipio=${selectedOption.nome}`);
+    } else {
+      router.push(`/webgis`);
+    }
+  };
+
+  useEffect(() => {
+    const { query } = router;
+    const selectedCity = query.municipio;
+    const selectedCityId = data?.find((option) => option.nome === selectedCity)?.id;
+    if (selectedCityId && selectedCityId !== city) {
+      const selectedOption = data.find((option) => option.id === selectedCityId);
+      if (selectedOption) {
+        handleOnChange(selectedOption);
+      }
+    }
+  }, [router.query]);
 
   return data ? (
     <>
@@ -76,14 +94,8 @@ export default function SearchBar(props: {
         getOptionDisabled={(option) => !option.queimadas}
         getOptionLabel={(option) => option.nome}
         noOptionsText="Não existem dados para essa localidade"
-        value={data.find((option) => props.city == option.id)}
-        onChange={() =>
-          setTimeout(() => {
-            if (inputRef.current) {
-              inputRef.current.blur();
-            }
-          }, 0)
-        }
+        value={data.find((option) => city == option.id)}
+        onChange={(_, selectedOption) => handleOnChange(selectedOption)}
         onFocus={() => setIsInputFocused(true)}
         onBlur={() => setIsInputFocused(false)}
         sx={{
@@ -105,9 +117,6 @@ export default function SearchBar(props: {
         }}
         PopperComponent={Popper}
         PaperComponent={CustomPaper}
-        onInputChange={(_, value) => {
-          if (props.onChange) props.onChange(data.find((option) => value == option.nome)?.id);
-        }}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -139,4 +148,6 @@ export default function SearchBar(props: {
   ) : (
     <></>
   );
-}
+};
+
+export default SearchBar;
