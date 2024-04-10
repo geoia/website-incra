@@ -1,9 +1,8 @@
-import { useMemo, useRef, useState, useEffect } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { styled } from '@mui/system';
 import { Popper, Paper } from '@mui/material';
-import { useRouter } from 'next/router';
 import useMunicipios from '../../../hooks/useMunicipios';
 import useEstados from '../../../hooks/useEstados';
 import { useRouter } from 'next/router';
@@ -22,16 +21,14 @@ type Localizacao = {
   queimadas: boolean;
 };
 
-
-export default function SearchBar(props: {
-  city: number;
-  source?: string;
-  onChange?: (id?: number) => void;
-}) {
-  const { dataMunicipios } = useMunicipios(props.source);
-  const { dataEstados } = useEstados(props.source);
-  const router = useRouter(); 
-
+const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: number) => void }> = ({
+  city,
+  source,
+  onChange,
+}) => {
+  const router = useRouter();
+  const { dataMunicipios } = useMunicipios(source);
+  const { dataEstados } = useEstados(source);
 
   const data = useMemo(() => {
     const sortedMunicipios = [...(dataMunicipios || [])].sort((a, b) => a.nome.localeCompare(b.nome));
@@ -49,13 +46,6 @@ export default function SearchBar(props: {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [highlightedOption, setHighlightedOption] = useState<number | null>(null);
-  const [selectedMunicipio, setSelectedMunicipio] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (selectedMunicipio) {
-      router.push(`/webgis/${selectedMunicipio}`);
-    }
-  }, [selectedMunicipio]);
 
   const handleOnChange = (selectedOption: Localizacao | null) => {
     if (selectedOption && onChange) {
@@ -127,12 +117,6 @@ export default function SearchBar(props: {
         }}
         PopperComponent={Popper}
         PaperComponent={CustomPaper}
-
-        onInputChange={(_, value) => {
-          setSelectedMunicipio(value); 
-          if (props.onChange) props.onChange(data.find((option) => value == option.nome)?.id);
-        }}
-
         renderInput={(params) => (
           <TextField
             {...params}
