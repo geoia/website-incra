@@ -34,45 +34,56 @@ export default function Settings({
       onClose={() => setIsSettingsVisible(false)}
       sx={{
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-end',
+        marginRight: '70px',
+        marginTop: '18px',
+      }}
+      slotProps={{
+        backdrop: {
+          sx: {
+            bgcolor: 'rgba(0, 0, 0, 0)',
+          },
+        },
       }}
     >
       <Grid
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '275px',
-          width: '550px',
           backgroundColor: '#509CBF',
-          borderRadius: '15px',
+          borderRadius: '10px',
+          left: 'auto!important',
+          right: 'calc(85px + 1rem)',
           color: 'white',
+          minWidth: '200px!important',
+          minHeight: '180px',
+          boxShadow:
+            '0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12)',
           '@media (max-width: 1500px)': {
-            height: '250px',
-            width: '450px',
+            right: 'calc(55px + 1rem)',
           },
         }}
       >
-        <h1
+        <h4
           style={{
             textAlign: 'center',
             fontSize: '1.3rem',
             fontWeight: '500',
             marginTop: '15px',
+            color: 'white',
           }}
         >
           Configurações
-        </h1>
+        </h4>
         <Grid
           sx={{
+            height: 'min-content',
             marginLeft: '20px',
-            display: 'flex',
-            flexDirection: 'column',
-            marginTop: '30px',
+            width: '200px',
+            marginTop: '10px',
           }}
         >
           <FormControl>
-            <p style={{ fontSize: '1.1rem' }}>Exibir dados de qual forma?</p>
+            <p style={{ fontSize: '0.8rem', color: 'white' }}>Exibir dados de qual forma?</p>
             <RadioGroup
               aria-labelledby="demo-controlled-radio-buttons-group"
               name="controlled-radio-buttons-group"
@@ -89,12 +100,12 @@ export default function Settings({
               <FormControlLabel
                 value="Sem Simplificação"
                 control={<Radio />}
-                label={<span style={{ fontSize: '1rem' }}>Sem Simplificação</span>}
+                label={<span style={{ fontSize: '0.8rem' }}>Sem Simplificação</span>}
               />
               <FormControlLabel
                 value="Com Simplificação"
                 control={<Radio />}
-                label={<span style={{ fontSize: '1rem' }}>Com Simplificação</span>}
+                label={<span style={{ fontSize: '0.8rem' }}>Com Simplificação</span>}
               />
             </RadioGroup>
           </FormControl>

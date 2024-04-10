@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import useLimitesMunicipios from '../../../hooks/useLimitesMunicipios';
 import L from 'leaflet';
 
-export function LimitsLayer(props: { municipio: number }) {
+export function LimitsLayer(props: { municipio: number; showLimitVisibility: boolean }) {
   const events = useMapEvents({});
   const { data: limitesMunicipais } = useLimitesMunicipios(props.municipio);
 
@@ -19,8 +19,8 @@ export function LimitsLayer(props: { municipio: number }) {
       pathOptions={{
         dashArray: '0',
         fillColor: '#000000',
-        fillOpacity: 0.1,
-        weight: 2,
+        fillOpacity: props.showLimitVisibility ? 0 : 0.1,
+        weight: props.showLimitVisibility ? 0 : 2,
         opacity: 1,
         color: '#4f4f4f',
       }}
@@ -30,8 +30,8 @@ export function LimitsLayer(props: { municipio: number }) {
           layer.setStyle({
             dashArray: '0',
             fillColor: '#000000',
-            fillOpacity: 0.2,
-            weight: 2,
+            fillOpacity: props.showLimitVisibility ? 0 : 0.1,
+            weight: props.showLimitVisibility ? 0 : 2,
             opacity: 1,
             color: '#3f3f3f',
           });
@@ -39,8 +39,8 @@ export function LimitsLayer(props: { municipio: number }) {
         mouseout: (e) => {
           const layer = e.target;
           layer.setStyle({
-            fillOpacity: 0.1,
-            weight: 2,
+            fillOpacity: props.showLimitVisibility ? 0 : 0.1,
+            weight: props.showLimitVisibility ? 0 : 2,
             dashArray: '0',
             color: '#4f4f4f',
             fillColor: '#000000',
