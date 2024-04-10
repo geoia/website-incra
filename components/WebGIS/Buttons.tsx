@@ -10,6 +10,8 @@ import Crop from '@mui/icons-material/CropFree';
 import Map from '@mui/icons-material/FmdGood';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Button, { ButtonProps } from '@mui/material/Button';
+import MapOutlined from '@mui/icons-material/MapOutlined';
+import MapIcon from '@mui/icons-material/Map';
 
 function BaseButton({ children, sx, ...props }: ButtonProps) {
   return (
@@ -65,6 +67,24 @@ export function SettingsButton(props: ButtonProps) {
   return (
     <BaseButton {...props}>
       <SettingsIcon fontSize="medium" />
+    </BaseButton>
+  );
+}
+
+export function LimitVisibilityButton({ active, sx, ...props }: ButtonProps & { active: boolean }) {
+  return (
+    <BaseButton
+      {...props}
+      sx={{
+        background: active ? 'gray' : '#509CBF',
+        '&:hover': {
+          transform: 'translateY(-2px)',
+          background: active ? 'gray' : '#509CBF',
+        },
+        ...sx,
+      }}
+    >
+      {active ? <MapOutlined fontSize="medium" /> : <MapIcon fontSize="medium" />}
     </BaseButton>
   );
 }

@@ -13,6 +13,7 @@ const center = {
 
 interface Props {
   showLocalizacao: boolean;
+  showLimitVisibility: boolean;
   showQueimadas: boolean;
   simplificado: boolean;
   municipio: number;
@@ -22,6 +23,7 @@ interface Props {
 
 function Map({
   showLocalizacao,
+  showLimitVisibility,
   showQueimadas,
   simplificado,
   municipio,
@@ -59,7 +61,11 @@ function Map({
         <QueimadasGeoJson municipio={municipio} simplified={simplificado} source={source} />
       )}
 
-      <LimitsLayer municipio={municipio} key={municipio} />
+      <LimitsLayer
+        municipio={municipio}
+        key={municipio}
+        showLimitVisibility={showLimitVisibility}
+      />
     </MapContainer>
   );
 }

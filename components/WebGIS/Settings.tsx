@@ -34,30 +34,33 @@ export default function Settings({
       onClose={() => setIsSettingsVisible(false)}
       sx={{
         display: 'flex',
-        alignItems: 'flex-start', 
+        alignItems: 'flex-start',
         justifyContent: 'flex-end',
-        marginRight:'70px', 
-        marginTop: '18px'
+        marginRight: '70px',
+        marginTop: '18px',
       }}
       slotProps={{
         backdrop: {
           sx: {
-            bgcolor: 'rgba(0, 0, 0, 0)', 
+            bgcolor: 'rgba(0, 0, 0, 0)',
           },
         },
       }}
     >
       <Grid
         sx={{
-            backgroundColor: '#509CBF',
-            left: 'auto!important',
-            right: 'calc(85px + 1rem)',
-            color: 'white',
-            minWidth: '200px!important',
-            minHeight: '180px',
-            '@media (max-width: 1500px)': {
-              right: 'calc(55px + 1rem)',
-            },
+          backgroundColor: '#509CBF',
+          borderRadius: '10px',
+          left: 'auto!important',
+          right: 'calc(85px + 1rem)',
+          color: 'white',
+          minWidth: '200px!important',
+          minHeight: '180px',
+          boxShadow:
+            '0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12)',
+          '@media (max-width: 1500px)': {
+            right: 'calc(55px + 1rem)',
+          },
         }}
       >
         <h4
@@ -66,7 +69,7 @@ export default function Settings({
             fontSize: '1.3rem',
             fontWeight: '500',
             marginTop: '15px',
-            color: 'white'
+            color: 'white',
           }}
         >
           Configurações
@@ -80,7 +83,7 @@ export default function Settings({
           }}
         >
           <FormControl>
-            <p style={{ fontSize: '0.8rem', color:'white' }}>Exibir dados de qual forma?</p>
+            <p style={{ fontSize: '0.8rem', color: 'white' }}>Exibir dados de qual forma?</p>
             <RadioGroup
               aria-labelledby="demo-controlled-radio-buttons-group"
               name="controlled-radio-buttons-group"
