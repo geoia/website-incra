@@ -31,14 +31,18 @@ const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: numb
   const { dataEstados } = useEstados(source);
 
   const data = useMemo(() => {
-    const sortedMunicipios = [...(dataMunicipios || [])].sort((a, b) => a.nome.localeCompare(b.nome));
+    const sortedMunicipios = [...(dataMunicipios || [])].sort((a, b) =>
+      a.nome.localeCompare(b.nome)
+    );
 
     // Percorrer os estados e suas cidades correspondentes
     return [...(dataEstados || [])]
       ?.sort((a, b) => a.nome.localeCompare(b.nome))
       ?.reduce(
         (memo, estado) =>
-          memo.concat([estado]).concat(sortedMunicipios.filter((municipio) => estado.sigla === municipio.sigla) || []),
+          memo
+            .concat([estado])
+            .concat(sortedMunicipios.filter((municipio) => estado.sigla === municipio.sigla) || []),
         [] as Localizacao[]
       );
   }, [dataMunicipios, dataEstados]);
@@ -66,6 +70,7 @@ const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: numb
         handleOnChange(selectedOption);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query]);
 
   return data ? (

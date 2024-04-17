@@ -21,7 +21,6 @@ import {
 } from '../components/WebGIS/Buttons';
 import dynamic from 'next/dynamic';
 import { SearchMenu } from '../components/WebGIS/SearchMenu';
-import { LimitsLayer } from '../components/WebGIS/Map/LimitsLayer';
 
 export default function Principal() {
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
