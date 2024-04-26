@@ -117,7 +117,7 @@ export default function Principal() {
 
           '@media (max-width: 1500px)': {
             width: '45px',
-            height: '265px',
+            height: '330px',
           },
 
           '@media (max-width: 600px)': {
