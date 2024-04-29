@@ -18,6 +18,7 @@ import {
   MapButton,
   SettingsButton,
   LimitVisibilityButton,
+  SatelliteButton,
 } from '../components/WebGIS/Buttons';
 import dynamic from 'next/dynamic';
 import { SearchMenu } from '../components/WebGIS/SearchMenu';
@@ -33,6 +34,7 @@ export default function Principal() {
   const [showSettings, setShowSettings] = useState(false);
   const [showFire, setShowFire] = useState(true);
   const [showLimitVisibility, setLimitVisibility] = useState(false);
+  const [showSatellite, setSatelliteView] = useState(false);
   const [showLocation, setShowLocation] = useState(false);
   const [simplified, setSimplified] = useState(false);
 
@@ -61,6 +63,7 @@ export default function Principal() {
       <Mapa
         showLocalizacao={showLocation}
         showLimitVisibility={showLimitVisibility}
+        showSatellite={showSatellite}
         showQueimadas={showFire}
         simplificado={simplified}
         municipio={city}
@@ -114,7 +117,7 @@ export default function Principal() {
 
           '@media (max-width: 1500px)': {
             width: '45px',
-            height: '265px',
+            height: '330px',
           },
 
           '@media (max-width: 600px)': {
@@ -123,6 +126,11 @@ export default function Principal() {
           },
         }}
       >
+        <SatelliteButton
+          active={showSatellite}
+          onClick={() => setSatelliteView(!showSatellite)}
+        />
+        
         <LimitVisibilityButton
           active={showLimitVisibility}
           onClick={() => setLimitVisibility(!showLimitVisibility)}
