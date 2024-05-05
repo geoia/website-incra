@@ -86,7 +86,11 @@ export function SatelliteButton({ active, sx, ...props }: ButtonProps & { active
         ...sx,
       }}
     >
-      {active ? <SatelliteAltOutlinedIcon fontSize="medium" /> : <SatelliteAltIcon fontSize="medium" />}
+      {active ? (
+        <SatelliteAltOutlinedIcon fontSize="medium" />
+      ) : (
+        <SatelliteAltIcon fontSize="medium" />
+      )}
     </BaseButton>
   );
 }
