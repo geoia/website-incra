@@ -17,7 +17,6 @@ import {
   CropButton,
   MapButton,
   SettingsButton,
-  LimitVisibilityButton,
   SatelliteButton,
 } from '../components/WebGIS/Buttons';
 import dynamic from 'next/dynamic';
