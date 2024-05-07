@@ -17,6 +17,7 @@ import {
   CropButton,
   MapButton,
   SettingsButton,
+  SatelliteButton,
 } from '../components/WebGIS/Buttons';
 import dynamic from 'next/dynamic';
 import { SearchMenu } from '../components/WebGIS/SearchMenu';
@@ -27,10 +28,11 @@ export default function Principal() {
 
   const [city, setCity] = useState(5003207);
   const [source, setSource] = useState<string | undefined>();
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showFire, setShowFire] = useState(true);
+  const [showLimitVisibility, setShowLimitVisibility] = useState(false);
+  const [showSatellite, setSatelliteView] = useState(false);
   const [showLocation, setShowLocation] = useState(false);
   const [simplified, setSimplified] = useState(false);
 
@@ -58,6 +60,8 @@ export default function Principal() {
 
       <Mapa
         showLocalizacao={showLocation}
+        showLimitVisibility={showLimitVisibility}
+        showSatellite={showSatellite}
         showQueimadas={showFire}
         simplificado={simplified}
         municipio={city}
@@ -71,7 +75,7 @@ export default function Principal() {
         sx={{
           position: 'absolute',
           width: '50px',
-          height: '115px',
+          height: '100px',
           top: 0,
           right: 0,
           margin: '1rem',
@@ -80,7 +84,7 @@ export default function Principal() {
           justifyContent: 'space-between',
           '@media (max-width: 1500px)': {
             width: '45px',
-            height: '102.5px',
+            height: '110x',
           },
           '@media (max-width: 600px)': {
             top: 'calc(3rem + 40px)',
@@ -100,7 +104,7 @@ export default function Principal() {
         sx={{
           position: 'absolute',
           width: '50px',
-          height: '240px',
+          height: '220px',
           top: '50%',
           right: 0,
           margin: '1rem',
@@ -108,10 +112,12 @@ export default function Principal() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           transform: 'translateY(-50%)',
+
           '@media (max-width: 1500px)': {
             width: '45px',
-            height: '215px',
+            height: '220px',
           },
+
           '@media (max-width: 600px)': {
             transform: 'none',
             marginTop: 0,
@@ -121,13 +127,15 @@ export default function Principal() {
         <FireButton active={showFire} onClick={() => setShowFire(!showFire)} />
 
         <ForestButton active={false} disabled />
+
         <RoadButton active={false} disabled />
+
         <WaterButton active={false} disabled />
       </Grid>
       <Grid
         sx={{
           position: 'absolute',
-          width: '240px',
+          width: '340px',
           height: '50px',
           bottom: 0,
           right: 0,
@@ -137,10 +145,12 @@ export default function Principal() {
           justifyContent: 'space-between',
           '@media (max-width: 1500px)': {
             height: '45px',
-            width: '215px',
+            width: '280px',
           },
         }}
       >
+        <SatelliteButton active={showSatellite} onClick={() => setSatelliteView(!showSatellite)} />
+
         <AddButton onClick={() => ref.current?.zoomIn()} />
 
         <RemoveButton onClick={() => ref.current?.zoomOut()} />
@@ -167,13 +177,16 @@ export default function Principal() {
       <MenuModal
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
-        setIsSettingsVisible={setShowSettings}
+        setShowSettings={setShowSettings}
       />
 
       <Settings
-        isSettingsVisible={showSettings}
-        setIsSettingsVisible={setShowSettings}
-        setIsSimplifiedDatas={setSimplified}
+        showSettings={showSettings}
+        setShowSettings={setShowSettings}
+        showSimplifiedData={simplified}
+        setShowSimplifiedData={setSimplified}
+        showLimitVisibility={showLimitVisibility}
+        setShowLimitVisibility={setShowLimitVisibility}
       />
     </>
   );

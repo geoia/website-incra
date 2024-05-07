@@ -9,10 +9,10 @@ import ItemList from '../ui/ItemList';
 interface Props {
   isDrawerOpen: boolean;
   setIsDrawerOpen: (val: boolean) => void;
-  setIsSettingsVisible: (val: boolean) => void;
+  setShowSettings: (val: boolean) => void;
 }
 
-export default function MenuModal({ isDrawerOpen, setIsDrawerOpen, setIsSettingsVisible }: Props) {
+export default function MenuModal({ isDrawerOpen, setIsDrawerOpen, setShowSettings }: Props) {
   return (
     <Drawer
       anchor="right"
@@ -78,7 +78,7 @@ export default function MenuModal({ isDrawerOpen, setIsDrawerOpen, setIsSettings
       <Grid
         onClick={() => {
           setIsDrawerOpen(false);
-          setIsSettingsVisible(true);
+          setShowSettings(true);
         }}
         sx={{
           position: 'absolute',

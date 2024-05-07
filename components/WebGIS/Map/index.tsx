@@ -1,10 +1,11 @@
-import { MapContainer, TileLayer } from 'react-leaflet';
+import React from 'react';
+import { MapContainer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-
 import MapController from './MapController';
 import QueimadasGeoJson from './QueimadasLayer';
 import Location from './Location';
 import { LimitsLayer } from './LimitsLayer';
+import SatelliteLayer from './SatelliteLayer'; 
 
 const center = {
   lat: -20.2634,
@@ -13,6 +14,8 @@ const center = {
 
 interface Props {
   showLocalizacao: boolean;
+  showLimitVisibility: boolean;
+  showSatellite: boolean;
   showQueimadas: boolean;
   simplificado: boolean;
   municipio: number;
@@ -22,6 +25,8 @@ interface Props {
 
 function Map({
   showLocalizacao,
+  showLimitVisibility,
+  showSatellite,
   showQueimadas,
   simplificado,
   municipio,
@@ -48,10 +53,7 @@ function Map({
     >
       <MapController ref={forwardRef} />
 
-      <TileLayer
-        url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWF0aGV1cy1uYW50ZXMiLCJhIjoiY2xhMXpoeTRrMDBvYTNvbWZvZXpua2htOCJ9.PeFH8oujEq1AI6a8-tkk7w"
-        attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-      />
+      <SatelliteLayer showSatellite = {showSatellite}/>
 
       {showLocalizacao && <Location />}
 
@@ -59,7 +61,11 @@ function Map({
         <QueimadasGeoJson municipio={municipio} simplified={simplificado} source={source} />
       )}
 
-      <LimitsLayer municipio={municipio} key={municipio} />
+      <LimitsLayer
+        municipio={municipio}
+        key={municipio}
+        showLimitVisibility={showLimitVisibility}
+      />
     </MapContainer>
   );
 }

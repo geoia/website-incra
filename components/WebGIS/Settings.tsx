@@ -1,103 +1,101 @@
-import { useState } from 'react';
+import * as React from 'react';
+import { Switch, FormControlLabel } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import { Grid } from '@mui/material';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
 
 interface Props {
-  isSettingsVisible: boolean;
-  setIsSettingsVisible: (val: boolean) => void;
-  setIsSimplifiedDatas: (val: boolean) => void;
+  showSettings: boolean;
+  setShowSettings: (val: boolean) => void;
+  showSimplifiedData: boolean;
+  setShowSimplifiedData: (simplified: boolean) => void;
+  showLimitVisibility: boolean;
+  setShowLimitVisibility: (val: boolean) => void;
 }
 
 export default function Settings({
-  isSettingsVisible,
-  setIsSettingsVisible,
-  setIsSimplifiedDatas,
+  showSettings,
+  setShowSettings,
+  showSimplifiedData,
+  setShowSimplifiedData,
+  showLimitVisibility,
+  setShowLimitVisibility,
 }: Props) {
-  const [value, setValue] = useState('Sem Simplificação');
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if ((event.target as HTMLInputElement).value == 'Com Simplificação') {
-      setIsSimplifiedDatas(true);
-    } else {
-      setIsSimplifiedDatas(false);
-    }
-    setValue((event.target as HTMLInputElement).value);
-  };
-
+  const createChangeHandler = //Funcao de fabrica para manipular varios switchs sem ter q repetir lógica(isso é provisorio tendo em vista que configuracoes virara um menu lateral)
+    (setter: (value: boolean) => void) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setter(event.target.checked);
+    };
   return (
     <Modal
-      open={isSettingsVisible}
-      onClose={() => setIsSettingsVisible(false)}
+      open={showSettings}
+      onClose={() => setShowSettings(false)}
       sx={{
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-end',
+        marginRight: '70px',
+        marginTop: '18px',
+      }}
+      slotProps={{
+        backdrop: {
+          sx: {
+            bgcolor: 'rgba(0, 0, 0, 0)',
+          },
+        },
       }}
     >
       <Grid
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '275px',
-          width: '550px',
           backgroundColor: '#509CBF',
-          borderRadius: '15px',
+          borderRadius: '10px',
+          left: 'auto!important',
+          right: 'calc(85px + 1rem)',
           color: 'white',
+          minWidth: '200px!important',
+          minHeight: '180px',
+          boxShadow:
+            '0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12)',
           '@media (max-width: 1500px)': {
-            height: '250px',
-            width: '450px',
+            right: 'calc(55px + 1rem)',
           },
         }}
       >
-        <h1
+        <h4
           style={{
             textAlign: 'center',
             fontSize: '1.3rem',
             fontWeight: '500',
             marginTop: '15px',
+            color: 'white',
           }}
         >
           Configurações
-        </h1>
+        </h4>
         <Grid
           sx={{
+            height: 'min-content',
             marginLeft: '20px',
-            display: 'flex',
-            flexDirection: 'column',
-            marginTop: '30px',
+            width: '200px',
+            marginTop: '10px',
           }}
         >
-          <FormControl>
-            <p style={{ fontSize: '1.1rem' }}>Exibir dados de qual forma?</p>
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={value}
-              onChange={handleChange}
-              sx={{
-                color: 'white',
-                marginTop: '5px',
-                '& .MuiSvgIcon-root': {
-                  color: 'white!important',
-                },
-              }}
-            >
-              <FormControlLabel
-                value="Sem Simplificação"
-                control={<Radio />}
-                label={<span style={{ fontSize: '1rem' }}>Sem Simplificação</span>}
+          <FormControlLabel
+            control={
+              <Switch
+                checked={showSimplifiedData}
+                onChange={createChangeHandler(setShowSimplifiedData)}
               />
-              <FormControlLabel
-                value="Com Simplificação"
-                control={<Radio />}
-                label={<span style={{ fontSize: '1rem' }}>Com Simplificação</span>}
+            }
+            label={showSimplifiedData ? 'Com Simplificação' : 'Sem Simplificação'}
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={showLimitVisibility}
+                onChange={createChangeHandler(setShowLimitVisibility)}
               />
-            </RadioGroup>
-          </FormControl>
+            }
+            label={showLimitVisibility ? 'Sem Limites' : 'Com Limites'}
+          />
         </Grid>
       </Grid>
     </Modal>
