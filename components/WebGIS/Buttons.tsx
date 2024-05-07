@@ -10,10 +10,6 @@ import Crop from '@mui/icons-material/CropFree';
 import Map from '@mui/icons-material/FmdGood';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Button, { ButtonProps } from '@mui/material/Button';
-import MapOutlined from '@mui/icons-material/MapOutlined';
-import MapIcon from '@mui/icons-material/Map';
-import SatelliteAltOutlinedIcon from '@mui/icons-material/SatelliteAltOutlined';
-import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
 
 function BaseButton({ children, sx, ...props }: ButtonProps) {
   return (
@@ -69,46 +65,6 @@ export function SettingsButton(props: ButtonProps) {
   return (
     <BaseButton {...props}>
       <SettingsIcon fontSize="medium" />
-    </BaseButton>
-  );
-}
-
-export function SatelliteButton({ active, sx, ...props }: ButtonProps & { active: boolean }) {
-  return (
-    <BaseButton
-      {...props}
-      sx={{
-        background: active ? '#509CBF' : 'gray',
-        '&:hover': {
-          transform: 'translateY(-2px)',
-          background: active ? '#509CBF' : 'gray',
-        },
-        ...sx,
-      }}
-    >
-      {active ? (
-        <SatelliteAltOutlinedIcon fontSize="medium" />
-      ) : (
-        <SatelliteAltIcon fontSize="medium" />
-      )}
-    </BaseButton>
-  );
-}
-
-export function LimitVisibilityButton({ active, sx, ...props }: ButtonProps & { active: boolean }) {
-  return (
-    <BaseButton
-      {...props}
-      sx={{
-        background: active ? 'gray' : '#509CBF',
-        '&:hover': {
-          transform: 'translateY(-2px)',
-          background: active ? 'gray' : '#509CBF',
-        },
-        ...sx,
-      }}
-    >
-      {active ? <MapOutlined fontSize="medium" /> : <MapIcon fontSize="medium" />}
     </BaseButton>
   );
 }
