@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import Menu from '@mui/material/Menu';
 import { FormGroup } from '@mui/material';
 import Button from '@mui/material/Button';
 import Download from '@mui/icons-material/Download';
 import FormCheckbox from '../ui/FormCheckbox';
 import { getQueimadas } from '../../lib/queimadas';
+import { exportarPNG } from '../../lib/exportMap';
 
 interface Props {
   anchorEl: null | HTMLElement;
@@ -12,6 +13,7 @@ interface Props {
   isFireButtonClicked: boolean;
   setIsFireButtonClicked: (val: boolean) => void;
   isSimplifiedDatas: boolean;
+  forwardRef?: React.RefObject<L.Map>;
 }
 
 export default function DownloadModal({
@@ -20,6 +22,7 @@ export default function DownloadModal({
   isFireButtonClicked,
   setIsFireButtonClicked,
   isSimplifiedDatas,
+  forwardRef
 }: Props) {
   const [checked, setChecked] = useState([false, false, false, false]);
 
@@ -150,7 +153,7 @@ export default function DownloadModal({
         />
       </FormGroup>
       <Button
-        onClick={downloadDatas}
+        onClick={() => exportarPNG(forwardRef)}
         variant="contained"
         startIcon={<Download />}
         sx={{
