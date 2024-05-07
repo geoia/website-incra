@@ -1,11 +1,11 @@
 import React from 'react';
-import { MapContainer } from 'react-leaflet';
+import { MapContainer, ScaleControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import MapController from './MapController';
 import QueimadasGeoJson from './QueimadasLayer';
 import Location from './Location';
 import { LimitsLayer } from './LimitsLayer';
-import SatelliteLayer from './SatelliteLayer'; 
+import SatelliteLayer from './SatelliteLayer';
 
 const center = {
   lat: -20.2634,
@@ -51,9 +51,10 @@ function Map({
         [5.63463151377654, -20.89969605983609],
       ]}
     >
+      <ScaleControl position="bottomleft" />
       <MapController ref={forwardRef} />
 
-      <SatelliteLayer showSatellite = {showSatellite}/>
+      <SatelliteLayer showSatellite={showSatellite} />
 
       {showLocalizacao && <Location />}
 
