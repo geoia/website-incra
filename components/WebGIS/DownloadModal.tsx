@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Download from '@mui/icons-material/Download';
 import FormCheckbox from '../ui/FormCheckbox';
 import { getQueimadas } from '../../lib/queimadas';
+import { exportarPNG } from '../../lib/exportMap';
 
 interface Props {
   anchorEl: null | HTMLElement;
@@ -12,6 +13,7 @@ interface Props {
   isFireButtonClicked: boolean;
   setIsFireButtonClicked: (val: boolean) => void;
   isSimplifiedDatas: boolean;
+  forwardRef?: React.RefObject<L.Map>;
 }
 
 export default function DownloadModal({
@@ -20,6 +22,7 @@ export default function DownloadModal({
   isFireButtonClicked,
   setIsFireButtonClicked,
   isSimplifiedDatas,
+  forwardRef
 }: Props) {
   const [checked, setChecked] = useState([false, false, false, false]);
 
@@ -150,7 +153,7 @@ export default function DownloadModal({
         />
       </FormGroup>
       <Button
-        onClick={downloadDatas}
+        onClick={() => exportarPNG(forwardRef)}
         variant="contained"
         startIcon={<Download />}
         sx={{
@@ -160,7 +163,7 @@ export default function DownloadModal({
           color: '#509cbf',
           marginTop: '10px',
           height: '40px',
-          width: '200px',
+          width: '90px',
           marginLeft: '20px',
           '&:hover': {
             cursor: 'pointer',
@@ -169,7 +172,29 @@ export default function DownloadModal({
           },
         }}
       >
-        Download
+        PNG
+      </Button>
+      <Button
+        onClick={() => downloadDatas()}
+        variant="contained"
+        startIcon={<Download />}
+        sx={{
+          backgroundColor: '#fff',
+          border: 0,
+          borderRadius: '10px',
+          color: '#509cbf',
+          marginTop: '10px',
+          height: '40px',
+          width: '90px',
+          marginLeft: '20px',
+          '&:hover': {
+            cursor: 'pointer',
+            backgroundColor: '#ffffffc3',
+            transition: '0.2s',
+          },
+        }}
+      >
+        JSON
       </Button>
     </Menu>
   );

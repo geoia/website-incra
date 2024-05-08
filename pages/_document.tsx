@@ -7,8 +7,9 @@ export default function Document() {
         <link
           href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
           rel="stylesheet"
+          crossOrigin="anonymous"
         />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" crossOrigin="anonymous" />
         <link rel="shortcut icon" href="/images/logo.svg" type="image/x-icon" />
       </Head>
       <body>

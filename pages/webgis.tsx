@@ -173,6 +173,7 @@ export default function Principal() {
         isFireButtonClicked={showFire}
         setIsFireButtonClicked={setShowFire}
         isSimplifiedDatas={simplified}
+        forwardRef={ref}
       />
       <MenuModal
         isDrawerOpen={isDrawerOpen}
