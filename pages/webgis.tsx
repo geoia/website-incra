@@ -17,7 +17,6 @@ import {
   CropButton,
   MapButton,
   SettingsButton,
-  LimitVisibilityButton,
   SatelliteButton,
 } from '../components/WebGIS/Buttons';
 import dynamic from 'next/dynamic';
@@ -29,11 +28,10 @@ export default function Principal() {
 
   const [city, setCity] = useState(5003207);
   const [source, setSource] = useState<string | undefined>();
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showFire, setShowFire] = useState(true);
-  const [showLimitVisibility, setLimitVisibility] = useState(false);
+  const [showLimitVisibility, setShowLimitVisibility] = useState(false);
   const [showSatellite, setSatelliteView] = useState(false);
   const [showLocation, setShowLocation] = useState(false);
   const [simplified, setSimplified] = useState(false);
@@ -77,7 +75,7 @@ export default function Principal() {
         sx={{
           position: 'absolute',
           width: '50px',
-          height: '115px',
+          height: '100px',
           top: 0,
           right: 0,
           margin: '1rem',
@@ -86,7 +84,7 @@ export default function Principal() {
           justifyContent: 'space-between',
           '@media (max-width: 1500px)': {
             width: '45px',
-            height: '102.5px',
+            height: '110x',
           },
           '@media (max-width: 600px)': {
             top: 'calc(3rem + 40px)',
@@ -106,7 +104,7 @@ export default function Principal() {
         sx={{
           position: 'absolute',
           width: '50px',
-          height: '240px',
+          height: '220px',
           top: '50%',
           right: 0,
           margin: '1rem',
@@ -117,7 +115,7 @@ export default function Principal() {
 
           '@media (max-width: 1500px)': {
             width: '45px',
-            height: '330px',
+            height: '220px',
           },
 
           '@media (max-width: 600px)': {
@@ -126,16 +124,6 @@ export default function Principal() {
           },
         }}
       >
-        <SatelliteButton
-          active={showSatellite}
-          onClick={() => setSatelliteView(!showSatellite)}
-        />
-        
-        <LimitVisibilityButton
-          active={showLimitVisibility}
-          onClick={() => setLimitVisibility(!showLimitVisibility)}
-        />
-
         <FireButton active={showFire} onClick={() => setShowFire(!showFire)} />
 
         <ForestButton active={false} disabled />
@@ -147,7 +135,7 @@ export default function Principal() {
       <Grid
         sx={{
           position: 'absolute',
-          width: '240px',
+          width: '340px',
           height: '50px',
           bottom: 0,
           right: 0,
@@ -157,10 +145,12 @@ export default function Principal() {
           justifyContent: 'space-between',
           '@media (max-width: 1500px)': {
             height: '45px',
-            width: '215px',
+            width: '280px',
           },
         }}
       >
+        <SatelliteButton active={showSatellite} onClick={() => setSatelliteView(!showSatellite)} />
+
         <AddButton onClick={() => ref.current?.zoomIn()} />
 
         <RemoveButton onClick={() => ref.current?.zoomOut()} />
@@ -187,13 +177,16 @@ export default function Principal() {
       <MenuModal
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
-        setIsSettingsVisible={setShowSettings}
+        setShowSettings={setShowSettings}
       />
 
       <Settings
-        isSettingsVisible={showSettings}
-        setIsSettingsVisible={setShowSettings}
-        setIsSimplifiedDatas={setSimplified}
+        showSettings={showSettings}
+        setShowSettings={setShowSettings}
+        showSimplifiedData={simplified}
+        setShowSimplifiedData={setSimplified}
+        showLimitVisibility={showLimitVisibility}
+        setShowLimitVisibility={setShowLimitVisibility}
       />
     </>
   );
