@@ -163,7 +163,7 @@ export default function DownloadModal({
           color: '#509cbf',
           marginTop: '10px',
           height: '40px',
-          width: '200px',
+          width: '90px',
           marginLeft: '20px',
           '&:hover': {
             cursor: 'pointer',
@@ -172,7 +172,29 @@ export default function DownloadModal({
           },
         }}
       >
-        Download
+        PNG
+      </Button>
+      <Button
+        onClick={() => downloadDatas()}
+        variant="contained"
+        startIcon={<Download />}
+        sx={{
+          backgroundColor: '#fff',
+          border: 0,
+          borderRadius: '10px',
+          color: '#509cbf',
+          marginTop: '10px',
+          height: '40px',
+          width: '90px',
+          marginLeft: '20px',
+          '&:hover': {
+            cursor: 'pointer',
+            backgroundColor: '#ffffffc3',
+            transition: '0.2s',
+          },
+        }}
+      >
+        JSON
       </Button>
     </Menu>
   );
