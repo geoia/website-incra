@@ -34,6 +34,7 @@ export default function Principal() {
   const [showLimitVisibility, setShowLimitVisibility] = useState(false);
   const [showSatellite, setSatelliteView] = useState(false);
   const [showLocation, setShowLocation] = useState(false);
+  const [showFullScreen, setFullScreen] = useState(false);
   const [simplified, setSimplified] = useState(false);
 
   const ref = React.createRef<L.Map>();
@@ -92,9 +93,14 @@ export default function Principal() {
           },
         }}
       >
-        <SettingsButton onClick={() => setShowSettings(!showSettings)} />
-
+        <SettingsButton
+          tip="Configurações"
+          tip_placement="left"
+          onClick={() => setShowSettings(!showSettings)}
+        />
         <DownloadButton
+          tip="Download"
+          tip_placement="left"
           onClick={(event: React.MouseEvent<HTMLElement>) =>
             setAnchorElementOfDownloadButton(event.currentTarget)
           }
@@ -124,13 +130,19 @@ export default function Principal() {
           },
         }}
       >
-        <FireButton active={showFire} onClick={() => setShowFire(!showFire)} />
+        <FireButton
+          disable_tip="Habilitar queimadas"
+          tip="Desabilitar queimadas"
+          tip_placement="left"
+          active={showFire}
+          onClick={() => setShowFire(!showFire)}
+        />
 
-        <ForestButton active={false} disabled />
+        <ForestButton tip="Em breve" tip_placement="left" active={false} />
 
-        <RoadButton active={false} disabled />
+        <RoadButton tip="Em breve" tip_placement="left" active={false} />
 
-        <WaterButton active={false} disabled />
+        <WaterButton tip="Em breve" tip_placement="left" active={false} />
       </Grid>
       <Grid
         sx={{
@@ -149,14 +161,25 @@ export default function Principal() {
           },
         }}
       >
-        <SatelliteButton active={showSatellite} onClick={() => setSatelliteView(!showSatellite)} />
+        <SatelliteButton
+          tip="Ativar visão de satélite"
+          disable_tip="Desativar visão de satélite"
+          tip_placement="top"
+          active={showSatellite}
+          onClick={() => setSatelliteView(!showSatellite)}
+        />
 
-        <AddButton onClick={() => ref.current?.zoomIn()} />
+        <AddButton tip="Aumentar zoom" onClick={() => ref.current?.zoomIn()} />
 
-        <RemoveButton onClick={() => ref.current?.zoomOut()} />
+        <RemoveButton tip="Diminuir zoom" onClick={() => ref.current?.zoomOut()} />
 
         <CropButton
+          tip="Tela cheia"
+          disable_tip="Sair da tela cheia"
+          tip_placement="top"
+          active={showFullScreen}
           onClick={() => {
+            setFullScreen(!showFullScreen);
             if (document.fullscreenElement) {
               document.exitFullscreen();
             } else {
@@ -165,7 +188,11 @@ export default function Principal() {
           }}
         />
 
-        <MapButton onClick={() => setShowLocation(!showLocation)} />
+        <MapButton
+          tip="Localização atual"
+          tip_placement="top"
+          onClick={() => setShowLocation(!showLocation)}
+        />
       </Grid>
       <DownloadModal
         anchorEl={anchorElementOfDownloadButton}
