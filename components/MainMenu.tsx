@@ -69,13 +69,11 @@ function MainMenu() {
                         fontSize: 18,
                         padding: '15px 15px',
                         textDecoration: 'none',
-                        borderRadius: 5,
-                        color: pathname === `/${page.rota}` ? '#FFF' : '#0F1C3C',
-                        backgroundColor: pathname === `/${page.rota}` ? '#0F1C3C' : '#FFF',
+                        color: '#0F1C3C',
+                        borderBottomColor: '#0F1C3C',
+                        borderBottom: pathname === `/${page.rota}` ? 4 : '',
                         '&:hover': {
-                          borderRadius: pathname === `/${page.rota}` ? 5 : 0,
                           borderBottom: pathname === `/${page.rota}` ? '' : 4,
-                          borderBottomColor: '#0F1C3C',
                         },
                       }}
                     >
@@ -136,13 +134,11 @@ function MainMenu() {
                             width: '100%',
                             padding: '15px 15px',
                             textDecoration: 'none',
-                            borderRadius: 5,
-                            color: pathname === `/${page.rota}` ? '#FFF' : '#0F1C3C',
-                            backgroundColor: pathname === `/${page.rota}` ? '#0F1C3C' : '#FFF',
+                            color: '#0F1C3C',
+                            borderBottomColor: '#0F1C3C',
+                            borderBottom: pathname === `/${page.rota}` ? 4 : '',
                             '&:hover': {
                               borderRadius: pathname === `/${page.rota}` ? 5 : 0,
-                              borderBottom: pathname === `/${page.rota}` ? '' : 4,
-                              borderBottomColor: '#0F1C3C',
                             },
                           }}
                         >
