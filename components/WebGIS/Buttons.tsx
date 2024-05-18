@@ -12,44 +12,65 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import Button, { ButtonProps } from '@mui/material/Button';
 import MapOutlined from '@mui/icons-material/MapOutlined';
 import MapIcon from '@mui/icons-material/Map';
+import { Tooltip } from '@mui/material';
 import SatelliteAltOutlinedIcon from '@mui/icons-material/SatelliteAltOutlined';
 import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
 
-function BaseButton({ children, sx, ...props }: ButtonProps) {
+interface ButtonCustomProps extends ButtonProps {
+  tip: string;
+  disable_tip?: string;
+  tip_placement?:
+    | 'bottom-end'
+    | 'bottom-start'
+    | 'bottom'
+    | 'left-end'
+    | 'left-start'
+    | 'left'
+    | 'right-end'
+    | 'right-start'
+    | 'right'
+    | 'top-end'
+    | 'top-start'
+    | 'top';
+}
+
+function BaseButton({ children, sx, tip, tip_placement, ...props }: ButtonCustomProps) {
   return (
-    <Button
-      variant="contained"
-      sx={{
-        width: '50px',
-        minWidth: '50px',
-        height: '50px',
-        borderRadius: 20,
-        backgroundColor: '#509CBF',
-        border: 0,
-        color: 'white',
-        '&:hover': {
-          transform: 'translateY(-2px)',
-          cursor: 'pointer',
+    <Tooltip title={tip} arrow={true} placement={tip_placement}>
+      <Button
+        variant="contained"
+        sx={{
+          width: '50px',
+          minWidth: '50px',
+          height: '50px',
+          borderRadius: 20,
           backgroundColor: '#509CBF',
-        },
-        '&:disabled': {
-          backgroundColor: 'rgba(18, 18, 133, 0.39);',
-        },
-        '@media (max-width: 1500px)': {
-          width: '45px',
-          minWidth: '45px',
-          height: '45px',
-        },
-        ...sx,
-      }}
-      {...props}
-    >
-      {children}
-    </Button>
+          border: 0,
+          color: 'white',
+          '&:hover': {
+            transform: 'translateY(-2px)',
+            cursor: 'pointer',
+            backgroundColor: '#509CBF',
+          },
+          '&:disabled': {
+            backgroundColor: 'rgba(18, 18, 133, 0.39);',
+          },
+          '@media (max-width: 1500px)': {
+            width: '45px',
+            minWidth: '45px',
+            height: '45px',
+          },
+          ...sx,
+        }}
+        {...props}
+      >
+        {children}
+      </Button>
+    </Tooltip>
   );
 }
 
-export function MenuButton(props: ButtonProps) {
+export function MenuButton(props: ButtonCustomProps) {
   return (
     <BaseButton {...props}>
       <Menu fontSize="medium" />
@@ -57,7 +78,7 @@ export function MenuButton(props: ButtonProps) {
   );
 }
 
-export function DownloadButton(props: ButtonProps) {
+export function DownloadButton(props: ButtonCustomProps) {
   return (
     <BaseButton {...props}>
       <Download fontSize="medium" />
@@ -65,7 +86,7 @@ export function DownloadButton(props: ButtonProps) {
   );
 }
 
-export function SettingsButton(props: ButtonProps) {
+export function SettingsButton(props: ButtonCustomProps) {
   return (
     <BaseButton {...props}>
       <SettingsIcon fontSize="medium" />
@@ -73,7 +94,13 @@ export function SettingsButton(props: ButtonProps) {
   );
 }
 
-export function SatelliteButton({ active, sx, ...props }: ButtonProps & { active: boolean }) {
+export function SatelliteButton({
+  active,
+  sx,
+  tip,
+  disable_tip,
+  ...props
+}: ButtonCustomProps & { active: boolean }) {
   return (
     <BaseButton
       {...props}
@@ -85,6 +112,7 @@ export function SatelliteButton({ active, sx, ...props }: ButtonProps & { active
         },
         ...sx,
       }}
+      tip={active && disable_tip ? disable_tip : tip}
     >
       {active ? (
         <SatelliteAltOutlinedIcon fontSize="medium" />
@@ -95,7 +123,11 @@ export function SatelliteButton({ active, sx, ...props }: ButtonProps & { active
   );
 }
 
-export function LimitVisibilityButton({ active, sx, ...props }: ButtonProps & { active: boolean }) {
+export function LimitVisibilityButton({
+  active,
+  sx,
+  ...props
+}: ButtonCustomProps & { active: boolean }) {
   return (
     <BaseButton
       {...props}
@@ -113,7 +145,7 @@ export function LimitVisibilityButton({ active, sx, ...props }: ButtonProps & { 
   );
 }
 
-export function FireButton({ active, sx, ...props }: ButtonProps & { active: boolean }) {
+export function FireButton({ active, sx, ...props }: ButtonCustomProps & { active: boolean }) {
   return (
     <BaseButton
       {...props}
@@ -131,14 +163,14 @@ export function FireButton({ active, sx, ...props }: ButtonProps & { active: boo
   );
 }
 
-export function ForestButton({ active, sx, ...props }: ButtonProps & { active: boolean }) {
+export function ForestButton({ active, sx, ...props }: ButtonCustomProps & { active: boolean }) {
   return (
     <BaseButton
       {...props}
       sx={{
-        background: active ? 'green' : '#509CBF',
+        background: active ? 'gray' : 'gray',
         '&:hover': {
-          background: '#0c850ceb',
+          background: active ? 'gray' : 'gray',
         },
         ...sx,
       }}
@@ -148,14 +180,14 @@ export function ForestButton({ active, sx, ...props }: ButtonProps & { active: b
   );
 }
 
-export function RoadButton({ active, sx, ...props }: ButtonProps & { active: boolean }) {
+export function RoadButton({ active, sx, ...props }: ButtonCustomProps & { active: boolean }) {
   return (
     <BaseButton
       {...props}
       sx={{
-        background: active ? '#964b00' : '#509CBF',
+        background: active ? 'gray' : 'gray',
         '&:hover': {
-          background: '#97510ced',
+          background: active ? 'gray' : 'gray',
         },
         ...sx,
       }}
@@ -165,14 +197,14 @@ export function RoadButton({ active, sx, ...props }: ButtonProps & { active: boo
   );
 }
 
-export function WaterButton({ active, sx, ...props }: ButtonProps & { active: boolean }) {
+export function WaterButton({ active, sx, ...props }: ButtonCustomProps & { active: boolean }) {
   return (
     <BaseButton
       {...props}
       sx={{
-        background: active ? 'blue' : '#509CBF',
+        background: active ? 'gray' : 'gray',
         '&:hover': {
-          background: '#1414f7dd',
+          background: active ? 'gray' : 'gray',
         },
         ...sx,
       }}
@@ -182,7 +214,7 @@ export function WaterButton({ active, sx, ...props }: ButtonProps & { active: bo
   );
 }
 
-export function AddButton(props: ButtonProps) {
+export function AddButton(props: ButtonCustomProps) {
   return (
     <BaseButton {...props}>
       <Add fontSize="medium" />
@@ -190,7 +222,7 @@ export function AddButton(props: ButtonProps) {
   );
 }
 
-export function RemoveButton(props: ButtonProps) {
+export function RemoveButton(props: ButtonCustomProps) {
   return (
     <BaseButton {...props}>
       <Remove fontSize="medium" />
@@ -198,15 +230,20 @@ export function RemoveButton(props: ButtonProps) {
   );
 }
 
-export function CropButton(props: ButtonProps) {
+export function CropButton({
+  active,
+  tip,
+  disable_tip,
+  ...props
+}: ButtonCustomProps & { active: boolean }) {
   return (
-    <BaseButton {...props}>
+    <BaseButton {...props} tip={active && disable_tip ? disable_tip : tip}>
       <Crop fontSize="medium" />
     </BaseButton>
   );
 }
 
-export function MapButton(props: ButtonProps) {
+export function MapButton(props: ButtonCustomProps) {
   return (
     <BaseButton {...props}>
       <Map fontSize="medium" />
