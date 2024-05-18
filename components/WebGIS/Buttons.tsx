@@ -48,7 +48,6 @@ function BaseButton({ children, sx, tip, tip_placement, ...props }: ButtonCustom
           border: 0,
           color: 'white',
           '&:hover': {
-            transform: 'translateY(-2px)',
             cursor: 'pointer',
             backgroundColor: '#509CBF',
           },
@@ -107,7 +106,6 @@ export function SatelliteButton({
       sx={{
         background: active ? '#509CBF' : 'gray',
         '&:hover': {
-          transform: 'translateY(-2px)',
           background: active ? '#509CBF' : 'gray',
         },
         ...sx,
@@ -134,7 +132,6 @@ export function LimitVisibilityButton({
       sx={{
         background: active ? 'gray' : '#509CBF',
         '&:hover': {
-          transform: 'translateY(-2px)',
           background: active ? 'gray' : '#509CBF',
         },
         ...sx,
@@ -152,7 +149,6 @@ export function FireButton({ active, sx, ...props }: ButtonCustomProps & { activ
       sx={{
         background: active ? 'red' : '#509CBF',
         '&:hover': {
-          transform: 'translateY(-2px)',
           background: active ? 'red' : '#509CBF',
         },
         ...sx,
