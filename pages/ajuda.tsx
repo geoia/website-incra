@@ -23,27 +23,11 @@ export default function Ajuda() {
       <Menu />
       <Box
         sx={{
-          display: { xs: 'none', md: 'flex' },
-          position: 'absolute',
-          zIndex: -1,
-          top: '50px',
-          right: 0,
+          backgroundImage: `url(${plantaDeFundo.src})`,
+          paddingTop: 5,
+          height: 'calc(100vh - 64px)',
         }}
       >
-        <Image src={plantaDeFundo} alt="planta de fundo" />
-      </Box>
-      <Box
-        sx={{
-          display: { sm: 'flex', md: 'none' },
-          position: 'absolute',
-          zIndex: -1,
-          // top: '50px',
-          right: 0,
-        }}
-      >
-        <Image src={plantaDeFundo} alt="planta de fundo" width={800} />
-      </Box>
-      <Container>
         {topicos.length > 0 && (
           <Grid container sx={{ marginTop: 5, justifyContent: 'center' }}>
             <Typography variant="h3" sx={{ fontWeight: 500, marginBottom: 5, textAlign: 'center' }}>
@@ -70,7 +54,7 @@ export default function Ajuda() {
           </Grid>
         )}
 
-        <Grid item lg={8} sx={{ marginTop: 5, bgColor: '#000' }}>
+        <Grid item lg={8} sx={{ bgColor: '#000' }}>
           <Typography
             variant="h4"
             sx={{ fontWeight: 500, color: 'secondary', textAlign: 'center' }}
@@ -87,7 +71,7 @@ export default function Ajuda() {
             </Typography>
           </Paper>
         </Grid>
-      </Container>
+      </Box>
     </>
   );
 }
