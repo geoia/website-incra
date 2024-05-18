@@ -1,12 +1,11 @@
 import React from 'react';
 import Head from 'next/head';
-import { Grid, Box, Typography, Container } from '@mui/material';
+import { Grid, Box, Typography } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EmailIcon from '@mui/icons-material/Email';
-import Image from 'next/image';
 import Paper from '@mui/material/Paper';
 
 import plantaDeFundo from '../public/images/planta-de-fundo.svg';
