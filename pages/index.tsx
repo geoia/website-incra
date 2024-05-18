@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>GeoIA - Home</title>
+        <title>EcoGis - Home</title>
       </Head>
       <Menu />
       <Grid

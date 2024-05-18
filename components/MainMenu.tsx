@@ -53,7 +53,7 @@ function MainMenu() {
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <Logo sx={{ width: 56, height: 56 }} />
-                  GeoIA
+                  EcoGis
                 </Box>
               </Typography>
             </Link>

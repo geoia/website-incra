@@ -18,7 +18,7 @@ export default function Ajuda() {
   return (
     <>
       <Head>
-        <title>GeoIA - Ajuda</title>
+        <title>EcoGis - Ajuda</title>
       </Head>
       <Menu />
       <Box

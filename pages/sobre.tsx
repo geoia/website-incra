@@ -13,7 +13,7 @@ export default function Sobre() {
   return (
     <>
       <Head>
-        <title>GeoIA - Sobre</title>
+        <title>EcoGis - Sobre</title>
       </Head>
       <Menu />
       <Grid container sx={{ minHeight: '100vh', backgroundColor: '#0F1C3C' }}>
@@ -83,7 +83,7 @@ export default function Sobre() {
             <Typography variant="body1" sx={{ color: '#FFF', marginTop: 3 }}>
               EcoGis é uma plataforma de inteligência artificial que utiliza imagens de satélite e
               processamento de dados para mapeamento de áreas de queimadas, áreas alagadas e
-              vegetacao com maior precisão. A plataforma também visa apoiar diversos setores da
+              vegetação com maior precisão. A plataforma também visa apoiar diversos setores da
               sociedade, como o setor público, privado e a sociedade civil, com informações
               geográficas e ambientais para tomada de decisão, planejamento e gestão de recursos
               naturais. A plataforma permite acesso à dados históricos e estatísticos sobre os dados
