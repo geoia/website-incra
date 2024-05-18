@@ -33,7 +33,7 @@ export default function Cadastro() {
             >
               WebGis
               <br />
-              GeoIA
+              EcoGis
             </Typography>
           </Box>
         </Grid>

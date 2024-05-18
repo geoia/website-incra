@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=0.9" />
-        <title>GeoIA</title>
+        <title>EcoGis</title>
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />

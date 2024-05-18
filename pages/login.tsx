@@ -29,7 +29,7 @@ export default function Login() {
           <Typography variant="h3" sx={{ fontWeight: 500, marginLeft: 2, lineHeight: 1.1 }}>
             WebGis
             <br />
-            GeoIA
+            EcoGis
           </Typography>
         </Grid>
         <Grid
