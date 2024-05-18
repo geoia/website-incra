@@ -98,7 +98,6 @@ export default function Principal() {
           tip_placement="left"
           onClick={() => setShowSettings(!showSettings)}
         />
-        ``
         <DownloadButton
           tip="Download"
           tip_placement="left"
