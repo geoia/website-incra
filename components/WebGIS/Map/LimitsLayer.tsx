@@ -33,21 +33,21 @@ export function LimitsLayer(props: {
           const layer = e.target;
           layer.setStyle({
             dashArray: '0',
-            fillColor: '#000000',
-            fillOpacity: props.showLimitVisibility ? 0 : 0.1,
+            ffillColor: props.showSatellite ? 'white' : '#000000',
+            fillOpacity: props.showLimitVisibility ? 0 : 0.3,
             weight: props.showLimitVisibility ? 0 : 2,
             opacity: 1,
-            color: '#3f3f3f',
+            color: props.showSatellite ? '#CCCCCC' : '#4f4f4f',
           });
         },
         mouseout: (e) => {
           const layer = e.target;
           layer.setStyle({
-            fillOpacity: props.showLimitVisibility ? 0 : 0.1,
+            fillOpacity: props.showLimitVisibility ? 0 : 0.2,
             weight: props.showLimitVisibility ? 0 : 2,
             dashArray: '0',
-            color: '#4f4f4f',
-            fillColor: '#000000',
+            color: props.showSatellite ? '#CCCCCC' : '#4f4f4f',
+            fillColor: props.showSatellite ? 'white' : '#000000',
           });
         },
         click: (e) => {},
