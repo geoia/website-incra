@@ -89,6 +89,7 @@ export default function SourceList({ options, defaultOption, onSelect, sx }: Pro
               value={month}
               sx={{
                 color: 'white',
+                justifyContent: 'flex-end',
                 '&:hover': {
                   backgroundColor: '#4689a8',
                 },
