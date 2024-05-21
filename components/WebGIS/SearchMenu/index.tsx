@@ -38,7 +38,7 @@ export function SearchMenu(props: {
       }}
     >
       <Link href="/">
-        <Logo sx={{ width: 64, height: 64 }} />
+        <Logo sx={{ width: 65, height: 64, transform: 'translateX(-2px)' }} />
       </Link>
       <SearchBar
         city={props.city}
