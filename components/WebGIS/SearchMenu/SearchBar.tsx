@@ -1,11 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { styled } from '@mui/system';
 import { Popper, Paper } from '@mui/material';
 import useMunicipios from '../../../hooks/useMunicipios';
 import useEstados from '../../../hooks/useEstados';
-import { useRouter } from 'next/router';
 
 const CustomPaper = styled(Paper)({
   backgroundColor: '#509CBF',
@@ -26,7 +25,6 @@ const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: numb
   source,
   onChange,
 }) => {
-  const router = useRouter();
   const { dataMunicipios } = useMunicipios(source);
   const { dataEstados } = useEstados(source);
 
@@ -50,28 +48,6 @@ const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: numb
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [highlightedOption, setHighlightedOption] = useState<number | null>(null);
-
-  const handleOnChange = (selectedOption: Localizacao | null) => {
-    if (selectedOption && onChange) {
-      onChange(selectedOption.id);
-      router.push(`/webgis?municipio=${selectedOption.nome}`);
-    } else {
-      router.push(`/webgis`);
-    }
-  };
-
-  useEffect(() => {
-    const { query } = router;
-    const selectedCity = query.municipio;
-    const selectedCityId = data?.find((option) => option.nome === selectedCity)?.id;
-    if (selectedCityId && selectedCityId !== city) {
-      const selectedOption = data.find((option) => option.id === selectedCityId);
-      if (selectedOption) {
-        handleOnChange(selectedOption);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query]);
 
   return data ? (
     <>
@@ -100,7 +76,7 @@ const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: numb
         getOptionLabel={(option) => option.nome}
         noOptionsText="Não existem dados para essa localidade"
         value={data.find((option) => city == option.id)}
-        onChange={(_, selectedOption) => handleOnChange(selectedOption)}
+        onChange={(_, selectedOption) => onChange && onChange(selectedOption?.id)}
         onFocus={() => setIsInputFocused(true)}
         onBlur={() => setIsInputFocused(false)}
         sx={{

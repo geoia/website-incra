@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import SourceList from './SourceList';
 import { Grid } from '@mui/material';
 import SearchBar from './SearchBar';
@@ -8,14 +8,11 @@ import useSources from '../../../hooks/useSources';
 
 export function SearchMenu(props: {
   city: number;
+  source?: string;
   onCityChange: (v: number) => void;
   onSourceChange: (v?: string) => void;
 }) {
   const { data: sources, isLoading: isSourcesLoading } = useSources();
-
-  const [source, setSource] = useState<string>();
-
-  useEffect(() => props.onSourceChange(source), [source, props]);
 
   return (
     <Grid
@@ -42,13 +39,16 @@ export function SearchMenu(props: {
       </Link>
       <SearchBar
         city={props.city}
-        source={source}
+        source={props.source}
         onChange={(id) => id && props.onCityChange(id)}
       />
       {!isSourcesLoading && (
         <SourceList
           options={sources?.map((s) => s.label) || []}
-          onSelect={(value) => setSource(sources?.find((s) => s.label === value)?.source)}
+          defaultOption={props.source}
+          onSelect={(value) =>
+            props.onSourceChange(sources?.find((s) => s.label === value)?.source)
+          }
           sx={{
             borderLeft: '2px solid white',
             borderRadius: 0,

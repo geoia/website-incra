@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import DownloadModal from '../components/WebGIS/DownloadModal';
 import MenuModal from '../components/WebGIS/MenuModal';
@@ -23,6 +24,8 @@ import dynamic from 'next/dynamic';
 import { SearchMenu } from '../components/WebGIS/SearchMenu';
 
 export default function Principal() {
+  const router = useRouter();
+
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
     useState<null | HTMLElement>(null);
 
@@ -53,6 +56,12 @@ export default function Principal() {
     ]
   );
 
+  useEffect(() => {
+    const { municipio, source } = router.query;
+    if (municipio) setCity(Number(municipio));
+    if (source) setSource(source.toString());
+  }, [router.query]);
+
   return (
     <>
       <Head>
@@ -70,7 +79,18 @@ export default function Principal() {
         forwardRef={ref}
       />
 
-      <SearchMenu city={city} onCityChange={setCity} onSourceChange={setSource} />
+      <SearchMenu
+        city={city}
+        source={source}
+        onCityChange={(id) => {
+          router.query.municipio = id.toString();
+          router.push(router);
+        }}
+        onSourceChange={(newSource) => {
+          router.query.source = newSource;
+          router.push(router);
+        }}
+      />
 
       <Grid
         sx={{
