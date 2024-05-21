@@ -66,6 +66,7 @@ function Map({
         municipio={municipio}
         key={municipio}
         showLimitVisibility={showLimitVisibility}
+        showSatellite={showSatellite}
       />
     </MapContainer>
   );
