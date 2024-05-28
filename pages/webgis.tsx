@@ -151,12 +151,11 @@ export default function Principal() {
         }}
       >
         <FireButton
-          disable_tip="Habilitar queimadas"
-          tip="Desabilitar queimadas"
-          tip_placement="left"
-          active={showFire}
-          onClick={() => setShowFire(!showFire)}
-        />
+        tip={showFire ? "Desabilitar queimadas" : "Habilitar queimadas"}
+        tip_placement="left"
+        active={showFire}
+        onClick={() => setShowFire(!showFire)}
+      />
 
         <ForestButton tip="Em breve" tip_placement="left" active={false} />
 
