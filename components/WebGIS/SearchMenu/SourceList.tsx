@@ -1,43 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, SxProps } from '@mui/material';
 import { FormControl, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import HistoryIcon from '@mui/icons-material/History';
 
 interface Props {
-  options: string[];
+  options: { label: string; value: string }[];
   defaultOption?: string;
   onSelect?: (val: string) => void;
+  selectedDate: string; 
+  onDateChange: (date: string) => void; 
   sx?: SxProps;
 }
 
-export default function SourceList({ options, defaultOption, onSelect, sx }: Props) {
-  const [selectedOption, setSelectedOption] = useState<string>(defaultOption || options[0]);
+export default function SourceList({ options, defaultOption, onSelect, selectedDate, onDateChange, sx }: Props) {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
+
+  useEffect(() => {
+    setIsSelectOpen(false);
+  }, [selectedDate]);
 
   const handleMonthChange = (event: SelectChangeEvent) => {
     const newSelectedOption = event.target.value;
-    setSelectedOption(newSelectedOption);
+    onDateChange(newSelectedOption);
 
     if (onSelect) {
       onSelect(newSelectedOption);
     }
   };
 
+  useEffect(() => {
+    console.log("Selected Date Updated in SourceList:", selectedDate);
+  }, [selectedDate]);
+
   return (
     <Grid
       onClick={() => setIsSelectOpen(!isSelectOpen)}
-      sx={Object.assign(
-        {
-          display: 'flex',
-          alignItems: 'center',
-          height: '50px',
-          width: '175px',
-          backgroundColor: '#509CBF',
-          color: 'white',
-        },
-        sx || {}
-      )}
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        height: '50px',
+        width: '175px',
+        backgroundColor: '#509CBF',
+        color: 'white',
+        ...sx,
+      }}
     >
       <HistoryIcon style={{ fontWeight: 'bold', marginLeft: '10px' }} />
       <FormControl
@@ -61,8 +68,8 @@ export default function SourceList({ options, defaultOption, onSelect, sx }: Pro
           open={isSelectOpen}
           onClose={() => setIsSelectOpen(false)}
           onOpen={() => setIsSelectOpen(true)}
-          value={selectedOption}
           onChange={handleMonthChange}
+          value={selectedDate}
           MenuProps={{
             PaperProps: {
               sx: {
@@ -83,10 +90,10 @@ export default function SourceList({ options, defaultOption, onSelect, sx }: Pro
             },
           }}
         >
-          {options.map((month, index) => (
+          {options.map((option, index) => (
             <MenuItem
               key={index}
-              value={month}
+              value={option.value}
               sx={{
                 color: 'white',
                 justifyContent: 'flex-end',
@@ -95,7 +102,7 @@ export default function SourceList({ options, defaultOption, onSelect, sx }: Pro
                 },
               }}
             >
-              {month}
+              {option.label}
             </MenuItem>
           ))}
         </Select>

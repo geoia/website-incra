@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SourceList from './SourceList';
 import { Grid } from '@mui/material';
 import SearchBar from './SearchBar';
@@ -13,6 +13,23 @@ export function SearchMenu(props: {
   onSourceChange: (v?: string) => void;
 }) {
   const { data: sources, isLoading: isSourcesLoading } = useSources();
+  const [selectedDate, setSelectedDate] = useState<string>(props.source || "");
+
+  useEffect(() => {
+    if (props.source) {
+      setSelectedDate(props.source);
+    }
+  }, [props.source]);
+
+  const handleDateChange = (date: string) => {
+    const selectedSource = sources?.find((s) => s.source === date)?.source;
+    props.onSourceChange(selectedSource);
+    setSelectedDate(date);
+  };
+
+  useEffect(() => {
+    console.log("Selected Date Updated in SearchMenu:", selectedDate);
+  }, [selectedDate]);
 
   return (
     <Grid
@@ -44,11 +61,13 @@ export function SearchMenu(props: {
       />
       {!isSourcesLoading && (
         <SourceList
-          options={sources?.map((s) => s.label) || []}
+          options={sources?.map((s) => ({ label: s.label, value: s.source })) || []}
           defaultOption={props.source}
           onSelect={(value) =>
-            props.onSourceChange(sources?.find((s) => s.label === value)?.source)
+            props.onSourceChange(sources?.find((s) => s.source === value)?.source)
           }
+          selectedDate={selectedDate}
+          onDateChange={handleDateChange}
           sx={{
             borderLeft: '2px solid white',
             borderRadius: 0,
