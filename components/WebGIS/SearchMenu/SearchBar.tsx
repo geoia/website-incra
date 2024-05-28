@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { styled } from '@mui/system';
@@ -33,7 +33,6 @@ const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: numb
       a.nome.localeCompare(b.nome)
     );
 
-    // Percorrer os estados e suas cidades correspondentes
     return [...(dataEstados || [])]
       ?.sort((a, b) => a.nome.localeCompare(b.nome))
       ?.reduce(
@@ -48,6 +47,13 @@ const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: numb
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [highlightedOption, setHighlightedOption] = useState<number | null>(null);
+
+  const [selectedCity, setSelectedCity] = useState<Localizacao | null>(null);
+
+  useEffect(() => {
+    const selected = data.find((option) => city === option.id) || null;
+    setSelectedCity(selected);
+  }, [city, data]);
 
   return data ? (
     <>
@@ -75,7 +81,7 @@ const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: numb
         getOptionDisabled={(option) => !option.queimadas}
         getOptionLabel={(option) => option.nome}
         noOptionsText="Não existem dados para essa localidade"
-        value={data.find((option) => city == option.id)}
+        value={selectedCity}
         onChange={(_, selectedOption) => onChange && onChange(selectedOption?.id)}
         onFocus={() => setIsInputFocused(true)}
         onBlur={() => setIsInputFocused(false)}
