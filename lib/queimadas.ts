@@ -1,4 +1,4 @@
-import { MultiPolygon, Polygon, featureCollection } from '@turf/turf';
+import { MultiPolygon, Polygon, featureCollection, feature } from '@turf/turf';
 import axios from 'axios';
 
 interface BaseProps {
@@ -71,7 +71,6 @@ export async function getQueimadas(props: BaseProps) {
     });
   }
 
-  return featureCollection(
-    dadosCompilados.reduce((memo, atual) => memo.concat(atual.features), [])
-  );
+  return featureCollection(dadosCompilados.reduce((memo, atual) => memo.concat(feature(atual)), []));
+
 }
