@@ -29,10 +29,6 @@ export default function SourceList({ options, defaultOption, onSelect, selectedD
     }
   };
 
-  useEffect(() => {
-    console.log("Selected Date Updated in SourceList:", selectedDate);
-  }, [selectedDate]);
-
   return (
     <Grid
       onClick={() => setIsSelectOpen(!isSelectOpen)}
