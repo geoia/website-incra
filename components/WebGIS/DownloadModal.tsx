@@ -22,7 +22,7 @@ export default function DownloadModal({
   isFireButtonClicked,
   setIsFireButtonClicked,
   isSimplifiedDatas,
-  forwardRef
+  forwardRef,
 }: Props) {
   const [checked, setChecked] = useState([false, false, false, false]);
 
@@ -81,23 +81,19 @@ export default function DownloadModal({
       onClose={() => setAnchorEl(null)}
       anchorOrigin={{
         vertical: 'top',
-        horizontal: 'left',
+        horizontal: 'center',
       }}
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: 'bottom',
+        horizontal: 'center',
       }}
       sx={{
+        mt: '-10px',
         '& .MuiPaper-root': {
           backgroundColor: '#509CBF',
-          left: 'auto!important',
-          right: 'calc(65px + 1rem)',
           color: 'white',
           minWidth: '240px!important',
           minHeight: '245px',
-          '@media (max-width: 1500px)': {
-            right: 'calc(55px + 1rem)',
-          },
         },
         '& .MuiList-root': {
           paddingTop: 0,
