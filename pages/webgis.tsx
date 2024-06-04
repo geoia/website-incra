@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
+import { useRouter } from 'next/router';
 import DownloadModal from '../components/WebGIS/DownloadModal';
 import Settings from '../components/WebGIS/Settings';
 import { Grid } from '@mui/material';
@@ -23,13 +24,15 @@ import L from 'leaflet';
 import useLimitesMunicipios from '../hooks/useLimitesMunicipios';
 
 export default function Principal() {
+  const router = useRouter();
+
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
     useState<null | HTMLElement>(null);
   const [anchorElementOfSettingsButton, setAnchorElementOfSettingsButton] =
     useState<null | HTMLElement>(null);
 
   const [city, setCity] = useState(5003207);
-  const [source, setSource] = useState<string | undefined>();
+  const [source, setSource] = useState<string | undefined>('202304');
   const [showFire, setShowFire] = useState(true);
   const [showLimitVisibility, setShowLimitVisibility] = useState(false);
   const [showSatellite, setSatelliteView] = useState(false);
@@ -63,6 +66,12 @@ export default function Principal() {
     ]
   );
 
+
+  useEffect(() => {
+    const { municipio, source } = router.query;
+    if (municipio) setCity(Number(municipio));
+    if (source) setSource(source.toString());
+  }, [router.query]);
   const handleDownloadButtonClick = (event: React.MouseEvent<HTMLElement>) => {
     if (anchorElementOfDownloadButton) {
       setAnchorElementOfDownloadButton(null);
@@ -88,6 +97,7 @@ export default function Principal() {
     }
   };
 
+
   return (
     <>
       <Head>
@@ -105,7 +115,20 @@ export default function Principal() {
         forwardRef={mapRef}
       />
 
-      <SearchMenu city={city} onCityChange={setCity} onSourceChange={setSource} />
+      <SearchMenu
+        city={city}
+        source={source}
+        onCityChange={(id) => {
+          router.query.municipio = id.toString();
+          router.push(router);
+        }}
+        onSourceChange={(newSource) => {
+          router.query.source = newSource;
+          router.push(router);
+        }}
+      />
+
+     
       <Grid
         sx={{
           mt: '15px',
@@ -196,12 +219,11 @@ export default function Principal() {
         }}
       >
         <FireButton
-          disable_tip="Habilitar queimadas"
-          tip="Desabilitar queimadas"
-          tip_placement="left"
-          active={showFire}
-          onClick={() => setShowFire(!showFire)}
-        />
+        tip={showFire ? "Desabilitar queimadas" : "Habilitar queimadas"}
+        tip_placement="left"
+        active={showFire}
+        onClick={() => setShowFire(!showFire)}
+      />
 
         <ForestButton tip="Em breve" tip_placement="left" active={false} />
 
