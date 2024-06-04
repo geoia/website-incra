@@ -255,6 +255,9 @@ export default function Principal() {
         setIsFireButtonClicked={setShowFire}
         isSimplifiedDatas={simplified}
         forwardRef={mapRef}
+        municipio={city}
+        source={source}
+
       />
       <Settings
         anchorEl={anchorElementOfSettingsButton}
