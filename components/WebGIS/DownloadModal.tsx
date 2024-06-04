@@ -14,6 +14,8 @@ interface Props {
   setIsFireButtonClicked: (val: boolean) => void;
   isSimplifiedDatas: boolean;
   forwardRef?: React.RefObject<L.Map>;
+  municipio: number;
+  source?: string;
 }
 
 export default function DownloadModal({
@@ -22,7 +24,10 @@ export default function DownloadModal({
   isFireButtonClicked,
   setIsFireButtonClicked,
   isSimplifiedDatas,
-  forwardRef
+  forwardRef,
+  municipio,
+  source
+
 }: Props) {
   const [checked, setChecked] = useState([false, false, false, false]);
 
@@ -54,7 +59,7 @@ export default function DownloadModal({
     let anchor = createDownloadAnchor();
 
     let data = isFireButtonClicked
-      ? await getQueimadas({ municipio: 5003207, simplified: isSimplifiedDatas })
+      ? await getQueimadas({ municipio: municipio, source: source, simplified: isSimplifiedDatas })
       : {};
 
     let dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
@@ -81,23 +86,19 @@ export default function DownloadModal({
       onClose={() => setAnchorEl(null)}
       anchorOrigin={{
         vertical: 'top',
-        horizontal: 'left',
+        horizontal: 'center',
       }}
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: 'bottom',
+        horizontal: 'center',
       }}
       sx={{
+        mt: '-10px',
         '& .MuiPaper-root': {
           backgroundColor: '#509CBF',
-          left: 'auto!important',
-          right: 'calc(65px + 1rem)',
           color: 'white',
           minWidth: '240px!important',
           minHeight: '245px',
-          '@media (max-width: 1500px)': {
-            right: 'calc(55px + 1rem)',
-          },
         },
         '& .MuiList-root': {
           paddingTop: 0,

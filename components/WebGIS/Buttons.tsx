@@ -15,6 +15,7 @@ import MapIcon from '@mui/icons-material/Map';
 import { Tooltip } from '@mui/material';
 import SatelliteAltOutlinedIcon from '@mui/icons-material/SatelliteAltOutlined';
 import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
+import Home from '@mui/icons-material/Home';
 
 interface ButtonCustomProps extends ButtonProps {
   tip: string;
@@ -66,6 +67,65 @@ function BaseButton({ children, sx, tip, tip_placement, ...props }: ButtonCustom
         {children}
       </Button>
     </Tooltip>
+  );
+}
+
+function SmallBaseButton({ children, sx, tip, tip_placement, ...props }: ButtonCustomProps) {
+  return (
+    <Tooltip title={tip} arrow={true} placement={tip_placement}>
+      <Button
+        variant="contained"
+        sx={{
+          width: '40px',
+          minWidth: '0px',
+          height: '40px',
+          borderRadius: 20,
+          backgroundColor: 'white',
+          border: 0,
+          color: '#509CBF',
+          '&:hover': {
+            cursor: 'pointer',
+            backgroundColor: '#e0e0e0',
+          },
+          '&:disabled': {
+            backgroundColor: 'rgba(18, 18, 133, 0.39);',
+          },
+          '@media (max-width: 1500px)': {
+            width: '35px',
+            minWidth: '35px',
+            height: '35px',
+          },
+          ...sx,
+        }}
+        {...props}
+      >
+        {children}
+      </Button>
+    </Tooltip>
+  );
+}
+
+export function AddButton(props: ButtonCustomProps) {
+  return (
+    <SmallBaseButton {...props}>
+      <Add fontSize="small" />
+    </SmallBaseButton>
+  );
+}
+
+export function MinusButton(props: ButtonCustomProps) {
+  return (
+    <SmallBaseButton {...props}>
+      <Remove fontSize="small" />
+    </SmallBaseButton>
+  );
+}
+
+export function HomeButton(props: ButtonCustomProps) {
+  return (
+    <SmallBaseButton {...props}>
+      <Home fontSize="small" />
+    </SmallBaseButton>
   );
 }
 
@@ -206,22 +266,6 @@ export function WaterButton({ active, sx, ...props }: ButtonCustomProps & { acti
       }}
     >
       <Water fontSize="medium" />
-    </BaseButton>
-  );
-}
-
-export function AddButton(props: ButtonCustomProps) {
-  return (
-    <BaseButton {...props}>
-      <Add fontSize="medium" />
-    </BaseButton>
-  );
-}
-
-export function RemoveButton(props: ButtonCustomProps) {
-  return (
-    <BaseButton {...props}>
-      <Remove fontSize="medium" />
     </BaseButton>
   );
 }
