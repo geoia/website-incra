@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useEffect, useState,useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import DownloadModal from '../components/WebGIS/DownloadModal';
 import Settings from '../components/WebGIS/Settings';
@@ -66,7 +66,6 @@ export default function Principal() {
     ]
   );
 
-
   useEffect(() => {
     const { municipio, source } = router.query;
     if (municipio) setCity(Number(municipio));
@@ -96,7 +95,6 @@ export default function Principal() {
       }
     }
   };
-
 
   return (
     <>
@@ -128,7 +126,6 @@ export default function Principal() {
         }}
       />
 
-     
       <Grid
         sx={{
           mt: '15px',
@@ -219,11 +216,11 @@ export default function Principal() {
         }}
       >
         <FireButton
-        tip={showFire ? "Desabilitar queimadas" : "Habilitar queimadas"}
-        tip_placement="left"
-        active={showFire}
-        onClick={() => setShowFire(!showFire)}
-      />
+          tip={showFire ? 'Desabilitar queimadas' : 'Habilitar queimadas'}
+          tip_placement="left"
+          active={showFire}
+          onClick={() => setShowFire(!showFire)}
+        />
 
         <ForestButton tip="Em breve" tip_placement="left" active={false} />
 
@@ -234,7 +231,7 @@ export default function Principal() {
       <Grid
         sx={{
           position: 'absolute',
-          width: '340px',
+          width: '115px',
           height: '50px',
           gap: '0.1rem',
           bottom: 0,
@@ -279,7 +276,6 @@ export default function Principal() {
         forwardRef={mapRef}
         municipio={city}
         source={source}
-
       />
       <Settings
         anchorEl={anchorElementOfSettingsButton}
