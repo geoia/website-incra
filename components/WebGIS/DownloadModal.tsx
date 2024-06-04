@@ -14,6 +14,8 @@ interface Props {
   setIsFireButtonClicked: (val: boolean) => void;
   isSimplifiedDatas: boolean;
   forwardRef?: React.RefObject<L.Map>;
+  municipio: number;
+  source?: string;
 }
 
 export default function DownloadModal({
@@ -22,7 +24,9 @@ export default function DownloadModal({
   isFireButtonClicked,
   setIsFireButtonClicked,
   isSimplifiedDatas,
-  forwardRef
+  forwardRef,
+  municipio,
+  source
 }: Props) {
   const [checked, setChecked] = useState([false, false, false, false]);
 
@@ -54,7 +58,7 @@ export default function DownloadModal({
     let anchor = createDownloadAnchor();
 
     let data = isFireButtonClicked
-      ? await getQueimadas({ municipio: 5003207, simplified: isSimplifiedDatas })
+      ? await getQueimadas({ municipio: municipio, source: source, simplified: isSimplifiedDatas })
       : {};
 
     let dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));

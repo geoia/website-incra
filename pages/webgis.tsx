@@ -201,6 +201,8 @@ export default function Principal() {
         setIsFireButtonClicked={setShowFire}
         isSimplifiedDatas={simplified}
         forwardRef={ref}
+        municipio={city}
+        source={source}
       />
       <MenuModal
         isDrawerOpen={isDrawerOpen}
