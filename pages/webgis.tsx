@@ -30,7 +30,6 @@ export default function Principal() {
 
   const [city, setCity] = useState(5003207);
   const [source, setSource] = useState<string | undefined>();
-
   const [showFire, setShowFire] = useState(true);
   const [showLimitVisibility, setShowLimitVisibility] = useState(false);
   const [showSatellite, setSatelliteView] = useState(false);
@@ -118,10 +117,14 @@ export default function Principal() {
           gap: '0.5rem',
         }}
       >
-        <HomeButton tip="Início" tip_placement="right" onClick={handleHomeButtonClick} />
-        <AddButton tip="Aumentar" tip_placement="right" onClick={() => mapRef.current?.zoomIn()} />
+        <HomeButton tip="Centralizar" tip_placement="right" onClick={handleHomeButtonClick} />
+        <AddButton
+          tip="Aumentar Zoom"
+          tip_placement="right"
+          onClick={() => mapRef.current?.zoomIn()}
+        />
         <MinusButton
-          tip="Diminuir"
+          tip="Diminuir Zoom"
           tip_placement="right"
           onClick={() => mapRef.current?.zoomOut()}
         />
