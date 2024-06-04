@@ -30,7 +30,7 @@ export default function Principal() {
     useState<null | HTMLElement>(null);
 
   const [city, setCity] = useState(5003207);
-  const [source, setSource] = useState<string | undefined>();
+  const [source, setSource] = useState<string | undefined>('202304');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showFire, setShowFire] = useState(true);
