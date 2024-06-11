@@ -27,10 +27,6 @@ export function SearchMenu(props: {
     setSelectedDate(date);
   };
 
-  useEffect(() => {
-    console.log("Selected Date Updated in SearchMenu:", selectedDate);
-  }, [selectedDate]);
-
   return (
     <Grid
       sx={{
