@@ -285,8 +285,8 @@ export function CropButton({
 
 export function MapButton(props: ButtonCustomProps) {
   return (
-    <BaseButton {...props}>
-      <Map fontSize="medium" />
-    </BaseButton>
+    <SmallBaseButton {...props}>
+      <Map fontSize="small" />
+    </SmallBaseButton>
   );
 }
