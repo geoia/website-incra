@@ -1,4 +1,4 @@
-import { MultiPolygon, Polygon, featureCollection, feature } from '@turf/turf';
+import { MultiPolygon, Polygon, featureCollection, feature, area } from '@turf/turf';
 import axios from 'axios';
 
 interface BaseProps {
@@ -58,6 +58,7 @@ export async function request(opts: QueimadasRequestProps): Promise<QueimadasReq
 export async function getQueimadas(props: BaseProps) {
   let nextPage: number | undefined = 1;
   let dadosCompilados: any[] = [];
+  let totalArea = 0;
 
   while (nextPage) {
     await request({ ...props, page: nextPage, per_page: 1000 }).then((resultado) => {
@@ -66,11 +67,15 @@ export async function getQueimadas(props: BaseProps) {
         return;
       }
 
-      dadosCompilados.push(resultado.data);
+      const polygonFeature = feature(resultado.data);
+      dadosCompilados.push(polygonFeature);
+      totalArea += area(polygonFeature);  
       nextPage = resultado.pages?.next;
     });
   }
 
-  return featureCollection(dadosCompilados.reduce((memo, atual) => memo.concat(feature(atual)), []));
-
+  return {
+    geoJson: featureCollection(dadosCompilados.reduce((memo, atual) => memo.concat(atual), [])),
+    totalArea,
+  };
 }
