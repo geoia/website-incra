@@ -1,4 +1,11 @@
-import { MultiPolygon, Polygon, featureCollection, feature, area } from '@turf/turf';
+import {
+  MultiPolygon,
+  Polygon,
+  featureCollection,
+  polygon,
+  Feature,
+  FeatureCollection,
+} from '@turf/turf';
 import axios from 'axios';
 
 interface BaseProps {
@@ -7,10 +14,13 @@ interface BaseProps {
   source?: string;
 }
 
-export interface QueimadasRequestProps extends BaseProps {
+interface RequestController {
+  signal: AbortSignal;
+}
+
+export interface QueimadasRequestProps extends BaseProps, RequestController {
   page?: number;
   per_page?: number;
-  controller?: AbortController;
 }
 
 export interface QueimadasRequestResponse {
@@ -19,10 +29,13 @@ export interface QueimadasRequestResponse {
 }
 
 function transformRecord(object: Record<string, any>) {
-  return Object.keys(object).reduce((memo, key) => {
-    const value = object[key];
-    return { ...memo, [key]: value === undefined ? value : `${value}` };
-  }, {} as Record<string, string>);
+  return Object.keys(object).reduce(
+    (memo, key) => {
+      const value = object[key];
+      return { ...memo, [key]: value === undefined ? value : `${value}` };
+    },
+    {} as Record<string, string>
+  );
 }
 
 export async function request(opts: QueimadasRequestProps): Promise<QueimadasRequestResponse> {
@@ -38,7 +51,7 @@ export async function request(opts: QueimadasRequestProps): Promise<QueimadasReq
   const url = `/api/queimadas/${source}/${endpoint}/${opts.municipio}?${querystring}`;
 
   const { data, headers } = await axios.get<Polygon | MultiPolygon>(url, {
-    signal: opts?.controller?.signal,
+    signal: opts?.signal,
     validateStatus: (status) => /2\d{2}/g.test(`${status}`),
   });
 
@@ -55,10 +68,11 @@ export async function request(opts: QueimadasRequestProps): Promise<QueimadasReq
   };
 }
 
-export async function getQueimadas(props: BaseProps) {
+export async function getQueimadas(
+  props: BaseProps & RequestController
+): Promise<FeatureCollection<Polygon>> {
   let nextPage: number | undefined = 1;
-  let dadosCompilados: any[] = [];
-  let totalArea = 0;
+  let dadosCompilados: Feature<Polygon>[] = [];
 
   while (nextPage) {
     await request({ ...props, page: nextPage, per_page: 1000 }).then((resultado) => {
@@ -67,15 +81,15 @@ export async function getQueimadas(props: BaseProps) {
         return;
       }
 
-      const polygonFeature = feature(resultado.data);
-      dadosCompilados.push(polygonFeature);
-      totalArea += area(polygonFeature);  
+      dadosCompilados.push(
+        ...(resultado.data.type === 'Polygon'
+          ? [polygon(resultado.data.coordinates)]
+          : resultado.data.coordinates.map((coords) => polygon(coords)))
+      );
+
       nextPage = resultado.pages?.next;
     });
   }
 
-  return {
-    geoJson: featureCollection(dadosCompilados.reduce((memo, atual) => memo.concat(atual), [])),
-    totalArea,
-  };
+  return featureCollection(dadosCompilados);
 }

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { GeoJSON, useMap } from 'react-leaflet';
-import { QueimadasRequestResponse, getQueimadas } from '../../../lib/queimadas';
+import { getQueimadas } from '../../../lib/queimadas';
 import { featureCollection, area } from '@turf/turf';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import L from 'leaflet';
-import { Feature, Geometry } from 'geojson'; 
+import { Feature, Geometry } from 'geojson';
 
 interface ObservableProps {
   onStart?: () => void;
@@ -19,26 +19,16 @@ export interface BaseProps {
   source?: string;
 }
 
-type PagesMeta = NonNullable<QueimadasRequestResponse['pages']>;
-
 export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
-  const [pages, setPages] = useState<PagesMeta>({ current: 0, next: 1 });
-  const [data, setData] = useState<Feature<Geometry>[]>([]); 
+  const [data, setData] = useState<Feature<Geometry>[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const map = useMap();
 
   useEffect(() => {
     setData([]);
-    setPages({ current: 0, next: 1 });
   }, [props.municipio, props.simplified, props.source]);
 
   useEffect(() => {
-    if (!pages || !pages.next) {
-      if (props.onFinish) props.onFinish(pages.current);
-      setIsLoading(false);
-      return;
-    }
-
     if (props.onStart) props.onStart();
 
     const controller = new AbortController();
@@ -48,12 +38,12 @@ export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
       municipio: props.municipio,
       simplified: props.simplified,
       source: props.source,
+      signal: controller.signal,
     })
       .then((result) => {
-        if (result.geoJson.features.length) {
-          setData(result.geoJson.features as Feature<Geometry>[]);
-          setPages({ current: 1, next: undefined });
-          if (props.onUpdate) props.onUpdate(1, 1);
+        if (result.features.length) {
+          setData(result.features);
+          if (props.onUpdate) props.onUpdate(result.features.length);
         }
         setIsLoading(false);
       })
@@ -64,18 +54,21 @@ export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
       });
 
     return () => controller.abort('unmounted');
-  }, [pages?.current, pages?.next]);
+  }, [props]);
 
   const onEachFeature = (feature: Feature<Geometry>, layer: L.Layer) => {
     if (feature.properties) {
-      const areaValue = area(feature); 
-      const areaFormatted = (areaValue / 1e6).toFixed(2); 
+      const m2 = area(feature);
+      const k2 = m2 / 1e6;
+
+      const formatted =
+        k2 >= 0.01 ? `${k2.toFixed(2)} km²` : `${m2.toFixed(2)} m² (${k2.toFixed(4)} km²)`;
 
       layer.on({
         mouseover: (e: L.LeafletMouseEvent) => {
           const popup = L.popup()
             .setLatLng(e.latlng)
-            .setContent(`Área queimada: ${areaFormatted} km²`)
+            .setContent(`Área queimada: ${formatted}`)
             .openOn(map);
           e.target.bindPopup(popup).openPopup();
         },
@@ -116,7 +109,7 @@ export default function QueimadasGeoJson(props: BaseProps & ObservableProps) {
           color: props.simplified ? '#ff0000' : '#ff0000',
         }}
         onEachFeature={onEachFeature}
-        key={pages?.current}
+        key={data.length}
       />
     </>
   );
