@@ -12,7 +12,6 @@ import {
   WaterButton,
   AddButton,
   MinusButton,
-  CropButton,
   MapButton,
   SettingsButton,
   SatelliteButton,
@@ -37,7 +36,6 @@ export default function Principal() {
   const [showLimitVisibility, setShowLimitVisibility] = useState(false);
   const [showSatellite, setSatelliteView] = useState(false);
   const [showLocation, setShowLocation] = useState(false);
-  const [showFullScreen, setFullScreen] = useState(false);
   const [simplified, setSimplified] = useState(false);
 
   const mapRef = useRef<L.Map>(null);
@@ -138,6 +136,11 @@ export default function Principal() {
         }}
       >
         <HomeButton tip="Centralizar" tip_placement="right" onClick={handleHomeButtonClick} />
+        <MapButton
+          tip="Localização atual"
+          tip_placement="right"
+          onClick={() => setShowLocation(!showLocation)}
+        />
         <AddButton
           tip="Aumentar Zoom"
           tip_placement="right"
@@ -228,45 +231,7 @@ export default function Principal() {
 
         <WaterButton tip="Em breve" tip_placement="left" active={false} />
       </Grid>
-      <Grid
-        sx={{
-          position: 'absolute',
-          width: '115px',
-          height: '50px',
-          gap: '0.1rem',
-          bottom: 0,
-          right: 0,
-          margin: '1rem',
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          '@media (max-width: 1500px)': {
-            height: '45px',
-            width: '100px',
-          },
-        }}
-      >
-        <CropButton
-          tip="Tela cheia"
-          disable_tip="Sair da tela cheia"
-          tip_placement="top"
-          active={showFullScreen}
-          onClick={() => {
-            setFullScreen(!showFullScreen);
-            if (document.fullscreenElement) {
-              document.exitFullscreen();
-            } else {
-              document.documentElement.requestFullscreen();
-            }
-          }}
-        />
 
-        <MapButton
-          tip="Localização atual"
-          tip_placement="top"
-          onClick={() => setShowLocation(!showLocation)}
-        />
-      </Grid>
       <DownloadModal
         anchorEl={anchorElementOfDownloadButton}
         setAnchorEl={setAnchorElementOfDownloadButton}
