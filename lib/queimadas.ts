@@ -15,7 +15,7 @@ interface BaseProps {
 }
 
 interface RequestController {
-  signal: AbortSignal;
+  signal?: AbortSignal;
 }
 
 export interface QueimadasRequestProps extends BaseProps, RequestController {
