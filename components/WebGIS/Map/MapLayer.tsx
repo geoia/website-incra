@@ -8,9 +8,7 @@ const URLs = {
     'https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWF0aGV1cy1uYW50ZXMiLCJhIjoiY2xhMXpoeTRrMDBvYTNvbWZvZXpua2htOCJ9.PeFH8oujEq1AI6a8-tkk7w',
 };
 
-export default function SatelliteLayer(
-  props: { type: 'satellite' | 'streets' } = { type: 'streets' }
-) {
+export default function MapLayer(props: { type: 'satellite' | 'streets' } = { type: 'streets' }) {
   return (
     <TileLayer
       url={URLs[props.type]}

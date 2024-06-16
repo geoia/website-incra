@@ -5,7 +5,7 @@ import MapController from './MapController';
 import QueimadasLayer from './QueimadasLayer';
 import Location from './Location';
 import { LimitsLayer } from './LimitsLayer';
-import SatelliteLayer from './SatelliteLayer';
+import MapLayer from './MapLayer';
 import { Feature, Polygon, feature } from '@turf/turf';
 import { getQueimadas } from '../../../lib/queimadas';
 import { Box, CircularProgress } from '@mui/material';
@@ -105,7 +105,7 @@ export default function Map(props: Props) {
       >
         <MapController ref={props.forwardRef} />
         <ScaleControl position="bottomleft" />
-        <SatelliteLayer type={props.showSatellite ? 'satellite' : 'streets'} />
+        <MapLayer type={props.showSatellite ? 'satellite' : 'streets'} />
 
         {props.showLocalizacao && <Location />}
 
