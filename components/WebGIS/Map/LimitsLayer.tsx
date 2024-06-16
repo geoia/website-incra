@@ -56,9 +56,12 @@ export function LimitsLayer(props: { showSatellite: boolean }) {
               .setContent(
                 [
                   `<b>Área total:</b> ${format.area(areaMunicipio)}`,
-                  `<b>Área queimada</b> ${format.area(areaQueimadas)} (${format.number((areaQueimadas / areaMunicipio) * 100)}%)`,
-                  `<b>Pontos de queimada</b>: ${format.number(queimadas?.length || 0)}`,
-                ].join('<br/>')
+                  [
+                    `<b>Queimada</b>`,
+                    `${format.area(areaQueimadas)} (${format.number((areaQueimadas / areaMunicipio) * 100)}% do total)`,
+                    `${format.number(queimadas?.length || 0)} focos de queimada`,
+                  ].join('<br/>- '),
+                ].join('<br/><br/>')
               )
               .openOn(e.target._map);
             e.target.bindPopup(popup).openPopup();
