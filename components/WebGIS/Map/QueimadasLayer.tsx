@@ -4,6 +4,7 @@ import L from 'leaflet';
 import { Feature, Geometry } from 'geojson';
 import { MapContext } from '.';
 import { useContext } from 'react';
+import format from '../../../helpers/formatter';
 
 export default function QueimadasLayer() {
   const map = useMap();
@@ -11,22 +12,16 @@ export default function QueimadasLayer() {
 
   const onEachFeature = (feature: Feature<Geometry>, layer: L.Layer) => {
     if (feature.properties) {
-      const m2 = area(feature);
-      const k2 = m2 / 1e6;
-
-      const formatted =
-        k2 >= 0.01 ? `${k2.toFixed(2)} km²` : `${m2.toFixed(2)} m² (${k2.toFixed(4)} km²)`;
-
       layer.on({
         mouseover: (e: L.LeafletMouseEvent) => {
-          const popup = L.popup()
+          const popup = L.tooltip()
             .setLatLng(e.latlng)
-            .setContent(`Área queimada: ${formatted}`)
+            .setContent(`<b>Área queimada:</b> ${format.area(area(feature))}`)
             .openOn(map);
-          e.target.bindPopup(popup).openPopup();
+          e.target.bindTooltip(popup).openTooltip();
         },
         mouseout: (e: L.LeafletMouseEvent) => {
-          e.target.closePopup();
+          e.target.closeTooltip();
         },
       });
     }
