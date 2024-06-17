@@ -1,4 +1,4 @@
-import React from 'react';
+import { RefObject, createContext, useEffect, useState } from 'react';
 import { MapContainer, ScaleControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import MapController from './MapController';
@@ -19,7 +19,7 @@ interface Props {
   simplificado: boolean;
   municipio: number;
   source?: string;
-  forwardRef?: React.RefObject<L.Map>;
+  forwardRef?: RefObject<L.Map>;
 }
 
 type MapContext = {
@@ -27,20 +27,24 @@ type MapContext = {
   municipio?: Feature<Polygon>;
 };
 
-export const MapContext = React.createContext<MapContext>({});
+export const MapContext = createContext<MapContext>({});
 
 export default function Map(props: Props) {
-  const { data: limitesMunicipais, isLoading: isLoadingLimites } = useLimitesMunicipios(
-    props.municipio
+  const [context, setContext] = useState<MapContext>({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const limites = useLimitesMunicipios(props.municipio);
+
+  useEffect(
+    () =>
+      setContext((prev) => ({
+        ...prev,
+        municipio: limites.data ? feature(limites.data) : undefined,
+      })),
+    [limites.data]
   );
 
-  const [context, setContext] = React.useState<MapContext>({
-    municipio: limitesMunicipais && feature(limitesMunicipais),
-  });
-
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  React.useEffect(() => {
+  useEffect(() => {
     const controller = new AbortController();
     setIsLoading(true);
 
@@ -51,7 +55,7 @@ export default function Map(props: Props) {
       signal: controller.signal,
     })
       .then((result) => {
-        setContext({ ...context, queimadas: result.features });
+        setContext((prev) => ({ ...prev, queimadas: result.features }));
       })
       .catch((err) => {
         if (err.name !== 'CanceledError') return Promise.reject(err);
@@ -60,12 +64,11 @@ export default function Map(props: Props) {
       .finally(() => setIsLoading(false));
 
     return () => controller.abort('unmounted');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.municipio, props.simplificado, props.source]);
 
   return (
     <MapContext.Provider value={context}>
-      {(isLoading || isLoadingLimites) && (
+      {(isLoading || limites.isLoading) && (
         <Box
           sx={{
             position: 'absolute',
