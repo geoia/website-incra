@@ -85,6 +85,7 @@ const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: numb
         onChange={(_, selectedOption) => onChange && onChange(selectedOption?.id)}
         onFocus={() => setIsInputFocused(true)}
         onBlur={() => setIsInputFocused(false)}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
         sx={{
           width: '100%',
           '& .MuiOutlinedInput-root': {
