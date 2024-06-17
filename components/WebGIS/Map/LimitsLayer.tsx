@@ -13,14 +13,10 @@ numeral.locale('pt-br');
 
 export function LimitsLayer(props: { showSatellite: boolean }) {
   const events = useMapEvents({});
-
   const { municipio, queimadas } = useContext(MapContext);
 
   const areaMunicipio = useMemo(() => (municipio ? area(municipio) : 0), [municipio]);
-  const areaQueimadas = useMemo(
-    () => (queimadas ? area(featureCollection(queimadas)) : 0),
-    [queimadas]
-  );
+  const areaQueimadas = useMemo(() => (queimadas ? area(featureCollection(queimadas)) : 0), [queimadas]);
 
   useEffect(() => {
     if (municipio) events.flyToBounds(L.geoJSON(municipio).getBounds());
@@ -51,21 +47,15 @@ export function LimitsLayer(props: { showSatellite: boolean }) {
             e.target.setStyle(defaultLayerProps);
           },
           add: (e) => {
+            const popupContent = `<b>Área total:</b> ${format.area(areaMunicipio)}<br/><br/><b>Queimada</b><br/>${format.area(areaQueimadas)} (${format.number((areaQueimadas / areaMunicipio) * 100)}% do total)<br/>${format.number(queimadas?.length || 0)} focos de queimada`;
+          
             const popup = L.popup()
               .setLatLng(e.target.getBounds().getCenter())
-              .setContent(
-                [
-                  `<b>Área total:</b> ${format.area(areaMunicipio)}`,
-                  [
-                    `<b>Queimada</b>`,
-                    `${format.area(areaQueimadas)} (${format.number((areaQueimadas / areaMunicipio) * 100)}% do total)`,
-                    `${format.number(queimadas?.length || 0)} focos de queimada`,
-                  ].join('<br/>- '),
-                ].join('<br/><br/>')
-              )
+              .setContent(popupContent)
               .openOn(e.target._map);
             e.target.bindPopup(popup).openPopup();
           },
+          
         }}
         key={hash([municipio, queimadas])}
       />
