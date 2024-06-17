@@ -115,12 +115,12 @@ export default function Principal() {
         city={city}
         source={source}
         onCityChange={(id) => {
-          router.query.municipio = id.toString();
-          router.push(router);
+          const newQuery = { ...router.query, municipio: id.toString() };
+          router.push({ pathname: router.pathname, query: newQuery });
         }}
         onSourceChange={(newSource) => {
-          router.query.source = newSource;
-          router.push(router);
+          const newQuery = { ...router.query, source: newSource };
+          router.push({ pathname: router.pathname, query: newQuery });
         }}
       />
 
