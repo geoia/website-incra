@@ -1,14 +1,11 @@
 import { GeoJSON, useMap } from 'react-leaflet';
-import { featureCollection, area } from '@turf/turf';
+import { area, FeatureCollection, Polygon } from '@turf/turf';
 import L from 'leaflet';
 import { Feature, Geometry } from 'geojson';
-import { MapContext } from '.';
-import { useContext } from 'react';
 import format from '../../../helpers/formatter';
 
-export default function QueimadasLayer() {
+export default function QueimadasLayer({ queimadas }: { queimadas: FeatureCollection<Polygon> }) {
   const map = useMap();
-  const { queimadas } = useContext(MapContext);
 
   const onEachFeature = (feature: Feature<Geometry>, layer: L.Layer) => {
     if (feature.properties) {
@@ -29,7 +26,7 @@ export default function QueimadasLayer() {
 
   return (
     <GeoJSON
-      data={featureCollection(queimadas || [])}
+      data={queimadas}
       pathOptions={{
         fillColor: '#ff0000',
         fillOpacity: 0.7,
@@ -38,7 +35,7 @@ export default function QueimadasLayer() {
         color: '#ff0000',
       }}
       onEachFeature={onEachFeature}
-      key={queimadas?.length}
+      key={area(queimadas)}
     />
   );
 }

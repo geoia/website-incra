@@ -1,10 +1,11 @@
+import { useEffect, useState } from 'react';
 import {
+  Feature,
+  FeatureCollection,
   MultiPolygon,
   Polygon,
   featureCollection,
   polygon,
-  Feature,
-  FeatureCollection,
 } from '@turf/turf';
 import axios from 'axios';
 
@@ -38,7 +39,7 @@ function transformRecord(object: Record<string, any>) {
   );
 }
 
-export async function request(opts: QueimadasRequestProps): Promise<QueimadasRequestResponse> {
+async function request(opts: QueimadasRequestProps): Promise<QueimadasRequestResponse> {
   const params = {
     page: opts.page || 1,
     per_page: opts.per_page || 1000,
@@ -68,7 +69,7 @@ export async function request(opts: QueimadasRequestProps): Promise<QueimadasReq
   };
 }
 
-export async function getQueimadas(
+export async function queimadas(
   props: BaseProps & RequestController
 ): Promise<FeatureCollection<Polygon>> {
   let nextPage: number | undefined = 1;
@@ -76,7 +77,7 @@ export async function getQueimadas(
 
   while (nextPage) {
     await request({ ...props, page: nextPage, per_page: 1000 }).then((resultado) => {
-      if (resultado.data === null) {
+      if (!resultado.data) {
         nextPage = undefined;
         return;
       }
@@ -91,5 +92,20 @@ export async function getQueimadas(
     });
   }
 
-  return featureCollection(dadosCompilados);
+  return featureCollection(dadosCompilados, { id: props.municipio });
+}
+
+type HookReturnType = { isLoading: boolean; data?: FeatureCollection<Polygon>; error?: any };
+
+export function useQueimadas(id: number, source?: string, simplified: boolean = false) {
+  const [state, setState] = useState<HookReturnType>({ isLoading: false });
+
+  useEffect(() => {
+    setState({ isLoading: true });
+    queimadas({ municipio: id, source, simplified })
+      .then((data) => setState({ isLoading: false, data }))
+      .catch((error) => setState({ isLoading: false, error }));
+  }, [id, source, simplified]);
+
+  return state;
 }

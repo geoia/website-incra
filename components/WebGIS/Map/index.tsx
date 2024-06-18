@@ -1,4 +1,4 @@
-import { RefObject, createContext, useEffect, useState } from 'react';
+import { RefObject, useMemo } from 'react';
 import { MapContainer, ScaleControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import MapController from './MapController';
@@ -6,10 +6,9 @@ import QueimadasLayer from './QueimadasLayer';
 import Location from './Location';
 import { LimitsLayer } from './LimitsLayer';
 import MapLayer from './MapLayer';
-import { Feature, Polygon, feature } from '@turf/turf';
-import { getQueimadas } from '../../../lib/queimadas';
 import { Box, CircularProgress } from '@mui/material';
-import useLimitesMunicipios from '../../../hooks/useLimitesMunicipios';
+import { useLimites } from '../../../hooks/useLimites';
+import { useQueimadas } from '../../../hooks/useQueimadas';
 
 interface Props {
   showLocalizacao: boolean;
@@ -22,53 +21,18 @@ interface Props {
   forwardRef?: RefObject<L.Map>;
 }
 
-type MapContext = {
-  queimadas?: Array<Feature<Polygon>>;
-  municipio?: Feature<Polygon>;
-};
-
-export const MapContext = createContext<MapContext>({});
-
 export default function Map(props: Props) {
-  const [context, setContext] = useState<MapContext>({});
-  const [isLoading, setIsLoading] = useState(false);
+  const municipio = useLimites(props.municipio);
+  const queimadas = useQueimadas(props.municipio, props.source, props.simplificado);
 
-  const limites = useLimitesMunicipios(props.municipio);
-
-  useEffect(
-    () =>
-      setContext((prev) => ({
-        ...prev,
-        municipio: limites.data ? feature(limites.data) : undefined,
-      })),
-    [limites.data]
+  const isLoading = useMemo(
+    () => municipio.isLoading || queimadas.isLoading,
+    [municipio.isLoading, queimadas.isLoading]
   );
 
-  useEffect(() => {
-    const controller = new AbortController();
-    setIsLoading(true);
-
-    getQueimadas({
-      municipio: props.municipio,
-      simplified: props.simplificado,
-      source: props.source,
-      signal: controller.signal,
-    })
-      .then((result) => {
-        setContext((prev) => ({ ...prev, queimadas: result.features }));
-      })
-      .catch((err) => {
-        if (err.name !== 'CanceledError') return Promise.reject(err);
-        return Promise.resolve();
-      })
-      .finally(() => setIsLoading(false));
-
-    return () => controller.abort('unmounted');
-  }, [props.municipio, props.simplificado, props.source]);
-
   return (
-    <MapContext.Provider value={context}>
-      {(isLoading || limites.isLoading) && (
+    <>
+      {isLoading && (
         <Box
           sx={{
             position: 'absolute',
@@ -106,18 +70,22 @@ export default function Map(props: Props) {
           [5.63463151377654, -20.89969605983609],
         ]}
       >
-        <MapController ref={props.forwardRef} />
+        <MapController ref={props.forwardRef} center={municipio.data} />
         <ScaleControl position="bottomleft" />
         <MapLayer type={props.showSatellite ? 'satellite' : 'streets'} />
 
         {props.showLocalizacao && <Location />}
 
-        {!props.showLimitVisibility && (
-          <LimitsLayer key={props.municipio} showSatellite={props.showSatellite} />
+        {!props.showLimitVisibility && municipio.data && (
+          <LimitsLayer
+            municipio={municipio.data}
+            queimadas={queimadas.data}
+            showSatellite={props.showSatellite}
+          />
         )}
 
-        {props.showQueimadas && <QueimadasLayer />}
+        {props.showQueimadas && queimadas.data && <QueimadasLayer queimadas={queimadas.data} />}
       </MapContainer>
-    </MapContext.Provider>
+    </>
   );
 }

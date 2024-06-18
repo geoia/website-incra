@@ -20,7 +20,14 @@ import {
 import dynamic from 'next/dynamic';
 import { SearchMenu } from '../components/WebGIS/SearchMenu';
 import L from 'leaflet';
-import useLimitesMunicipios from '../hooks/useLimitesMunicipios';
+
+const Mapa = dynamic(
+  () => import('../components/WebGIS/Map'), // replace '@components/map' with your component's location
+  {
+    loading: () => <p>O mapa está carregando</p>,
+    ssr: false, // This line is important. It's what prevents server-side render
+  }
+);
 
 export default function Principal() {
   const router = useRouter();
@@ -38,31 +45,7 @@ export default function Principal() {
   const [showLocation, setShowLocation] = useState(false);
   const [simplified, setSimplified] = useState(false);
 
-  const mapRef = useRef<L.Map>(null);
-  const { data: limitesMunicipais } = useLimitesMunicipios(city);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const L = require('leaflet');
-      if (mapRef.current && limitesMunicipais) {
-        mapRef.current.flyToBounds(L.geoJSON(limitesMunicipais).getBounds());
-      }
-    }
-  }, [limitesMunicipais]);
-
-  const Mapa = React.useMemo(
-    () =>
-      dynamic(
-        () => import('../components/WebGIS/Map'), // replace '@components/map' with your component's location
-        {
-          loading: () => <p>O mapa está carregando</p>,
-          ssr: false, // This line is important. It's what prevents server-side render
-        }
-      ),
-    [
-      /* list variables which should trigger a re-render here */
-    ]
-  );
+  const mapRef = useRef<L.Map & { centralize: () => void }>(null);
 
   useEffect(() => {
     const { municipio, source } = router.query;
@@ -86,12 +69,7 @@ export default function Principal() {
   };
 
   const handleHomeButtonClick = () => {
-    if (typeof window !== 'undefined') {
-      const L = require('leaflet');
-      if (mapRef.current && limitesMunicipais) {
-        mapRef.current.flyToBounds(L.geoJSON(limitesMunicipais).getBounds());
-      }
-    }
+    mapRef?.current?.centralize();
   };
 
   return (
