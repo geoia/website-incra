@@ -38,7 +38,7 @@ export default function Principal() {
     useState<null | HTMLElement>(null);
 
   const [city, setCity] = useState(5003207);
-  const [source, setSource] = useState<string | undefined>('202304');
+  const [source, setSource] = useState<string>();
   const [showFire, setShowFire] = useState(true);
   const [showLimitVisibility, setShowLimitVisibility] = useState(false);
   const [showSatellite, setSatelliteView] = useState(false);
@@ -48,10 +48,10 @@ export default function Principal() {
   const mapRef = useRef<L.Map & { centralize: () => void }>(null);
 
   useEffect(() => {
-    const { municipio, source } = router.query;
-    if (municipio) setCity(Number(municipio));
-    if (source) setSource(source.toString());
+    setCity(Number(router.query.municipio || '5003207'));
+    setSource(router.query.source?.toString());
   }, [router.query]);
+
   const handleDownloadButtonClick = (event: React.MouseEvent<HTMLElement>) => {
     if (anchorElementOfDownloadButton) {
       setAnchorElementOfDownloadButton(null);
