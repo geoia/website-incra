@@ -9,7 +9,11 @@ export default function Document() {
           rel="stylesheet"
           crossOrigin="anonymous"
         />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          crossOrigin="anonymous"
+        />
         <link rel="shortcut icon" href="/images/logo.svg" type="image/x-icon" />
       </Head>
       <body>
