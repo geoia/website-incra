@@ -65,14 +65,14 @@ export default function Home() {
         <Grid
           item
           sx={{
-            maxWidth: 900,
+            maxWidth: 925,
             display: 'flex',
             flexDirection: 'column',
             alignSelf: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            gap: 6,
-            padding: 3,
+            gap: 5,
+            marginTop: '-100px',
           }}
         >
           <Grid item>
@@ -83,17 +83,18 @@ export default function Home() {
               Universidade Federal de Mato Grosso do Sul
             </Typography>
           </Grid>
-          <Typography variant="h4" color={'white'} fontWeight={500}>
-            Laboratório Geomática e IA
+          <Typography variant="h5" color={'white'} fontWeight={500}>
+            Uma colaboração entre o Laboratório de Geomática e o{' '}
+            <abbr title="Laboratório de Engenharia de Software">LEDES</abbr>
           </Typography>
           <Typography variant="h3" color={'secondary'} fontWeight={500}>
-            <em>Mapeando a biodiversidade brasileira</em>
+            <em>Mapeando a biodiversidade do Pantanal</em>
           </Typography>
           <Typography variant="body1" color={'secondary'} maxWidth={600}>
             Projeto de pesquisa e extensão do laboratório Geomática e Inteligência Artificial em
             parceria com o Laboratório de Engenharia de Software, da Universidade Federal de Mato
-            Grosso do Sul, para monitoramento e gestão dos biomas do Brasil, por meio da ferramenta
-            WebGis
+            Grosso do Sul, para monitoramento e gestão dos biomas do Brasil, principalmente do
+            pantanal, por meio da ferramenta WebGis
           </Typography>
         </Grid>
       </Grid>
