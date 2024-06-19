@@ -21,7 +21,7 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        {process.env.NEXT_PUBLIC_GTAG && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GTAG} />}
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GTAG || ''} />
       </body>
     </Html>
   );
