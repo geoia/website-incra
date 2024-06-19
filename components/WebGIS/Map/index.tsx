@@ -59,7 +59,7 @@ export default function Map(props: Props) {
         zoomControl={false}
         minZoom={5}
         scrollWheelZoom={true}
-        style={{ width: '100vw', height: '100vh', zIndex: '0' }}
+        style={{ position: 'absolute', width: '100dvw', height: '100dvh', zIndex: '0' }}
         inertia={false}
         inertiaDeceleration={0}
         zoomAnimation={true}
