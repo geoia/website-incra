@@ -20,7 +20,14 @@ import {
 import dynamic from 'next/dynamic';
 import { SearchMenu } from '../components/WebGIS/SearchMenu';
 import L from 'leaflet';
-import useLimitesMunicipios from '../hooks/useLimitesMunicipios';
+
+const Mapa = dynamic(
+  () => import('../components/WebGIS/Map'), // replace '@components/map' with your component's location
+  {
+    loading: () => <p>O mapa está carregando</p>,
+    ssr: false, // This line is important. It's what prevents server-side render
+  }
+);
 
 export default function Principal() {
   const router = useRouter();
@@ -31,44 +38,20 @@ export default function Principal() {
     useState<null | HTMLElement>(null);
 
   const [city, setCity] = useState(5003207);
-  const [source, setSource] = useState<string | undefined>('202304');
+  const [source, setSource] = useState<string>();
   const [showFire, setShowFire] = useState(true);
   const [showLimitVisibility, setShowLimitVisibility] = useState(false);
   const [showSatellite, setSatelliteView] = useState(false);
   const [showLocation, setShowLocation] = useState(false);
   const [simplified, setSimplified] = useState(false);
 
-  const mapRef = useRef<L.Map>(null);
-  const { data: limitesMunicipais } = useLimitesMunicipios(city);
+  const mapRef = useRef<L.Map & { centralize: () => void }>(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const L = require('leaflet');
-      if (mapRef.current && limitesMunicipais) {
-        mapRef.current.flyToBounds(L.geoJSON(limitesMunicipais).getBounds());
-      }
-    }
-  }, [limitesMunicipais]);
-
-  const Mapa = React.useMemo(
-    () =>
-      dynamic(
-        () => import('../components/WebGIS/Map'), // replace '@components/map' with your component's location
-        {
-          loading: () => <p>O mapa está carregando</p>,
-          ssr: false, // This line is important. It's what prevents server-side render
-        }
-      ),
-    [
-      /* list variables which should trigger a re-render here */
-    ]
-  );
-
-  useEffect(() => {
-    const { municipio, source } = router.query;
-    if (municipio) setCity(Number(municipio));
-    if (source) setSource(source.toString());
+    setCity(Number(router.query.municipio || '5003207'));
+    setSource(router.query.source?.toString());
   }, [router.query]);
+
   const handleDownloadButtonClick = (event: React.MouseEvent<HTMLElement>) => {
     if (anchorElementOfDownloadButton) {
       setAnchorElementOfDownloadButton(null);
@@ -86,12 +69,7 @@ export default function Principal() {
   };
 
   const handleHomeButtonClick = () => {
-    if (typeof window !== 'undefined') {
-      const L = require('leaflet');
-      if (mapRef.current && limitesMunicipais) {
-        mapRef.current.flyToBounds(L.geoJSON(limitesMunicipais).getBounds());
-      }
-    }
+    mapRef?.current?.centralize();
   };
 
   return (
@@ -115,12 +93,12 @@ export default function Principal() {
         city={city}
         source={source}
         onCityChange={(id) => {
-          router.query.municipio = id.toString();
-          router.push(router);
+          const newQuery = { ...router.query, municipio: id.toString() };
+          router.push({ pathname: router.pathname, query: newQuery });
         }}
         onSourceChange={(newSource) => {
-          router.query.source = newSource;
-          router.push(router);
+          const newQuery = { ...router.query, source: newSource };
+          router.push({ pathname: router.pathname, query: newQuery });
         }}
       />
 

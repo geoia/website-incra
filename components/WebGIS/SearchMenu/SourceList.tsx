@@ -1,32 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Grid, SxProps } from '@mui/material';
 import { FormControl, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import HistoryIcon from '@mui/icons-material/History';
+import useSources from '../../../hooks/useSources';
 
 interface Props {
-  options: { label: string; value: string }[];
-  defaultOption?: string;
+  selectedSource?: string;
   onSelect?: (val: string) => void;
-  selectedDate: string; 
-  onDateChange: (date: string) => void; 
   sx?: SxProps;
 }
 
-export default function SourceList({ options, defaultOption, onSelect, selectedDate, onDateChange, sx }: Props) {
+export default function SourceList({ onSelect, selectedSource, sx }: Props) {
+  const { data: sources, isLoading } = useSources();
+
   const [isSelectOpen, setIsSelectOpen] = useState(false);
 
-  useEffect(() => {
-    setIsSelectOpen(false);
-  }, [selectedDate]);
-
   const handleMonthChange = (event: SelectChangeEvent) => {
-    const newSelectedOption = event.target.value;
-    onDateChange(newSelectedOption);
-
-    if (onSelect) {
-      onSelect(newSelectedOption);
-    }
+    if (onSelect) onSelect(event.target.value);
   };
 
   return (
@@ -46,7 +37,7 @@ export default function SourceList({ options, defaultOption, onSelect, selectedD
       <FormControl
         variant="outlined"
         sx={{
-          width: '125px',
+          width: '126px',
           '& .MuiInputBase-root': {
             height: '50px',
             color: 'white',
@@ -60,48 +51,50 @@ export default function SourceList({ options, defaultOption, onSelect, selectedD
           },
         }}
       >
-        <Select
-          open={isSelectOpen}
-          onClose={() => setIsSelectOpen(false)}
-          onOpen={() => setIsSelectOpen(true)}
-          onChange={handleMonthChange}
-          value={selectedDate}
-          MenuProps={{
-            PaperProps: {
-              sx: {
-                bgcolor: '#509CBF',
-                height: '300px',
-                transform: 'translateX(-15px)!important',
-                '&::-webkit-scrollbar': {
-                  width: '0.4em',
-                },
-                '&::-webkit-scrollbar-track': {
-                  '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  backgroundColor: 'rgba(0,0,0,.1)',
-                  outline: '1px solid slategrey',
+        {!isLoading && (
+          <Select
+            open={isSelectOpen}
+            onClose={() => setIsSelectOpen(false)}
+            onOpen={() => setIsSelectOpen(true)}
+            onChange={handleMonthChange}
+            defaultValue={selectedSource || sources?.[0].source}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  bgcolor: '#509CBF',
+                  height: '300px',
+                  transform: 'translateX(-15px)!important',
+                  '&::-webkit-scrollbar': {
+                    width: '0.4em',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: 'rgba(0,0,0,.1)',
+                    outline: '1px solid slategrey',
+                  },
                 },
               },
-            },
-          }}
-        >
-          {options.map((option, index) => (
-            <MenuItem
-              key={index}
-              value={option.value}
-              sx={{
-                color: 'white',
-                justifyContent: 'flex-end',
-                '&:hover': {
-                  backgroundColor: '#4689a8',
-                },
-              }}
-            >
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
+            }}
+          >
+            {sources?.map((option, index) => (
+              <MenuItem
+                key={index}
+                value={option.source}
+                sx={{
+                  color: 'white',
+                  justifyContent: 'flex-end',
+                  '&:hover': {
+                    backgroundColor: '#4689a8',
+                  },
+                }}
+              >
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+        )}
       </FormControl>
     </Grid>
   );

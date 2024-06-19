@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import useSWR from 'swr';
+import useSWR from 'swr/immutable';
 
 type EstadosResponse = Array<{
   id: number;

@@ -1,57 +1,65 @@
-import { GeoJSON, useMapEvents } from 'react-leaflet';
-import { useEffect } from 'react';
-import useLimitesMunicipios from '../../../hooks/useLimitesMunicipios';
+import { GeoJSON } from 'react-leaflet';
+import { useMemo } from 'react';
 import L from 'leaflet';
+import { Feature, FeatureCollection, Polygon, area } from '@turf/turf';
+import numeral from 'numeral';
 
-export function LimitsLayer(props: {
-  municipio: number;
-  showLimitVisibility: boolean;
+import 'numeral/locales/pt-br';
+import format from '../../../helpers/formatter';
+
+numeral.locale('pt-br');
+
+export function LimitsLayer({
+  municipio,
+  queimadas,
+  showSatellite,
+}: {
+  municipio: Feature<Polygon>;
+  queimadas?: FeatureCollection<Polygon>;
   showSatellite: boolean;
 }) {
-  const events = useMapEvents({});
-  const { data: limitesMunicipais } = useLimitesMunicipios(props.municipio);
+  const areaMunicipio = useMemo(() => (municipio ? area(municipio) : 0), [municipio]);
+  const areaQueimadas = useMemo(() => (queimadas ? area(queimadas) : 0), [queimadas]);
 
-  useEffect(() => {
-    if (limitesMunicipais) events.flyToBounds(L.geoJSON(limitesMunicipais).getBounds());
-  }, [limitesMunicipais, events]);
+  const defaultLayerProps = useMemo(
+    () => ({
+      dashArray: '0',
+      fillColor: showSatellite ? 'white' : '#000000',
+      fillOpacity: 0.2,
+      weight: 2,
+      opacity: 1,
+      color: showSatellite ? '#CCCCCC' : '#4f4f4f',
+    }),
+    [showSatellite]
+  );
 
-  return !limitesMunicipais ? (
-    <></>
-  ) : (
+  return (
     <GeoJSON
-      data={limitesMunicipais}
-      pathOptions={{
-        dashArray: '0',
-        fillColor: props.showSatellite ? 'white' : '#000000',
-        fillOpacity: props.showLimitVisibility ? 0 : 0.2,
-        weight: props.showLimitVisibility ? 0 : 2,
-        opacity: 1,
-        color: props.showSatellite ? '#CCCCCC' : '#4f4f4f',
-      }}
+      data={municipio}
+      pathOptions={defaultLayerProps}
       eventHandlers={{
         mouseover: (e) => {
-          const layer = e.target;
-          layer.setStyle({
-            dashArray: '0',
-            ffillColor: props.showSatellite ? 'white' : '#000000',
-            fillOpacity: props.showLimitVisibility ? 0 : 0.3,
-            weight: props.showLimitVisibility ? 0 : 2,
-            opacity: 1,
-            color: props.showSatellite ? '#CCCCCC' : '#4f4f4f',
-          });
+          e.target.setStyle({ ...defaultLayerProps, fillOpacity: 0.3 });
         },
         mouseout: (e) => {
-          const layer = e.target;
-          layer.setStyle({
-            fillOpacity: props.showLimitVisibility ? 0 : 0.2,
-            weight: props.showLimitVisibility ? 0 : 2,
-            dashArray: '0',
-            color: props.showSatellite ? '#CCCCCC' : '#4f4f4f',
-            fillColor: props.showSatellite ? 'white' : '#000000',
-          });
+          e.target.setStyle(defaultLayerProps);
         },
-        click: (e) => {},
+        add: (e) => {
+          e.target._map.flyToBounds(L.geoJSON(municipio).getBounds());
+
+          const popupContent = `<b>Área total:</b> ${format.area(areaMunicipio)}<br/><br/><b>Queimada</b><br/>${format.area(areaQueimadas)} (${format.number((areaQueimadas / areaMunicipio) * 100)}% do total)<br/>${format.number(queimadas?.features.length || 0)} focos de queimada`;
+
+          e.target
+            .bindPopup(
+              L.popup()
+                .setLatLng(e.target.getBounds().getCenter())
+                .setContent(popupContent)
+                .openOn(e.target._map)
+            )
+            .openPopup();
+        },
       }}
+      key={`${municipio.id}-${areaQueimadas}`}
     />
   );
 }

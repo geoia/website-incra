@@ -4,8 +4,8 @@ import { FormGroup } from '@mui/material';
 import Button from '@mui/material/Button';
 import Download from '@mui/icons-material/Download';
 import FormCheckbox from '../ui/FormCheckbox';
-import { getQueimadas } from '../../lib/queimadas';
-import { exportarPNG } from '../../lib/exportMap';
+import { queimadas } from '../../hooks/useQueimadas';
+import { exportarPNG } from '../../helpers/exportMap';
 
 interface Props {
   anchorEl: null | HTMLElement;
@@ -26,8 +26,7 @@ export default function DownloadModal({
   isSimplifiedDatas,
   forwardRef,
   municipio,
-  source
-
+  source,
 }: Props) {
   const [checked, setChecked] = useState([false, false, false, false]);
 
@@ -59,7 +58,7 @@ export default function DownloadModal({
     let anchor = createDownloadAnchor();
 
     let data = isFireButtonClicked
-      ? await getQueimadas({ municipio: municipio, source: source, simplified: isSimplifiedDatas })
+      ? await queimadas({ municipio: municipio, source: source, simplified: isSimplifiedDatas })
       : {};
 
     let dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));

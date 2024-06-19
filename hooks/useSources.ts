@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import useSWR from 'swr';
+import useSWR from 'swr/immutable';
 
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
