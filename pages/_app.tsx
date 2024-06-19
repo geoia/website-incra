@@ -21,8 +21,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="EcoGis" />
         <meta property="og:locale" content="pt_BR" />
-        <meta property="og:image" content="/images/screenshot.png" />
-        <meta property="og:image:type" content="image/png" />
+        <meta
+          property="og:image"
+          content={`${process.env.NEXT_PUBLIC_BASE_URL || 'https://ecogis.app'}/images/screenshot_og.png`}
+        />
+        <meta
+          property="og:image:secure_url"
+          content={`${process.env.NEXT_PUBLIC_BASE_URL || 'https://ecogis.app'}/images/screenshot.png`}
+        />
         <meta
           property="og:url"
           content={process.env.NEXT_PUBLIC_BASE_URL || `https://ecogis.app`}
