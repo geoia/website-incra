@@ -75,7 +75,7 @@ export default function Principal() {
   return (
     <>
       <Head>
-        <title>GeoIA - WebGis</title>
+        <title>EcoGis - WebGis</title>
       </Head>
 
       <Mapa

@@ -65,7 +65,7 @@ export default function Home() {
         <Grid
           item
           sx={{
-            maxWidth: 925,
+            maxWidth: { xs: '85%', sm: 925 },
             display: 'flex',
             flexDirection: 'column',
             alignSelf: 'center',

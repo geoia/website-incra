@@ -27,17 +27,23 @@ export default function SourceList({ onSelect, selectedSource, sx }: Props) {
         display: 'flex',
         alignItems: 'center',
         height: '50px',
-        width: '175px',
+        width: 'auto',
         backgroundColor: '#509CBF',
         color: 'white',
         ...sx,
       }}
     >
-      <HistoryIcon style={{ fontWeight: 'bold', marginLeft: '10px' }} />
+      <HistoryIcon
+        sx={{
+          display: { xs: 'none', sm: 'initial' },
+          fontWeight: 'bold',
+          marginLeft: '10px',
+        }}
+      />
       <FormControl
         variant="outlined"
         sx={{
-          width: '126px',
+          width: 126,
           '& .MuiInputBase-root': {
             height: '50px',
             color: 'white',
