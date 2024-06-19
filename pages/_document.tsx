@@ -1,3 +1,5 @@
+import { GoogleAnalytics } from '@next/third-parties/google';
+
 import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
@@ -9,12 +11,17 @@ export default function Document() {
           rel="stylesheet"
           crossOrigin="anonymous"
         />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          crossOrigin="anonymous"
+        />
         <link rel="shortcut icon" href="/images/logo.svg" type="image/x-icon" />
       </Head>
       <body>
         <Main />
         <NextScript />
+        {process.env.GTAG && <GoogleAnalytics gaId={process.env.GTAG} />}
       </body>
     </Html>
   );
