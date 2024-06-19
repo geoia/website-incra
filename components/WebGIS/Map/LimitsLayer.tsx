@@ -38,12 +38,6 @@ export function LimitsLayer({
       data={municipio}
       pathOptions={defaultLayerProps}
       eventHandlers={{
-        mouseover: (e) => {
-          e.target.setStyle({ ...defaultLayerProps, fillOpacity: 0.3 });
-        },
-        mouseout: (e) => {
-          e.target.setStyle(defaultLayerProps);
-        },
         add: (e) => {
           e.target._map.flyToBounds(L.geoJSON(municipio).getBounds());
 
