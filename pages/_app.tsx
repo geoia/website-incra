@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta property="og:image:type" content="image/png" />
         <meta
           property="og:url"
-          content={`https://${process.env.NODE_ENV === 'development' ? 'dev.' : ''}ecogis.app`}
+          content={process.env.NEXT_PUBLIC_BASE_URL || `https://ecogis.app`}
         />
       </Head>
       <ThemeProvider theme={theme}>
