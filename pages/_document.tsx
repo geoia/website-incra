@@ -1,5 +1,3 @@
-import { GoogleAnalytics } from '@next/third-parties/google';
-
 import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
@@ -21,7 +19,6 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GTAG || ''} />
       </body>
     </Html>
   );

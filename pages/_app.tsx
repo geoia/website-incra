@@ -1,6 +1,7 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../theme';
 import Head from 'next/head';
@@ -16,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GTAG || ''} />
     </>
   );
 }
