@@ -36,11 +36,13 @@ export default function SearchBar(props: {
       type: 'Bioma',
     }));
 
-    const estados: Localizacao[] = (dataEstados || []).map((estado) => ({
-      id: estado.id,
-      nome: estado.nome,
-      type: 'Estado',
-    }));
+    const estados: Localizacao[] = (dataEstados || [])
+      .sort((e1, e2) => e1.nome.localeCompare(e2.nome))
+      .map((estado) => ({
+        id: estado.id,
+        nome: estado.nome,
+        type: 'Estado',
+      }));
 
     const municipios: Localizacao[] = (dataMunicipios || [])
       .sort((m1, m2) => m1.nome.localeCompare(m2.nome))
