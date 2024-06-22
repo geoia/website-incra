@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import useSWR from 'swr/immutable';
 
 type EstadosResponse = Array<{
@@ -9,10 +9,7 @@ type EstadosResponse = Array<{
 }>;
 
 export default function useEstados(source?: string) {
-  const { data, error, isLoading } = useSWR<AxiosResponse<EstadosResponse>>(
-    `/api/queimadas/${source || 'latest'}/estados`,
-    axios
+  return useSWR(`/api/queimadas/${source || 'latest'}/estados`, (url) =>
+    axios<EstadosResponse>(url).then((data) => data.data)
   );
-
-  return { dataEstados: data?.data, isLoading, error };
 }

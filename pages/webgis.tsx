@@ -21,6 +21,14 @@ import dynamic from 'next/dynamic';
 import { SearchMenu } from '../components/WebGIS/SearchMenu';
 import L from 'leaflet';
 
+function isNumeric(str: any) {
+  if (typeof str !== 'string') return false; // we only process strings!
+  return (
+    !isNaN(str as any) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+    !isNaN(parseFloat(str))
+  ); // ...and ensure strings of whitespace fail
+}
+
 const Mapa = dynamic(
   () => import('../components/WebGIS/Map'), // replace '@components/map' with your component's location
   {
@@ -37,7 +45,7 @@ export default function Principal() {
   const [anchorElementOfSettingsButton, setAnchorElementOfSettingsButton] =
     useState<null | HTMLElement>(null);
 
-  const [city, setCity] = useState(5003207);
+  const [city, setCity] = useState<number | string>(5003207);
   const [source, setSource] = useState<string>();
   const [showFire, setShowFire] = useState(true);
   const [showLimitVisibility, setShowLimitVisibility] = useState(false);
@@ -48,9 +56,11 @@ export default function Principal() {
   const mapRef = useRef<L.Map & { centralize: () => void }>(null);
 
   useEffect(() => {
-    setCity(Number(router.query.municipio || '5003207'));
-    setSource(router.query.source?.toString());
-  }, [router.query]);
+    const { municipio, source } = Object.assign({ municipio: 'pantanal' }, router.query);
+
+    setCity(isNumeric(municipio.toString()) ? Number(municipio) : municipio.toString());
+    setSource(source?.toString());
+  }, [router]);
 
   const handleDownloadButtonClick = (event: React.MouseEvent<HTMLElement>) => {
     if (anchorElementOfDownloadButton) {
@@ -90,9 +100,9 @@ export default function Principal() {
       />
 
       <SearchMenu
-        city={city}
+        location={city}
         source={source}
-        onCityChange={(id) => {
+        onLocationChange={(id) => {
           const newQuery = { ...router.query, municipio: id.toString() };
           router.push({ pathname: router.pathname, query: newQuery });
         }}

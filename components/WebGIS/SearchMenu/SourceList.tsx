@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
 import { Grid, SxProps } from '@mui/material';
 import { FormControl, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import HistoryIcon from '@mui/icons-material/History';
 import useSources from '../../../hooks/useSources';
+import { useMemo } from 'react';
 
 interface Props {
-  selectedSource?: string;
+  source?: string;
   onSelect?: (val: string) => void;
   sx?: SxProps;
 }
 
-export default function SourceList({ onSelect, selectedSource, sx }: Props) {
+export default function SourceList({ onSelect, source, sx }: Props) {
   const { data: sources, isLoading } = useSources();
 
-  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const selectedSource = useMemo(() => source || sources?.[0].source, [source, sources]);
 
   const handleMonthChange = (event: SelectChangeEvent) => {
     if (onSelect) onSelect(event.target.value);
@@ -22,7 +22,6 @@ export default function SourceList({ onSelect, selectedSource, sx }: Props) {
 
   return (
     <Grid
-      onClick={() => setIsSelectOpen(!isSelectOpen)}
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -59,11 +58,8 @@ export default function SourceList({ onSelect, selectedSource, sx }: Props) {
       >
         {!isLoading && (
           <Select
-            open={isSelectOpen}
-            onClose={() => setIsSelectOpen(false)}
-            onOpen={() => setIsSelectOpen(true)}
             onChange={handleMonthChange}
-            defaultValue={selectedSource || sources?.[0].source}
+            value={selectedSource}
             MenuProps={{
               PaperProps: {
                 sx: {

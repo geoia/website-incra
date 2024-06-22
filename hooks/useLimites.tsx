@@ -2,9 +2,13 @@ import { Feature, Polygon, feature } from '@turf/turf';
 import useSWR from 'swr/immutable';
 import axios from 'axios';
 
-export function useLimites(id: number) {
-  return useSWR<Feature<Polygon>>(
-    `/api/mapas/${id > 100 ? 'municipio' : 'estado'}/${id}`,
-    (url: string) => axios<Polygon>(url).then((res) => feature(res.data))
+import { isNumber } from 'lodash';
+import { useMemo } from 'react';
+
+export function useLimites(id: number | string) {
+  const path = useMemo(() => (isNumber(id) ? (id > 100 ? 'municipio' : 'estado') : 'bioma'), [id]);
+
+  return useSWR<Feature<Polygon>>(`/api/mapas/${path}/${id}`, (url: string) =>
+    axios<Polygon>(url).then((res) => feature(res.data))
   );
 }

@@ -14,7 +14,7 @@ interface Props {
   setIsFireButtonClicked: (val: boolean) => void;
   isSimplifiedDatas: boolean;
   forwardRef?: React.RefObject<L.Map>;
-  municipio: number;
+  municipio: number | string;
   source?: string;
 }
 

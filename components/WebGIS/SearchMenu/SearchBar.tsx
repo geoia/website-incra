@@ -1,10 +1,11 @@
-import { useMemo, useRef, useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { styled } from '@mui/system';
 import { Popper, Paper } from '@mui/material';
 import useMunicipios from '../../../hooks/useMunicipios';
 import useEstados from '../../../hooks/useEstados';
+import useBiomas from '../../../hooks/useBiomas';
 
 const CustomPaper = styled(Paper)({
   backgroundColor: '#509CBF',
@@ -14,46 +15,48 @@ const CustomPaper = styled(Paper)({
 });
 
 type Localizacao = {
-  id: number;
+  id: number | string;
   nome: string;
-  sigla: string;
-  queimadas: boolean;
+  type: string;
 };
 
-const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: number) => void }> = ({
-  city,
-  source,
-  onChange,
-}) => {
-  const { dataMunicipios } = useMunicipios(source);
-  const { dataEstados } = useEstados(source);
+export default function SearchBar(props: {
+  location: number | string;
+  source?: string;
+  onChange?: (id?: number | string) => void;
+}) {
+  const { data: dataMunicipios } = useMunicipios(props.source);
+  const { data: dataEstados } = useEstados(props.source);
+  const { data: dataBiomas } = useBiomas(props.source);
 
   const data = useMemo(() => {
-    const sortedMunicipios = [...(dataMunicipios || [])].sort((a, b) =>
-      a.nome.localeCompare(b.nome)
-    );
+    const biomas: Localizacao[] = (dataBiomas || []).map((bio) => ({
+      id: bio.id,
+      nome: bio.bioma,
+      type: 'Bioma',
+    }));
 
-    return [...(dataEstados || [])]
-      ?.sort((a, b) => a.nome.localeCompare(b.nome))
-      ?.reduce(
-        (memo, estado) =>
-          memo
-            .concat([estado])
-            .concat(sortedMunicipios.filter((municipio) => estado.sigla === municipio.sigla) || []),
-        [] as Localizacao[]
-      );
-  }, [dataMunicipios, dataEstados]);
+    const estados: Localizacao[] = (dataEstados || []).map((estado) => ({
+      id: estado.id,
+      nome: estado.nome,
+      type: 'Estado',
+    }));
 
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const [isInputFocused, setIsInputFocused] = useState(false);
-  const [highlightedOption, setHighlightedOption] = useState<number | null>(null);
+    const municipios: Localizacao[] = (dataMunicipios || [])
+      .sort((m1, m2) => m1.nome.localeCompare(m2.nome))
+      .map((municipio) => ({
+        id: municipio.id,
+        nome: `${municipio.nome} (${municipio.sigla})`,
+        type: 'Municipio',
+      }));
 
-  const [selectedCity, setSelectedCity] = useState<Localizacao | null>(null);
+    return [...biomas, ...estados, ...municipios];
+  }, [dataMunicipios, dataEstados, dataBiomas]);
 
-  useEffect(() => {
-    const selected = data.find((option) => city === option.id) || null;
-    setSelectedCity(selected);
-  }, [city, data]);
+  const selectedLocation = useMemo(
+    () => data?.find((option) => props.location === option.id) || null,
+    [props.location, data]
+  );
 
   return data ? (
     <>
@@ -77,20 +80,18 @@ const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: numb
       </style>
       <Autocomplete
         id="grouped-demo"
-        options={data.filter((d) => d.queimadas)}
-        getOptionDisabled={(option) => !option.queimadas}
+        options={data}
+        groupBy={(option) => option.type}
         getOptionLabel={(option) => option.nome}
-        noOptionsText="Não existem dados para essa localidade"
-        value={selectedCity}
-        onChange={(_, selectedOption) => onChange && onChange(selectedOption?.id)}
-        onFocus={() => setIsInputFocused(true)}
-        onBlur={() => setIsInputFocused(false)}
+        noOptionsText="Sem resultados"
+        value={selectedLocation}
+        onChange={(_, selectedOption) => props.onChange?.(selectedOption?.id)}
         isOptionEqualToValue={(option, value) => option.id === value.id}
         sx={{
           width: '100%',
           '& .MuiOutlinedInput-root': {
             height: '50px',
-            borderRadius: isInputFocused ? '25px 25px 0px 0px' : '50px',
+            borderRadius: '50px',
             backgroundColor: '#509CBF',
             padding: 0,
             paddingLeft: '1em',
@@ -110,32 +111,29 @@ const SearchBar: React.FC<{ city: number; source?: string; onChange?: (id?: numb
             {...params}
             placeholder="Escolha uma localidade"
             style={{ color: '#ffffff', margin: 0, padding: 0 }}
-            inputRef={(input) => (inputRef.current = input)}
           />
         )}
-        renderGroup={(params) => <li key={params.key}>{params.children}</li>}
-        renderOption={(props, option) => {
-          const isHighlighted = option.id === highlightedOption;
-          return (
-            <li
-              {...props}
-              onMouseEnter={() => setHighlightedOption(option.id)}
-              onMouseLeave={() => setHighlightedOption(null)}
-              style={
-                option.sigla && dataEstados?.some((estado) => estado.nome === option.nome)
-                  ? { backgroundColor: isHighlighted ? '#1f2e4c' : '#0f1c3c' }
-                  : {}
-              }
+        renderGroup={(params) => (
+          <div key={params.key}>
+            <div
+              style={{
+                backgroundColor: '#e3e3e3',
+                color: 'black',
+                textAlign: 'center',
+                cursor: 'default',
+              }}
             >
-              {option.nome}
-            </li>
-          );
+              {params.group}
+            </div>
+            <div>{params.children}</div>
+          </div>
+        )}
+        renderOption={(props, option) => {
+          return <li {...props}>{option.nome}</li>;
         }}
       />
     </>
   ) : (
     <></>
   );
-};
-
-export default SearchBar;
+}

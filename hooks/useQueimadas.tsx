@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   Feature,
   FeatureCollection,
@@ -8,9 +7,11 @@ import {
   polygon,
 } from '@turf/turf';
 import axios from 'axios';
+import { isNumber } from 'lodash';
+import useSWR from 'swr/immutable';
 
 interface BaseProps {
-  municipio: number;
+  municipio: number | string;
   simplified: boolean;
   source?: string;
 }
@@ -47,7 +48,12 @@ async function request(opts: QueimadasRequestProps): Promise<QueimadasRequestRes
   };
 
   const source = opts.source || 'latest';
-  const endpoint = opts.municipio > 100 ? 'municipios' : 'estados';
+  const endpoint = isNumber(opts.municipio)
+    ? opts.municipio > 100
+      ? 'municipios'
+      : 'estados'
+    : 'biomas';
+
   const querystring = new URLSearchParams(transformRecord(params)).toString();
   const url = `/api/queimadas/${source}/${endpoint}/${opts.municipio}?${querystring}`;
 
@@ -95,17 +101,8 @@ export async function queimadas(
   return featureCollection(dadosCompilados, { id: props.municipio });
 }
 
-type HookReturnType = { isLoading: boolean; data?: FeatureCollection<Polygon>; error?: any };
-
-export function useQueimadas(id: number, source?: string, simplified: boolean = false) {
-  const [state, setState] = useState<HookReturnType>({ isLoading: false });
-
-  useEffect(() => {
-    setState({ isLoading: true });
+export function useQueimadas(id: number | string, source?: string, simplified: boolean = false) {
+  return useSWR([id, source, simplified], ([id, source, simplified]) =>
     queimadas({ municipio: id, source, simplified })
-      .then((data) => setState({ isLoading: false, data }))
-      .catch((error) => setState({ isLoading: false, error }));
-  }, [id, source, simplified]);
-
-  return state;
+  );
 }

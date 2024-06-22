@@ -16,7 +16,7 @@ interface Props {
   showSatellite: boolean;
   showQueimadas: boolean;
   simplificado: boolean;
-  municipio: number;
+  municipio: number | string;
   source?: string;
   forwardRef?: RefObject<L.Map>;
 }

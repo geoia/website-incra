@@ -5,9 +5,9 @@ import Link from 'next/link';
 import Logo from '../../ui/Logo';
 
 export function SearchMenu(props: {
-  city: number;
+  location: number | string;
   source?: string;
-  onCityChange: (v: number) => void;
+  onLocationChange: (v: number | string) => void;
   onSourceChange: (v?: string) => void;
 }) {
   return (
@@ -34,12 +34,12 @@ export function SearchMenu(props: {
         <Logo sx={{ width: 65, height: 64, transform: 'translateX(-2px)' }} />
       </Link>
       <SearchBar
-        city={props.city}
+        location={props.location}
         source={props.source}
-        onChange={(id) => id && props.onCityChange(id)}
+        onChange={(id) => id && props.onLocationChange(id)}
       />
       <SourceList
-        selectedSource={props.source}
+        source={props.source}
         onSelect={props.onSourceChange}
         sx={{
           borderLeft: '2px solid white',

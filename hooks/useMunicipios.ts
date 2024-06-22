@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import useSWR from 'swr/immutable';
 
 type MunicipiosResponse = Array<{
@@ -9,10 +9,7 @@ type MunicipiosResponse = Array<{
 }>;
 
 export default function useMunicipios(source?: string) {
-  const { data, error, isLoading } = useSWR<AxiosResponse<MunicipiosResponse>>(
-    `/api/queimadas/${source || 'latest'}/municipios`,
-    axios
+  return useSWR(`/api/queimadas/${source || 'latest'}/municipios`, (url) =>
+    axios<MunicipiosResponse>(url).then((res) => res.data)
   );
-
-  return { dataMunicipios: data?.data, isLoading, error };
 }
