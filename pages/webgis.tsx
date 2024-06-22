@@ -20,6 +20,7 @@ import {
 import dynamic from 'next/dynamic';
 import { SearchMenu } from '../components/WebGIS/SearchMenu';
 import L from 'leaflet';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
 function isNumeric(str: any) {
   if (typeof str !== 'string') return false; // we only process strings!
@@ -27,6 +28,10 @@ function isNumeric(str: any) {
     !isNaN(str as any) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
     !isNaN(parseFloat(str))
   ); // ...and ensure strings of whitespace fail
+}
+
+function parseLocation(location: string): number | string {
+  return isNumeric(location) ? Number(location) : location;
 }
 
 const Mapa = dynamic(
@@ -37,7 +42,15 @@ const Mapa = dynamic(
   }
 );
 
-export default function Principal() {
+export const getServerSideProps = (async ({ query }) => {
+  const props: { location: number | string; source?: string } = {
+    location: parseLocation(query.location?.toString() || 'pantanal'),
+  };
+  if (query.source) Object.assign(props, { source: query.source.toString() });
+  return { props: props };
+}) satisfies GetServerSideProps<{ location: number | string; source?: string }>;
+
+export default function Principal(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
 
   const [anchorElementOfDownloadButton, setAnchorElementOfDownloadButton] =
@@ -45,8 +58,8 @@ export default function Principal() {
   const [anchorElementOfSettingsButton, setAnchorElementOfSettingsButton] =
     useState<null | HTMLElement>(null);
 
-  const [location, setLocation] = useState<number | string>('pantanal');
-  const [source, setSource] = useState<string>();
+  const [location, setLocation] = useState<number | string>(props.location);
+  const [source, setSource] = useState<string | undefined>(props.source);
   const [simplified, setSimplified] = useState(false);
 
   const [showFire, setShowFire] = useState(true);
@@ -58,7 +71,7 @@ export default function Principal() {
 
   useEffect(() => {
     const { location, source } = Object.assign({ location: 'pantanal' }, router.query);
-    setLocation(isNumeric(location.toString()) ? Number(location) : location.toString());
+    setLocation(parseLocation(location.toString()));
     setSource(source?.toString());
   }, [router.query]);
 
