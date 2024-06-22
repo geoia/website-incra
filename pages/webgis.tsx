@@ -45,22 +45,22 @@ export default function Principal() {
   const [anchorElementOfSettingsButton, setAnchorElementOfSettingsButton] =
     useState<null | HTMLElement>(null);
 
-  const [city, setCity] = useState<number | string>(5003207);
+  const [location, setLocation] = useState<number | string>('pantanal');
   const [source, setSource] = useState<string>();
+  const [simplified, setSimplified] = useState(false);
+
   const [showFire, setShowFire] = useState(true);
   const [showLimitVisibility, setShowLimitVisibility] = useState(false);
   const [showSatellite, setSatelliteView] = useState(false);
   const [showLocation, setShowLocation] = useState(false);
-  const [simplified, setSimplified] = useState(false);
 
   const mapRef = useRef<L.Map & { centralize: () => void }>(null);
 
   useEffect(() => {
-    const { municipio, source } = Object.assign({ municipio: 'pantanal' }, router.query);
-
-    setCity(isNumeric(municipio.toString()) ? Number(municipio) : municipio.toString());
+    const { location, source } = Object.assign({ location: 'pantanal' }, router.query);
+    setLocation(isNumeric(location.toString()) ? Number(location) : location.toString());
     setSource(source?.toString());
-  }, [router]);
+  }, [router.query]);
 
   const handleDownloadButtonClick = (event: React.MouseEvent<HTMLElement>) => {
     if (anchorElementOfDownloadButton) {
@@ -93,22 +93,20 @@ export default function Principal() {
         showLimitVisibility={showLimitVisibility}
         showSatellite={showSatellite}
         showQueimadas={showFire}
-        simplificado={simplified}
-        municipio={city}
+        simplified={simplified}
+        location={location}
         source={source}
         forwardRef={mapRef}
       />
 
       <SearchMenu
-        location={city}
+        location={location}
         source={source}
         onLocationChange={(id) => {
-          const newQuery = { ...router.query, municipio: id.toString() };
-          router.push({ pathname: router.pathname, query: newQuery });
+          router.push({ query: { ...router.query, location: id } });
         }}
         onSourceChange={(newSource) => {
-          const newQuery = { ...router.query, source: newSource };
-          router.push({ pathname: router.pathname, query: newQuery });
+          router.push({ query: { ...router.query, source: newSource } });
         }}
       />
 
@@ -227,7 +225,7 @@ export default function Principal() {
         setIsFireButtonClicked={setShowFire}
         isSimplifiedDatas={simplified}
         forwardRef={mapRef}
-        municipio={city}
+        location={location}
         source={source}
       />
       <Settings

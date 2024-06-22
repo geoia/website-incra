@@ -9,39 +9,42 @@ import format from '../../../helpers/formatter';
 
 numeral.locale('pt-br');
 
-export function LimitsLayer({
-  municipio,
-  queimadas,
-  showSatellite,
-}: {
-  municipio: Feature<Polygon>;
+export function LimitsLayer(props: {
+  location: Feature<Polygon>;
   queimadas?: FeatureCollection<Polygon>;
   showSatellite: boolean;
 }) {
-  const areaMunicipio = useMemo(() => (municipio ? area(municipio) : 0), [municipio]);
-  const areaQueimadas = useMemo(() => (queimadas ? area(queimadas) : 0), [queimadas]);
+  const areaMunicipio = useMemo(
+    () => (props.location ? area(props.location) : 0),
+    [props.location]
+  );
+
+  const areaQueimadas = useMemo(
+    () => (props.queimadas ? area(props.queimadas) : 0),
+    [props.queimadas]
+  );
 
   const defaultLayerProps = useMemo(
     () => ({
       dashArray: '0',
-      fillColor: showSatellite ? 'white' : '#000000',
+      fillColor: props.showSatellite ? 'white' : '#000000',
       fillOpacity: 0.2,
       weight: 2,
       opacity: 1,
-      color: showSatellite ? '#CCCCCC' : '#4f4f4f',
+      color: props.showSatellite ? '#CCCCCC' : '#4f4f4f',
     }),
-    [showSatellite]
+    [props.showSatellite]
   );
 
   return (
     <GeoJSON
-      data={municipio}
+      data={props.location}
       pathOptions={defaultLayerProps}
       eventHandlers={{
         add: (e) => {
-          e.target._map.flyToBounds(L.geoJSON(municipio).getBounds());
+          e.target._map.flyToBounds(L.geoJSON(props.location).getBounds());
 
-          const popupContent = `<b>Área total:</b> ${format.area(areaMunicipio)}<br/><br/><b>Queimada</b><br/>${format.area(areaQueimadas)} (${format.number((areaQueimadas / areaMunicipio) * 100)}% do total)<br/>${format.number(queimadas?.features.length || 0)} focos de queimada`;
+          const popupContent = `<b>Área total:</b> ${format.area(areaMunicipio)}<br/><br/><b>Queimada</b><br/>${format.area(areaQueimadas)} (${format.number((areaQueimadas / areaMunicipio) * 100)}% do total)<br/>${format.number(props.queimadas?.features.length || 0)} focos de queimada`;
 
           e.target
             .bindPopup(
@@ -53,7 +56,7 @@ export function LimitsLayer({
             .openPopup();
         },
       }}
-      key={`${municipio.id}-${areaQueimadas}`}
+      key={`${props.location.id}-${areaQueimadas}`}
     />
   );
 }

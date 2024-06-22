@@ -11,19 +11,19 @@ import { useLimites } from '../../../hooks/useLimites';
 import { useQueimadas } from '../../../hooks/useQueimadas';
 
 interface Props {
+  location: number | string;
+  source?: string;
+  simplified: boolean;
   showLocalizacao: boolean;
   showLimitVisibility: boolean;
   showSatellite: boolean;
   showQueimadas: boolean;
-  simplificado: boolean;
-  municipio: number | string;
-  source?: string;
   forwardRef?: RefObject<L.Map>;
 }
 
 export default function Map(props: Props) {
-  const municipio = useLimites(props.municipio);
-  const queimadas = useQueimadas(props.municipio, props.source, props.simplificado);
+  const municipio = useLimites(props.location);
+  const queimadas = useQueimadas(props.location, props.source, props.simplified);
 
   const isLoading = useMemo(
     () => municipio.isLoading || queimadas.isLoading,
@@ -78,7 +78,7 @@ export default function Map(props: Props) {
 
         {!props.showLimitVisibility && municipio.data && (
           <LimitsLayer
-            municipio={municipio.data}
+            location={municipio.data}
             queimadas={queimadas.data}
             showSatellite={props.showSatellite}
           />

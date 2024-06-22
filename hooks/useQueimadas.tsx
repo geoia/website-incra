@@ -11,7 +11,7 @@ import { isNumber } from 'lodash';
 import useSWR from 'swr/immutable';
 
 interface BaseProps {
-  municipio: number | string;
+  location: number | string;
   simplified: boolean;
   source?: string;
 }
@@ -48,14 +48,14 @@ async function request(opts: QueimadasRequestProps): Promise<QueimadasRequestRes
   };
 
   const source = opts.source || 'latest';
-  const endpoint = isNumber(opts.municipio)
-    ? opts.municipio > 100
+  const endpoint = isNumber(opts.location)
+    ? opts.location > 100
       ? 'municipios'
       : 'estados'
     : 'biomas';
 
   const querystring = new URLSearchParams(transformRecord(params)).toString();
-  const url = `/api/queimadas/${source}/${endpoint}/${opts.municipio}?${querystring}`;
+  const url = `/api/queimadas/${source}/${endpoint}/${opts.location}?${querystring}`;
 
   const { data, headers } = await axios.get<Polygon | MultiPolygon>(url, {
     signal: opts?.signal,
@@ -98,11 +98,11 @@ export async function queimadas(
     });
   }
 
-  return featureCollection(dadosCompilados, { id: props.municipio });
+  return featureCollection(dadosCompilados, { id: props.location });
 }
 
 export function useQueimadas(id: number | string, source?: string, simplified: boolean = false) {
   return useSWR([id, source, simplified], ([id, source, simplified]) =>
-    queimadas({ municipio: id, source, simplified })
+    queimadas({ location: id, source, simplified })
   );
 }
