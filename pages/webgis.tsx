@@ -44,7 +44,7 @@ const Mapa = dynamic(
 
 export const getServerSideProps = (async ({ query }) => {
   const props: { location: number | string; source?: string } = {
-    location: parseLocation(query.location?.toString() || 'pantanal'),
+    location: parseLocation(query.location?.toString() || '5003207'),
   };
   if (query.source) Object.assign(props, { source: query.source.toString() });
   return { props: props };
@@ -70,10 +70,13 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
   const mapRef = useRef<L.Map & { centralize: () => void }>(null);
 
   useEffect(() => {
-    const { location, source } = Object.assign({ location: 'pantanal' }, router.query);
+    const { location, source } = Object.assign(
+      { location: props.location, source: props.source },
+      router.query
+    );
     setLocation(parseLocation(location.toString()));
     setSource(source?.toString());
-  }, [router.query]);
+  }, [props.location, props.source, router.query]);
 
   const handleDownloadButtonClick = (event: React.MouseEvent<HTMLElement>) => {
     if (anchorElementOfDownloadButton) {
