@@ -83,7 +83,7 @@ export async function queimadas(
   let status: NonNullable<QueimadasRequestResponse['pages']> = { current: 0, next: 1, last: 1 };
 
   do {
-    const { pages, data } = await request({ ...props, page: status.next, per_page: 1000 });
+    const { pages, data } = await request({ ...props, page: status.next, per_page: 5000 });
 
     if (!pages || !data) break;
 
