@@ -6,6 +6,7 @@ import numeral from 'numeral';
 
 import 'numeral/locales/pt-br';
 import format from '../../../helpers/formatter';
+import { useUnmountRef } from '../../../hooks/useUnmountRef';
 
 numeral.locale('pt-br');
 
@@ -14,6 +15,8 @@ export function LimitsLayer(props: {
   queimadas?: FeatureCollection<Polygon>;
   showSatellite: boolean;
 }) {
+  const unmount = useUnmountRef();
+
   const areaMunicipio = useMemo(
     () => (props.location ? area(props.location) : 0),
     [props.location]
@@ -57,6 +60,7 @@ export function LimitsLayer(props: {
         },
       }}
       key={`${props.location.id}-${areaQueimadas}`}
+      ref={unmount}
     />
   );
 }

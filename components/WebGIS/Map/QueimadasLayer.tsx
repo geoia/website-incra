@@ -1,11 +1,12 @@
-import { GeoJSON, useMap } from 'react-leaflet';
+import { GeoJSON } from 'react-leaflet';
 import { area, FeatureCollection, Polygon } from '@turf/turf';
 import L from 'leaflet';
 import { Feature, Geometry } from 'geojson';
 import format from '../../../helpers/formatter';
+import { useUnmountRef } from '../../../hooks/useUnmountRef';
 
 export default function QueimadasLayer({ queimadas }: { queimadas: FeatureCollection<Polygon> }) {
-  const map = useMap();
+  const unmount = useUnmountRef();
 
   const defaultStyle = {
     fillColor: '#ff0000',
@@ -20,11 +21,7 @@ export default function QueimadasLayer({ queimadas }: { queimadas: FeatureCollec
       layer.on({
         mouseover: (e: L.LeafletMouseEvent) => {
           e.target.setStyle({ ...defaultStyle, fillOpacity: 1 });
-          const popup = L.tooltip()
-            .setLatLng(e.latlng)
-            .setContent(`<b>Área queimada:</b> ${format.area(area(feature))}`)
-            .openOn(map);
-          e.target.bindTooltip(popup).openTooltip();
+          e.target.bindTooltip(`<b>Área queimada:</b> ${format.area(area(feature))}`).openTooltip();
         },
         mouseout: (e: L.LeafletMouseEvent) => {
           e.target.setStyle(defaultStyle);
@@ -40,6 +37,7 @@ export default function QueimadasLayer({ queimadas }: { queimadas: FeatureCollec
       pathOptions={defaultStyle}
       onEachFeature={onEachFeature}
       key={area(queimadas)}
+      ref={unmount}
     />
   );
 }
