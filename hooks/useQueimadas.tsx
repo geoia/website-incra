@@ -78,25 +78,23 @@ async function request(opts: QueimadasRequestProps): Promise<QueimadasRequestRes
 export async function queimadas(
   props: BaseProps & RequestController
 ): Promise<FeatureCollection<Polygon>> {
-  let nextPage: number | undefined = 1;
   let dadosCompilados: Feature<Polygon>[] = [];
 
-  while (nextPage) {
-    await request({ ...props, page: nextPage, per_page: 1000 }).then((resultado) => {
-      if (!resultado.data) {
-        nextPage = undefined;
-        return;
-      }
+  let status: NonNullable<QueimadasRequestResponse['pages']> = { current: 0, next: 1, last: 1 };
 
-      dadosCompilados.push(
-        ...(resultado.data.type === 'Polygon'
-          ? [polygon(resultado.data.coordinates)]
-          : resultado.data.coordinates.map((coords) => polygon(coords)))
-      );
+  do {
+    const { pages, data } = await request({ ...props, page: status.next, per_page: 1000 });
 
-      nextPage = resultado.pages?.next;
-    });
-  }
+    if (!pages || !data) break;
+
+    dadosCompilados.push(
+      ...(data.type === 'Polygon'
+        ? [polygon(data.coordinates)]
+        : data.coordinates.map((coords) => polygon(coords)))
+    );
+
+    status = pages;
+  } while (status.next && status.last && status.current < status.last);
 
   return featureCollection(dadosCompilados, { id: props.location });
 }
