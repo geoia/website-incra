@@ -14,7 +14,6 @@ import {
   MinusButton,
   MapButton,
   SettingsButton,
-  SatelliteButton,
   HomeButton,
 } from '../components/WebGIS/Buttons';
 import dynamic from 'next/dynamic';
@@ -246,11 +245,5 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
     </>
   );
 
-   {/* <SatelliteButton
-          tip="Ativar visão de satélite"
-          disable_tip="Desativar visão de satélite"
-          tip_placement="top"
-          active={showSatellite}
-          onClick={() => setSatelliteView(!showSatellite)}
-        /> */}
+   
 }
