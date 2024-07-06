@@ -3,7 +3,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import DownloadModal from '../components/WebGIS/DownloadModal';
 import Settings from '../components/WebGIS/Settings';
-import { Grid } from '@mui/material';
+import { Grid, styled } from '@mui/material';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import LayersIcon from '@mui/icons-material/Layers';
 import {
   DownloadButton,
   FireButton,
@@ -14,6 +18,7 @@ import {
   MinusButton,
   MapButton,
   SettingsButton,
+  SatelliteButton,
   HomeButton,
 } from '../components/WebGIS/Buttons';
 import dynamic from 'next/dynamic';
@@ -65,8 +70,13 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
   const [showLimitVisibility, setShowLimitVisibility] = useState(false);
   const [showSatellite, setSatelliteView] = useState(false);
   const [showLocation, setShowLocation] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   const mapRef = useRef<L.Map & { centralize: () => void }>(null);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     const { location, source } = Object.assign(
@@ -96,6 +106,17 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
   const handleHomeButtonClick = () => {
     mapRef?.current?.centralize();
   };
+
+  const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
+    '& .MuiFab-primary': {
+      width: 35, 
+      height: 35, 
+    },
+  }));
+
+  const StyledLayersIcon = styled(LayersIcon)(({ theme }) => ({
+    color: '#509CBF', 
+  }));
 
   return (
     <>
@@ -152,6 +173,28 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
           tip_placement="right"
           onClick={() => mapRef.current?.zoomOut()}
         />
+
+        {isClient && (
+                <StyledSpeedDial
+                  ariaLabel="SpeedDial example"
+                  icon={<SpeedDialIcon icon={<StyledLayersIcon />} />}
+                  direction='right' 
+                >
+                  <SpeedDialAction
+                    key="Satellite"
+                    icon={
+                      <SatelliteButton
+                        tip="Ativar visão de satélite"
+                        disable_tip="Desativar visão de satélite"
+                        tip_placement="right"
+                        active={showSatellite}
+                        onClick={() => setSatelliteView(!showSatellite)}
+                      />
+                    }
+                  />
+                </StyledSpeedDial>
+              )}
+        
       </Grid>
 
       <Grid
@@ -244,6 +287,4 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
       />
     </>
   );
-
-   
 }

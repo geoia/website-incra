@@ -161,23 +161,25 @@ export function SatelliteButton({
   ...props
 }: ButtonCustomProps & { active: boolean }) {
   return (
-    <BaseButton
+    <SmallBaseButton
       {...props}
       sx={{
-        background: active ? '#509CBF' : 'gray',
+        background: active ? 'gray' : 'white',
+        border: active ? 'none' : '1px solid transparent', 
         '&:hover': {
-          background: active ? '#509CBF' : 'gray',
+          background: active ? 'gray' : 'white',
         },
         ...sx,
       }}
       tip={active && disable_tip ? disable_tip : tip}
+      tip_placement='right'
     >
       {active ? (
-        <SatelliteAltOutlinedIcon fontSize="medium" />
+        <SatelliteAltOutlinedIcon fontSize="small" />
       ) : (
-        <SatelliteAltIcon fontSize="medium" />
+        <SatelliteAltIcon fontSize="small" />
       )}
-    </BaseButton>
+    </SmallBaseButton>
   );
 }
 
