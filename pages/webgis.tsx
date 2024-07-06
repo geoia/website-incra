@@ -131,7 +131,7 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
           mt: '15px',
           position: 'absolute',
           top: 'calc(3rem + 20px)',
-          left: '1rem',
+          left: '1.5rem',
           display: 'flex',
           flexDirection: 'column',
           gap: '0.5rem',
@@ -158,12 +158,10 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
       <Grid
         sx={{
           position: 'absolute',
-          width: '50px',
-          height: '50px',
-          bottom: '0',
-          left: '45%',
-          transform: 'translateX(-50%)',
-          margin: '1rem',
+          width: '45px',
+          height: '45px',
+          top: '0.9rem',
+          right: '4.5rem',
           display: 'flex',
           flexDirection: 'row',
           gap: '0.7rem',
@@ -171,15 +169,11 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
           '@media (max-width: 1500px)': {
             width: '45px',
             height: '45px',
-            mt: '5rem',
           },
           '@media (max-width: 600px)': {
-            left: '30%',
+            right: '3.5rem',
             gap: '0.5rem',
-          },
-          '@media (max-width: 400px)': {
-            gap: '0.1rem',
-          },
+          }
         }}
       >
         <SettingsButton
@@ -187,13 +181,10 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
           tip_placement="top"
           onClick={handleSettingsButtonClick}
         />
-        <DownloadButton tip="Download" tip_placement="top" onClick={handleDownloadButtonClick} />
-        <SatelliteButton
-          tip="Ativar visão de satélite"
-          disable_tip="Desativar visão de satélite"
+        <DownloadButton
+          tip="Download"
           tip_placement="top"
-          active={showSatellite}
-          onClick={() => setSatelliteView(!showSatellite)}
+          onClick={handleDownloadButtonClick}
         />
       </Grid>
       <Grid
@@ -254,4 +245,12 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
       />
     </>
   );
+
+   {/* <SatelliteButton
+          tip="Ativar visão de satélite"
+          disable_tip="Desativar visão de satélite"
+          tip_placement="top"
+          active={showSatellite}
+          onClick={() => setSatelliteView(!showSatellite)}
+        /> */}
 }
