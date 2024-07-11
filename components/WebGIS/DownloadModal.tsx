@@ -92,7 +92,7 @@ export default function DownloadModal({
         horizontal: 'center',
       }}
       sx={{
-        mt: '-10px',
+        mt: '50px',
         '& .MuiPaper-root': {
           backgroundColor: '#509CBF',
           color: 'white',
