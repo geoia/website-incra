@@ -20,6 +20,7 @@ import {
   SettingsButton,
   SatelliteButton,
   HomeButton,
+  DarkModeButton,
 } from '../components/WebGIS/Buttons';
 import dynamic from 'next/dynamic';
 import { SearchMenu } from '../components/WebGIS/SearchMenu';
@@ -65,7 +66,7 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
   const [location, setLocation] = useState<number | string>(props.location);
   const [source, setSource] = useState<string | undefined>(props.source);
   const [simplified, setSimplified] = useState(false);
-
+  const [darkMode, setDarkMode] = useState(false);
   const [showFire, setShowFire] = useState(true);
   const [showLimitVisibility, setShowLimitVisibility] = useState(false);
   const [showSatellite, setSatelliteView] = useState(false);
@@ -109,8 +110,8 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
 
   const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
     '& .MuiFab-primary': {
-      width: 35, 
-      height: 35, 
+      width: 35,
+      height: 35,
     },
   }));
 
@@ -128,6 +129,7 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
         showLocalizacao={showLocation}
         showLimitVisibility={showLimitVisibility}
         showSatellite={showSatellite}
+        darkMode={darkMode}
         showQueimadas={showFire}
         simplified={simplified}
         location={location}
@@ -175,25 +177,35 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
         />
 
         {isClient && (
-                <StyledSpeedDial
-                  ariaLabel="SpeedDial example"
-                  icon={<SpeedDialIcon icon={<StyledLayersIcon />} />}
-                  direction='right' 
-                >
-                  <SpeedDialAction
-                    key="Satellite"
-                    icon={
-                      <SatelliteButton
-                        tip="Ativar visão de satélite"
-                        disable_tip="Desativar visão de satélite"
-                        tip_placement="right"
-                        active={showSatellite}
-                        onClick={() => setSatelliteView(!showSatellite)}
-                      />
-                    }
-                  />
-                </StyledSpeedDial>
-              )}
+        <StyledSpeedDial
+          ariaLabel="SpeedDial Layers"
+          icon={<SpeedDialIcon icon={<StyledLayersIcon />} />}
+          direction='right'
+        >
+          <SpeedDialAction
+            key="Satellite"
+            icon={
+              <SatelliteButton
+                tip="Ativar visão de satélite"
+                disable_tip="Desativar visão de satélite"
+                active={showSatellite}
+                onClick={() => setSatelliteView(!showSatellite)}
+              />
+            }
+          />
+          <SpeedDialAction
+            key="Dark"
+            icon={
+              <DarkModeButton
+                tip="Ativar visão escura"
+                disable_tip="Desativar visão escura"
+                active={darkMode}
+                onClick={() => setDarkMode(!darkMode)}
+              />
+            }
+          />
+        </StyledSpeedDial>
+      )}
         
       </Grid>
 

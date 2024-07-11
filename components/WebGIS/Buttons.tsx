@@ -16,6 +16,8 @@ import { Tooltip } from '@mui/material';
 import SatelliteAltOutlinedIcon from '@mui/icons-material/SatelliteAltOutlined';
 import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
 import Home from '@mui/icons-material/Home';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkMode';
 
 interface ButtonCustomProps extends ButtonProps {
   tip: string;
@@ -76,9 +78,9 @@ function SmallBaseButton({ children, sx, tip, tip_placement, ...props }: ButtonC
       <Button
         variant="contained"
         sx={{
-          width: '40px',
+          width: '35px',
           minWidth: '0px',
-          height: '40px',
+          height: '35px',
           borderRadius: 20,
           backgroundColor: 'white',
           border: 0,
@@ -167,17 +169,47 @@ export function SatelliteButton({
         background: active ? 'gray' : 'white',
         border: active ? 'none' : '1px solid transparent', 
         '&:hover': {
-          background: active ? 'gray' : 'white',
+          backgroundColor: active ? 'gray' : 'white',
         },
         ...sx,
       }}
       tip={active && disable_tip ? disable_tip : tip}
-      tip_placement='right'
+      tip_placement='bottom'
     >
       {active ? (
         <SatelliteAltOutlinedIcon fontSize="small" />
       ) : (
         <SatelliteAltIcon fontSize="small" />
+      )}
+    </SmallBaseButton>
+  );
+}
+
+export function DarkModeButton({
+  active,
+  sx,
+  tip,
+  disable_tip,
+  ...props
+}: ButtonCustomProps & { active: boolean }) {
+  return (
+    <SmallBaseButton
+      {...props}
+      sx={{
+        background: active ? 'gray' : 'white',
+        border: active ? 'none' : '1px solid transparent',
+        '&:hover': {
+          background: active ? 'gray' : 'white',
+        },
+        ...sx,
+      }}
+      tip={active && disable_tip ? disable_tip : tip}
+      tip_placement='bottom'
+    >
+      {active ? (
+        <DarkModeOutlinedIcon fontSize="small" />
+      ) : (
+        <DarkModeIcon fontSize="small" />
       )}
     </SmallBaseButton>
   );
