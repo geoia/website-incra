@@ -29,7 +29,8 @@ export default function SettingsModal({
     const mobile = detectDevice();
     console.log('Device detected:', mobile); 
     setIsMobile(mobile);
-    setShowSimplifiedData(true);
+    if(mobile)
+      setShowSimplifiedData(true);
   }, []);
 
   const createChangeHandler =
