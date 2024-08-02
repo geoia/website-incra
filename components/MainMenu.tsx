@@ -18,6 +18,7 @@ const pages: Array<{ titulo: string; rota: string }> = [
   { titulo: 'Sobre', rota: 'sobre' },
   { titulo: 'WebGis', rota: 'webgis' },
   { titulo: 'Ajuda', rota: 'ajuda' },
+  { titulo: 'Estatísticas', rota: 'estatisticas' },
 ];
 
 function MainMenu() {
