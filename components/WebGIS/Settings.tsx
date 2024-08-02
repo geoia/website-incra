@@ -103,10 +103,9 @@ export default function SettingsModal({
               <Switch
                 checked={showSimplifiedData}
                 onChange={createChangeHandler(setShowSimplifiedData)}
-                disabled={isMobile} 
               />
             }
-            label={isMobile ? 'Versão simplificada ativada' : (showSimplifiedData ? 'Com Simplificação' : 'Sem Simplificação')}
+            label={showSimplifiedData ? 'Com Simplificação' : 'Sem Simplificação'}
           />
           <FormControlLabel
             control={
