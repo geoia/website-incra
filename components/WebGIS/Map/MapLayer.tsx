@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TileLayer, useMapEvents } from 'react-leaflet';
+import { TileLayer } from 'react-leaflet';
 
 const URLs = {
   streets: {

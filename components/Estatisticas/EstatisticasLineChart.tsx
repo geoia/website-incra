@@ -18,9 +18,6 @@ const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId,
         setData([]);  
 
         let response: any[] = [];
-        
-        console.log('Estado ID:', estadoId);
-        console.log('Município ID:', municipioId);
 
         if (estadoId) {
           console.log('Buscando estatísticas do estado...');

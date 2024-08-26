@@ -49,7 +49,7 @@ export default function Home() {
             top: 0,
           }}
         >
-          <Image src={homeFolhas} alt="homeTucano" height={220} width={400} />
+          <Image src={homeFolhas} alt="homeTucano" height={220} width={400} priority/>
         </Box>
         <Box
           sx={{
