@@ -15,24 +15,21 @@ const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId,
   useEffect(() => {
     const getEstatisticas = async () => {
       try {
-        setData([]);  
-
         let response: any[] = [];
-
-        if (estadoId) {
-          console.log('Buscando estatísticas do estado...');
-          const estadoData = await fetchEstatisticasEstado(estadoId);
-          response = response.concat(estadoData);
-        }
 
         if (municipioId) {
           console.log('Buscando estatísticas do município...');
           const municipioData = await fetchEstatisticasMunicipio(municipioId);
-          response = response.concat(municipioData);
+          response = municipioData;
+        } else if (estadoId) {
+          console.log('Buscando estatísticas do estado...');
+          const estadoData = await fetchEstatisticasEstado(estadoId);
+          response = estadoData;
         }
 
         if (response.length === 0) {
           console.warn("Nenhuma estatística foi carregada.");
+          setData([]);
           return;
         }
 
@@ -51,7 +48,7 @@ const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId,
     };
 
     getEstatisticas();
-  }, [estadoId, municipioId]); 
+  }, [estadoId, municipioId]);
 
   return (
     <>
