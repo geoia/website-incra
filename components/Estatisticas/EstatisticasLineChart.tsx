@@ -59,7 +59,7 @@ const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId,
   return (
     <>
       <Typography variant="h6" gutterBottom>{title}</Typography>
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="100%" height={450}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="mes" />
@@ -67,8 +67,8 @@ const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId,
           <Tooltip />
           <Legend />
           <Line type="monotone" dataKey="area_queimada" name="Área Queimada (km²)" stroke="#8884d8" />
-          <Line type="monotone" dataKey="focos" name="Focos" stroke="#82ca9d" />
-          <Line type="monotone" dataKey="percentual" name="Percentual" stroke="#ffc658" />
+          {/* <Line type="monotone" dataKey="focos" name="Focos" stroke="#82ca9d" />
+          <Line type="monotone" dataKey="percentual" name="Percentual" stroke="#ffc658" /> */}
         </LineChart>
       </ResponsiveContainer>
     </>
