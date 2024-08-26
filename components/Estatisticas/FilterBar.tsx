@@ -106,7 +106,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ onEstadoChange, onMunicipioChange
     if (estadoSelecionado && municipios.length > 0) {
       filterMunicipiosByEstado(estadoSelecionado);
     }
-  }, [municipios, estadoSelecionado]);
+  }, [municipios, estadoSelecionado, filterMunicipiosByEstado]);
 
   return (
     <FiltrosContainer>
