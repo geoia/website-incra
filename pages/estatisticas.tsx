@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import {
   Grid,
@@ -15,7 +15,7 @@ import {
 import Menu from '../components/MainMenu';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import EstatisticasChart from '../components/Estatisticas/EstatisticasChart'; 
-
+import FilterBar from '../components/Estatisticas/FilterBar';
 
 const dataBar = [
   { name: 'Category 1', uv: 225 },
@@ -23,7 +23,15 @@ const dataBar = [
   // ...restante dos dados
 ];
 
+
 export default function Estatisticas() {
+
+const [estadoId, setEstadoId] = useState<string | null>(null);
+
+const handleEstadoChange = (id: string) => {
+  setEstadoId(id);
+};
+
   return (
     <>
       <Head>
@@ -39,6 +47,7 @@ export default function Estatisticas() {
         </style>
       </Head>
       <Menu />
+      <FilterBar onEstadoChange={handleEstadoChange}></FilterBar>
 
       <Grid
         container
@@ -208,7 +217,7 @@ export default function Estatisticas() {
                   padding: '15px',
                 }}
               >
-                <EstatisticasChart estadoId={"50"} title="Estatísticas de Queimadas" />
+                {estadoId && <EstatisticasChart estadoId={estadoId} title="Estatísticas de Queimadas" />}
               </Box>
             </CardContent>
           </Card>
