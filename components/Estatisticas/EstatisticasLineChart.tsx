@@ -1,25 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Typography } from '@mui/material';
-import { fetchEstatisticasEstado } from '../../hooks/useEstatisticas';
+import { fetchEstatisticasEstado, fetchEstatisticasMunicipio } from '../../hooks/useEstatisticas';
 
-interface EstatisticasChartProps {
-  estadoId: string;
+interface EstatisticasLineChartProps {
+  estadoId?: string;
+  municipioId?: string;
   title: string;
 }
 
-const EstatisticasChart: React.FC<EstatisticasChartProps> = ({ estadoId, title }) => {
+const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId, municipioId, title }) => {
   const [data, setData] = useState<Array<any>>([]);
 
   useEffect(() => {
     const getEstatisticas = async () => {
       try {
-        const response = await fetchEstatisticasEstado(estadoId);
+        setData([]);  
+
+        let response: any[] = [];
+        
+        console.log('Estado ID:', estadoId);
+        console.log('Município ID:', municipioId);
+
+        if (estadoId) {
+          console.log('Buscando estatísticas do estado...');
+          const estadoData = await fetchEstatisticasEstado(estadoId);
+          response = response.concat(estadoData);
+        }
+
+        if (municipioId) {
+          console.log('Buscando estatísticas do município...');
+          const municipioData = await fetchEstatisticasMunicipio(municipioId);
+          response = response.concat(municipioData);
+        }
+
+        if (response.length === 0) {
+          console.warn("Nenhuma estatística foi carregada.");
+          return;
+        }
+
         const formattedData = response.flatMap((item: any) => 
           item.meses.map((mesData: any) => ({
-            mes: `${mesData.mes}/${item.ano}`, // Formata mês/ano para o eixo X
-            area_queimada: mesData.area_queimada / 1000000, // Converte para km²
-            focos: Number(mesData.focos), // Converte o valor para número
+            mes: `${mesData.mes}/${item.ano}`,
+            area_queimada: mesData.area_queimada / 1000000,
+            focos: Number(mesData.focos),
             percentual: mesData.percentual,
           }))
         );
@@ -30,7 +54,7 @@ const EstatisticasChart: React.FC<EstatisticasChartProps> = ({ estadoId, title }
     };
 
     getEstatisticas();
-  }, [estadoId]);
+  }, [estadoId, municipioId]); 
 
   return (
     <>
@@ -51,4 +75,4 @@ const EstatisticasChart: React.FC<EstatisticasChartProps> = ({ estadoId, title }
   );
 };
 
-export default EstatisticasChart;
+export default EstatisticasLineChart;

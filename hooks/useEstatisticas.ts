@@ -24,8 +24,4 @@ export const fetchEstatisticasEstado = async (estadoId: string, ano?: string) =>
   return response.data;
 };
 
-export const fetchEstatisticasEstadoTodosAnos = async (estadoId: string) => {
-  const response = await axios.get(`/api/estatisticas/estados/${estadoId}`);
-  return response.data;
-};
 

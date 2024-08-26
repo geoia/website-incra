@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import Menu from '../components/MainMenu';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
-import EstatisticasChart from '../components/Estatisticas/EstatisticasChart'; 
+import EstatisticasLineChart from '../components/Estatisticas/EstatisticasLineChart'; 
 import FilterBar from '../components/Estatisticas/FilterBar';
 
 const dataBar = [
@@ -23,14 +23,18 @@ const dataBar = [
   // ...restante dos dados
 ];
 
-
 export default function Estatisticas() {
+  const [estadoId, setEstadoId] = useState<string | null>(null);
+  const [municipioId, setMunicipioId] = useState<string | null>(null);
 
-const [estadoId, setEstadoId] = useState<string | null>(null);
+  const handleEstadoChange = (id: string) => {
+    setEstadoId(id);
+    setMunicipioId(null);  
+  };
 
-const handleEstadoChange = (id: string) => {
-  setEstadoId(id);
-};
+  const handleMunicipioChange = (id: string) => {
+    setMunicipioId(id);
+  };
 
   return (
     <>
@@ -47,7 +51,10 @@ const handleEstadoChange = (id: string) => {
         </style>
       </Head>
       <Menu />
-      <FilterBar onEstadoChange={handleEstadoChange}></FilterBar>
+      <FilterBar 
+        onEstadoChange={handleEstadoChange}
+        onMunicipioChange={handleMunicipioChange}
+      />
 
       <Grid
         container
@@ -217,7 +224,13 @@ const handleEstadoChange = (id: string) => {
                   padding: '15px',
                 }}
               >
-                {estadoId && <EstatisticasChart estadoId={estadoId} title="Estatísticas de Queimadas" />}
+                {(estadoId || municipioId) && (
+                  <EstatisticasLineChart 
+                    estadoId={estadoId || undefined} 
+                    municipioId={municipioId || undefined} 
+                    title="Estatísticas Gerais de Queimadas" 
+                  />
+                )}
               </Box>
             </CardContent>
           </Card>
