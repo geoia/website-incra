@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MenuItem, Select, FormControl, InputLabel, SelectChangeEvent, Box, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { fetchEstadosComEstatisticas, fetchMunicipiosComEstatisticas } from '../../hooks/useEstatisticas';
@@ -97,10 +97,10 @@ const FilterBar: React.FC<FilterBarProps> = ({ onEstadoChange, onMunicipioChange
     onMunicipioChange(municipioId); 
   };
 
-  const filterMunicipiosByEstado = (sigla: string) => {
+  const filterMunicipiosByEstado = useCallback((sigla: string) => {
     const municipiosFiltrados = municipios.filter(municipio => municipio.sigla === sigla);
     setMunicipiosFiltrados(municipiosFiltrados);
-  };
+  }, [municipios]);
 
   useEffect(() => {
     if (estadoSelecionado && municipios.length > 0) {
