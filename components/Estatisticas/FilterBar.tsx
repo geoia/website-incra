@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { MenuItem, Select, FormControl, InputLabel, SelectChangeEvent, Box, Typography } from '@mui/material';
 import { styled } from '@mui/system';
-import { fetchEstadosComEstatisticas, fetchMunicipiosComEstatisticas } from '../../hooks/useEstatisticas';
-
+import { fetchEstadosComEstatisticas, fetchMunicipiosComEstatisticas, fetchBiomasComEstatisticas } from '../../hooks/useEstatisticas';
+  
 const FiltrosContainer = styled(Box)(({ theme }) => ({
   backgroundColor: '#0A2846', 
   padding: theme.spacing(2),
@@ -37,9 +37,10 @@ const FormControlCustom = styled(FormControl)(({ theme }) => ({
 interface FilterBarProps {
   onEstadoChange: (estadoId: string) => void;
   onMunicipioChange: (municipioId: string) => void;
+  onBiomaChange: (biomaId: string) => void;
 }
 
-const FilterBar: React.FC<FilterBarProps> = ({ onEstadoChange, onMunicipioChange }) => {
+const FilterBar: React.FC<FilterBarProps> = ({ onEstadoChange, onMunicipioChange, onBiomaChange }) => {
   const [filtroSelecionado, setFiltroSelecionado] = useState<string>('');
   const [estados, setEstados] = useState<{ id: string; nome: string; sigla: string }[]>([]);
   const [municipios, setMunicipios] = useState<{ id: string; nome: string; sigla: string }[]>([]);
@@ -47,6 +48,8 @@ const FilterBar: React.FC<FilterBarProps> = ({ onEstadoChange, onMunicipioChange
   const [municipioSelecionado, setMunicipioSelecionado] = useState<string>('');
   const [municipiosFiltrados, setMunicipiosFiltrados] = useState<{ id: string; nome: string; sigla: string }[]>([]);
   const [carregandoMunicipios, setCarregandoMunicipios] = useState<boolean>(false);
+  const [biomas, setBiomas] = useState<{ id: string; nome: string }[]>([]);
+  const [biomaSelecionado, setBiomaSelecionado] = useState<string>('');
 
   const handleFiltroChange = (event: SelectChangeEvent<string>) => {
     const filtro = event.target.value as string;
@@ -54,6 +57,8 @@ const FilterBar: React.FC<FilterBarProps> = ({ onEstadoChange, onMunicipioChange
 
     if (filtro === 'Estados') {
       fetchEstados();
+    } else if (filtro === 'Biomas') {
+      fetchBiomas();
     }
   };
 
@@ -79,6 +84,15 @@ const FilterBar: React.FC<FilterBarProps> = ({ onEstadoChange, onMunicipioChange
     }
   };
 
+  const fetchBiomas = async () => {
+    try {
+      const data = await fetchBiomasComEstatisticas();
+      setBiomas(data);
+    } catch (error) {
+      console.error('Erro ao buscar biomas:', error);
+    }
+  };
+
   const handleEstadoChange = (event: SelectChangeEvent<string>) => {
     const sigla = event.target.value;
     setEstadoSelecionado(sigla);
@@ -95,6 +109,12 @@ const FilterBar: React.FC<FilterBarProps> = ({ onEstadoChange, onMunicipioChange
     const municipioId = event.target.value;
     setMunicipioSelecionado(municipioId);
     onMunicipioChange(municipioId); 
+  };
+
+  const handleBiomaChange = (event: SelectChangeEvent<string>) => {
+    const biomaId = event.target.value;
+    setBiomaSelecionado(biomaId);
+    onBiomaChange(biomaId); 
   };
 
   const filterMunicipiosByEstado = useCallback((sigla: string) => {
@@ -154,6 +174,23 @@ const FilterBar: React.FC<FilterBarProps> = ({ onEstadoChange, onMunicipioChange
             </FormControlCustom>
           )}
         </>
+      )}
+
+      {filtroSelecionado === 'Biomas' && (
+        <FormControlCustom>
+          <InputLabel>Selecionar bioma</InputLabel>
+          <Select
+            value={biomaSelecionado}
+            onChange={handleBiomaChange}
+            label="Selecionar bioma"
+          >
+            {biomas.map((bioma) => (
+              <MenuItem key={bioma.id} value={bioma.id}>
+                {bioma.nome}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControlCustom>
       )}
     </FiltrosContainer>
   );

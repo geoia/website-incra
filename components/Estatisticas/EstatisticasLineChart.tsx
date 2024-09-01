@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Typography } from '@mui/material';
-import { fetchEstatisticasEstado, fetchEstatisticasMunicipio } from '../../hooks/useEstatisticas';
+import { fetchEstatisticasEstado, fetchEstatisticasMunicipio, fetchEstatisticasBioma } from '../../hooks/useEstatisticas';
 
 interface EstatisticasLineChartProps {
   estadoId?: string;
   municipioId?: string;
+  biomaId?: string;
   title: string;
 }
 
-const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId, municipioId, title }) => {
+const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId, municipioId, biomaId, title }) => {
   const [data, setData] = useState<Array<any>>([]);
 
   useEffect(() => {
@@ -25,6 +26,10 @@ const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId,
           console.log('Buscando estatísticas do estado...');
           const estadoData = await fetchEstatisticasEstado(estadoId);
           response = estadoData;
+        } else if (biomaId) {
+          console.log('Buscando estatísticas do bioma...');
+          const biomaData = await fetchEstatisticasBioma(biomaId);
+          response = biomaData;
         }
 
         if (response.length === 0) {
@@ -48,7 +53,7 @@ const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId,
     };
 
     getEstatisticas();
-  }, [estadoId, municipioId]);
+  }, [estadoId, municipioId, biomaId]); 
 
   return (
     <>

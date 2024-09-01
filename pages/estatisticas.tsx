@@ -31,6 +31,7 @@ export default function Estatisticas() {
   const [estadoId, setEstadoId] = useState<string | null>(null);
   const [municipioId, setMunicipioId] = useState<string | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const [biomaId, setBiomaId] = useState<string | null>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -44,6 +45,10 @@ export default function Estatisticas() {
   const handleMunicipioChange = (id: string) => {
     setMunicipioId(id);
   };
+
+  const handleBiomaChange = (id: string) => {
+    setBiomaId(id);
+  }
 
   return (
     <>
@@ -64,6 +69,7 @@ export default function Estatisticas() {
         <FilterBar 
           onEstadoChange={handleEstadoChange}
           onMunicipioChange={handleMunicipioChange}
+          onBiomaChange={handleBiomaChange}
         />
       )}
 
@@ -243,6 +249,7 @@ export default function Estatisticas() {
                   <EstatisticasLineChart 
                     estadoId={estadoId || undefined} 
                     municipioId={municipioId || undefined} 
+                    biomaId={biomaId || undefined}
                     title="Estatísticas Gerais de Queimadas" 
                   />
                 </Box>
