@@ -6,16 +6,12 @@ import {
   Card,
   CardContent,
   Typography,
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
   Box,
 } from '@mui/material';
 import Menu from '../components/MainMenu';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import FilterBar from '../components/Estatisticas/FilterBar';
+import EstatisticasTable from '../components/Estatisticas/EstatisticasTable';
 
 const EstatisticasLineChart = dynamic(() => import('../components/Estatisticas/EstatisticasLineChart'), {
   ssr: false,
@@ -128,96 +124,16 @@ export default function Estatisticas() {
             <Grid item xs={12} lg={6}>
               <Grid container spacing={2} sx={{ height: '100%' }}>
                 <Grid item xs={12} sm={6}>
-                  <Card
-                    sx={{
-                      backgroundColor: '#509CBF',
-                      borderRadius: '25px',
-                      height: '100%',
-                    }}
-                  >
-                    <CardContent sx={{ padding: 3 }}>
-                      <Typography
-                        variant="h6"
-                        sx={{ color: 'white', marginBottom: 2, textAlign: 'center' }}
-                      >
-                        Tabela de Dados
-                      </Typography>
-                      <Box
-                        sx={{
-                          backgroundColor: 'white',
-                          borderRadius: '15px',
-                          padding: '15px',
-                          overflow: 'auto',
-                        }}
-                      >
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Coluna 1</TableCell>
-                              <TableCell>Coluna 2</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <TableRow>
-                              <TableCell>Dado 1</TableCell>
-                              <TableCell>Dado 2</TableCell>
-                            </TableRow>
-                            <TableRow>
-                              <TableCell>Dado 3</TableCell>
-                              <TableCell>Dado 4</TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </Box>
-                    </CardContent>
-                  </Card>
+                  <EstatisticasTable 
+                  title="Ranking de meses" 
+                  estadoId={estadoId || undefined}
+                  municipioId={municipioId || undefined}
+                  biomaId={biomaId || undefined}
+                  />
                 </Grid>
-
-                <Grid item xs={12} sm={6}>
-                  <Card
-                    sx={{
-                      backgroundColor: '#509CBF',
-                      borderRadius: '25px',
-                      height: '100%',
-                    }}
-                  >
-                    <CardContent sx={{ padding: 3 }}>
-                      <Typography
-                        variant="h6"
-                        sx={{ color: 'white', marginBottom: 2, textAlign: 'center' }}
-                      >
-                        Tabela de Dados
-                      </Typography>
-                      <Box
-                        sx={{
-                          backgroundColor: 'white',
-                          borderRadius: '15px',
-                          padding: '15px',
-                          overflow: 'auto',
-                        }}
-                      >
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Coluna 1</TableCell>
-                              <TableCell>Coluna 2</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <TableRow>
-                              <TableCell>Dado 1</TableCell>
-                              <TableCell>Dado 2</TableCell>
-                            </TableRow>
-                            <TableRow>
-                              <TableCell>Dado 3</TableCell>
-                              <TableCell>Dado 4</TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </Box>
-                    </CardContent>
-                  </Card>
-                </Grid>
+                {/* <Grid item xs={12} sm={6}>
+                  <EstatisticasTable title="Tabela de Dados 2" />
+                </Grid> */}
               </Grid>
             </Grid>
           </>
