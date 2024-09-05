@@ -7,6 +7,7 @@ import {
   CardContent,
   Typography,
   Box,
+  Button, // Import Button from Material-UI
 } from '@mui/material';
 import Menu from '../components/MainMenu';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
@@ -26,8 +27,9 @@ const dataBar = [
 export default function Estatisticas() {
   const [estadoId, setEstadoId] = useState<string | null>(null);
   const [municipioId, setMunicipioId] = useState<string | null>(null);
-  const [isClient, setIsClient] = useState(false);
   const [biomaId, setBiomaId] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -44,7 +46,11 @@ export default function Estatisticas() {
 
   const handleBiomaChange = (id: string) => {
     setBiomaId(id);
-  }
+  };
+
+  const toggleFilter = () => {
+    setShowFilter(!showFilter);
+  };
 
   return (
     <>
@@ -61,7 +67,8 @@ export default function Estatisticas() {
         </style>
       </Head>
       <Menu />
-      {isClient && (
+
+      {isClient && showFilter && (
         <FilterBar 
           onEstadoChange={handleEstadoChange}
           onMunicipioChange={handleMunicipioChange}
@@ -69,13 +76,40 @@ export default function Estatisticas() {
         />
       )}
 
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'left',
+          marginTop: '1rem',
+        }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={toggleFilter}
+          sx={{
+            backgroundColor: '#0F1C3C',
+            borderRadius: '10px',
+            border: '1px solid white',
+            color: 'white',
+            padding: 2,
+            marginLeft: 2,
+            '&:hover': {
+              backgroundColor: '#0F1C3C',
+            },
+          }}
+        >
+          {showFilter ? 'Esconder Filtros' : 'Mostrar Filtros'}
+        </Button>
+      </Box>
+
       <Grid
         container
         spacing={2}
         sx={{
           backgroundColor: '#0F1C3C',
           padding: 2,
-          marginTop: '4rem',
+          marginTop: '2rem',
         }}
       >
         {/* Primeira Camada: Gráfico de Barras + Tabelas */}
@@ -131,9 +165,6 @@ export default function Estatisticas() {
                   biomaId={biomaId || undefined}
                   />
                 </Grid>
-                {/* <Grid item xs={12} sm={6}>
-                  <EstatisticasTable title="Tabela de Dados 2" />
-                </Grid> */}
               </Grid>
             </Grid>
           </>
