@@ -7,22 +7,17 @@ import {
   CardContent,
   Typography,
   Box,
-  Button, // Import Button from Material-UI
+  Button,
 } from '@mui/material';
 import Menu from '../components/MainMenu';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import FilterBar from '../components/Estatisticas/FilterBar';
 import EstatisticasTable from '../components/Estatisticas/EstatisticasTable';
+import EstatisticasBarChart from '../components/Estatisticas/EstatisticasBarChart'; 
 
 const EstatisticasLineChart = dynamic(() => import('../components/Estatisticas/EstatisticasLineChart'), {
   ssr: false,
 });
 
-const dataBar = [
-  { name: 'Category 1', uv: 225 },
-  { name: 'Category 2', uv: 256 },
-  // ...restante dos dados
-];
 
 export default function Estatisticas() {
   const [estadoId, setEstadoId] = useState<string | null>(null);
@@ -116,48 +111,16 @@ export default function Estatisticas() {
         {isClient && (
           <>
             <Grid item xs={12} lg={6}>
-              <Card
-                sx={{
-                  backgroundColor: '#509CBF',
-                  borderRadius: '25px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '100%',
-                }}
-              >
-                <CardContent sx={{ padding: 3, flexGrow: 1 }}>
-                  <Typography
-                    variant="h6"
-                    sx={{ color: 'white', marginBottom: 2, textAlign: 'center' }}
-                  >
-                    Gráfico de Barras
-                  </Typography>
-                  <Box
-                    sx={{
-                      backgroundColor: 'white',
-                      borderRadius: '15px',
-                      padding: '15px',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      height: '300px',
-                    }}
-                  >
-                    <BarChart width={500} height={250} data={dataBar}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Bar dataKey="uv" fill="#8884d8" />
-                    </BarChart>
-                  </Box>
-                </CardContent>
-              </Card>
+              <EstatisticasBarChart 
+                  title="Linha do tempo de focos de queimadas" 
+                  estadoId={estadoId || undefined}
+                  municipioId={municipioId || undefined}
+                  biomaId={biomaId || undefined} />
             </Grid>
 
             <Grid item xs={12} lg={6}>
               <Grid container spacing={2} sx={{ height: '100%' }}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                   <EstatisticasTable 
                   title="Ranking de meses" 
                   estadoId={estadoId || undefined}
@@ -170,7 +133,7 @@ export default function Estatisticas() {
           </>
         )}
 
-        {/* Segunda Camada: Gráfico de Linhas utilizando EstatisticasChart */}
+        {/* Segunda Camada: Gráfico de Linhas */}
         {isClient && (
           <Grid item xs={12} sx={{ marginTop: 2 }}>
             <Card
@@ -184,7 +147,7 @@ export default function Estatisticas() {
                   variant="h6"
                   sx={{ color: 'white', marginBottom: 2, textAlign: 'center' }}
                 >
-                  Gráfico de Linhas
+                  Linha do tempo de área queimada
                 </Typography>
                 <Box
                   sx={{
@@ -197,7 +160,6 @@ export default function Estatisticas() {
                     estadoId={estadoId || undefined} 
                     municipioId={municipioId || undefined} 
                     biomaId={biomaId || undefined}
-                    title="Estatísticas Gerais de Queimadas" 
                   />
                 </Box>
               </CardContent>

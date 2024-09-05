@@ -7,10 +7,9 @@ interface EstatisticasLineChartProps {
   estadoId?: string;
   municipioId?: string;
   biomaId?: string;
-  title: string;
 }
 
-const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId, municipioId, biomaId, title }) => {
+const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId, municipioId, biomaId }) => {
   const [data, setData] = useState<Array<any>>([]);
 
   useEffect(() => {
@@ -57,7 +56,7 @@ const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId,
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>{title}</Typography>
+      <Typography variant="h6" gutterBottom>{}</Typography>
       <ResponsiveContainer width="100%" height={450}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
