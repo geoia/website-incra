@@ -7,7 +7,6 @@ const FiltrosContainer = styled(Box)(({ theme }) => ({
   backgroundColor: '#0A2846', 
   padding: theme.spacing(2),
   borderRadius: theme.shape.borderRadius,
-  display: 'flex',
   alignItems: 'center',
 }));
 
@@ -130,7 +129,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ onEstadoChange, onMunicipioChange
 
   return (
     <FiltrosContainer>
-      <FiltroTitle>Filtros</FiltroTitle>
+      <FiltroTitle style={{marginBottom:20}}>Filtros</FiltroTitle>
 
       <FormControlCustom>
         <InputLabel>Filtrar por</InputLabel>
