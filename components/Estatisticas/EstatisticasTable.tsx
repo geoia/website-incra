@@ -61,7 +61,7 @@ const EstatisticasTable: React.FC<EstatisticasTableProps> = ({ title, estadoId, 
       sx={{
         backgroundColor: '#509CBF',
         borderRadius: '25px',
-        height: '100%',
+        height: '396px',
       }}
     >
       <CardContent sx={{ padding: 3 }}>
