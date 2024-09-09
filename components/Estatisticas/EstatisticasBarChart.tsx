@@ -38,12 +38,15 @@ const EstatisticasBarChart: React.FC<EstatisticasBarChartProps> = ({ estadoId, m
               return;
             }
     
-            const formattedData = response.flatMap((item: any) => 
-              item.meses.map((mesData: any) => ({
-                mes: `${mesData.mes}/${item.ano}`, 
-                focos: Number(mesData.focos),      
-              }))
-            );
+            const formattedData = response.reduce((acc: any, item: any) => {
+              const totalFocos = item.meses.reduce((sum: number, mesData: any) => sum + Number(mesData.focos), 0);
+              acc.push({
+                ano: item.ano,
+                focos: totalFocos,
+              });
+              return acc;
+            }, []);
+    
             setData(formattedData);
           } catch (error) {
             console.error("Erro ao buscar estatísticas:", error);
@@ -83,7 +86,7 @@ const EstatisticasBarChart: React.FC<EstatisticasBarChartProps> = ({ estadoId, m
         >
           <BarChart width={500} height={250} data={data}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="mes" />
+            <XAxis dataKey="ano" />
             <YAxis />
             <Tooltip />
             <Bar dataKey="focos" fill="#8884d8" />
