@@ -14,6 +14,7 @@ export function LimitsLayer(props: {
   location: Feature<Polygon>;
   queimadas?: FeatureCollection<Polygon>;
   showSatellite: boolean;
+  darkMode: boolean;
 }) {
   const unmount = useUnmountRef();
 

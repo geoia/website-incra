@@ -17,6 +17,7 @@ interface Props {
   showLocalizacao: boolean;
   showLimitVisibility: boolean;
   showSatellite: boolean;
+  darkMode: boolean;
   showQueimadas: boolean;
   forwardRef?: RefObject<L.Map>;
 }
@@ -29,6 +30,13 @@ export default function Map(props: Props) {
     () => municipio.isLoading || queimadas.isLoading,
     [municipio.isLoading, queimadas.isLoading]
   );
+
+  // Determina o tipo de camada com base em `showSatellite` e `darkMode`
+  const mapType = useMemo(() => {
+    if (props.showSatellite) return 'satellite';
+    if (props.darkMode) return 'dark';
+    return 'streets';
+  }, [props.showSatellite, props.darkMode]);
 
   return (
     <>
@@ -72,7 +80,7 @@ export default function Map(props: Props) {
       >
         <MapController ref={props.forwardRef} center={municipio.data} />
         <ScaleControl position="bottomleft" />
-        <MapLayer type={props.showSatellite ? 'satellite' : 'streets'} />
+        <MapLayer type={mapType} />
 
         {props.showLocalizacao && <Location />}
 
@@ -81,6 +89,7 @@ export default function Map(props: Props) {
             location={municipio.data}
             queimadas={queimadas.data}
             showSatellite={props.showSatellite}
+            darkMode={props.darkMode}
           />
         )}
 

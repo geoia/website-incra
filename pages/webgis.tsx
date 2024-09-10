@@ -3,7 +3,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import DownloadModal from '../components/WebGIS/DownloadModal';
 import Settings from '../components/WebGIS/Settings';
-import { Grid } from '@mui/material';
+import { Grid, styled } from '@mui/material';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import LayersIcon from '@mui/icons-material/Layers';
 import {
   DownloadButton,
   FireButton,
@@ -16,6 +20,7 @@ import {
   SettingsButton,
   SatelliteButton,
   HomeButton,
+  DarkModeButton,
 } from '../components/WebGIS/Buttons';
 import dynamic from 'next/dynamic';
 import { SearchMenu } from '../components/WebGIS/SearchMenu';
@@ -61,13 +66,18 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
   const [location, setLocation] = useState<number | string>(props.location);
   const [source, setSource] = useState<string | undefined>(props.source);
   const [simplified, setSimplified] = useState(false);
-
+  const [darkMode, setDarkMode] = useState(false);
   const [showFire, setShowFire] = useState(true);
   const [showLimitVisibility, setShowLimitVisibility] = useState(false);
   const [showSatellite, setSatelliteView] = useState(false);
   const [showLocation, setShowLocation] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   const mapRef = useRef<L.Map & { centralize: () => void }>(null);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     const { location, source } = Object.assign(
@@ -98,6 +108,17 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
     mapRef?.current?.centralize();
   };
 
+  const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
+    '& .MuiFab-primary': {
+      width: 35,
+      height: 35,
+    },
+  }));
+
+  const StyledLayersIcon = styled(LayersIcon)(({ theme }) => ({
+    color: '#509CBF', 
+  }));
+
   return (
     <>
       <Head>
@@ -108,6 +129,7 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
         showLocalizacao={showLocation}
         showLimitVisibility={showLimitVisibility}
         showSatellite={showSatellite}
+        darkMode={darkMode}
         showQueimadas={showFire}
         simplified={simplified}
         location={location}
@@ -131,7 +153,7 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
           mt: '15px',
           position: 'absolute',
           top: 'calc(3rem + 20px)',
-          left: '1rem',
+          left: '1.5rem',
           display: 'flex',
           flexDirection: 'column',
           gap: '0.5rem',
@@ -153,17 +175,47 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
           tip_placement="right"
           onClick={() => mapRef.current?.zoomOut()}
         />
+
+        {isClient && (
+        <StyledSpeedDial
+          ariaLabel="SpeedDial Layers"
+          icon={<SpeedDialIcon icon={<StyledLayersIcon />} />}
+          direction='right'
+        >
+          <SpeedDialAction
+            key="Satellite"
+            icon={
+              <SatelliteButton
+                tip="Ativar visão de satélite"
+                disable_tip="Desativar visão de satélite"
+                active={showSatellite}
+                onClick={() => setSatelliteView(!showSatellite)}
+              />
+            }
+          />
+          <SpeedDialAction
+            key="Dark"
+            icon={
+              <DarkModeButton
+                tip="Ativar visão escura"
+                disable_tip="Desativar visão escura"
+                active={darkMode}
+                onClick={() => setDarkMode(!darkMode)}
+              />
+            }
+          />
+        </StyledSpeedDial>
+      )}
+        
       </Grid>
 
       <Grid
         sx={{
           position: 'absolute',
-          width: '50px',
-          height: '50px',
-          bottom: '0',
-          left: '45%',
-          transform: 'translateX(-50%)',
-          margin: '1rem',
+          width: '45px',
+          height: '45px',
+          top: '0.9rem',
+          right: '4.5rem',
           display: 'flex',
           flexDirection: 'row',
           gap: '0.7rem',
@@ -171,15 +223,11 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
           '@media (max-width: 1500px)': {
             width: '45px',
             height: '45px',
-            mt: '5rem',
           },
           '@media (max-width: 600px)': {
-            left: '30%',
+            right: '3.5rem',
             gap: '0.5rem',
-          },
-          '@media (max-width: 400px)': {
-            gap: '0.1rem',
-          },
+          }
         }}
       >
         <SettingsButton
@@ -187,13 +235,10 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
           tip_placement="top"
           onClick={handleSettingsButtonClick}
         />
-        <DownloadButton tip="Download" tip_placement="top" onClick={handleDownloadButtonClick} />
-        <SatelliteButton
-          tip="Ativar visão de satélite"
-          disable_tip="Desativar visão de satélite"
+        <DownloadButton
+          tip="Download"
           tip_placement="top"
-          active={showSatellite}
-          onClick={() => setSatelliteView(!showSatellite)}
+          onClick={handleDownloadButtonClick}
         />
       </Grid>
       <Grid
