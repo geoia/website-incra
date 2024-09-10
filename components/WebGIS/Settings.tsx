@@ -1,6 +1,8 @@
+import React, { useState, useEffect } from 'react';
 import Menu from '@mui/material/Menu';
 import { Switch, FormControlLabel, FormGroup } from '@mui/material';
 import { Grid } from '@mui/material';
+import detectDevice from './../../helpers/detectDevice'; 
 
 interface Props {
   anchorEl: null | HTMLElement;
@@ -20,6 +22,16 @@ export default function SettingsModal({
   setShowLimitVisibility,
 }: Props) {
   const open = Boolean(anchorEl);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    console.log('Detectando dispositivo...');
+    const mobile = detectDevice();
+    console.log('Device detected:', mobile); 
+    setIsMobile(mobile);
+    if(mobile)
+      setShowSimplifiedData(true);
+  }, []);
 
   const createChangeHandler =
     (setter: (value: boolean) => void) => (event: React.ChangeEvent<HTMLInputElement>) => {
