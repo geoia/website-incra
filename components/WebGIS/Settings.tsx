@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Menu from '@mui/material/Menu';
 import { Switch, FormControlLabel, FormGroup } from '@mui/material';
 import { Grid } from '@mui/material';
@@ -24,14 +24,19 @@ export default function SettingsModal({
   const open = Boolean(anchorEl);
   const [isMobile, setIsMobile] = useState(false);
 
+  const memoizedSetShowSimplifiedData = useCallback((value: boolean) => {
+    setShowSimplifiedData(value);
+  }, [setShowSimplifiedData]);
+
   useEffect(() => {
     console.log('Detectando dispositivo...');
     const mobile = detectDevice();
     console.log('Device detected:', mobile); 
     setIsMobile(mobile);
-    if(mobile)
-      setShowSimplifiedData(true);
-  }, []);
+    if(mobile) {
+      memoizedSetShowSimplifiedData(true);
+    }
+  }, [memoizedSetShowSimplifiedData]);
 
   const createChangeHandler =
     (setter: (value: boolean) => void) => (event: React.ChangeEvent<HTMLInputElement>) => {

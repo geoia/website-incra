@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TileLayer, useMapEvents } from 'react-leaflet';
+import { TileLayer } from 'react-leaflet';
 
 const URLs = {
   streets: {
@@ -25,12 +25,6 @@ const URLs = {
 export default function MapLayer(props: { type: 'satellite' | 'streets' | 'dark' }) {
   const [url, setUrl] = useState(URLs[props.type].primary);
 
-  const map = useMapEvents({
-    tileerror: (error) => {
-      console.log('Tile error:', error);
-      setUrl(URLs[props.type].alternative);
-    },
-  });
 
   useEffect(() => {
     console.log(`Setting URL for type ${props.type}`);

@@ -177,35 +177,42 @@ export default function Principal(props: InferGetServerSidePropsType<typeof getS
         />
 
         {isClient && (
-        <StyledSpeedDial
-          ariaLabel="SpeedDial Layers"
-          icon={<SpeedDialIcon icon={<StyledLayersIcon />} />}
-          direction='right'
-        >
-          <SpeedDialAction
-            key="Satellite"
-            icon={
-              <SatelliteButton
-                tip="Ativar visão de satélite"
-                disable_tip="Desativar visão de satélite"
-                active={showSatellite}
-                onClick={() => setSatelliteView(!showSatellite)}
-              />
-            }
-          />
-          <SpeedDialAction
-            key="Dark"
-            icon={
-              <DarkModeButton
-                tip="Ativar visão escura"
-                disable_tip="Desativar visão escura"
-                active={darkMode}
-                onClick={() => setDarkMode(!darkMode)}
-              />
-            }
-          />
-        </StyledSpeedDial>
-      )}
+          <StyledSpeedDial
+            ariaLabel="SpeedDial Layers"
+            icon={<SpeedDialIcon icon={<StyledLayersIcon />} />}
+            direction="right"
+          >
+            <SpeedDialAction
+              key="Satellite"
+              icon={
+                <SatelliteButton
+                  tip="Ativar visão de satélite"
+                  disable_tip="Desativar visão de satélite"
+                  active={showSatellite}
+                  onClick={() => {
+                    setSatelliteView(!showSatellite);  
+                    if (!showSatellite) setDarkMode(false);  
+                  }}
+                />
+              }
+            />
+            <SpeedDialAction
+              key="Dark"
+              icon={
+                <DarkModeButton
+                  tip="Ativar visão escura"
+                  disable_tip="Desativar visão escura"
+                  active={darkMode}
+                  onClick={() => {
+                    setDarkMode(!darkMode);  
+                    if (!darkMode) setSatelliteView(false);  
+                  }}
+                />
+              }
+            />
+          </StyledSpeedDial>
+        )}
+
         
       </Grid>
 
