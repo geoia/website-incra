@@ -76,7 +76,7 @@ const EstatisticasTable: React.FC<EstatisticasTableProps> = ({ title, estadoId, 
             backgroundColor: 'white',
             borderRadius: '15px',
             padding: '15px',
-            maxHeight: '400px',
+            maxHeight: '300px',
             overflowY: 'auto',  
           }}
         >
