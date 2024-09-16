@@ -23,24 +23,31 @@ export default function Estatisticas() {
   const [estadoId, setEstadoId] = useState<string | null>(null);
   const [municipioId, setMunicipioId] = useState<string | null>(null);
   const [biomaId, setBiomaId] = useState<string | null>(null);
+  
+  const [localSelecionado, setLocalSelecionado] = useState<string | null>(null);
+
   const [isClient, setIsClient] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
+
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const handleEstadoChange = (id: string) => {
+  const handleEstadoChange = (id: string, nome: string) => {
     setEstadoId(id);
-    setMunicipioId(null);  
+    setMunicipioId(null);
+    setLocalSelecionado(nome);
   };
-
-  const handleMunicipioChange = (id: string) => {
+  
+  const handleMunicipioChange = (id: string, nome: string) => {
     setMunicipioId(id);
+    setLocalSelecionado(nome);
   };
-
-  const handleBiomaChange = (id: string) => {
+  
+  const handleBiomaChange = (id: string, nome: string) => {
     setBiomaId(id);
+    setLocalSelecionado(nome);
   };
 
   const toggleFilter = () => {
@@ -97,6 +104,10 @@ export default function Estatisticas() {
           {showFilter ? 'Esconder Filtros' : 'Mostrar Filtros'}
         </Button>
       </Box>
+      
+      <Typography variant='h2' style={{textAlign:"center", color:"white"}}>
+          {localSelecionado}
+      </Typography>
 
       <Grid
         container
@@ -104,7 +115,7 @@ export default function Estatisticas() {
         sx={{
           backgroundColor: '#0F1C3C',
           padding: 2,
-          marginTop: '2rem',
+          marginTop: '1rem',
         }}
       >
         {/* Primeira Camada: Gráfico de Barras + Tabelas */}
