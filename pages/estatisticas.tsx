@@ -44,6 +44,13 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
   }, []);
 
   useEffect(() => {
+    if (municipioId === "5003207") {
+      setLocalSelecionado("Corumbá");
+    }
+  }, [municipioId]);
+  
+
+  useEffect(() => {
     const { estadoId, municipioId, biomaId } = router.query;
     if (isValidParam(estadoId)) setEstadoId(estadoId as string);
     if (isValidParam(municipioId)) setMunicipioId(municipioId as string);
