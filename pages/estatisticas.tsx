@@ -33,8 +33,11 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
   const [estadoId, setEstadoId] = useState<string | null>(props.estadoId || null);
   const [municipioId, setMunicipioId] = useState<string | null>(props.municipioId || null);
   const [biomaId, setBiomaId] = useState<string | null>(props.biomaId || null);
+
   const [isClient, setIsClient] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
+
+  const [localSelecionado, setLocalSelecionado] = useState<string | null>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -47,9 +50,10 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
     if (isValidParam(biomaId)) setBiomaId(biomaId as string);
   }, [router.query]);
 
-  const handleEstadoChange = (id: string) => {
+  const handleEstadoChange = (id: string, nome: string) => {
     setEstadoId(id);
     setMunicipioId(null);
+    setLocalSelecionado(nome);
     router.push({
       query: {
         ...router.query, 
@@ -58,9 +62,10 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
       }
     });
   };
-
-  const handleMunicipioChange = (id: string) => {
+  
+  const handleMunicipioChange = (id: string, nome: string) => {
     setMunicipioId(id);
+    setLocalSelecionado(nome);
     router.push({
       query: {
         ...router.query,  
@@ -68,11 +73,12 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
       }
     });
   };
-
-  const handleBiomaChange = (id: string) => {
+  
+  const handleBiomaChange = (id: string, nome: string) => {
     setBiomaId(id);
     setEstadoId(null);
     setMunicipioId(null);
+    setLocalSelecionado(nome);
     router.push({
       query: {
         ...router.query,
@@ -127,6 +133,10 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
           {showFilter ? 'Esconder Filtros' : 'Mostrar Filtros'}
         </Button>
       </Box>
+      
+      <Typography variant='h2' style={{textAlign:"center", color:"white"}}>
+          {localSelecionado}
+      </Typography>
 
       <Grid container spacing={2} sx={{ backgroundColor: '#0F1C3C', padding: 2, marginTop: '2rem' }}>
         {/* Primeira Camada: Gráfico de Barras + Tabelas */}

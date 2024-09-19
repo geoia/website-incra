@@ -34,9 +34,9 @@ const FormControlCustom = styled(FormControl)(({ theme }) => ({
 }));
 
 interface FilterBarProps {
-  onEstadoChange: (estadoId: string) => void;
-  onMunicipioChange: (municipioId: string) => void;
-  onBiomaChange: (biomaId: string) => void;
+  onEstadoChange: (estadoId: string, estadoNome: string) => void;
+  onMunicipioChange: (municipioId: string, municipioNome: string) => void;
+  onBiomaChange: (biomaId: string, biomaNome: string) => void;
 }
 
 const FilterBar: React.FC<FilterBarProps> = ({ onEstadoChange, onMunicipioChange, onBiomaChange }) => {
@@ -53,10 +53,18 @@ const FilterBar: React.FC<FilterBarProps> = ({ onEstadoChange, onMunicipioChange
   const handleFiltroChange = (event: SelectChangeEvent<string>) => {
     const filtro = event.target.value as string;
     setFiltroSelecionado(filtro);
-
+  
     if (filtro === 'Estados') {
+      setBiomaSelecionado(''); 
+      setEstadoSelecionado('');
+      setMunicipioSelecionado('');
+      setMunicipiosFiltrados([]);
       fetchEstados();
     } else if (filtro === 'Biomas') {
+      setEstadoSelecionado('');
+      setMunicipioSelecionado('');
+      setMunicipiosFiltrados([]);
+      setBiomaSelecionado(''); 
       fetchBiomas();
     }
   };
@@ -99,21 +107,27 @@ const FilterBar: React.FC<FilterBarProps> = ({ onEstadoChange, onMunicipioChange
 
     const estado = estados.find((estado) => estado.sigla === sigla);
     if (estado) {
-      onEstadoChange(estado.id);
+      onEstadoChange(estado.id, estado.nome);
       fetchMunicipios(); 
     }
   };
 
   const handleMunicipioChange = (event: SelectChangeEvent<string>) => {
     const municipioId = event.target.value;
-    setMunicipioSelecionado(municipioId);
-    onMunicipioChange(municipioId); 
+    const municipio = municipios.find(m => m.id === municipioId);
+    if (municipio) {
+      setMunicipioSelecionado(municipioId);
+      onMunicipioChange(municipioId, municipio.nome);
+    }
   };
 
   const handleBiomaChange = (event: SelectChangeEvent<string>) => {
     const biomaId = event.target.value;
-    setBiomaSelecionado(biomaId);
-    onBiomaChange(biomaId); 
+    const bioma = biomas.find(b => b.id === biomaId);
+    if (bioma) {
+      setBiomaSelecionado(biomaId);
+      onBiomaChange(biomaId, bioma.nome);
+    }
   };
 
   const filterMunicipiosByEstado = useCallback((sigla: string) => {
