@@ -18,7 +18,7 @@ function isValidParam(param: any): boolean {
 }
 
 export const getServerSideProps = (async ({ query }) => {
-  const props: { estadoId?: string; municipioId?: string; biomaId?: string } = {};
+  const props: { estadoId?: string; municipioId?: string; biomaId?: string } = {municipioId: "5003207"};
 
   if (isValidParam(query.estadoId)) props.estadoId = query.estadoId as string;
   if (isValidParam(query.municipioId)) props.municipioId = query.municipioId as string;
@@ -42,6 +42,13 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (municipioId === "5003207") {
+      setLocalSelecionado("Corumbá");
+    }
+  }, [municipioId]);
+  
 
   useEffect(() => {
     const { estadoId, municipioId, biomaId } = router.query;
