@@ -43,9 +43,18 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
 
   useEffect(() => {
     const { estadoId, municipioId, biomaId } = router.query;
-    if (isValidParam(estadoId)) setLocalId(estadoId as string);
-    if (isValidParam(municipioId)) setLocalId(municipioId as string);
-    if (isValidParam(biomaId)) setLocalId(biomaId as string);
+    if (isValidParam(estadoId)){
+      setLocalId(estadoId as string);
+      setLocal('estados');
+    };
+    if (isValidParam(municipioId)){
+      setLocalId(municipioId as string);
+      setLocal('municipios');
+    }
+    if (isValidParam(biomaId)){
+      setLocalId(biomaId as string);
+      setLocal('biomas');
+    };
   }, [router.query]);
 
   const handleLocalChange = (local: string, localId: string, localNome: string) =>{
