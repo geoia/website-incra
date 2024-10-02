@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Typography, Box, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
-import { fetchEstatisticasEstado, fetchEstatisticasMunicipio, fetchEstatisticasBioma } from '../../hooks/useEstatisticas';
+import { fetchEstatisticas } from '../../hooks/useEstatisticas';
 
 interface EstatisticasTableProps {
+  local?: string;
+  localId?: string;
   title: string;
-  estadoId?: string;
-  municipioId?: string;
-  biomaId?: string;
 }
 
-const EstatisticasTable: React.FC<EstatisticasTableProps> = ({ title, estadoId, municipioId, biomaId }) => {
+const EstatisticasTable: React.FC<EstatisticasTableProps> = ({ local, localId, title }) => {
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
@@ -17,18 +16,10 @@ const EstatisticasTable: React.FC<EstatisticasTableProps> = ({ title, estadoId, 
       try {
         let response: any[] = [];
 
-        if (municipioId) {
-          console.log('Buscando estatísticas do município...');
-          const municipioData = await fetchEstatisticasMunicipio(municipioId);
-          response = municipioData;
-        } else if (estadoId) {
-          console.log('Buscando estatísticas do estado...');
-          const estadoData = await fetchEstatisticasEstado(estadoId);
-          response = estadoData;
-        } else if (biomaId) {
-          console.log('Buscando estatísticas do bioma...');
-          const biomaData = await fetchEstatisticasBioma(biomaId);
-          response = biomaData;
+        if(local && localId){
+          console.log(`Buscando estatísticas do ${local}...`);
+          const data = await fetchEstatisticas(local, localId)
+          response = data;
         }
 
         if (response.length === 0) {
@@ -54,7 +45,7 @@ const EstatisticasTable: React.FC<EstatisticasTableProps> = ({ title, estadoId, 
     };
 
     getEstatisticas();
-  }, [estadoId, municipioId, biomaId]);
+  }, [local, localId]);
 
   return (
     <Card

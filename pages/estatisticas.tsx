@@ -18,7 +18,7 @@ function isValidParam(param: any): boolean {
 }
 
 export const getServerSideProps = (async ({ query }) => {
-  const props: { estadoId?: string; municipioId?: string; biomaId?: string } = {municipioId: "5003207"};
+  const props: { estadoId?: string; municipioId?: string; biomaId?: string } = {};
 
   if (isValidParam(query.estadoId)) props.estadoId = query.estadoId as string;
   if (isValidParam(query.municipioId)) props.municipioId = query.municipioId as string;
@@ -30,13 +30,11 @@ export const getServerSideProps = (async ({ query }) => {
 export default function Estatisticas(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
 
-  const [estadoId, setEstadoId] = useState<string | null>(props.estadoId || null);
-  const [municipioId, setMunicipioId] = useState<string | null>(props.municipioId || null);
-  const [biomaId, setBiomaId] = useState<string | null>(props.biomaId || null);
-
   const [isClient, setIsClient] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
 
+  const [local, setLocal] = useState<string | null>('');
+  const [localId, setLocalId] = useState<string | null>(null);
   const [localSelecionado, setLocalSelecionado] = useState<string | null>(null);
 
   useEffect(() => {
@@ -44,57 +42,56 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
   }, []);
 
   useEffect(() => {
-    if (municipioId === "5003207") {
-      setLocalSelecionado("Corumbá");
-    }
-  }, [municipioId]);
-  
-
-  useEffect(() => {
     const { estadoId, municipioId, biomaId } = router.query;
-    if (isValidParam(estadoId)) setEstadoId(estadoId as string);
-    if (isValidParam(municipioId)) setMunicipioId(municipioId as string);
-    if (isValidParam(biomaId)) setBiomaId(biomaId as string);
+    if (isValidParam(estadoId)){
+      setLocalId(estadoId as string);
+      setLocal('estados');
+    };
+    if (isValidParam(municipioId)){
+      setLocalId(municipioId as string);
+      setLocal('municipios');
+    }
+    if (isValidParam(biomaId)){
+      setLocalId(biomaId as string);
+      setLocal('biomas');
+    };
   }, [router.query]);
 
-  const handleEstadoChange = (id: string, nome: string) => {
-    setEstadoId(id);
-    setMunicipioId(null);
-    setLocalSelecionado(nome);
-    router.push({
-      query: {
-        ...router.query, 
-        estadoId: id,
-        municipioId: undefined,  
-      }
-    });
-  };
-  
-  const handleMunicipioChange = (id: string, nome: string) => {
-    setMunicipioId(id);
-    setLocalSelecionado(nome);
-    router.push({
-      query: {
-        ...router.query,  
-        municipioId: id
-      }
-    });
-  };
-  
-  const handleBiomaChange = (id: string, nome: string) => {
-    setBiomaId(id);
-    setEstadoId(null);
-    setMunicipioId(null);
-    setLocalSelecionado(nome);
-    router.push({
-      query: {
-        ...router.query,
-        biomaId: id,
-        estadoId: undefined, 
-        municipioId: undefined 
-      }
-    });
-  };
+  const handleLocalChange = (local: string, localId: string, localNome: string) =>{
+    setLocal(local)
+    setLocalId(localId);
+    setLocalSelecionado(localNome);
+
+    if (local === 'municipios'){
+      router.push({
+        query: {
+          ...router.query,
+          biomaId: undefined,
+          municipioId: localId
+        }
+      });
+    }
+
+    else if (local === 'biomas'){
+      router.push({
+        query: {
+          ...router.query,
+          biomaId: localId,
+          estadoId: undefined,
+          municipioId: undefined
+        }
+      });
+    } else if (local === 'estados'){
+      router.push({
+        query: {
+          ...router.query,
+          biomaId: undefined,
+          estadoId: localId,
+          municipioId: undefined
+        }
+      });
+    }
+  }
 
   const toggleFilter = () => {
     setShowFilter(!showFilter);
@@ -116,9 +113,7 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
 
       {isClient && showFilter && (
         <FilterBar 
-          onEstadoChange={handleEstadoChange}
-          onMunicipioChange={handleMunicipioChange}
-          onBiomaChange={handleBiomaChange}
+          onLocalChange={handleLocalChange}
         />
       )}
 
@@ -151,10 +146,9 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
           <>
             <Grid item xs={12} lg={6}>
               <EstatisticasBarChart 
-                title="Linha do tempo de focos de queimadas" 
-                estadoId={estadoId || undefined}
-                municipioId={municipioId || undefined}
-                biomaId={biomaId || undefined} 
+                title="Linha do tempo de focos de queimadas"
+                local={local || undefined}
+                localId={localId || undefined}
               />
             </Grid>
             <Grid item xs={12} lg={6}>
@@ -162,9 +156,8 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
                 <Grid item xs={12} sm={12}>
                   <EstatisticasTable 
                     title="Ranking de meses" 
-                    estadoId={estadoId || undefined}
-                    municipioId={municipioId || undefined}
-                    biomaId={biomaId || undefined} 
+                    local={local || undefined}
+                    localId={localId || undefined}
                   />
                 </Grid>
               </Grid>
@@ -182,9 +175,8 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
                 </Typography>
                 <Box sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '15px' }}>
                   <EstatisticasLineChart 
-                    estadoId={estadoId || undefined} 
-                    municipioId={municipioId || undefined} 
-                    biomaId={biomaId || undefined} 
+                    local={local || undefined}
+                    localId={localId || undefined} 
                   />
                 </Box>
               </CardContent>
