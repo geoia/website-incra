@@ -43,7 +43,7 @@ const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ local, lo
     };
 
     getEstatisticas();
-  }, [localId]); 
+  }, [local, localId]); 
 
   return (
     <>

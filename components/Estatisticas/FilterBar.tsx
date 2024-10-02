@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { MenuItem, Select, FormControl, InputLabel, SelectChangeEvent, Box, Typography, useStepContext } from '@mui/material';
+import { MenuItem, Select, FormControl, InputLabel, SelectChangeEvent, Box, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { fetchComEstatisticas } from '../../hooks/useEstatisticas';
   
@@ -140,7 +140,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange }) => {
     if (estadoSelecionado && municipios.length > 0) {
       filterMunicipiosByEstado(estadoSelecionado);
     }
-  }, [municipios, estadoSelecionado]);
+  }, [municipios, estadoSelecionado, filterMunicipiosByEstado]);
 
   return (
     <FiltrosContainer>

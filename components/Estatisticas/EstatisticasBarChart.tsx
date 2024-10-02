@@ -45,7 +45,7 @@ const EstatisticasBarChart: React.FC<EstatisticasBarChartProps> = ({ local, loca
         }
 
         getEstatisticas();
-    }, [localId]); 
+    }, [local, localId]); 
 
   return (
     <Card

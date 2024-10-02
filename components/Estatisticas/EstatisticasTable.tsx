@@ -45,7 +45,7 @@ const EstatisticasTable: React.FC<EstatisticasTableProps> = ({ local, localId, t
     };
 
     getEstatisticas();
-  }, [localId]);
+  }, [local, localId]);
 
   return (
     <Card
