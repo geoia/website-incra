@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Typography } from '@mui/material';
-import { fetchEstatisticasEstado, fetchEstatisticasMunicipio, fetchEstatisticasBioma } from '../../hooks/useEstatisticas';
+import { fetchEstatisticas } from '../../hooks/useEstatisticas';
 
 interface EstatisticasLineChartProps {
-  estadoId?: string;
-  municipioId?: string;
-  biomaId?: string;
+  local?: string;
+  localId?: string;
 }
 
-const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId, municipioId, biomaId }) => {
+const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ local, localId }) => {
   const [data, setData] = useState<Array<any>>([]);
 
   useEffect(() => {
@@ -17,18 +16,10 @@ const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId,
       try {
         let response: any[] = [];
 
-        if (municipioId) {
-          console.log('Buscando estatísticas do município...');
-          const municipioData = await fetchEstatisticasMunicipio(municipioId);
-          response = municipioData;
-        } else if (estadoId) {
-          console.log('Buscando estatísticas do estado...');
-          const estadoData = await fetchEstatisticasEstado(estadoId);
-          response = estadoData;
-        } else if (biomaId) {
-          console.log('Buscando estatísticas do bioma...');
-          const biomaData = await fetchEstatisticasBioma(biomaId);
-          response = biomaData;
+        if(local && localId){
+          console.log(`Buscando estatísticas do ${local}...`);
+          const data = await fetchEstatisticas(local, localId)
+          response = data;
         }
 
         if (response.length === 0) {
@@ -52,7 +43,7 @@ const EstatisticasLineChart: React.FC<EstatisticasLineChartProps> = ({ estadoId,
     };
 
     getEstatisticas();
-  }, [estadoId, municipioId, biomaId]); 
+  }, [localId]); 
 
   return (
     <>

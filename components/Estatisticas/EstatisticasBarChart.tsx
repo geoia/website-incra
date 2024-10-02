@@ -1,35 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import { fetchEstatisticasBioma, fetchEstatisticasEstado, fetchEstatisticasMunicipio } from '../../hooks/useEstatisticas';
+import { fetchEstatisticas } from '../../hooks/useEstatisticas';
 
 interface EstatisticasBarChartProps {
-    estadoId?: string;
-    municipioId?: string;
-    biomaId?: string;
+    local?: string;
+    localId?: string;
     title: string;
 }
 
-const EstatisticasBarChart: React.FC<EstatisticasBarChartProps> = ({ estadoId, municipioId, biomaId, title }) => {
+const EstatisticasBarChart: React.FC<EstatisticasBarChartProps> = ({ local, localId, title }) => {
     const [data, setData] = useState<Array<any>>([]);
 
     useEffect(() => {
         const getEstatisticas = async () => {
           try {
             let response: any[] = [];
-    
-            if (municipioId) {
-              console.log('Buscando estatísticas do município...');
-              const municipioData = await fetchEstatisticasMunicipio(municipioId);
-              response = municipioData;
-            } else if (estadoId) {
-              console.log('Buscando estatísticas do estado...');
-              const estadoData = await fetchEstatisticasEstado(estadoId);
-              response = estadoData;
-            } else if (biomaId) {
-              console.log('Buscando estatísticas do bioma...');
-              const biomaData = await fetchEstatisticasBioma(biomaId);
-              response = biomaData;
+            
+            if(local && localId){
+              console.log(`Buscando estatísticas do ${local}...`);
+              const data = await fetchEstatisticas(local, localId)
+              response = data;
             }
     
             if (response.length === 0) {
@@ -54,7 +45,7 @@ const EstatisticasBarChart: React.FC<EstatisticasBarChartProps> = ({ estadoId, m
         }
 
         getEstatisticas();
-    }, [estadoId, municipioId, biomaId]); 
+    }, [localId]); 
 
   return (
     <Card
