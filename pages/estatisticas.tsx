@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import Menu from '../components/MainMenu';
 import FilterBar from '../components/Estatisticas/FilterBar';
 import EstatisticasTable from '../components/Estatisticas/EstatisticasTable';
-import EstatisticasBarChart from '../components/Estatisticas/EstatisticasBarChart'; 
+import EstatisticasBarChart from '../components/Estatisticas/EstatisticasBarChart';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
 const EstatisticasLineChart = dynamic(() => import('../components/Estatisticas/EstatisticasLineChart'), {
@@ -17,7 +17,7 @@ function isValidParam(param: any): boolean {
   return typeof param === 'string' && param.length > 0;
 }
 
-export const getServerSideProps = (async ({ query }) => {
+export const getServerSideProps: GetServerSideProps<{ estadoId?: string; municipioId?: string; biomaId?: string }> = async ({ query }) => {
   const props: { estadoId?: string; municipioId?: string; biomaId?: string } = {};
 
   if (isValidParam(query.estadoId)) props.estadoId = query.estadoId as string;
@@ -25,7 +25,7 @@ export const getServerSideProps = (async ({ query }) => {
   if (isValidParam(query.biomaId)) props.biomaId = query.biomaId as string;
 
   return { props };
-}) satisfies GetServerSideProps<{ estadoId?: string; municipioId?: string; biomaId?: string }>;
+};
 
 export default function Estatisticas(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
@@ -33,7 +33,7 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
   const [isClient, setIsClient] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
 
-  const [local, setLocal] = useState<string | null>('');
+  const [local, setLocal] = useState<string | null>(''); 
   const [localId, setLocalId] = useState<string | null>(null);
   const [localSelecionado, setLocalSelecionado] = useState<string | null>(null);
 
@@ -41,63 +41,96 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
     setIsClient(true);
   }, []);
 
-  // Sincroniza os filtros e o título com a URL ao carregar a página
   useEffect(() => {
     const { estadoId, municipioId, biomaId } = router.query;
 
     if (isValidParam(estadoId)) {
-      setLocalId(estadoId as string);
-      setLocal('estados');
+        setLocalId(estadoId as string);
+        setLocal('estados');
+    } else if (isValidParam(municipioId)) {
+        setLocalId(municipioId as string);
+        setLocal('municipios');
+    } else if (isValidParam(biomaId)) {
+        setLocalId(biomaId as string);
+        setLocal('biomas');
     }
+}, [router.query]);
 
-    if (isValidParam(municipioId)) {
-      setLocalId(municipioId as string);
-      setLocal('municipios');
-    }
 
-    if (isValidParam(biomaId)) {
-      setLocalId(biomaId as string);
-      setLocal('biomas');
-    }
-  }, [router.query]);
+const buildQuery = (local: string, localId: string) => {
+  const query = { ...router.query };
 
-  const handleLocalChange = (local: string, localId: string, localNome: string) => {
-    setLocal(local);
-    setLocalId(localId);
-    setLocalSelecionado(localNome);
+  switch (local) {
+      case 'municipios':
+          query.biomaId = undefined; // Limpa o bioma se município for selecionado
+          query.estadoId = undefined; // Limpa o estado se município for selecionado
+          query.municipioId = localId; // Define o município selecionado
+          break;
+      case 'biomas':
+          query.estadoId = undefined; // Limpa o estado se bioma for selecionado
+          query.municipioId = undefined; // Limpa o município se bioma for selecionado
+          query.biomaId = localId; // Define o bioma selecionado
+          break;
+      case 'estados':
+          query.biomaId = undefined; // Limpa o bioma se estado for selecionado
+          query.municipioId = undefined; // Limpa o município se estado for selecionado
+          query.estadoId = localId; // Define o estado selecionado
+          break;
+  }
 
-    if (local === 'municipios') {
-      router.push({
-        query: {
-          ...router.query,
-          biomaId: undefined,
-          municipioId: localId
-        }
-      });
-    } else if (local === 'biomas') {
-      router.push({
-        query: {
-          ...router.query,
-          biomaId: localId,
-          estadoId: undefined,
-          municipioId: undefined
-        }
-      });
-    } else if (local === 'estados') {
-      router.push({
-        query: {
-          ...router.query,
-          biomaId: undefined,
-          estadoId: localId,
-          municipioId: undefined
-        }
-      });
-    }
-  };
+  return query;
+};
+
+const handleLocalChange = (local: string, localId: string, localNome: string) => {
+  setLocal(local);
+  setLocalId(localId);
+  setLocalSelecionado(localNome);
+  router.push({ query: buildQuery(local, localId) }); // Atualiza a URL com os parâmetros corretos
+};
+
 
   const toggleFilter = () => {
     setShowFilter(!showFilter);
   };
+
+  const renderEstatisticas = () => (
+    <>
+      <Grid item xs={12} lg={6}>
+        <EstatisticasBarChart 
+          title="Linha do tempo de focos de queimadas"
+          local={local || undefined}
+          localId={localId || undefined}
+        />
+      </Grid>
+      <Grid item xs={12} lg={6}>
+        <Grid container spacing={2} sx={{ height: '100%' }}>
+          <Grid item xs={12}>
+            <EstatisticasTable 
+              title="Ranking de meses" 
+              local={local || undefined}
+              localId={localId || undefined}
+            />
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Grid item xs={12} sx={{ marginTop: 2 }}>
+        <Card sx={{ backgroundColor: '#509CBF', borderRadius: '25px' }}>
+          <CardContent sx={{ padding: 3 }}>
+            <Typography variant="h6" sx={{ color: 'white', marginBottom: 2, textAlign: 'center' }}>
+              Linha do tempo de área queimada
+            </Typography>
+            <Box sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '15px' }}>
+              <EstatisticasLineChart 
+                local={local || undefined}
+                localId={localId || undefined} 
+              />
+            </Box>
+          </CardContent>
+        </Card>
+      </Grid>
+    </>
+  );
 
   return (
     <>
@@ -114,12 +147,13 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
       <Menu />
 
       {isClient && showFilter && (
-        <FilterBar 
-          onLocalChange={handleLocalChange}
-          initialBiomaId={props.biomaId}
-          initialEstadoId={props.estadoId}
-          initialMunicipioId={props.municipioId}
-        />
+        <FilterBar
+        onLocalChange={(local, localId, localNome) => handleLocalChange(local, localId, localNome)}
+        initialBiomaId={props.biomaId}
+        initialEstadoId={props.estadoId}
+        initialMunicipioId={props.municipioId}
+    />
+    
       )}
 
       <Box sx={{ display: 'flex', justifyContent: 'left', marginTop: '1rem' }}>
@@ -146,48 +180,7 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
       </Typography>
 
       <Grid container spacing={2} sx={{ backgroundColor: '#0F1C3C', padding: 2, marginTop: '2rem' }}>
-        {/* Gráfico de Barras + Tabelas */}
-        {isClient && (
-          <>
-            <Grid item xs={12} lg={6}>
-              <EstatisticasBarChart 
-                title="Linha do tempo de focos de queimadas"
-                local={local || undefined}
-                localId={localId || undefined}
-              />
-            </Grid>
-            <Grid item xs={12} lg={6}>
-              <Grid container spacing={2} sx={{ height: '100%' }}>
-                <Grid item xs={12} sm={12}>
-                  <EstatisticasTable 
-                    title="Ranking de meses" 
-                    local={local || undefined}
-                    localId={localId || undefined}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-          </>
-        )}
-
-        {/* Gráfico de Linhas */}
-        {isClient && (
-          <Grid item xs={12} sx={{ marginTop: 2 }}>
-            <Card sx={{ backgroundColor: '#509CBF', borderRadius: '25px' }}>
-              <CardContent sx={{ padding: 3 }}>
-                <Typography variant="h6" sx={{ color: 'white', marginBottom: 2, textAlign: 'center' }}>
-                  Linha do tempo de área queimada
-                </Typography>
-                <Box sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '15px' }}>
-                  <EstatisticasLineChart 
-                    local={local || undefined}
-                    localId={localId || undefined} 
-                  />
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        )}
+        {isClient && renderEstatisticas()}
       </Grid>
     </>
   );

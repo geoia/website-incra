@@ -52,31 +52,16 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange, initialBiomaId, in
   const [carregandoMunicipios, setCarregandoMunicipios] = useState<boolean>(false);
 
   useEffect(() => {
-    if (initialBiomaId) {
-      setFiltroSelecionado('Biomas');
-      setBiomaSelecionado(initialBiomaId);
-    } else if (initialEstadoId) {
-      setFiltroSelecionado('Estados');
-      const estado = estados.find(e => e.id === initialEstadoId);
-      if (estado) {
-        setEstadoSelecionado(estado.sigla);
-        onLocalChange('estados', estado.id, estado.nome);
-      }
-    }
-    if (initialMunicipioId) {
-      const municipio = municipios.find(m => m.id === initialMunicipioId);
-      if (municipio) {
-        setMunicipioSelecionado(municipio.id);
-        onLocalChange('municipios', municipio.id, municipio.nome);
-      }
-    }
-  }, [initialBiomaId, initialEstadoId, initialMunicipioId, estados, municipios, onLocalChange]);
-
-  useEffect(() => {
     if (filtroSelecionado === 'Biomas') {
       fetchBiomas();
+      setEstadoSelecionado('');
+      setMunicipioSelecionado('');
+      setMunicipiosFiltrados([]);
     } else {
       fetchEstados();
+      setBiomaSelecionado('');
+      setMunicipioSelecionado('');
+      setMunicipiosFiltrados([]);
     }
   }, [filtroSelecionado]);
 
@@ -93,6 +78,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange, initialBiomaId, in
     setEstadoSelecionado('');
     setMunicipioSelecionado('');
     setMunicipiosFiltrados([]);
+    onLocalChange('', '', ''); // Limpa a seleção anterior
   };
 
   const fetchBiomas = async () => {
