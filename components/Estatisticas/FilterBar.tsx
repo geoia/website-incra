@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MenuItem, Select, FormControl, InputLabel, SelectChangeEvent, Box, Typography, CircularProgress } from '@mui/material';
 import { styled } from '@mui/system';
 import { fetchComEstatisticas } from '../../hooks/useEstatisticas';
