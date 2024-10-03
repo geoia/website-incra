@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import { Grid, Card, CardContent, Typography, Box, Button } from '@mui/material';
+import { Grid, Button, Box, Typography, Card, CardContent } from '@mui/material';
 import { useRouter } from 'next/router';
 import Menu from '../components/MainMenu';
 import FilterBar from '../components/Estatisticas/FilterBar';
@@ -41,28 +41,32 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
     setIsClient(true);
   }, []);
 
+  // Sincroniza os filtros e o título com a URL ao carregar a página
   useEffect(() => {
     const { estadoId, municipioId, biomaId } = router.query;
-    if (isValidParam(estadoId)){
+
+    if (isValidParam(estadoId)) {
       setLocalId(estadoId as string);
       setLocal('estados');
-    };
-    if (isValidParam(municipioId)){
+    }
+
+    if (isValidParam(municipioId)) {
       setLocalId(municipioId as string);
       setLocal('municipios');
     }
-    if (isValidParam(biomaId)){
+
+    if (isValidParam(biomaId)) {
       setLocalId(biomaId as string);
       setLocal('biomas');
-    };
+    }
   }, [router.query]);
 
-  const handleLocalChange = (local: string, localId: string, localNome: string) =>{
-    setLocal(local)
+  const handleLocalChange = (local: string, localId: string, localNome: string) => {
+    setLocal(local);
     setLocalId(localId);
     setLocalSelecionado(localNome);
 
-    if (local === 'municipios'){
+    if (local === 'municipios') {
       router.push({
         query: {
           ...router.query,
@@ -70,9 +74,7 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
           municipioId: localId
         }
       });
-    }
-
-    else if (local === 'biomas'){
+    } else if (local === 'biomas') {
       router.push({
         query: {
           ...router.query,
@@ -81,7 +83,7 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
           municipioId: undefined
         }
       });
-    } else if (local === 'estados'){
+    } else if (local === 'estados') {
       router.push({
         query: {
           ...router.query,
@@ -91,7 +93,7 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
         }
       });
     }
-  }
+  };
 
   const toggleFilter = () => {
     setShowFilter(!showFilter);
@@ -114,6 +116,9 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
       {isClient && showFilter && (
         <FilterBar 
           onLocalChange={handleLocalChange}
+          initialBiomaId={props.biomaId}
+          initialEstadoId={props.estadoId}
+          initialMunicipioId={props.municipioId}
         />
       )}
 
@@ -135,13 +140,13 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
           {showFilter ? 'Esconder Filtros' : 'Mostrar Filtros'}
         </Button>
       </Box>
-      
-      <Typography variant='h2' style={{textAlign:"center", color:"white"}}>
-          {localSelecionado}
+
+      <Typography variant='h2' style={{ textAlign: "center", color: "white" }}>
+        {localSelecionado}
       </Typography>
 
       <Grid container spacing={2} sx={{ backgroundColor: '#0F1C3C', padding: 2, marginTop: '2rem' }}>
-        {/* Primeira Camada: Gráfico de Barras + Tabelas */}
+        {/* Gráfico de Barras + Tabelas */}
         {isClient && (
           <>
             <Grid item xs={12} lg={6}>
@@ -165,7 +170,7 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
           </>
         )}
 
-        {/* Segunda Camada: Gráfico de Linhas */}
+        {/* Gráfico de Linhas */}
         {isClient && (
           <Grid item xs={12} sx={{ marginTop: 2 }}>
             <Card sx={{ backgroundColor: '#509CBF', borderRadius: '25px' }}>
