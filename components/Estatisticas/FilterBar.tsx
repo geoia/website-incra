@@ -44,109 +44,55 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange, initialBiomaId, in
   const [biomas, setBiomas] = useState<{ id: string; nome: string }[]>([]);
   const [estados, setEstados] = useState<{ id: string; nome: string; sigla: string }[]>([]);
   const [municipios, setMunicipios] = useState<{ id: string; nome: string; sigla: string }[]>([]);
-
   const [biomaSelecionado, setBiomaSelecionado] = useState<string>(initialBiomaId || '');
   const [estadoSelecionado, setEstadoSelecionado] = useState<string>(initialEstadoId || '');
   const [municipioSelecionado, setMunicipioSelecionado] = useState<string>(initialMunicipioId || '');
-
   const [filtroSelecionado, setFiltroSelecionado] = useState<string>(initialBiomaId ? 'Biomas' : 'Estados');
-
   const [municipiosFiltrados, setMunicipiosFiltrados] = useState<{ id: string; nome: string; sigla: string }[]>([]);
   const [carregandoMunicipios, setCarregandoMunicipios] = useState<boolean>(false);
 
   useEffect(() => {
     if (initialBiomaId) {
       setFiltroSelecionado('Biomas');
+      setBiomaSelecionado(initialBiomaId);
     } else if (initialEstadoId) {
       setFiltroSelecionado('Estados');
-    }
-  }, [initialBiomaId, initialEstadoId]);
-  
-
-  useEffect(() => {
-    if (initialBiomaId) {
-      setBiomaSelecionado(initialBiomaId);
-    }
-  
-    if (initialEstadoId) {
       const estado = estados.find(e => e.id === initialEstadoId);
       if (estado) {
-        setEstadoSelecionado(estado.sigla); // Define a sigla após o carregamento
-        onLocalChange('estados', estado.id, estado.nome); // Chama a função de mudança com a sigla
+        setEstadoSelecionado(estado.sigla);
+        onLocalChange('estados', estado.id, estado.nome);
       }
     }
-  
     if (initialMunicipioId) {
       const municipio = municipios.find(m => m.id === initialMunicipioId);
       if (municipio) {
-        setMunicipioSelecionado(municipio.id); // Define o município selecionado
+        setMunicipioSelecionado(municipio.id);
         onLocalChange('municipios', municipio.id, municipio.nome);
       }
     }
-  }, [initialBiomaId, initialEstadoId, initialMunicipioId, estados, municipios]);
-  
+  }, [initialBiomaId, initialEstadoId, initialMunicipioId, estados, municipios, onLocalChange]);
 
-  // Ao carregar o componente, busca biomas ou estados com base nos parâmetros iniciais
   useEffect(() => {
-    if (initialBiomaId) {
+    if (filtroSelecionado === 'Biomas') {
       fetchBiomas();
-    } else if (initialEstadoId) {
+    } else {
       fetchEstados();
     }
-  }, [initialBiomaId, initialEstadoId]);
-
-  // Carrega os municípios quando um estado é selecionado
-  useEffect(() => {
-    if (estadoSelecionado && estados.length > 0) {
-      fetchMunicipios(estadoSelecionado);  // Carrega municípios apenas se um estado for selecionado
-    }
-  }, [estadoSelecionado, estados]);
-
-  // Sincroniza a seleção de estado assim que os dados de estados forem carregados
-  useEffect(() => {
-    if (initialEstadoId && estados.length > 0) {
-      const estado = estados.find((e) => e.id === initialEstadoId);
-      if (estado) {
-        setEstadoSelecionado(estado.sigla); // Usa a sigla para definir o estado selecionado
-        onLocalChange('estados', estado.id, estado.nome); // Chama a função de mudança com a sigla
-      }
-    }
-  }, [initialEstadoId, estados]);
-  
-
-
-  // Sincroniza a seleção de município quando os municípios estiverem carregados
-  useEffect(() => {
-    if (estadoSelecionado && municipios.length > 0) {
-      const municipio = municipios.find((m) => m.sigla === estadoSelecionado);
-      if (municipio) {
-        setMunicipioSelecionado(municipio.id); // Define o município selecionado corretamente
-      }
-    }
-  }, [municipios, estadoSelecionado]);
+  }, [filtroSelecionado]);
 
   useEffect(() => {
-    if (estados.length > 0) {
-      const estado = estados.find(e => e.id === initialEstadoId);
-      if (estado) {
-        setEstadoSelecionado(estado.sigla); // Define a sigla após o carregamento
-      }
+    if (estadoSelecionado) {
+      fetchMunicipios(estadoSelecionado);
     }
-  }, [estados]); // Dependência do estado dos estados
-  
-  
+  }, [estadoSelecionado]);
 
   const handleFiltroChange = (event: SelectChangeEvent<string>) => {
     const filtro = event.target.value as string;
     setFiltroSelecionado(filtro);
-
-    if (filtro === 'Estados') {
-      resetBiomaSelection(); // Reset bioma when switching to Estados
-      fetchEstados();
-    } else if (filtro === 'Biomas') {
-      resetEstadoAndMunicipioSelection(); // Reset estados when switching to Biomas
-      fetchBiomas();
-    }
+    setBiomaSelecionado('');
+    setEstadoSelecionado('');
+    setMunicipioSelecionado('');
+    setMunicipiosFiltrados([]);
   };
 
   const fetchBiomas = async () => {
@@ -162,26 +108,25 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange, initialBiomaId, in
     try {
       const data = await fetchComEstatisticas("estados");
       setEstados(data);
-      // Se há um estado inicial, escolha automaticamente o estado
       if (initialEstadoId) {
         const estado = data.find((e: { id: string; }) => e.id === initialEstadoId);
         if (estado) {
           setEstadoSelecionado(estado.sigla);
-          fetchMunicipios(estado.sigla); // Carrega municípios para o estado
+          fetchMunicipios(estado.sigla);
         }
       }
     } catch (error) {
       console.error('Erro ao buscar estados:', error);
     }
   };
-  
 
   const fetchMunicipios = async (estadoSigla: string) => {
     setCarregandoMunicipios(true);
     try {
       const data = await fetchComEstatisticas("municipios");
       setMunicipios(data);
-      filterMunicipiosByEstado(estadoSigla); // Filtra os municípios com base no estado selecionado
+      const filteredMunicipios = data.filter((municipio: { sigla: string; }) => municipio.sigla === estadoSigla);
+      setMunicipiosFiltrados(filteredMunicipios);
     } catch (error) {
       console.error('Erro ao buscar municípios:', error);
     } finally {
@@ -204,41 +149,17 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange, initialBiomaId, in
     if (estado) {
       setEstadoSelecionado(sigla);
       onLocalChange('estados', estado.id, estado.nome);
-      fetchMunicipios(sigla); // Carrega municípios baseado na sigla
+      fetchMunicipios(sigla);
     }
   };
-  
-  
-  
+
   const handleMunicipioChange = (event: SelectChangeEvent<string>) => {
-    const municipioId = event.target.value; // Aqui é o id do município
+    const municipioId = event.target.value;
     const municipio = municipios.find(m => m.id === municipioId);
     if (municipio) {
       setMunicipioSelecionado(municipioId);
       onLocalChange('municipios', municipioId, municipio.nome);
     }
-  };
-  
-
-  const filterMunicipiosByEstado = useCallback((sigla: string) => {
-    const municipiosFiltrados = municipios.filter(municipio => municipio.sigla === sigla);
-    setMunicipiosFiltrados(municipiosFiltrados);
-  }, [municipios]);
-
-  useEffect(() => {
-    if (estadoSelecionado && municipios.length > 0) {
-      filterMunicipiosByEstado(estadoSelecionado);
-    }
-  }, [municipios, estadoSelecionado, filterMunicipiosByEstado]);
-
-  const resetBiomaSelection = () => {
-    setBiomaSelecionado('');
-  };
-
-  const resetEstadoAndMunicipioSelection = () => {
-    setEstadoSelecionado('');
-    setMunicipioSelecionado('');
-    setMunicipiosFiltrados([]);
   };
 
   return (
@@ -258,34 +179,28 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange, initialBiomaId, in
           <FormControlCustom>
             <InputLabel>Selecionar estado</InputLabel>
             {!estados.length ? (
-                <CircularProgress />
-              ) : (
-                <Select
-                  value={estadoSelecionado || ''} // Certifique-se de que é uma string ou vazio
-                  onChange={handleEstadoChange}
-                >
-                  {estados.map((estado) => (
-                    <MenuItem key={estado.id} value={estado.sigla}>
-                      {estado.nome}
-                    </MenuItem>
-                  ))}
-                </Select> 
-
-              )}
-
+              <CircularProgress />
+            ) : (
+              <Select value={estadoSelecionado || ''} onChange={handleEstadoChange}>
+                {estados.map((estado) => (
+                  <MenuItem key={estado.id} value={estado.sigla}>
+                    {estado.nome}
+                  </MenuItem>
+                ))}
+              </Select>
+            )}
           </FormControlCustom>
 
-          {!carregandoMunicipios && municipiosFiltrados.length > 0 && (
+          { !carregandoMunicipios && municipiosFiltrados.length > 0 && (
             <FormControlCustom>
               <InputLabel>Selecionar município</InputLabel>
               <Select value={municipioSelecionado || ''} onChange={handleMunicipioChange} label="Selecionar município">
-              {municipiosFiltrados.map((municipio) => (
-                <MenuItem key={municipio.id} value={municipio.id}> {/* Aqui o value deve ser o id */}
-                  {municipio.nome}
-                </MenuItem>
-              ))}
-            </Select>
-
+                {municipiosFiltrados.map((municipio) => (
+                  <MenuItem key={municipio.id} value={municipio.id}>
+                    {municipio.nome}
+                  </MenuItem>
+                ))}
+              </Select>
             </FormControlCustom>
           )}
         </>
@@ -294,7 +209,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange, initialBiomaId, in
       {filtroSelecionado === 'Biomas' && (
         <FormControlCustom>
           <InputLabel>Selecionar bioma</InputLabel>
-          <Select value={biomaSelecionado || ''} onChange={handleBiomaChange} label="Selecionar bioma">
+          <Select value={biomaSelecionado || ''} onChange={handleBiomaChange}>
             {biomas.map((bioma) => (
               <MenuItem key={bioma.id} value={bioma.id}>
                 {bioma.nome}
