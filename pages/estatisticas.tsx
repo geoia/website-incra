@@ -62,19 +62,18 @@ const buildQuery = (local: string, localId: string) => {
 
   switch (local) {
       case 'municipios':
-          query.biomaId = undefined; // Limpa o bioma se município for selecionado
-          query.estadoId = undefined; // Limpa o estado se município for selecionado
-          query.municipioId = localId; // Define o município selecionado
+          query.biomaId = undefined; 
+          query.municipioId = localId; 
           break;
       case 'biomas':
-          query.estadoId = undefined; // Limpa o estado se bioma for selecionado
-          query.municipioId = undefined; // Limpa o município se bioma for selecionado
-          query.biomaId = localId; // Define o bioma selecionado
+          query.estadoId = undefined; 
+          query.municipioId = undefined;
+          query.biomaId = localId; 
           break;
       case 'estados':
-          query.biomaId = undefined; // Limpa o bioma se estado for selecionado
-          query.municipioId = undefined; // Limpa o município se estado for selecionado
-          query.estadoId = localId; // Define o estado selecionado
+          query.biomaId = undefined; 
+          query.municipioId = undefined;
+          query.estadoId = localId; 
           break;
   }
 
@@ -85,7 +84,7 @@ const handleLocalChange = (local: string, localId: string, localNome: string) =>
   setLocal(local);
   setLocalId(localId);
   setLocalSelecionado(localNome);
-  router.push({ query: buildQuery(local, localId) }); // Atualiza a URL com os parâmetros corretos
+  router.push({ query: buildQuery(local, localId) });
 };
 
 

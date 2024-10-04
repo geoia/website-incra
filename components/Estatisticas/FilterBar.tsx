@@ -4,7 +4,7 @@ import { styled } from '@mui/system';
 import { fetchComEstatisticas } from '../../hooks/useEstatisticas';
 
 const FiltrosContainer = styled(Box)(({ theme }) => ({
-  backgroundColor: '#0A2846', 
+  backgroundColor: '#0A2846',
   padding: theme.spacing(2),
   borderRadius: theme.shape.borderRadius,
   alignItems: 'center',
@@ -14,12 +14,12 @@ const FiltroTitle = styled(Typography)(({ theme }) => ({
   color: '#FFFFFF',
   fontWeight: 'bold',
   fontSize: '1.5rem',
-  marginRight: theme.spacing(4), 
+  marginRight: theme.spacing(4),
 }));
 
 const FormControlCustom = styled(FormControl)(({ theme }) => ({
   minWidth: 200,
-  marginRight: theme.spacing(2), 
+  marginRight: theme.spacing(2),
   backgroundColor: '#1A395D',
   borderRadius: theme.shape.borderRadius,
   '& .MuiInputLabel-root': {
@@ -45,31 +45,45 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange, initialBiomaId, in
   const [estados, setEstados] = useState<{ id: string; nome: string; sigla: string }[]>([]);
   const [municipios, setMunicipios] = useState<{ id: string; nome: string; sigla: string }[]>([]);
   const [biomaSelecionado, setBiomaSelecionado] = useState<string>(initialBiomaId || '');
-  const [estadoSelecionado, setEstadoSelecionado] = useState<string>(initialEstadoId || '');
+  const [estadoSelecionado, setEstadoSelecionado] = useState<string>(''); 
   const [municipioSelecionado, setMunicipioSelecionado] = useState<string>(initialMunicipioId || '');
-  const [filtroSelecionado, setFiltroSelecionado] = useState<string>(initialBiomaId ? 'Biomas' : 'Estados');
   const [municipiosFiltrados, setMunicipiosFiltrados] = useState<{ id: string; nome: string; sigla: string }[]>([]);
   const [carregandoMunicipios, setCarregandoMunicipios] = useState<boolean>(false);
+
+  
+  const [filtroSelecionado, setFiltroSelecionado] = useState<string>(
+    initialBiomaId ? 'Biomas' : (initialEstadoId || initialMunicipioId) ? 'Estados' : 'Biomas'
+  );
 
   useEffect(() => {
     if (filtroSelecionado === 'Biomas') {
       fetchBiomas();
-      setEstadoSelecionado('');
-      setMunicipioSelecionado('');
-      setMunicipiosFiltrados([]);
     } else {
       fetchEstados();
-      setBiomaSelecionado('');
-      setMunicipioSelecionado('');
-      setMunicipiosFiltrados([]);
     }
   }, [filtroSelecionado]);
 
+  
   useEffect(() => {
-    if (estadoSelecionado) {
-      fetchMunicipios(estadoSelecionado);
+    if (initialEstadoId && estados.length > 0) {
+      
+      const estado = estados.find(e => e.id.toString() === initialEstadoId);
+      if (estado) {
+        setEstadoSelecionado(estado.sigla); 
+        fetchMunicipios(estado.sigla); 
+      }
     }
-  }, [estadoSelecionado]);
+  }, [initialEstadoId, estados]);
+
+  
+  useEffect(() => {
+    if (initialMunicipioId && municipiosFiltrados.length > 0) {
+      const municipio = municipiosFiltrados.find(m => m.id.toString() === initialMunicipioId);
+      if (municipio) {
+        setMunicipioSelecionado(municipio.id.toString());
+      }
+    }
+  }, [initialMunicipioId, municipiosFiltrados]);
 
   const handleFiltroChange = (event: SelectChangeEvent<string>) => {
     const filtro = event.target.value as string;
@@ -78,12 +92,12 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange, initialBiomaId, in
     setEstadoSelecionado('');
     setMunicipioSelecionado('');
     setMunicipiosFiltrados([]);
-    onLocalChange('', '', ''); // Limpa a seleção anterior
+    onLocalChange('', '', '');
   };
 
   const fetchBiomas = async () => {
     try {
-      const data = await fetchComEstatisticas("biomas");
+      const data = await fetchComEstatisticas('biomas');
       setBiomas(data);
     } catch (error) {
       console.error('Erro ao buscar biomas:', error);
@@ -92,15 +106,8 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange, initialBiomaId, in
 
   const fetchEstados = async () => {
     try {
-      const data = await fetchComEstatisticas("estados");
+      const data = await fetchComEstatisticas('estados');
       setEstados(data);
-      if (initialEstadoId) {
-        const estado = data.find((e: { id: string; }) => e.id === initialEstadoId);
-        if (estado) {
-          setEstadoSelecionado(estado.sigla);
-          fetchMunicipios(estado.sigla);
-        }
-      }
     } catch (error) {
       console.error('Erro ao buscar estados:', error);
     }
@@ -109,7 +116,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange, initialBiomaId, in
   const fetchMunicipios = async (estadoSigla: string) => {
     setCarregandoMunicipios(true);
     try {
-      const data = await fetchComEstatisticas("municipios");
+      const data = await fetchComEstatisticas('municipios');
       setMunicipios(data);
       const filteredMunicipios = data.filter((municipio: { sigla: string; }) => municipio.sigla === estadoSigla);
       setMunicipiosFiltrados(filteredMunicipios);
@@ -134,17 +141,17 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange, initialBiomaId, in
     const estado = estados.find(e => e.sigla === sigla);
     if (estado) {
       setEstadoSelecionado(sigla);
-      onLocalChange('estados', estado.id, estado.nome);
-      fetchMunicipios(sigla);
+      onLocalChange('estados', estado.id.toString(), estado.nome);
+      fetchMunicipios(sigla); 
     }
   };
 
   const handleMunicipioChange = (event: SelectChangeEvent<string>) => {
     const municipioId = event.target.value;
-    const municipio = municipios.find(m => m.id === municipioId);
+    const municipio = municipiosFiltrados.find(m => m.id.toString() === municipioId);
     if (municipio) {
-      setMunicipioSelecionado(municipioId);
-      onLocalChange('municipios', municipioId, municipio.nome);
+      setMunicipioSelecionado(municipio.id.toString());
+      onLocalChange('municipios', municipio.id.toString(), municipio.nome);
     }
   };
 
@@ -177,12 +184,12 @@ const FilterBar: React.FC<FilterBarProps> = ({ onLocalChange, initialBiomaId, in
             )}
           </FormControlCustom>
 
-          { !carregandoMunicipios && municipiosFiltrados.length > 0 && (
+          {!carregandoMunicipios && municipiosFiltrados.length > 0 && (
             <FormControlCustom>
               <InputLabel>Selecionar município</InputLabel>
               <Select value={municipioSelecionado || ''} onChange={handleMunicipioChange} label="Selecionar município">
                 {municipiosFiltrados.map((municipio) => (
-                  <MenuItem key={municipio.id} value={municipio.id}>
+                  <MenuItem key={municipio.id} value={municipio.id.toString()}>
                     {municipio.nome}
                   </MenuItem>
                 ))}
