@@ -43,49 +43,61 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
 
   useEffect(() => {
     const { estadoId, municipioId, biomaId } = router.query;
-
-    if (isValidParam(estadoId)) {
-        setLocalId(estadoId as string);
-        setLocal('estados');
-    } else if (isValidParam(municipioId)) {
-        setLocalId(municipioId as string);
-        setLocal('municipios');
+  
+   
+    if (isValidParam(municipioId)) {
+      setLocalId(municipioId as string);
+      setLocal('municipios');
+    } else if (isValidParam(estadoId)) {
+      setLocalId(estadoId as string);
+      setLocal('estados');
     } else if (isValidParam(biomaId)) {
-        setLocalId(biomaId as string);
-        setLocal('biomas');
+      setLocalId(biomaId as string);
+      setLocal('biomas');
+    } else {
+      // Definir município padrão no primeiro acesso
+      setLocalId('5003207');
+      setLocal('municipios');
+      setLocalSelecionado("Corumbá");
     }
-}, [router.query]);
+  }, [router.query]);
+  
 
 
-const buildQuery = (local: string, localId: string) => {
-  const query = { ...router.query };
-
-  switch (local) {
+  const buildQuery = (local: string, localId: string) => {
+    const query = { ...router.query };
+  
+    switch (local) {
       case 'municipios':
-          query.biomaId = undefined; 
-          query.municipioId = localId; 
-          break;
+        query.biomaId = undefined;
+        query.municipioId = localId;
+        break;
       case 'biomas':
-          query.estadoId = undefined; 
-          query.municipioId = undefined;
-          query.biomaId = localId; 
-          break;
+        query.estadoId = undefined;
+        query.municipioId = undefined;
+        query.biomaId = localId;
+        break;
       case 'estados':
-          query.biomaId = undefined; 
-          query.municipioId = undefined;
-          query.estadoId = localId; 
-          break;
-  }
-
-  return query;
-};
+        query.biomaId = undefined;
+        query.municipioId = undefined;
+        query.estadoId = localId;
+        break;
+    }
+  
+    return query;
+  };
+  
 
 const handleLocalChange = (local: string, localId: string, localNome: string) => {
   setLocal(local);
   setLocalId(localId);
   setLocalSelecionado(localNome);
-  router.push({ query: buildQuery(local, localId) });
+
+  const newQuery = buildQuery(local, localId);
+
+  router.push({ query: newQuery });
 };
+
 
 
   const toggleFilter = () => {
