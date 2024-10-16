@@ -8,16 +8,24 @@ import FilterBar from '../components/Estatisticas/FilterBar';
 import EstatisticasTable from '../components/Estatisticas/EstatisticasTable';
 import EstatisticasBarChart from '../components/Estatisticas/EstatisticasBarChart';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { fetchComEstatisticas } from '../hooks/useEstatisticas';
 
-const EstatisticasLineChart = dynamic(() => import('../components/Estatisticas/EstatisticasLineChart'), {
-  ssr: false,
-});
+const EstatisticasLineChart = dynamic(
+  () => import('../components/Estatisticas/EstatisticasLineChart'),
+  {
+    ssr: false,
+  }
+);
 
 function isValidParam(param: any): boolean {
   return typeof param === 'string' && param.length > 0;
 }
 
-export const getServerSideProps: GetServerSideProps<{ estadoId?: string; municipioId?: string; biomaId?: string }> = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps<{
+  estadoId?: string;
+  municipioId?: string;
+  biomaId?: string;
+}> = async ({ query }) => {
   const props: { estadoId?: string; municipioId?: string; biomaId?: string } = {};
 
   if (isValidParam(query.estadoId)) props.estadoId = query.estadoId as string;
@@ -27,13 +35,15 @@ export const getServerSideProps: GetServerSideProps<{ estadoId?: string; municip
   return { props };
 };
 
-export default function Estatisticas(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Estatisticas(
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
   const router = useRouter();
 
   const [isClient, setIsClient] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
 
-  const [local, setLocal] = useState<string | null>(''); 
+  const [local, setLocal] = useState<string | null>('');
   const [localId, setLocalId] = useState<string | null>(null);
   const [localSelecionado, setLocalSelecionado] = useState<string | null>(null);
 
@@ -43,30 +53,46 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
 
   useEffect(() => {
     const { estadoId, municipioId, biomaId } = router.query;
-  
-   
+
+    const fetchLocalName = async (local: string, localId: string) => {
+      try {
+        const data = await fetchComEstatisticas(local);
+        const foundItem = data.find((item: any) => item.id.toString() === localId);
+
+        if (foundItem) {
+          setLocalSelecionado(foundItem.nome);
+        } else {
+          setLocalSelecionado('Local não encontrado');
+        }
+      } catch (error) {
+        console.error('Erro ao buscar nome do local:', error);
+        setLocalSelecionado('Erro ao buscar nome');
+      }
+    };
+
     if (isValidParam(municipioId)) {
       setLocalId(municipioId as string);
       setLocal('municipios');
+      fetchLocalName('municipios', municipioId as string);
     } else if (isValidParam(estadoId)) {
       setLocalId(estadoId as string);
       setLocal('estados');
+      fetchLocalName('estados', estadoId as string);
     } else if (isValidParam(biomaId)) {
       setLocalId(biomaId as string);
       setLocal('biomas');
+      fetchLocalName('biomas', biomaId as string);
     } else {
       // Definir município padrão no primeiro acesso
       setLocalId('5003207');
       setLocal('municipios');
-      setLocalSelecionado("Corumbá");
+      setLocalSelecionado('Corumbá');
     }
   }, [router.query]);
-  
-
 
   const buildQuery = (local: string, localId: string) => {
     const query = { ...router.query };
-  
+
     switch (local) {
       case 'municipios':
         query.biomaId = undefined;
@@ -83,22 +109,19 @@ export default function Estatisticas(props: InferGetServerSidePropsType<typeof g
         query.estadoId = localId;
         break;
     }
-  
+
     return query;
   };
-  
 
-const handleLocalChange = (local: string, localId: string, localNome: string) => {
-  setLocal(local);
-  setLocalId(localId);
-  setLocalSelecionado(localNome);
+  const handleLocalChange = (local: string, localId: string, localNome: string) => {
+    setLocal(local);
+    setLocalId(localId);
+    setLocalSelecionado(localNome);
 
-  const newQuery = buildQuery(local, localId);
+    const newQuery = buildQuery(local, localId);
 
-  router.push({ query: newQuery });
-};
-
-
+    router.push({ query: newQuery });
+  };
 
   const toggleFilter = () => {
     setShowFilter(!showFilter);
@@ -107,7 +130,7 @@ const handleLocalChange = (local: string, localId: string, localNome: string) =>
   const renderEstatisticas = () => (
     <>
       <Grid item xs={12} lg={6}>
-        <EstatisticasBarChart 
+        <EstatisticasBarChart
           title="Linha do tempo de focos de queimadas"
           local={local || undefined}
           localId={localId || undefined}
@@ -116,8 +139,8 @@ const handleLocalChange = (local: string, localId: string, localNome: string) =>
       <Grid item xs={12} lg={6}>
         <Grid container spacing={2} sx={{ height: '100%' }}>
           <Grid item xs={12}>
-            <EstatisticasTable 
-              title="Ranking de meses" 
+            <EstatisticasTable
+              title="Ranking de meses"
               local={local || undefined}
               localId={localId || undefined}
             />
@@ -132,10 +155,7 @@ const handleLocalChange = (local: string, localId: string, localNome: string) =>
               Linha do tempo de área queimada
             </Typography>
             <Box sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '15px' }}>
-              <EstatisticasLineChart 
-                local={local || undefined}
-                localId={localId || undefined} 
-              />
+              <EstatisticasLineChart local={local || undefined} localId={localId || undefined} />
             </Box>
           </CardContent>
         </Card>
@@ -159,12 +179,13 @@ const handleLocalChange = (local: string, localId: string, localNome: string) =>
 
       {isClient && showFilter && (
         <FilterBar
-        onLocalChange={(local, localId, localNome) => handleLocalChange(local, localId, localNome)}
-        initialBiomaId={props.biomaId}
-        initialEstadoId={props.estadoId}
-        initialMunicipioId={props.municipioId}
-    />
-    
+          onLocalChange={(local, localId, localNome) =>
+            handleLocalChange(local, localId, localNome)
+          }
+          initialBiomaId={props.biomaId}
+          initialEstadoId={props.estadoId}
+          initialMunicipioId={props.municipioId}
+        />
       )}
 
       <Box sx={{ display: 'flex', justifyContent: 'left', marginTop: '1rem' }}>
@@ -186,11 +207,15 @@ const handleLocalChange = (local: string, localId: string, localNome: string) =>
         </Button>
       </Box>
 
-      <Typography variant='h2' style={{ textAlign: "center", color: "white" }}>
+      <Typography variant="h2" style={{ textAlign: 'center', color: 'white' }}>
         {localSelecionado}
       </Typography>
 
-      <Grid container spacing={2} sx={{ backgroundColor: '#0F1C3C', padding: 2, marginTop: '2rem' }}>
+      <Grid
+        container
+        spacing={2}
+        sx={{ backgroundColor: '#0F1C3C', padding: 2, marginTop: '2rem' }}
+      >
         {isClient && renderEstatisticas()}
       </Grid>
     </>
