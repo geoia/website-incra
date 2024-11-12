@@ -50,7 +50,6 @@ export function LimitsLayer(props: {
           e.target._map.flyToBounds(L.geoJSON(props.location).getBounds());
 
           const popupNode = document.createElement('div');
-          popupNode.style.minWidth = '200px';
 
           const root = createRoot(popupNode);
           root.render(
@@ -58,13 +57,13 @@ export function LimitsLayer(props: {
               areaMunicipio={areaMunicipio}
               areaQueimadas={areaQueimadas}
               queimadasCount={props.queimadas?.features.length || 0}
-              caminhoImagem={`https://inovaveterinaria.com.br/wp-content/uploads/2024/01/Inova-Veterinaria-Cachorro-com-ansiedade-entenda-por-que-acontece-e-o-que-fazer-GS2-Marketing-Divulgacao.jpg`}
+              caminhoImagem={"/marcos/teste.jpg"}
             />
           );
 
           e.target
             .bindPopup(
-              L.popup()
+              L.popup({minWidth: 200})
                 .setLatLng(e.target.getBounds().getCenter())
                 .setContent(popupNode)
                 .openOn(e.target._map)
