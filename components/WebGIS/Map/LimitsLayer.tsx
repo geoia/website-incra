@@ -1,13 +1,12 @@
 import { GeoJSON } from 'react-leaflet';
 import { useMemo } from 'react';
 import L from 'leaflet';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Feature, FeatureCollection, Polygon, area } from '@turf/turf';
 import numeral from 'numeral';
 
 import PopupContent from './PopupContent';
 import 'numeral/locales/pt-br';
-import format from '../../../helpers/formatter';
 import { useUnmountRef } from '../../../hooks/useUnmountRef';
 
 numeral.locale('pt-br');
@@ -51,20 +50,21 @@ export function LimitsLayer(props: {
           e.target._map.flyToBounds(L.geoJSON(props.location).getBounds());
 
           const popupNode = document.createElement('div');
+          popupNode.style.minWidth = '200px';
 
-          ReactDOM.render(
+          const root = createRoot(popupNode);
+          root.render(
             <PopupContent
               areaMunicipio={areaMunicipio}
               areaQueimadas={areaQueimadas}
               queimadasCount={props.queimadas?.features.length || 0}
-              caminhoImagem={undefined}
-            />,
-            popupNode
+              caminhoImagem={`https://inovaveterinaria.com.br/wp-content/uploads/2024/01/Inova-Veterinaria-Cachorro-com-ansiedade-entenda-por-que-acontece-e-o-que-fazer-GS2-Marketing-Divulgacao.jpg`}
+            />
           );
 
           e.target
             .bindPopup(
-              L.popup({minWidth: 200})
+              L.popup()
                 .setLatLng(e.target.getBounds().getCenter())
                 .setContent(popupNode)
                 .openOn(e.target._map)
