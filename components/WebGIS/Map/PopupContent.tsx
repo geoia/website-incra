@@ -16,7 +16,7 @@ const PopupContent: React.FC<PopupContentProps> = ({ areaMunicipio, areaQueimada
       <br />
       <b>Queimada</b>
       <br />
-      {format.area(areaQueimadas)} ({((areaQueimadas / areaMunicipio) * 100).toFixed(2)}% do total)
+      {format.area(areaQueimadas)} ({format.number((areaQueimadas / areaMunicipio) * 100)}% do total)
       <br />
       {queimadasCount} focos de queimada
       <br />
