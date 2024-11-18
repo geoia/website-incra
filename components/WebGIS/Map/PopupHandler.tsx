@@ -2,11 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useMapEvents, Popup } from 'react-leaflet';
 import PopupContent from './PopupContent';
 
-interface PopupHandlerProps {
-  caminhoImagemPadrao?: string;
-}
-
-const PopupHandler: React.FC<PopupHandlerProps> = ({ caminhoImagemPadrao }) => {
+const PopupHandler = () => {
   const [popupData, setPopupData] = useState<{ lat: number; lng: number; caminhoImagem: string | undefined } | null>(
     null
   );
@@ -18,7 +14,7 @@ const PopupHandler: React.FC<PopupHandlerProps> = ({ caminhoImagemPadrao }) => {
       setPopupData({
         lat: e.latlng.lat,
         lng: e.latlng.lng,
-        caminhoImagem: caminhoImagemPadrao,
+        caminhoImagem: "/marcos/teste.jpg",
       });
 
       if (popupRef.current) {
@@ -31,7 +27,7 @@ const PopupHandler: React.FC<PopupHandlerProps> = ({ caminhoImagemPadrao }) => {
     <>
       {popupData && (
         <Popup ref={popupRef} position={[popupData.lat, popupData.lng]}>
-          <PopupContent caminhoImagem="/marcos/teste.jpg" />
+          <PopupContent caminhoImagem={popupData.caminhoImagem} />
         </Popup>
       )}
     </>
