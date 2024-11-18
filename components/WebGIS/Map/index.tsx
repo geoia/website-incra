@@ -1,10 +1,10 @@
-import { RefObject, useState, useRef } from 'react';
-import { MapContainer, ScaleControl, useMapEvents, Popup } from 'react-leaflet';
+import { RefObject} from 'react';
+import { MapContainer, ScaleControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import MapController from './MapController';
 import Location from './Location';
 import MapLayer from './MapLayer';
-import PopupContent from './PopupContent';
+import PopupHandler from './PopupHandler';
 import { Feature, Geometry } from '@turf/turf';
 
 interface Props {
@@ -22,30 +22,6 @@ export default function Map(props: Props) {
       coordinates: [-70.811, -9.0238],
     },
     properties: {},
-  };
-
-  const [popupData, setPopupData] = useState<{ lat: number; lng: number; caminhoImagem: string | undefined } | null>(
-    null
-  );
-
-  const popupRef = useRef<L.Popup | null>(null);
-
-  const MapClickHandler = () => {
-    useMapEvents({
-      click: (e) => {
-        setPopupData({
-          lat: e.latlng.lat,
-          lng: e.latlng.lng,
-          caminhoImagem: '/marcos/teste.jpg',
-        });
-
-        if (popupRef.current) {
-          popupRef.current.setLatLng(e.latlng)
-          .openOn(e.target);
-        }
-      },
-    });
-    return null;
   };
 
   return (
@@ -73,15 +49,9 @@ export default function Map(props: Props) {
         <MapController ref={props.forwardRef} center={defaultCenter} zoom={7} />
         <ScaleControl position="bottomleft" />
         <MapLayer type={mapType} />
-        <MapClickHandler />
+        <PopupHandler />
 
         {props.showLocalizacao && <Location />}
-
-        {popupData && (
-          <Popup ref={popupRef} position={[popupData.lat, popupData.lng]}>
-            <PopupContent caminhoImagem={popupData.caminhoImagem} />
-          </Popup>
-        )}
 
       </MapContainer>
     </>
