@@ -1,67 +1,34 @@
-import { RefObject, useMemo } from 'react';
+import { RefObject } from 'react';
 import { MapContainer, ScaleControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import MapController from './MapController';
-import QueimadasLayer from './QueimadasLayer';
 import Location from './Location';
-import { LimitsLayer } from './LimitsLayer';
 import MapLayer from './MapLayer';
-import { Box, CircularProgress } from '@mui/material';
-import { useLimites } from '../../../hooks/useLimites';
-import { useQueimadas } from '../../../hooks/useQueimadas';
+import { Feature, Geometry } from '@turf/turf';
 
 interface Props {
-  location: number | string;
-  source?: string;
-  simplified: boolean;
   showLocalizacao: boolean;
-  showLimitVisibility: boolean;
-  showSatellite: boolean;
-  darkMode: boolean;
-  showQueimadas: boolean;
   forwardRef?: RefObject<L.Map>;
 }
 
 export default function Map(props: Props) {
-  const municipio = useLimites(props.location);
-  const queimadas = useQueimadas(props.location, props.source, props.simplified);
+  const mapType = 'satellite';
 
-  const isLoading = useMemo(
-    () => municipio.isLoading || queimadas.isLoading,
-    [municipio.isLoading, queimadas.isLoading]
-  );
-
-  // Determina o tipo de camada com base em `showSatellite` e `darkMode`
-  const mapType = useMemo(() => {
-    if (props.showSatellite) return 'satellite';
-    if (props.darkMode) return 'dark';
-    return 'streets';
-  }, [props.showSatellite, props.darkMode]);
+  const defaultCenter: Feature<Geometry> = {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [-70.811, -9.0238],
+    },
+    properties: {},
+  };
 
   return (
     <>
-      {isLoading && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.7)', // Fundo transparente
-            zIndex: 1000, // garante que o loading apareça por cima de tudo
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
       <MapContainer
         center={{
-          lat: -20.2634,
-          lng: -54.3847,
+          lat: -70.0,
+          lng: -9.0,
         }}
         zoom={0}
         zoomControl={false}
@@ -74,26 +41,15 @@ export default function Map(props: Props) {
         maxBoundsViscosity={10}
         preferCanvas={true}
         maxBounds={[
-          [-32.63463151377654, -90.89969605983609],
-          [5.63463151377654, -20.89969605983609],
+          [-11.0, -72.0],
+          [-7.5, -67.8],
         ]}
       >
-        <MapController ref={props.forwardRef} center={municipio.data} />
+        <MapController ref={props.forwardRef} center={defaultCenter} zoom={7} />
         <ScaleControl position="bottomleft" />
         <MapLayer type={mapType} />
 
         {props.showLocalizacao && <Location />}
-
-        {!props.showLimitVisibility && municipio.data && (
-          <LimitsLayer
-            location={municipio.data}
-            queimadas={queimadas.data}
-            showSatellite={props.showSatellite}
-            darkMode={props.darkMode}
-          />
-        )}
-
-        {props.showQueimadas && queimadas.data && <QueimadasLayer queimadas={queimadas.data} />}
       </MapContainer>
     </>
   );
