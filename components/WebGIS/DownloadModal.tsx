@@ -1,69 +1,20 @@
-import { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import { FormGroup } from '@mui/material';
 import Button from '@mui/material/Button';
 import Download from '@mui/icons-material/Download';
-import FormCheckbox from '../ui/FormCheckbox';
-import { queimadas } from '../../hooks/useQueimadas';
 import { exportarPNG } from '../../helpers/exportMap';
 
 interface Props {
   anchorEl: null | HTMLElement;
   setAnchorEl: (val: null | HTMLElement) => void;
-  isFireButtonClicked: boolean;
-  setIsFireButtonClicked: (val: boolean) => void;
-  isSimplifiedDatas: boolean;
   forwardRef?: React.RefObject<L.Map>;
-  location: number | string;
-  source?: string;
 }
 
-export default function DownloadModal({
-  anchorEl,
-  setAnchorEl,
-  isFireButtonClicked,
-  setIsFireButtonClicked,
-  isSimplifiedDatas,
-  forwardRef,
-  location,
-  source,
-}: Props) {
-  const [checked, setChecked] = useState([false, false, false, false]);
-
+export default function DownloadModal({ anchorEl, setAnchorEl, forwardRef }: Props) {
   const open = Boolean(anchorEl);
-
-  const handleChangeInParentCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsFireButtonClicked(event.target.checked);
-    setChecked([event.target.checked]);
-  };
-
-  const handleChangeInFireCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsFireButtonClicked(event.target.checked);
-    setChecked([event.target.checked, checked[1], checked[2], checked[3]]);
-  };
-
-  const handleChangeInForestCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked([checked[0], event.target.checked, checked[2], checked[3]]);
-  };
-
-  const handleChangeInInfrastructureCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked([checked[0], checked[1], event.target.checked, checked[3]]);
-  };
-
-  const handleChangeInWaterCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked([checked[0], checked[1], checked[2], event.target.checked]);
-  };
 
   async function downloadDatas() {
     let anchor = createDownloadAnchor();
-
-    let data = isFireButtonClicked
-      ? await queimadas({ location, source, simplified: isSimplifiedDatas })
-      : {};
-
-    let dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
-
-    anchor.href = dataStr;
 
     document.body.appendChild(anchor);
 
@@ -115,43 +66,7 @@ export default function DownloadModal({
           width: '200px',
           marginTop: '10px',
         }}
-      >
-        <FormCheckbox
-          label="Tudo"
-          checked={isFireButtonClicked}
-          onChange={handleChangeInParentCheckbox}
-          indeterminate={!isFireButtonClicked}
-          disabled={false}
-        />
-        <FormCheckbox
-          label="Queimadas"
-          checked={isFireButtonClicked}
-          onChange={handleChangeInFireCheckbox}
-          indeterminate={undefined}
-          disabled={false}
-        />
-        <FormCheckbox
-          label="Vegetação"
-          checked={checked[1]}
-          onChange={handleChangeInForestCheckbox}
-          indeterminate={undefined}
-          disabled={true}
-        />
-        <FormCheckbox
-          label="Infraestrutura"
-          checked={checked[2]}
-          onChange={handleChangeInInfrastructureCheckbox}
-          indeterminate={undefined}
-          disabled={true}
-        />
-        <FormCheckbox
-          label="Inundação"
-          checked={checked[3]}
-          onChange={handleChangeInWaterCheckbox}
-          indeterminate={undefined}
-          disabled={true}
-        />
-      </FormGroup>
+      ></FormGroup>
       <Button
         onClick={() => exportarPNG(forwardRef)}
         variant="contained"
