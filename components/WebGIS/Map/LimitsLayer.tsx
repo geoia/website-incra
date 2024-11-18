@@ -1,11 +1,12 @@
 import { GeoJSON } from 'react-leaflet';
 import { useMemo } from 'react';
 import L from 'leaflet';
+import { createRoot } from 'react-dom/client';
 import { Feature, FeatureCollection, Polygon, area } from '@turf/turf';
 import numeral from 'numeral';
 
+import PopupContent from './PopupContent';
 import 'numeral/locales/pt-br';
-import format from '../../../helpers/formatter';
 import { useUnmountRef } from '../../../hooks/useUnmountRef';
 
 numeral.locale('pt-br');
@@ -48,13 +49,23 @@ export function LimitsLayer(props: {
         add: (e) => {
           e.target._map.flyToBounds(L.geoJSON(props.location).getBounds());
 
-          const popupContent = `<b>Área total:</b> ${format.area(areaMunicipio)}<br/><br/><b>Queimada</b><br/>${format.area(areaQueimadas)} (${format.number((areaQueimadas / areaMunicipio) * 100)}% do total)<br/>${format.number(props.queimadas?.features.length || 0)} focos de queimada`;
+          const popupNode = document.createElement('div');
+
+          const root = createRoot(popupNode);
+          root.render(
+            <PopupContent
+              areaMunicipio={areaMunicipio}
+              areaQueimadas={areaQueimadas}
+              queimadasCount={props.queimadas?.features.length || 0}
+              caminhoImagem={"/marcos/teste.jpg"}
+            />
+          );
 
           e.target
             .bindPopup(
-              L.popup()
+              L.popup({minWidth: 200})
                 .setLatLng(e.target.getBounds().getCenter())
-                .setContent(popupContent)
+                .setContent(popupNode)
                 .openOn(e.target._map)
             )
             .openPopup();
