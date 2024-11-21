@@ -1,4 +1,4 @@
-import { RefObject} from 'react';
+import { RefObject, useEffect, useState } from 'react';
 import { MapContainer, ScaleControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import MapController from './MapController';
@@ -6,6 +6,8 @@ import Location from './Location';
 import MapLayer from './MapLayer';
 import PopupHandler from './PopupHandler';
 import { Feature, Geometry } from '@turf/turf';
+import { FeatureCollection } from 'geojson';
+import BordersLayer from './BordersLayers';
 
 interface Props {
   showLocalizacao: boolean;
@@ -14,6 +16,21 @@ interface Props {
 
 export default function Map(props: Props) {
   const mapType = 'satellite';
+  const [limitesEstadosLayer, setLimitesEstadosLayer] = useState<FeatureCollection | null>(null);
+
+  useEffect(() => {
+    fetch('/BR_UF_2022.json')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Erro ao carregar GeoJSON');
+        }
+        return response.json();
+      })
+      .then((geojsonData: FeatureCollection) => {
+        setLimitesEstadosLayer(geojsonData);
+      })
+      .catch((err) => console.error('Erro ao carregar GeoJSON:', err));
+  }, []);
 
   const defaultCenter: Feature<Geometry> = {
     type: 'Feature',
@@ -50,9 +67,9 @@ export default function Map(props: Props) {
         <ScaleControl position="bottomleft" />
         <MapLayer type={mapType} />
         <PopupHandler />
+        {limitesEstadosLayer && <BordersLayer geojsonData={limitesEstadosLayer} color="red" />}
 
         {props.showLocalizacao && <Location />}
-
       </MapContainer>
     </>
   );
