@@ -4,7 +4,6 @@ import 'leaflet/dist/leaflet.css';
 import MapController from './MapController';
 import Location from './Location';
 import MapLayer from './MapLayer';
-import PopupHandler from './PopupHandler';
 import { Feature, Geometry } from '@turf/turf';
 import { FeatureCollection } from 'geojson';
 import axios from 'axios';
@@ -139,8 +138,6 @@ export default function Map(props: Props) {
         <MapController ref={props.forwardRef} center={defaultCenter} zoom={7} />
         <ScaleControl position="bottomleft" />
         <MapLayer type={mapType} />
-        {/* <PopupHandler /> */}
-        {limitesEstadosLayer && null}
 
         {props.showLocalizacao && <Location />}
         {renderPolygons()}
