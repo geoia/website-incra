@@ -79,7 +79,7 @@ export default function Map(props: Props) {
         {/* Polígono do assentamento */}
         <Polygon
           positions={assentamento.shape.coordinates[0].map(([lng, lat]) => [lat, lng])}
-          color="blue"
+          color="rgb(192, 192, 192)"
           fillOpacity={0.5}
         >
           <Popup>Assentamento Principal</Popup>
@@ -90,7 +90,7 @@ export default function Map(props: Props) {
           <Polygon
             key={lote.id}
             positions={lote.shape.coordinates[0].map(([lng, lat]) => [lat, lng])}
-            color="yellow"
+            color="#F3FABE"
             fillOpacity={0.3}
           >
             <Popup>
@@ -133,7 +133,7 @@ export default function Map(props: Props) {
           position={[ponto.shape.coordinates[1], ponto.shape.coordinates[0]]}
           icon={L.divIcon({
             className: 'custom-icon',
-            html: '<div style="width: 10px; height: 10px; background-color: red; border-radius: 50%;"></div>',
+            html: '<div style="width: 15px; height: 15px; background-color: yellow; border-radius: 50%;"></div>',
             iconSize: [10, 10],
           })}
         >
