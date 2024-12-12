@@ -14,16 +14,19 @@ const PopupContent: React.FC<PopupContentProps> = ({ caminhoImagem }) => {
   console.log("Caminho da imagem recebido:", caminhoImagem); // Verifique o valor aqui
 
   return (
-    <div style={{ minWidth: 200, minHeight: 150 }}>
+    <div style={{ minWidth: 150, minHeight: 150 }}>
       {caminhoImagem ? (
-        <img
-          src={caminhoImagem}
-          alt="Imagem de Local"
-          width="200"
-          height="auto"
-          onError={handleError}
-          style={{ display: imageError ? 'none' : 'block' }}
-        />
+        <a href={caminhoImagem} target="_blank" rel="noopener noreferrer">
+          <img
+            src={caminhoImagem}
+            alt="Imagem de Local"
+            width="250"
+            height="auto"
+            onError={handleError}
+            style={{ display: imageError ? 'none' : 'block' }}
+          />
+        </a>
+      
       ) : (
         <div>Nenhuma imagem disponível</div>
       )}
