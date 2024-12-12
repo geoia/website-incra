@@ -109,7 +109,7 @@ export default function Map(props: Props) {
   const areCoordinatesClose = (
     coord1: [number, number],
     coord2: [number, number],
-    tolerance = 0.001
+    tolerance = 0.0003
   ): boolean => {
     return (
       Math.abs(coord1[0] - coord2[0]) <= tolerance &&
@@ -120,42 +120,48 @@ export default function Map(props: Props) {
 
   const renderPontosComFotos = () => {
     if (!assentamento) return null;
-
-    return assentamento.pontos.map((ponto) => {
-      const fotosAssociadas = assentamento.fotos.filter((foto) =>
-        areCoordinatesClose(foto.shape.coordinates, ponto.shape.coordinates)
-      );
-      
-
-      return (
-        <Marker
-          key={ponto.id}
-          position={[ponto.shape.coordinates[1], ponto.shape.coordinates[0]]}
-          icon={L.divIcon({
-            className: 'custom-icon',
-            html: '<div style="width: 15px; height: 15px; background-color: yellow; border-radius: 50%;"></div>',
-            iconSize: [10, 10],
-          })}
-        >
-          <PopupHandler
-            popupData={{
-              lat: ponto.shape.coordinates[1],
-              lng: ponto.shape.coordinates[0],
-              caminhoImagem: fotosAssociadas.length > 0 ? fotosAssociadas[0].path : undefined,
-            }}
-          />
-        </Marker>
-      );
-    });
+  
+    return assentamento.pontos
+      .filter((ponto) =>
+        assentamento.fotos.some((foto) =>
+          areCoordinatesClose(foto.shape.coordinates, ponto.shape.coordinates)
+        )
+      )
+      .map((ponto) => {
+        const fotosAssociadas = assentamento.fotos.filter((foto) =>
+          areCoordinatesClose(foto.shape.coordinates, ponto.shape.coordinates)
+        );
+  
+        return (
+          <Marker
+            key={ponto.id}
+            position={[ponto.shape.coordinates[1], ponto.shape.coordinates[0]]}
+            icon={L.divIcon({
+              className: 'custom-icon',
+              html: '<div style="width: 15px; height: 15px; background-color: yellow; border-radius: 50%;"></div>',
+              iconSize: [10, 10],
+            })}
+          >
+            <PopupHandler
+              popupData={{
+                lat: ponto.shape.coordinates[1],
+                lng: ponto.shape.coordinates[0],
+                caminhoImagem: fotosAssociadas.length > 0 ? fotosAssociadas[0].path : undefined,
+              }}
+            />
+          </Marker>
+        );
+      });
   };
+  
 
   return (
     <MapContainer
       center={{
-        lat: -9.707326936,
-        lng: -67.411226722,
+        lat: -9.700326936,
+        lng: -67.441226722,
       }}
-      zoom={10}
+      zoom={14}
       zoomControl={false}
       minZoom={3}
       scrollWheelZoom={true}
