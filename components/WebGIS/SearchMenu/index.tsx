@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import Link from 'next/link';
 import Logo from '../../ui/Logo';
 
@@ -11,7 +11,7 @@ export function SearchMenu() {
         margin: '1rem',
         display: 'flex',
         alignItems: 'center',
-        width: 'calc(100% - 4rem - 70px)',
+        width: 'calc(100% - 4rem - 50px)',
         maxWidth: '550px',
         height: '50px',
         backgroundColor: '#509CBF',
@@ -27,6 +27,9 @@ export function SearchMenu() {
       <Link href="/">
         <Logo sx={{ width: 65, height: 64, transform: 'translateX(-2px)' }} />
       </Link>
+      <Typography variant="h6" fontFamily={'sans-serif'} sx={{ ml: 3 }} color={"white"}>
+        PA Nova Esperança
+      </Typography>
     </Grid>
   );
 }
