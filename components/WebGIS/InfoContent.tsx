@@ -8,13 +8,13 @@ export default function InfoContent() {
         variant="h6"
         component="h2"
         color="#509CBF"
-        fontFamily="inter"
+        fontFamily='Arial'
         fontWeight="800"
         fontSize="32"
       >
         SOBRE O PROJETO ECOGIS
       </Typography>
-      <Typography variant="body2" fontFamily={'inter'} sx={{ mt: 1 }}>
+      <Typography variant="body2" fontFamily={'sans-serif'} sx={{ mt: 1 }} align='justify'>
         EcoGis é uma plataforma de inteligência artificial que utiliza imagens de satélite e
         processamento de dados para mapeamento de áreas de queimadas, áreas alagadas e vegetação com
         maior precisão. A plataforma também visa apoiar diversos setores da sociedade, como o setor
@@ -29,14 +29,14 @@ export default function InfoContent() {
         variant="h6"
         component="h2"
         color="#509CBF"
-        fontFamily="inter"
+        fontFamily='Arial'
         fontWeight="800"
         fontSize="32"
         sx={{ mt: 2 }}
       >
         Laboratório Geomática e IA
       </Typography>
-      <Typography variant="body2" fontFamily={'inter'} sx={{ mt: 1 }}>
+      <Typography variant="body2" fontFamily={'sans-serif'} sx={{ mt: 1 }} align='justify'>
         O laboratório de Geomática e Inteligência Artificial utiliza técnicas e tecnologias da
         informação para gestão de dados espaciais, identificando padrões, tendências e relações para
         oferecer soluções inovadoras para desafios geográficos complexos. A Geomática abrange áreas
